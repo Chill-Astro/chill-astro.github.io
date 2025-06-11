@@ -1,33 +1,409 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f3f3f7;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 30, 0.85);
+    z-index: 0;
 }
 
-h1 {
+#root, header, main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+.astro-banner {
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(24, 24, 40, 0.55);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: 0 4px 32px 0 #1e1e2f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 160px;
+    min-height: 120px;
+    max-height: 200px;
+}
+
+.astro-banner img.profile {
+    width: 100vw;
+    max-width: 700px;
+    height: 100%;
+    min-height: 80px;
+    max-height: 140px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    background: none;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 16px #7ecfff88);
+    animation: flyInDown 1s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.astro-content {
+    margin-top: 170px;
+    position: relative;
+    z-index: 1;
+}
+
+main {
+    background: rgba(24, 24, 40, 0.92);
+    margin: 32px auto;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px 0 #1e1e2f;
+    max-width: 900px;
+    animation: flyInUp 1.2s 0.5s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+}
+
+.repos-screens {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.repos-list {
+    flex: 1 1 320px;
+}
+
+.screens-section {
+    flex: 1 1 260px;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screens-section h3 {
+    color: #7ecfff;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+.screens-section h3.astro-heading {
+    font-size: 1.1em;
+    border-bottom: 1px solid #ff2d55;
+    margin-bottom: 10px;
+    padding-bottom: 2px;
+}
+
+.screenshots-scroll {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 8px 0;
+    width: 100%;
+    background: rgba(24, 24, 40, 0.55);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #1e1e2f44;
+    scrollbar-width: thin;
+}
+
+.screenshots-scroll img {
+    height: 110px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #7ecfff44;
+    object-fit: cover;
+    background: #181828;
+    flex-shrink: 0;
+}
+
+.screenshots-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.screenshots-vertical img {
+    height: 110px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #1e1e2f44;
+    object-fit: cover;
+    background: #181828;
+    flex-shrink: 0;
+}
+
+ul#projects-list {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+ul#projects-list li {
+    background: rgba(30, 30, 60, 0.95);
+    margin-bottom: 16px;
+    padding: 16px 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px 0 #1e1e2f;
+    color: #f3f3f7;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid #7ecfff;
+    font-size: 1.08em;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: flyInLeft 1.2s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+}
+
+.repos-list ul#projects-list li {
+    font-size: 0.98em;
+    background: rgba(30, 30, 60, 0.95);
+    margin-bottom: 14px;
+    padding: 12px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px 0 #1e1e2f;
+    color: #f3f3f7;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 4px solid #ff2d55;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: flyInLeft 1.2s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+}
+
+ul#projects-list li:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 4px 24px #7ecfff55;
+    border-left: 4px solid #ff6b81;
+}
+
+.repos-list ul#projects-list li:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 16px #ff2d5555;
+    border-left: 4px solid #7ecfff;
+}
+
+ul#projects-list li a {
+    color: #7ecfff;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 6px 18px;
+    border-radius: 8px;
+    background: rgba(24, 24, 40, 0.7);
+    box-shadow: 0 1px 4px #7ecfff22;
+    border: 1.5px solid #7ecfff;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+    font-size: 1.08em;
+    display: inline-block;
+}
+
+.repos-list ul#projects-list li a {
+    color: #ff2d55;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 7px;
+    background: rgba(24, 24, 40, 0.7);
+    box-shadow: 0 1px 4px #ff2d5522;
+    border: 1.2px solid #ff2d55;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+    font-size: 0.98em;
+    display: inline-block;
+}
+
+ul#projects-list li a:hover {
+    color: #fff;
+    background: rgba(126, 207, 255, 0.18);
+    border: 1.5px solid #ff6b81;
+    box-shadow: 0 2px 8px #ff6b8144;
+}
+
+.repos-list ul#projects-list li a:hover {
+    color: #fff;
+    background: rgba(255, 45, 85, 0.18);
+    border: 1.2px solid #7ecfff;
+    box-shadow: 0 2px 8px #7ecfff44;
+}
+
+.version-badge {
+    display: inline-block;
+    background: rgba(24, 24, 40, 0.7);
+    color: #ff2d55;
+    border: 1.2px solid #ff2d55;
+    border-radius: 7px;
+    padding: 3px 8px;
+    font-size: 0.93em;
+    margin-left: 5px;
+    font-weight: 600;
+    box-shadow: 0 1px 4px #ff2d5544;
+    transition: background 0.2s, color 0.2s, border 0.2s;
 }
 
 footer {
-    background: #35424a;
-    color: #ffffff;
+    background: transparent;
+    color: #7ecfff;
     text-align: center;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    padding: 18px 0 10px 0;
+    border-top: 2px solid #7ecfff;
+    font-size: 1.1em;
+    margin-top: 32px;
+}
+
+footer a {
+    color: #ff6b81;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+.astro-heading {
+    color: #ff2d55;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+    text-fill-color: unset;
+    font-size: 1.5em;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 8px #1e1e2f55, 0 1px 2px #181828;
+    border-bottom: 2px solid #ff2d55;
+    padding-bottom: 4px;
+    animation: flyInRight 1.2s 0.4s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+}
+
+.github-link {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.github-link a {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 10px;
+    background: rgba(24, 24, 40, 0.7);
+    color: #ff2d55;
+    font-size: 1.08em;
+    font-weight: 700;
+    border: 2px solid #ff2d55;
+    box-shadow: 0 2px 8px #ff2d5544;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+    margin-bottom: 8px;
+}
+
+.github-link a:hover {
+    background: rgba(255, 45, 85, 0.18);
+    color: #fff;
+    border: 2px solid #7ecfff;
+    box-shadow: 0 4px 16px #7ecfff44;
+}
+
+@media (max-width: 900px) {
+    .repos-screens {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .astro-banner {
+        height: 90px;
+        min-height: 60px;
+        max-height: 120px;
+    }
+
+    .astro-banner img.profile {
+        height: 100%;
+        min-height: 40px;
+        max-height: 80px;
+    }
+
+    .astro-content {
+        margin-top: 100px;
+    }
+
+    main {
+        padding: 8px;
+    }
+
+    .screenshots-scroll img {
+        height: 60px;
+    }
+
+    .astro-heading {
+        font-size: 1.2em;
+    }
+
+    .repos-list ul#projects-list li {
+        font-size: 0.93em;
+    }
+
+    .repos-list ul#projects-list li a {
+        font-size: 0.93em;
+    }
+
+    .screenshots-vertical img {
+        height: 60px;
+    }
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 8px;
+    }
+
+    .astro-banner img.profile {
+        height: 60px;
+    }
+
+    .screenshots-scroll img {
+        height: 60px;
+    }
+}
+
+/* Animations */
+@keyframes flyInDown {
+    from { opacity: 0; transform: translateY(-60px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flyInUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flyInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes flyInRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

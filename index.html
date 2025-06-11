@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="icon.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Website</title>
+    <title>Chill-Astro Software</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div id="root">
-        <header>
-            <h1>Welcome to My GitHub Website</h1>
-            <p>Hi, I'm <strong>chill-astro</strong>! This is my personal site hosted with GitHub Pages.</p>
+        <header class="astro-banner">
+            <img class="profile" src="Brand.png" alt="Chill-Astro Brand Logo">
         </header>
-        <main>
-            <section>
-                <h2>About Me</h2>
-                <p>I am a developer passionate about open source, web technologies, and building cool projects. Check out my work below!</p>
-            </section>
-            <section>
-                <h2>My Projects</h2>
-                <ul id="projects-list">
-                    <!-- Projects will be loaded here by app.js -->
-                </ul>
-            </section>
-            <section>
-                <h2>Contact</h2>
-                <p>Find me on <a href="https://github.com/chill-astro" target="_blank">GitHub</a>.</p>
-            </section>
-        </main>
+        <div class="astro-content">
+            <main>
+                <section>
+                    <h2 class="astro-heading">About Me</h2>
+                    <p>I make FOSS CUI and GUI Apps & Utilities in Python, C++, C# & Java and publish them here. I have created PyCalc, Calculator, Net-Update, OpenScan, etc.</p>
+                </section>
+                <section>
+                    <h2 class="astro-heading">Chill-Astro's Essential Tools</h2>
+                    <div class="repos-screens">
+                        <div class="repos-list">
+                            <ul id="projects-list">
+                                <!-- Projects will be loaded here by app.js -->
+                            </ul>
+                        </div>
+                        <div class="screens-section">
+                            <h3 class="astro-heading">Screenshots</h3>
+                            <div class="screenshots-vertical">
+                                <img src="calculator.png" alt="Calculator Screenshot">
+                                <img src="pyc.png" alt="PyCalc Screenshot">
+                                <img src="pycgui.png" alt="PyCalc-GUI Screenshot">
+                                <img src="pycse.png" alt="PyCalc-SE Screenshot">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="github-link">
+                        <a href="https://github.com/chill-astro" target="_blank">🌌 Visit my GitHub</a>
+                    </div>
+                </section>
+            </main>
+        </div>
         <footer>
-            <p>&copy; 2025 chill-astro</p>
+            <p><a href="mailto:MasterArc3435@outlook.com">MasterArc3435@outlook.com</a> &nbsp;|&nbsp; <a href="https://youtube.com/@artistic_astronaut" target="_blank">YouTube : Artistic Astronaut</a></p>
         </footer>
     </div>
     <script src="app.js"></script>
