@@ -1,31 +1,23 @@
-# My GitHub Website
+<p align="center">
+  <img src="https://github.com/Chill-Astro/Chill-Astro/blob/main/Brand.png" width="500px">
+</p>
 
-This is a simple website hosted on GitHub Pages. It serves as a personal project to showcase my work and interests.
+<p align="center">
+Hi! 👋 I am @Chill-Astro and I am a Computer Applications Student. I am interested in App 💻 and Game Development 🎮 !
+</p>
 
-## Project Structure
 
-- `index.html`: The main HTML document that structures the webpage.
-- `main.css`: The stylesheet that defines the visual aspects of the website.
-- `app.js`: The JavaScript file that adds interactivity and dynamic features to the website.
+<p align="center">
+    <img width="400" src="https://github-readme-stats.vercel.app/api?username=chill-astro&show_icons=true&hide_border=false&theme=holi">
+</p>
 
-## Setup Instructions
 
-1. Clone the repository to your local machine:
-   ```
-   git clone https://github.com/yourusername/my-github-website.git
-   ```
 
-2. Navigate to the project directory:
-   ```
-   cd my-github-website
-   ```
+<p align="center">
+Check out my 🪟 <a href="https://github.com/Chill-Astro/Calculator">WinUI 3 Calculator</a> and 🐍 <a href="https://github.com/Chill-Astro/PyCalc">PyCalc</a>, <a href="https://github.com/Chill-Astro/PyCalc-SE">PyCalc-SE </a> and <a href="https://github.com/Chill-Astro/PyCalc-GUI">PyCalc-GUI</a> !
+</p>
 
-3. Open `index.html` in your web browser to view the website.
-
-## Usage
-
-Feel free to modify the files to customize the website according to your preferences. You can change the content in `index.html`, update styles in `main.css`, and add functionality in `app.js`.
-
-## License
-
-This project is open-source and available under the MIT License.
+<!---
+Chill-Astro/Chill-Astro is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+You can click the Preview link to take a look at your changes.
+--->
