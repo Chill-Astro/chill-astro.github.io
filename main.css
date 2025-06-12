@@ -37,17 +37,17 @@ body::before {
     align-items: center;
     justify-content: center;
     padding: 0;
-    height: 160px;
-    min-height: 120px;
-    max-height: 200px;
+    height: 120px;
+    min-height: 80px;
+    max-height: 160px;
 }
 
 .astro-banner img.profile {
     width: 100vw;
-    max-width: 700px;
+    max-width: 500px;
     height: 100%;
-    min-height: 80px;
-    max-height: 140px;
+    min-height: 60px;
+    max-height: 100px;
     margin: 0 auto;
     display: block;
     border-radius: 0;
@@ -60,15 +60,15 @@ body::before {
 }
 
 .astro-content {
-    margin-top: 170px;
+    margin-top: 130px;
     position: relative;
     z-index: 1;
 }
 
 main {
     background: rgba(24, 24, 40, 0.92);
-    margin: 32px auto;
-    padding: 32px 24px;
+    margin: 24px auto;
+    padding: 24px 12px;
     border-radius: 16px;
     box-shadow: 0 4px 32px 0 #1e1e2f;
     max-width: 900px;
@@ -83,11 +83,12 @@ main {
 
 .repos-list {
     flex: 1 1 320px;
+    min-width: 0;
 }
 
 .screens-section {
-    flex: 1 1 260px;
-    min-width: 220px;
+    flex: 1 1 220px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,6 +149,7 @@ main {
     object-fit: cover;
     background: #181828;
     flex-shrink: 0;
+    max-width: 90vw;
 }
 
 ul#projects-list {
@@ -186,6 +188,8 @@ ul#projects-list li {
     border-left: 4px solid #ff2d55;
     transition: transform 0.3s, box-shadow 0.3s;
     animation: flyInLeft 1.2s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+    min-width: 0;
+    flex-wrap: wrap;
 }
 
 ul#projects-list li:hover {
@@ -226,6 +230,7 @@ ul#projects-list li a {
     transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
     font-size: 0.98em;
     display: inline-block;
+    word-break: break-word;
 }
 
 ul#projects-list li a:hover {
@@ -254,6 +259,7 @@ ul#projects-list li a:hover {
     font-weight: 600;
     box-shadow: 0 1px 4px #ff2d5544;
     transition: background 0.2s, color 0.2s, border 0.2s;
+    word-break: break-word;
 }
 
 footer {
@@ -328,23 +334,23 @@ footer a:hover {
     }
 
     .astro-banner {
-        height: 90px;
-        min-height: 60px;
-        max-height: 120px;
+        height: 80px;
+        min-height: 50px;
+        max-height: 100px;
     }
 
     .astro-banner img.profile {
         height: 100%;
-        min-height: 40px;
-        max-height: 80px;
+        min-height: 30px;
+        max-height: 60px;
     }
 
     .astro-content {
-        margin-top: 100px;
+        margin-top: 80px;
     }
 
     main {
-        padding: 8px;
+        padding: 8px 2vw;
     }
 
     .screenshots-scroll img {
@@ -370,15 +376,25 @@ footer a:hover {
 
 @media (max-width: 600px) {
     main {
-        padding: 8px;
+        padding: 4px 1vw;
     }
 
     .astro-banner img.profile {
-        height: 60px;
+        height: 100%;
+        min-height: 20px;
+        max-height: 40px;
     }
 
     .screenshots-scroll img {
-        height: 60px;
+        height: 40px;
+    }
+
+    .screenshots-vertical img {
+        height: 40px;
+    }
+
+    .astro-heading {
+        font-size: 1em;
     }
 }
 
