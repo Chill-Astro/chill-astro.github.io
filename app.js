@@ -1,5 +1,21 @@
 // Fetch and display GitHub projects for chill-astro
 window.addEventListener('DOMContentLoaded', () => {
+    // Portrait/narrow screen warning logic
+    function checkOrientation() {
+        const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+        const isNarrow = window.innerWidth < 700;
+        const warning = document.getElementById('portrait-warning');
+        if (isPortrait && isNarrow) {
+            document.body.classList.add('portrait-warning');
+            if (warning) warning.style.display = 'flex';
+        } else {
+            document.body.classList.remove('portrait-warning');
+            if (warning) warning.style.display = 'none';
+        }
+    }
+    window.addEventListener('resize', checkOrientation);
+    checkOrientation();
+
     const projectsList = document.getElementById('projects-list');
     if (!projectsList) return;
     // List of specific repos to show
