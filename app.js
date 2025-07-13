@@ -10,7 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
         'PyCalc-SE',
         'Net-Update',
         'OpenScan',
-        'MsixCertImportTool'
+        'MsixCertImportTool',
+        'Mica',
+        'Mica-Alt',
+        'PyCalc-CE',
+        'PyCalc-JE',
+        'FastCalc'
     ];
     fetch('https://api.github.com/users/chill-astro/repos?per_page=100')
         .then(response => response.json())
