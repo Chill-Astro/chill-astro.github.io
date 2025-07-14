@@ -32,8 +32,9 @@ window.addEventListener('DOMContentLoaded', () => {
         'PyCalc-CE',
         'PyCalc-JE',
         'FastCalc',
-        'acylic' // Added acylic repo
+        'Acrylic'
     ];
+    // Show all repos, not just allowedRepos
     fetch('https://api.github.com/users/chill-astro/repos?per_page=100')
         .then(response => response.json())
         .then(repos => {
