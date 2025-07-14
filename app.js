@@ -31,7 +31,8 @@ window.addEventListener('DOMContentLoaded', () => {
         'Mica-Alt',
         'PyCalc-CE',
         'PyCalc-JE',
-        'FastCalc'
+        'FastCalc',
+        'acylic' // Added acylic repo
     ];
     fetch('https://api.github.com/users/chill-astro/repos?per_page=100')
         .then(response => response.json())
