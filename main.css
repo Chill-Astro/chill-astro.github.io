@@ -356,6 +356,7 @@ footer a:hover {
     color: #fff;
     border: 1.2px solid #7ecfff;
     box-shadow: 0 2px 8px #7ecfff44;
+    text-decoration: none;
 }
 
 .official-wallpapers-section {
