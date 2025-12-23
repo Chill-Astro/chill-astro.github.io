@@ -452,76 +452,144 @@ footer a:hover {
         margin-top: 80px;
     }
 
-    main {
-        padding: 8px 2vw;
-    }
-
-    .screenshots-scroll img {
-        height: 60px;
-    }
-
-    .astro-heading {
-        font-size: 1.2em;
-    }
-
-    .repos-list ul#projects-list li {
-        font-size: 0.93em;
-    }
-
-    .repos-list ul#projects-list li a {
-        font-size: 0.93em;
-    }
-
-    .screenshots-vertical img {
-        height: 110px;
-    }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000 !important;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-@media (max-width: 600px) {
-    main {
-        padding: 4px 1vw;
-    }
-
-    .astro-banner img.profile {
-        max-height: 60px;
-        min-height: 30px;
-    }
-
-    .screenshots-scroll img {
-        height: 40px;
-    }
-
-    .screenshots-vertical img {
-        height: 60px;
-    }
-
-    .astro-heading {
-        font-size: 1em;
-    }
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 0;
 }
 
-/* Animations */
-@keyframes flyInDown {
-    from { opacity: 0; transform: translateY(-60px); }
-    to { opacity: 1; transform: translateY(0); }
+#root, header, main, footer {
+    position: relative;
+    z-index: 1;
 }
 
-@keyframes flyInUp {
-    from { opacity: 0; transform: translateY(60px); }
-    to { opacity: 1; transform: translateY(0); }
+.astro-banner {
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.55); /* black for all overlays */
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: 0 4px 32px 0 #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 180px;
+    min-height: 120px;
+    max-height: 220px;
 }
 
-@keyframes flyInLeft {
-    from { opacity: 0; transform: translateX(-60px); }
-    to { opacity: 1; transform: translateX(0); }
+.astro-banner img.profile {
+    width: 60vw;
+    max-width: 340px;
+    height: auto;
+    min-height: 60px;
+    max-height: 120px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    background: none;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 24px #fff); /* white glow */
+    animation: flyInDown 1s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
-@keyframes flyInRight {
-    from { opacity: 0; transform: translateX(60px); }
-    to { opacity: 1; transform: translateX(0); }
+.astro-content {
+    margin-top: 200px;
+    position: relative;
+    z-index: 1;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
+main {
+    background: rgba(0, 0, 0, 0.92); /* solid black for main card */
+    margin: 24px auto;
+    padding: 24px 12px;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px 0 #222;
+    max-width: 900px;
+    animation: flyInUp 1.2s 0.5s cubic-bezier(.68,-0.55,.27,1.55) backwards;
+}
+
+.repos-screens {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.repos-list {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.screens-section {
+    flex: 1 1 220px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Accent for headings */
+.screens-section h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+/* Heading emphasis, border changed from red to near-white for subtlety */
+.screens-section h3.astro-heading {
+    font-size: 1.1em;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10px;
+    padding-bottom: 2px;
+}
+
+/* Example button style */
+button, .btn {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 0 8px #fff;
+    padding: 8px 22px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+button:hover, .btn:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 24px #fff, 0 0 8px #fff;
+}
+
+/* For any generic accent borders/dividers */
+.divider, hr, .underline, .accent-border {
+    border-color: #e6e6e6;
+}
+
+/* Generic glow effect */
+.glow-effect {
+    box-shadow: 0 0 24px #fff, 0 0 8px #fff;
+}
+
+/* Feel free to extend this scheme to all other UI components for consistency! */ty: 0; }
     to { opacity: 1; }
 }
