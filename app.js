@@ -20,20 +20,17 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!projectsList) return;
     // List of specific repos to show
     const allowedRepos = [
-        'Calculator',
+        'Lamina',
         'PyCalc-GUI',
         'PyCalc',
-        'PyCalc-SE',
         'Net-Update',
         'OpenScan',
         'MsixCertImportTool',
         'Mica',
         'Mica-Alt',
-        'PyCalc-CE',
-        'PyCalc-JE',
+        'PyCalc-PLUS',
         'FastCalc',
         'Acrylic',
-        'DeAIfy'
     ];
     // Show all repos, not just allowedRepos
     fetch('https://api.github.com/users/chill-astro/repos?per_page=100')
