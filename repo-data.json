@@ -86,7 +86,7 @@
   {
     "name": "PyCalc-GUI",
     "html_url": "https://github.com/Chill-Astro/PyCalc-GUI",
-    "description": "PyCalc - GUI is an Advanced GUI Version of PyCalc-SE consisting of Math functions from PyCalc!",
+    "description": "PyCalc - GUI is a GUI Implementation of PyCalc made using PySide6!",
     "stargazers_count": 3,
     "version": "v1.2"
   },
