@@ -1,0 +1,121 @@
+[
+  {
+    "name": "Acrylic",
+    "html_url": "https://github.com/Chill-Astro/Acrylic",
+    "description": "This App allows you to Preview your Acrylic Backdrop Effect from your Wallpaper! ",
+    "stargazers_count": 1,
+    "version": "v11.26100.1.0"
+  },
+  {
+    "name": "Chill-Astro",
+    "html_url": "https://github.com/Chill-Astro/Chill-Astro",
+    "description": "Config files for my GitHub profile.",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
+    "name": "chill-astro.github.io",
+    "html_url": "https://github.com/Chill-Astro/chill-astro.github.io",
+    "description": "The official Chill-Astro Software Website!",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
+    "name": "FastCalc",
+    "html_url": "https://github.com/Chill-Astro/FastCalc",
+    "description": "FastCalc is a High Speed Version of PyCalc written fully in C++. Available on Windows and Linux! ",
+    "stargazers_count": 1,
+    "version": "v1.1"
+  },
+  {
+    "name": "Lamina",
+    "html_url": "https://github.com/Chill-Astro/Lamina",
+    "description": "Math on a Sheet of Glass, Precision Driven by Scripted Logic. A Calculator for Windows 11!",
+    "stargazers_count": 7,
+    "version": "v11.26100.12.0"
+  },
+  {
+    "name": "Mica",
+    "html_url": "https://github.com/Chill-Astro/Mica",
+    "description": "This App allows you to Preview your Mica Backdrop Effect from your Wallpaper!",
+    "stargazers_count": 1,
+    "version": "v11.26100.2.0"
+  },
+  {
+    "name": "Mica-Alt",
+    "html_url": "https://github.com/Chill-Astro/Mica-Alt",
+    "description": "This App allows you to Preview your Mica Alt Backdrop Effect from your Wallpaper!",
+    "stargazers_count": 1,
+    "version": "v11.26100.2.0"
+  },
+  {
+    "name": "MsixCertImportTool",
+    "html_url": "https://github.com/Chill-Astro/MsixCertImportTool",
+    "description": "A CLI tool for importing .cer files to Trusted Root Certification Authorities in a few keystrokes!",
+    "stargazers_count": 1,
+    "version": "v1.1"
+  },
+  {
+    "name": "Net-Update",
+    "html_url": "https://github.com/Chill-Astro/Net-Update",
+    "description": "A set of Python, C# & Java Classes for Easy Implementation of Update Checking in CUI Apps.",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
+    "name": "Official-Wallpapers",
+    "html_url": "https://github.com/Chill-Astro/Official-Wallpapers",
+    "description": "Official Minimal-Looking Monochrome Desktop Wallpapers from Chill-Astro Software!",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
+    "name": "OpenScan",
+    "html_url": "https://github.com/Chill-Astro/OpenScan",
+    "description": "An Open-Source Implementation of Scanner Class in Java but more Efficient and more Features.",
+    "stargazers_count": 1,
+    "version": "v1.1"
+  },
+  {
+    "name": "PyCalc",
+    "html_url": "https://github.com/Chill-Astro/PyCalc",
+    "description": "A Simple and Lightweight Calculator. Made in Python!",
+    "stargazers_count": 1,
+    "version": "v1.9"
+  },
+  {
+    "name": "PyCalc-GUI",
+    "html_url": "https://github.com/Chill-Astro/PyCalc-GUI",
+    "description": "PyCalc - GUI is an Advanced GUI Version of PyCalc-SE consisting of Math functions from PyCalc!",
+    "stargazers_count": 3,
+    "version": "v1.2"
+  },
+  {
+    "name": "PyCalc-JE",
+    "html_url": "https://github.com/Chill-Astro/PyCalc-JE",
+    "description": "PyCalc - Java Edition [ JE ] is a Fully Cross-platform version of PyCalc but written fully in Java!",
+    "stargazers_count": 1,
+    "version": "v1.3"
+  },
+  {
+    "name": "PyCalc-PLUS",
+    "html_url": "https://github.com/Chill-Astro/PyCalc-PLUS",
+    "description": "PyCalc PLUS! is a faster version of PyCalc written fully in C#!",
+    "stargazers_count": 1,
+    "version": "v1.3"
+  },
+  {
+    "name": "PyCalc-SE",
+    "html_url": "https://github.com/Chill-Astro/PyCalc-SE",
+    "description": "PyCalc - SE is a Simpler GUI Version of PyCalc - GUI consisting of the Basic Calculator!",
+    "stargazers_count": 1,
+    "version": "v1.5"
+  },
+  {
+    "name": "winget-pkgs",
+    "html_url": "https://github.com/Chill-Astro/winget-pkgs",
+    "description": "The Microsoft community Windows Package Manager manifest repository",
+    "stargazers_count": 1,
+    "version": ""
+  }
+]
