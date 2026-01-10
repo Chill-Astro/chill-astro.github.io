@@ -1,0 +1,41 @@
+name: Update Chill-Astro Stats
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Repos and Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Fetch repos and for each one, try to get the latest release tag
+          gh api "users/Chill-Astro/repos?per_page=100" | jq '[.[] | {name, html_url, description, stargazers_count}]' > raw-repos.json
+          
+          # This loop adds a 'version' field to each repo in the JSON
+          echo "[]" > repo-data.json
+          for row in $(cat raw-repos.json | jq -r '.[] | @base64'); do
+            _get() { echo ${row} | base64 --decode | jq -r ${1}; }
+            NAME=$(_get '.name')
+            # Get latest release tag safely
+            VERSION=$(gh api "repos/Chill-Astro/$NAME/releases/latest" --jq '.tag_name' 2>/dev/null || echo "")
+            echo ${row} | base64 --decode | jq --arg v "$VERSION" '. + {version: $v}' >> temp.json
+          done
+          jq -s '.' temp.json > repo-data.json
+          rm raw-repos.json temp.json
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add repo-data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update repo-data.json" && git pus
+          h)
