@@ -1,4 +1,4 @@
-// Fetch and display GitHub projects for chill-astro
+// Fetch and display GitHub projects for chill-astro using pre-baked local data
 window.addEventListener('DOMContentLoaded', () => {
     // Portrait/narrow screen warning logic
     function checkOrientation() {
@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const projectsList = document.getElementById('projects-list');
     if (!projectsList) return;
+
     // List of specific repos to show
     const allowedRepos = [
         'Lamina',
@@ -32,29 +33,43 @@ window.addEventListener('DOMContentLoaded', () => {
         'FastCalc',
         'Acrylic',
     ];
-    // Show all repos, not just allowedRepos
-    fetch('https://api.github.com/users/chill-astro/repos?per_page=100')
-        .then(response => response.json())
+
+    /**
+     * SUCCESS: Instead of fetching from api.github.com (which causes rate limits),
+     * we fetch the local repo-data.json file created by the GitHub Action.
+     */
+    fetch('./repo-data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Local repo-data.json not found. Ensure GitHub Action has run.');
+            }
+            return response.json();
+        })
         .then(repos => {
+            // Filter the baked data based on your allowed list
             const filtered = repos.filter(repo => allowedRepos.includes(repo.name));
+            
             projectsList.innerHTML = '';
+
             filtered.forEach(repo => {
-                // Fetch version from repo's latest release
-                fetch(`https://api.github.com/repos/chill-astro/${repo.name}/releases/latest`)
-                    .then(r => r.ok ? r.json() : null)
-                    .then(release => {
-                        const version = release && release.tag_name ? `${release.tag_name}` : '';
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-                            ${version ? `<span class='version-badge'>${version}</span>` : ''}
-                            <span class="repo-desc">${repo.description || 'No description'}</span>
-                        `;
-                        projectsList.appendChild(li);
-                    });
+                const li = document.createElement('li');
+                
+                // The version is now included in the JSON file directly, 
+                // so we no longer need a second fetch() inside this loop.
+                const versionBadge = repo.version 
+                    ? `<span class='version-badge'>${repo.version}</span>` 
+                    : '';
+
+                li.innerHTML = `
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                    ${versionBadge}
+                    <span class="repo-desc">${repo.description || 'No description'}</span>
+                `;
+                projectsList.appendChild(li);
             });
         })
-        .catch(() => {
-            projectsList.innerHTML = '<li>Could not load projects.</li>';
+        .catch((error) => {
+            console.error('Error:', error);
+            projectsList.innerHTML = '<li>Could not load projects. Please try again later.</li>';
         });
 });
