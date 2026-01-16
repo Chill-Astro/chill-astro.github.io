@@ -73,7 +73,7 @@ main {
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 32px 0 #000;
-    max-width: 950px;
+    max-width: 900px;
     animation: flyInUp 1.2s 0.5s cubic-bezier(.68,-0.55,.27,1.55) backwards;
 }
 
