@@ -28,6 +28,13 @@
     "version": "v1.1"
   },
   {
+    "name": "FOSS-Root-Checker",
+    "html_url": "https://github.com/Chill-Astro/FOSS-Root-Checker",
+    "description": "Open Source Root Checker for Android!",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
     "name": "Lamina",
     "html_url": "https://github.com/Chill-Astro/Lamina",
     "description": "Math on a Sheet of Glass, Precision Driven by Scripted Logic. A Calculator for Windows 11!",
