@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // List of specific repos to show
     const allowedRepos = [
         'Lamina',
+        'FOSS-Root-Checker',
         'PyCalc-GUI',
         'PyCalc',
         'Net-Update',
