@@ -42,6 +42,13 @@
     "version": "v11.26100.12.0"
   },
   {
+    "name": "Mi-Without-Limits",
+    "html_url": "https://github.com/Chill-Astro/Mi-Without-Limits",
+    "description": "A C# based Automation Tool to bypass Xiaomi Community Bootloader Application.",
+    "stargazers_count": 1,
+    "version": ""
+  },
+  {
     "name": "Mica",
     "html_url": "https://github.com/Chill-Astro/Mica",
     "description": "This App allows you to Preview your Mica Backdrop Effect from your Wallpaper!",
