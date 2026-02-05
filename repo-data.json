@@ -11,7 +11,7 @@
     "html_url": "https://github.com/Chill-Astro/Chill-Astro",
     "description": "Config files for my GitHub profile.",
     "stargazers_count": 1,
-    "version": ""
+    "version": "Test"
   },
   {
     "name": "chill-astro.github.io",
@@ -30,9 +30,9 @@
   {
     "name": "FOSS-Root-Checker",
     "html_url": "https://github.com/Chill-Astro/FOSS-Root-Checker",
-    "description": "A Modern Open-Source Root Checker App for Android 9+!",
+    "description": "A Modern Open-Source Root Checker App for Android 10+!",
     "stargazers_count": 1,
-    "version": "v1.0b"
+    "version": "v36.29.1.0b"
   },
   {
     "name": "Lamina",
