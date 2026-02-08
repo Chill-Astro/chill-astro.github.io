@@ -56,13 +56,6 @@
     "version": "v11.26100.2.0"
   },
   {
-    "name": "MsixCertImportTool",
-    "html_url": "https://github.com/Chill-Astro/MsixCertImportTool",
-    "description": "A CLI tool for importing .cer files to Trusted Root Certification Authorities in a few keystrokes!",
-    "stargazers_count": 1,
-    "version": "v1.1"
-  },
-  {
     "name": "Net-Update",
     "html_url": "https://github.com/Chill-Astro/Net-Update",
     "description": "A set of Python, C# & Java Classes for Easy Implementation of Update Checking in CUI Apps.",
@@ -117,6 +110,13 @@
     "description": "PyCalc - SE is a Simpler GUI Version of PyCalc - GUI consisting of the Basic Calculator!",
     "stargazers_count": 1,
     "version": "v1.5"
+  },
+  {
+    "name": "Trust-My-Msix",
+    "html_url": "https://github.com/Chill-Astro/Trust-My-Msix",
+    "description": "A CLI tool for importing .cer files to Trusted Root Certification Authorities in a few keystrokes!",
+    "stargazers_count": 1,
+    "version": "v1.1"
   },
   {
     "name": "winget-pkgs",
