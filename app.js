@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'PyCalc',
         'Net-Update',
         'OpenScan',
-        'MsixCertImportTool',
+        'Trust-My-Msix',
         'Mica',
         'Mica-Alt',
         'PyCalc-PLUS',
