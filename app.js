@@ -25,14 +25,8 @@ window.addEventListener('DOMContentLoaded', () => {
         'FOSS-Root-Checker',
         'PyCalc-GUI',
         'PyCalc',
-        'Net-Update',
-        'OpenScan',
         'Trust-My-Msix',
-        'Mica',
-        'Mica-Alt',
-        'PyCalc-PLUS',
-        'FastCalc',
-        'Acrylic',
+        'FastIO',
     ];
 
     /**
