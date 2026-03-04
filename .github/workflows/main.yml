@@ -1,8 +1,6 @@
 name: Update Stats
 on:
-  schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   update-data:
@@ -17,7 +15,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Fetch your repo list
           gh api "users/Chill-Astro/repos?per_page=100" | jq '[.[] | {name, html_url, description, stargazers_count}]' > raw-repos.json
           
           echo "[]" > repo-data.json
@@ -25,7 +22,6 @@ jobs:
             _get() { echo ${row} | base64 --decode | jq -r ${1}; }
             NAME=$(_get '.name')
             
-            # Change: Now specifically fetching the latest TAG name
             VERSION=$(gh api "repos/Chill-Astro/$NAME/tags" --jq '.[0].name' 2>/dev/null || echo "")
             
             echo ${row} | base64 --decode | jq --arg v "$VERSION" '. + {version: $v}' >> temp.json
@@ -38,5 +34,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add repo-data.json
-          # Fixed the 'push' typo here as well
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update repo-data.json" && git push)
