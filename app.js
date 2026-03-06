@@ -23,10 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const allowedRepos = [
         'Lamina',
         'FOSS-Root-Checker',
-        'PyCalc-GUI',
         'PyCalc',
-        'Trust-My-Msix',
-        'FastIO',
+        'Trust-My-Msix'
     ];
 
     /**
