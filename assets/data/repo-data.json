@@ -1,0 +1,17 @@
+{
+  "lamina": {
+    "tag": "v11.28000.16.0",
+    "asset": "Setup.exe",
+    "download": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Setup.exe"
+  },
+  "rootChecker": {
+    "tag": "v36.23.2.0",
+    "asset": "app-official-release.apk",
+    "download": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk"
+  },
+  "trustMyMsix": {
+    "tag": "v3.14.1.5",
+    "asset": "tmm.exe",
+    "download": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.exe"
+  }
+}
