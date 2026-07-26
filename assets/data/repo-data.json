@@ -1,17 +1,21 @@
 {
-  "lamina": {
-    "tag": "v11.28000.16.0",
-    "asset": "Setup.exe",
-    "download": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Setup.exe"
+  "generated":"2026-07-26T18:26:01Z",
+
+  "lamina":{
+    "tag":"v11.28000.16.0",
+    "asset":"Lamina_11.28000.16.0.cer",
+    "download":"https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0.cer"
   },
-  "rootChecker": {
-    "tag": "v36.23.2.0",
-    "asset": "app-official-release.apk",
-    "download": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk"
+
+  "rootChecker":{
+    "tag":"v36.23.2.0",
+    "asset":"app-official-release.apk",
+    "download":"https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk"
   },
-  "trustMyMsix": {
-    "tag": "v3.14.1.5",
-    "asset": "tmm.exe",
-    "download": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.exe"
+
+  "trustMyMsix":{
+    "tag":"v3.14.1.5",
+    "asset":"Setup.exe",
+    "download":"https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/Setup.exe"
   }
 }
