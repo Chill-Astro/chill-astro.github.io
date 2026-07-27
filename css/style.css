@@ -1,10 +1,10 @@
 /* Chill-Astro Software - style.css */
 /* Tomorrow Font */
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.ttf") format("truetype");font-weight:400}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.ttf") format("truetype");font-weight:500}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.ttf") format("truetype");font-weight:600}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Bold.ttf") format("truetype");font-weight:700}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.woff2") format("woff2");font-weight:800;font-display:swap}
 
 :root{
 --bg:#fff;--surface:#f7f7f8;--text:#111;--muted:#666;
