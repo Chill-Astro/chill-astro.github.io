@@ -100,8 +100,18 @@ function updateDownloadButtons() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    heroAnimation();
-    prepareScrollAnimations();
+    if (document.querySelector(".hero")) {
+
+        heroAnimation();
+        prepareScrollAnimations();
+
+    }
+
+    if (document.querySelector(".about-page")) {
+
+        aboutAnimation();
+
+    }
 
 });
 
@@ -251,3 +261,97 @@ function prepareScrollAnimations() {
     });
 
 }
+
+// ======================================
+// About Page Animation
+// ======================================
+
+function aboutAnimation() {
+
+    const observer = new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (!entry.isIntersecting)
+                    return;
+
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+
+            });
+
+        },
+
+        {
+
+            threshold: .15
+
+        }
+
+    );
+
+    const elements = [
+
+        ...document.querySelectorAll(".about-hero .hidden"),
+        ...document.querySelectorAll(".academic .hidden"),
+        ...document.querySelectorAll(".future")
+
+    ];
+
+    elements.forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+}
+
+async function loadComponent(id, file) {
+
+    const prefixes = ["", "../"];
+
+    for (const prefix of prefixes) {
+
+        try {
+
+            const response = await fetch(prefix + file);
+
+            if (!response.ok)
+                continue;
+
+            document.getElementById(id).innerHTML =
+                await response.text();
+
+            return;
+
+        }
+
+        catch {}
+
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (document.getElementById("header")) {
+
+        loadComponent(
+            "header",
+            "components/header.html"
+        );
+
+    }
+
+    if (document.getElementById("footer")) {
+
+        loadComponent(
+            "footer",
+            "components/footer.html"
+        );
+
+    }
+
+});

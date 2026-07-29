@@ -1,0 +1,107 @@
+/* =======================================================
+   ABOUT PAGE
+======================================================= */
+
+.about-page{
+    max-width:1200px;
+    margin:auto;
+    padding:72px 24px;
+    text-align:center;
+}
+
+.about-hero{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:28px;
+}
+
+.hero-image{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    border-radius:24px;
+}
+
+.about-text{
+    max-width:900px;
+    line-height:1.9;
+    color:#bdbdbd;
+}
+
+.academic{
+    margin-top:100px;
+}
+
+.academic h2{
+    margin-bottom:70px;
+}
+
+.academic-row{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:120px;
+    margin-bottom:80px;
+    flex-wrap:wrap;
+}
+
+.academic-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.score-main{
+    font-size:7rem;
+    font-weight:800;
+    line-height:1;
+}
+
+.score-secondary{
+    font-size:5rem;
+    font-weight:700;
+    line-height:1;
+}
+
+.score-label{
+    margin-top:14px;
+    font-size:1.15rem;
+    font-weight:600;
+    color:#bdbdbd;
+}
+
+.future{
+    margin-top:120px;
+}
+
+.future h2{
+    font-size:5rem;
+    margin-bottom:10px;
+}
+
+.future p{
+    font-size:1.8rem;
+    letter-spacing:2px;
+    color:#bdbdbd;
+}
+
+@media(max-width:768px){
+
+    .academic-row{
+        gap:56px;
+    }
+
+    .score-main{
+        font-size:4.5rem;
+    }
+
+    .score-secondary{
+        font-size:3.5rem;
+    }
+
+    .future h2{
+        font-size:3rem;
+    }
+
+}
