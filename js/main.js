@@ -3,38 +3,287 @@
 // main.js
 // ======================================
 
+// ======================================
+// Repository Data
+// ======================================
+
 let repoData = {};
 
-// ======================================
-// Load Repository Data
-// ======================================
+const downloadModalHTML = `
+<div class="download-overlay" id="downloadOverlay">
+    <div class="download-dialog">
+        <div class="dialog-header">
+            <h2 id="downloadTitle"></h2>
+            <button class="dialog-close" id="downloadClose">✕</button>
+        </div>
+        <div class="dialog-body">
+            <div class="dialog-version" id="downloadVersion"></div>
+            <p id="downloadInfo"></p>
+            <div class="command-box">
+                <pre id="downloadCommand" class="download-command"></pre>
+            </div>
+            <div class="dialog-links" id="downloadLinks"></div>
+        </div>
+    </div>
+</div>`;
+
+const modalInfo = {
+
+    lamina: {
+
+        title: "Lamina ✦",
+
+        info:
+            "Before installing the MSIX version, import the included certificate (.cer) to Trusted Root Certification Authourities. If you are unsure, use the Setup Executable instead, or use Trust My Msix! to bypass the Untrusted Publisher Error.",
+
+        command: "",
+
+        names: {
+
+            certificate: "Certificate (.cer)",
+            msix_x64: "MSIX (x64)",
+            msix_arm64: "MSIX (ARM64)",
+            setup: "Setup.exe",
+            uptodown: "Download from Uptodown"
+
+        }
+
+    },
+
+    rootChecker: {
+
+        title: "Root Checker",
+
+        info:
+            "The Official Build Supports Update Checks, whereas the Offline Version lacks this feature, and is deprieved of Internet Access. If you are unsure, trust IzzyOnDroid.",
+
+        command: "",
+
+        names: {
+
+            apk_official: ".APK (Official)",
+            apk_offline: ".APK (Offline)",
+            izzy: "Download from IzzyOnDroid",
+            uptodown: "Download from Uptodown"
+
+        }
+
+    },
+
+    trustMyMsix: {
+
+        title: "Trust My Msix!",
+
+        info:
+            "Install Python alongside the required packages from pip, before running the Python Script. Alternatively, use the Executable or Setup.exe for a more user-friendly experience.",
+
+        command:
+            "pip install colorama requests",
+
+        names: {
+
+            python: "Python Script",
+            executable: "Executable (.exe)",
+            setup: "Setup.exe"
+
+        }
+
+    }
+
+};
 
 async function loadRepoData() {
 
-    try {
+    const paths = [
+        "assets/data/repo-data.json",
+        "../assets/data/repo-data.json"
+    ];
 
-        const response = await fetch("assets/data/repo-data.json");
+    for (const path of paths) {
 
-        if (!response.ok) {
-            throw new Error("Failed to load repo-data.json");
+        try {
+
+            const response = await fetch(path);
+
+            if (!response.ok)
+                continue;
+
+            repoData = await response.json();
+            updateVersions();
+            return;
+
         }
 
-        repoData = await response.json();
+        catch (error) {
 
-        updateVersions();
-        updateDownloadButtons();
+            console.error(`Failed to load ${path}`, error);
 
-    }
-
-    catch (err) {
-
-        console.error(err);
+        }
 
     }
+
+    console.error("Failed to load repo-data.json");
 
 }
 
-loadRepoData();
+function ensureDownloadModal() {
+
+    if (document.getElementById("downloadOverlay"))
+        return;
+
+    document.body.insertAdjacentHTML("beforeend", downloadModalHTML);
+    attachDownloadModalEvents();
+
+}
+
+function attachDownloadModalEvents() {
+
+    const closeButton = document.getElementById("downloadClose");
+    const overlay = document.getElementById("downloadOverlay");
+
+    if (!closeButton || !overlay)
+        return;
+
+    if (closeButton.dataset.bound === "true")
+        return;
+
+    closeButton.addEventListener("click", closeDownload);
+    overlay.addEventListener("click", function(e) {
+
+        if (e.target === this)
+            closeDownload();
+
+    });
+
+    closeButton.dataset.bound = "true";
+    overlay.dataset.bound = "true";
+
+}
+
+function handleProjectDownloadClick(event) {
+
+    const button = event.target.closest(".project-download");
+
+    if (!button)
+        return;
+
+    const projects = {
+        "lamina-download": "lamina",
+        "root-download": "rootChecker",
+        "tmm-download": "trustMyMsix"
+    };
+
+    const project = projects[button.id];
+
+    if (!project)
+        return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    openDownload(project);
+
+}
+
+function bindDownloadButtons() {
+
+    document.removeEventListener("click", handleProjectDownloadClick);
+    document.addEventListener("click", handleProjectDownloadClick);
+
+}
+
+function initHeaderMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.header-nav');
+
+    if (!toggle || !nav)
+        return;
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+}
+
+async function openDownload(project) {
+
+    ensureDownloadModal();
+
+    if (!repoData || Object.keys(repoData).length === 0)
+        await loadRepoData();
+
+    const overlay = document.getElementById("downloadOverlay");
+    const projectData = repoData[project];
+    const ui = modalInfo[project];
+
+    if (!overlay || !projectData || !ui)
+        return;
+
+    document.getElementById("downloadTitle").textContent =
+        ui.title;
+
+    document.getElementById("downloadVersion").textContent =
+        `Version ${projectData.tag}`;
+
+    document.getElementById("downloadInfo").textContent =
+        ui.info;
+
+    const command =
+        document.getElementById("downloadCommand");
+
+    if (ui.command) {
+
+        command.textContent = ui.command;
+        command.style.display = "block";
+
+    }
+
+    else {
+
+        command.style.display = "none";
+
+    }
+
+    const container =
+        document.getElementById("downloadLinks");
+
+    container.innerHTML = "";
+
+    Object.entries(projectData.downloads).forEach(([key, url]) => {
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.textContent = ui.names[key] ?? key;
+
+        container.appendChild(link);
+
+    });
+
+    document
+        .getElementById("downloadOverlay")
+        .classList
+        .add("show");
+
+}
+
+function closeDownload(){
+
+    const overlay = document.getElementById("downloadOverlay");
+
+    if (overlay)
+        overlay.classList.remove("show");
+
+}
+
+document.addEventListener("keydown", e => {
+
+    if (e.key === "Escape")
+        closeDownload();
+
+});
 
 // ======================================
 // Update Project Versions
@@ -44,49 +293,19 @@ function updateVersions() {
 
     const versions = {
 
-        "lamina-version": repoData.lamina,
-        "root-version": repoData.rootChecker,
-        "tmm-version": repoData.trustMyMsix
+        "lamina-version": repoData.lamina?.tag,
+        "root-version": repoData.rootChecker?.tag,
+        "tmm-version": repoData.trustMyMsix?.tag
 
     };
 
-    Object.entries(versions).forEach(([id, project]) => {
+    Object.entries(versions).forEach(([id, tag]) => {
 
         const element = document.getElementById(id);
 
-        if (element && project) {
+        if (element && tag) {
 
-            element.textContent = `Latest: ${project.tag}`;
-
-        }
-
-    });
-
-}
-
-// ======================================
-// Update Download Buttons
-// ======================================
-
-function updateDownloadButtons() {
-
-    const buttons = {
-
-        "lamina-download": repoData.lamina,
-        "root-download": repoData.rootChecker,
-        "tmm-download": repoData.trustMyMsix
-
-    };
-
-    Object.entries(buttons).forEach(([id, project]) => {
-
-        const button = document.getElementById(id);
-
-        if (button && project) {
-
-            button.href = project.download;
-            button.target = "_blank";
-            button.rel = "noopener noreferrer";
+            element.textContent = `Latest: ${tag}`;
 
         }
 
@@ -98,11 +317,50 @@ function updateDownloadButtons() {
 // Initialize
 // ======================================
 
+function initHeaderMenu() {
+
+    const toggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".header-nav");
+    const backdrop = document.querySelector(".mobile-nav-backdrop");
+    const closeButton = document.querySelector(".nav-close");
+
+    if (!toggle || !nav || !backdrop)
+        return;
+
+    const setOpen = (isOpen) => {
+        nav.classList.toggle("open", isOpen);
+        backdrop.classList.toggle("open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        document.body.style.overflow = isOpen ? "hidden" : "";
+    };
+
+    toggle.addEventListener("click", () => {
+        setOpen(!nav.classList.contains("open"));
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", () => setOpen(false));
+    }
+
+    backdrop.addEventListener("click", () => setOpen(false));
+
+    nav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape")
+            setOpen(false);
+    });
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     if (document.querySelector(".hero")) {
 
         heroAnimation();
+        loadRepoData();
         prepareScrollAnimations();
 
     }
@@ -112,6 +370,9 @@ document.addEventListener("DOMContentLoaded", () => {
         aboutAnimation();
 
     }
+
+    ensureDownloadModal();
+    bindDownloadButtons();
 
 });
 
@@ -323,6 +584,9 @@ async function loadComponent(id, file) {
 
             document.getElementById(id).innerHTML =
                 await response.text();
+
+            if (id === "header")
+                initHeaderMenu();
 
             return;
 

@@ -20,6 +20,10 @@ body{font-family:"Tomorrow",sans-serif;background:var(--bg);color:var(--text);tr
 section{width:min(1200px,90%);margin:auto}
 a{text-decoration:none;color:inherit}
 p{color:var(--muted);line-height:1.7}
+
+body {
+    min-height: 100vh;
+}
 h1{font-size:clamp(2.5rem,4vw,3.6rem);font-weight:700;line-height:1.1;white-space:nowrap}
 h2{font-size:clamp(2.2rem,3.5vw,3.2rem);font-weight:700;white-space:nowrap}
 .primary-btn{display:inline-flex;padding:15px 32px;border-radius:999px;
@@ -176,7 +180,8 @@ font-weight:600;transition:.25s}
 .project-card p{margin-top:10px;text-align: center;max-height:60px}
 .cta{padding:50px 0;text-align:center}
 .cta h2{font-size: 2.2rem;margin-bottom: 40px;}
-footer{width:min(1200px,90%);margin:auto;padding:50px 0;display:flex;justify-content:space-between;align-items:center}
+.site-header, .site-footer{background:var(--bg);color:var(--text)}
+footer{width:100%;margin:3rem 0 0;padding:2.5rem 1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--card-border);gap:1rem;flex-wrap:wrap}
 footer svg{transition:.25s}footer a:hover svg{transform:scale(1.12)}
 .hero-btn{
 
@@ -224,7 +229,7 @@ footer {
 .hero-right{max-width:100%}
 h1,h2{white-space:normal}
 .project-grid{grid-template-columns:1fr}
-footer{padding:40px 0}
+footer{padding:2rem 1.25rem 2.5rem}
 }
 
 .project-card{
@@ -302,8 +307,6 @@ footer{padding:40px 0}
 
     width:100%;
 
-    max-width:1400px;
-
     margin:0 auto;
 
     padding:0 2rem;
@@ -314,6 +317,109 @@ footer{padding:40px 0}
     align-items:center;
     justify-content:space-between;
 
+}
+
+.site-header .site-header-inner {
+    max-width:none;
+    width:100%;
+}
+
+.header-left-group {
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+}
+
+.menu-toggle {
+    display:inline-flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:4px;
+    width:44px;
+    height:44px;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    padding:0 10px;
+}
+
+.menu-toggle span {
+    display:block;
+    height:2px;
+    width:100%;
+    background:var(--text);
+    border-radius:999px;
+}
+
+.mobile-nav-backdrop {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .25s ease, visibility .25s ease;
+    z-index:1000;
+}
+
+.mobile-nav-backdrop.open {
+    opacity:1;
+    visibility:visible;
+}
+
+.header-nav {
+    position:fixed;
+    top:1rem;
+    left:1rem;
+    bottom:1rem;
+    width:min(320px, calc(100vw - 2rem));
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    padding:1.25rem;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    color:var(--text);
+    border:1px solid var(--card-border);
+    border-radius:24px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    transform:translateX(-110%);
+    transition:transform .28s ease;
+    z-index:1100;
+}
+
+.header-nav.open {
+    transform:translateX(0);
+}
+
+.header-nav-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:0.5rem;
+    font-weight:700;
+}
+
+.nav-close {
+    border:none;
+    background:transparent;
+    color:var(--text);
+    font-size:1.2rem;
+    cursor:pointer;
+}
+
+.header-nav a {
+    font-weight:600;
+    color:var(--text);
+    padding:0.7rem 0.8rem;
+    border-radius:12px;
+    transition:background .2s ease;
+}
+
+.header-nav a:hover {
+    background:var(--surface);
 }
 
 .header-left{
@@ -386,3 +492,211 @@ footer{padding:40px 0}
 .project-card{display:flex!important;flex-direction:column!important;align-items:center;text-align:center;}
 .project-image{display:flex;justify-content:center;align-items:center;height:350px!important;}
 .project-image img{width:350px!important;height:350px!important;object-fit:contain!important;}
+
+/* ======================================
+   Download Modal
+====================================== */
+
+.download-overlay{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.30);
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.2s ease;
+
+    z-index:9999;
+
+}
+
+.download-overlay.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+.download-dialog{
+
+    width:min(92vw,520px);
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    border:1px solid var(--card-border);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    transform:translateY(12px) scale(.97);
+
+    opacity:0;
+
+    transition:.2s ease;
+
+}
+
+.download-overlay.show .download-dialog{
+
+    transform:none;
+
+    opacity:1;
+
+}
+
+.dialog-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:1rem 1.4rem;
+
+    border-bottom:1px solid var(--card-border);
+
+}
+
+.dialog-header h2{
+
+    font-size:1.35rem;
+    font-weight:700;
+
+}
+
+.dialog-close{
+
+    border:none;
+    background:none;
+
+    color:var(--text);
+
+    font-size:1.4rem;
+
+    cursor:pointer;
+
+}
+
+.dialog-body{
+
+    padding:1.4rem;
+
+}
+
+.dialog-version{
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+    margin-bottom:1rem;
+
+}
+
+.dialog-body p{
+
+    margin-bottom:1rem;
+
+    line-height:1.7;
+
+}
+
+.command-box{
+    display:flex;
+    align-items:flex-start;
+    gap:.75rem;
+    margin-bottom:1rem;
+}
+
+.download-command{
+
+    display:none;
+
+    flex:1;
+    margin:0;
+    padding:.9rem;
+
+    border-radius:12px;
+
+    background:var(--surface);
+
+    border:1px solid var(--card-border);
+
+    font-family:"Tomorrow", sans-serif;
+
+    white-space:pre-wrap;
+
+}
+
+.copy-command-btn{
+    border:none;
+    border-radius:999px;
+    padding:.7rem 1rem;
+    background:var(--button-bg);
+    color:var(--button-text);
+    font-family:"Tomorrow", sans-serif;
+    font-weight:600;
+    cursor:pointer;
+    transition:transform .2s ease, opacity .2s ease;
+}
+
+.copy-command-btn:hover{
+    transform:translateY(-1px);
+}
+
+.copy-command-btn.copied{
+    opacity:.9;
+}
+
+.dialog-links{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.dialog-links a{
+
+    position:relative;
+    text-decoration:none;
+    color:var(--text);
+    padding:.95rem 1.2rem .95rem 0;
+    border-top:1px solid var(--card-border);
+    transition:padding .2s ease, color .2s ease;
+    white-space:nowrap;
+}
+
+.dialog-links a::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    opacity:0;
+    margin-right:0;
+    transition:width .2s ease, opacity .2s ease, margin-right .2s ease;
+}
+
+.dialog-links a:hover{
+    padding-left:1.2rem;
+    color:var(--text);
+}
+
+.dialog-links a:hover::before{
+    content:">>";
+    width:1.2rem;
+    opacity:1;
+    margin-right:.2rem;
+}

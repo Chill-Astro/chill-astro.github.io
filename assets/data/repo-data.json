@@ -1,21 +1,31 @@
 {
-  "generated":"2026-07-26T18:26:01Z",
-
-  "lamina":{
-    "tag":"v11.28000.16.0",
-    "asset":"Lamina_11.28000.16.0.cer",
-    "download":"https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Setup.exe"
+  "lamina": {
+    "tag": "v11.28000.16.0",
+    "downloads": {
+      "certificate": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0.cer",
+      "msix_x64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0_x64.msix",
+      "msix_arm64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0_arm64.msix",
+      "setup": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Setup.exe",
+      "uptodown": "https://lamina.en.uptodown.com/windows"
+    }
   },
 
-  "rootChecker":{
-    "tag":"v36.23.2.0",
-    "asset":"app-official-release.apk",
-    "download":"https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk"
+  "rootChecker": {
+    "tag": "v36.23.2.0",
+    "downloads": {
+      "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk",
+      "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-offline-release.apk",
+      "izzy": "https://apt.izzysoft.de/fdroid/index/apk/foss.chillastro.root.checker.offline",
+      "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android"
+    }
   },
 
-  "trustMyMsix":{
-    "tag":"v3.14.1.5",
-    "asset":"Setup.exe",
-    "download":"https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/Setup.exe"
+  "trustMyMsix": {
+    "tag": "v3.14.1.5",
+    "downloads": {
+      "python": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.py",
+      "executable": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.exe",
+      "setup": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/Setup.exe"
+    }
   }
 }
