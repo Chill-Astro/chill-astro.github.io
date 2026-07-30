@@ -8,6 +8,11 @@
     </url>
 
     <url>
+        <loc>https://chill-astro.github.io/android-rooting-guide/</loc>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
         <loc>https://chill-astro.github.io/about/</loc>
         <priority>0.8</priority>
     </url>

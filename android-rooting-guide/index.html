@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Rooting Guide | Chill-Astro Software</title>
+    <link rel="icon" type="image/png" href="../assets/images/tabicon.png">
+    <meta name="description" content="A polished rooting guide covering bootloader unlocking, rooting methods, root hiding, and safety tips.">
+    <link rel="canonical" href="https://chill-astro.github.io/android-rooting-guide/">
+    <meta property="og:title" content="Android Rooting Guide | Chill-Astro">
+<meta property="og:description" content="...">
+<meta property="og:image" content="https://chill-astro.github.io/assets/images/root-hero.png">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chill-astro.github.io/android-rooting-guide/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Chill-Astro">
+<meta name="robots" content="index,follow">
+<meta name="keywords"
+content="Android Rooting Guide, Magisk, KernelSU, APatch, Bootloader Unlock, Root Hiding, Tricky Store, Shamiko">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Chill-Astro Software",
+  "url":"https://chill-astro.github.io/",
+  "logo":"https://chill-astro.github.io/assets/images/logo.png",
+  "sameAs":[
+    "https://github.com/Chill-Astro",
+    "https://www.youtube.com/@chill-astro-sfs",
+    "https://www.reddit.com/user/Chill-Astro/",
+    "https://www.instagram.com/seasoned_impasta/"
+  ]
+}
+</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project.css">
+    <link rel="stylesheet" href="../css/rooting.css">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <main class="rooting-page">
+        <section class="rooting-hero hidden">
+            
+            <img class="hero-image large-hero" src="../assets/images/root-hero.png" alt="Android Rooting Guide">
+
+            <div class="hero-cta">
+                <button id="root-download" class="primary-btn project-download">Download FOSS Root Checker</button>
+            </div>
+        </section>
+
+        <section class="rooting-content">
+            <div class="doc-intro">
+                <div class="doc-intro-card">
+                    <p class="doc-label">Documentation overview</p>
+                    <h2>Rooting, safely and clearly</h2>
+                    <p>This guide explains the basics of Android rooting, the risks involved, and the most common ways to unlock a bootloader, flash a root solution, and hide root from sensitive apps.<br><br>
+
+                    NOTE : This Guide is <B>NOT Affiliated</B> with any of the developers of the tools mentioned. It is a community-written guide to help users understand the rooting process and its implications.
+                    </p>
+                </div>
+            </div>
+
+            <h2>1. Rooting: An Introduction</h2>
+            <div class="doc-note">
+                <p>Please be careful what apps you give root permissions to. Root access can expose your device to data theft, financial loss, and unexpected instability.</p>
+            </div>
+
+            <h3>What is Rooting?</h3>
+            <p>Rooting an Android device means gaining full administrative control over the system, similar to an administrator account on a computer.</p>
+
+            <h3>Pros of Rooting</h3>
+            <ul>
+                <li>Bloatware removal and system-level customization</li>
+                <li>System-wide adblocking and deep theming</li>
+                <li>Full backups and advanced performance tweaks</li>
+            </ul>
+
+            <h3>Cons of Rooting</h3>
+            <ul>
+                <li>Warranty loss and reduced official support</li>
+                <li>Higher security risk and data loss exposure</li>
+                <li>Risk of soft-bricking or hard-bricking the device</li>
+            </ul>
+
+            <h3>What is a Bootloader?</h3>
+            <p>The bootloader is the first software that starts the device and decides which operating system image to load. It is usually locked to protect the phone from unauthorized changes.</p>
+
+            <h3>What is Bricking?</h3>
+            <p>Bricking means a device becomes non-functional due to failed software tampering or a broken firmware flash.</p>
+
+            <h2>2. Unlocking the Bootloader</h2>
+            <div class="doc-note">
+                <p>This process usually wipes user data. Back up important files before continuing.</p>
+            </div>
+
+            <h3>Fastboot Method</h3>
+            <p><strong>Step 1 :</strong> Reboot the phone into bootloader mode.</p>
+            <pre><code>adb reboot bootloader</code></pre>
+
+            <p><strong>Step 2 :</strong> Unlock the bootloader.</p>
+            <pre><code>fastboot flashing unlock</code></pre>
+
+            <p><strong>Step 2.1 :</strong> If your device uses an older command set, try the fallback method.</p>
+            <pre><code>fastboot oem unlock</code></pre>
+
+            <h3>MTKClient for MTK Devices</h3>
+            <p>Use this only if your device is compatible and you understand the risks. It can bypass some locked MediaTek protections but may also trigger dm-verity corruption.</p>
+
+            <p><strong>Step 1 :</strong> Dump vbmeta</p>
+            <pre><code>python mtk.py r vbmeta_a,vbmeta_b vbmeta_a.img,vbmeta_b.img<br>
+python mtk.py r vbmeta vbmeta.img</code></pre>
+
+            <p><strong>Step 2 :</strong> Unlock the bootloader</p>
+            <pre><code>python mtk.py da seccfg unlock</code></pre>
+
+            <p><strong>Step 3 :</strong> Disable dm-verity</p>
+            <pre><code>python mtk.py da vbmeta 3</code></pre>
+
+            <p><strong>Step 4 :</strong> Erase userdata</p>
+            <pre><code>python mtk.py e metadata,userdata</code></pre>
+
+            <p><strong>Step 5 :</strong> Reboot device</p>
+            <pre><code>python mtk.py reset</code></pre>
+
+            <h2>3. Rooting Methods</h2>
+            <h3>Magisk</h3>
+            <p>Patch the stock <code>boot.img</code> or <code>init_boot.img</code> with Magisk and flash it. This remains the most widely supported option for many devices.</p>
+
+            <p><strong>Flash to Active Slot:</strong></p>
+            <pre><code>fastboot flash boot_a patched.img<br>
+fastboot flash init_boot_a patched.img</code></pre>
+
+            <p><strong>Flash to Inactive Slot (If Needed):</strong></p>
+            <pre><code>fastboot flash boot_b patched.img<br>
+fastboot flash init_boot_b patched.img</code></pre>
+
+            <p><strong>For Older Devices:</strong></p>
+            <pre><code>fastboot flash boot patched.img</code></pre>
+
+            <h3>KernelSU</h3>
+            <p>KernelSU works well on supported devices with a compatible kernel. It is often preferred when strong stealth and systemless operation are needed.</p>            
+            <p><strong>Flash to Active Slot:</strong></p>
+            <pre><code>fastboot flash boot_a patched.img<br>
+fastboot flash init_boot_a patched.img</code></pre>
+
+            <p><strong>Flash to Inactive Slot (If Needed):</strong></p>
+            <pre><code>fastboot flash boot_b patched.img<br>
+fastboot flash init_boot_b patched.img</code></pre>
+
+            <p><strong>For Older Devices:</strong></p>
+            <pre><code>fastboot flash boot patched.img</code></pre>
+
+            <h3>APatch</h3>
+            <p>APatch is another kernel-based option. Check compatibility carefully because not every device is supported.</p>
+            <p><strong>Flash to Active Slot:</strong></p>
+            <pre><code>fastboot flash boot_a patched.img</code></pre>
+
+            <p><strong>Flash to Inactive Slot (If Needed):</strong></p>
+            <pre><code>fastboot flash boot_b patched.img</code></pre>
+
+            <p><strong>For Older Devices:</strong></p>
+            <pre><code>fastboot flash boot patched.img</code></pre>
+
+            <h2>4. Root Hiding Modules</h2>
+            <p>Root hiding tools can help reduce detection by banking apps and some games, but they should be used carefully and only after the device is already rooted.</p>
+
+            <h3>1. Tricky Store (Closed Source, recommended)</h3>
+            <p>This module spoofs hardware-backed attestation by injecting a valid <code>KeyBox.xml</code>. When combined with the Tricky Addon and its WebUI, the process is easier.</p>
+
+            <p><strong>Step 1 :</strong> Obtain the module zip files for Tricky Store and Tricky Addon and flash them via your recovery.</p>
+
+            <p><strong>Step 2 :</strong> Reboot and open the Tricky Store app. Tap the <strong>Action</strong> button to launch the WebUI.</p>
+
+            <p><strong>Step 3 :</strong> In the WebUI, select the target apps and tap <strong>Set Valid Keybox</strong>.</p>
+
+            <p>Links:</p>
+            <ul>
+                <li><a class="module-link" href="https://github.com/5ec1cff/TrickyStore">Tricky Store</a></li>
+                <li><a class="module-link" href="https://github.com/KOWX712/Tricky-Addon-Update-Target-List">Tricky Addon</a></li>
+            </ul>
+
+            <h3>2. Shamiko (Closed Source)</h3>
+            <p>Shamiko hides root traces and can help fake a locked bootloader status for apps that check for root or Zygisk. Use only trusted builds.</p>
+
+            <p><strong>Step :</strong> Install the Shamiko module via your Magisk or module manager and configure it per the module's README.</p>
+
+            <p>Link: <a class="module-link" href="https://github.com/LSPosed/LSPosed.github.io/releases/">Shamiko (releases)</a></p>
+
+            <h3>3. Play Integrity Fix (for custom ROM users)</h3>
+            <p>These modules assign a valid fingerprint or otherwise patch integrity checks systemlessly. Flash one compatible module and use its action UI to apply fixes.</p>
+
+            <p><strong>Step :</strong> Flash a Play Integrity module and follow its instructions in the module UI.</p>
+
+            <p>Links:</p>
+            <ul>
+                <li><a class="module-link" href="https://github.com/osm0sis/PlayIntegrityFork">Play Integrity Fork</a></li>
+                <li><a class="module-link" href="https://github.com/KOWX712/PlayIntegrityFix">Play Integrity Fix</a></li>
+            </ul>
+
+            <h3>Open-source alternatives</h3>
+            <p>If you prefer fully open-source solutions, consider these community projects — they may require additional setup and are not always feature-parity with closed-source variants.</p>
+            <ul>
+                <li><a class="module-link" href="https://github.com/JingMatrix/TEESimulator">TEESimulator</a></li>
+                <li><a class="module-link" href="https://github.com/MhmRdd/NoHello">NoHello</a></li>
+                <li><a class="module-link" href="https://github.com/beakthoven/TrickyStoreOSS">Tricky Store OSS</a></li>
+                <li><a class="module-link" href="https://github.com/snake-4/Zygisk-Assistant">Zygisk Assistant</a></li>
+            </ul>
+
+            <h2 id="credits-">Credits :</h2>
+<ul>
+<li><a href="https://github.com/topjohnwu/Magisk">Magisk by @topjohnwu</a> : For Rooting pretty much anything these days.</li>
+<li><a href="https://github.com/tiann/KernelSU">KernelSU by @tiann</a> : For Kernel-Level Rooting on GKI Devices.</li>
+<li><a href="https://github.com/bmax121/APatch">APatch by @bmax121</a> : For Easy Kernel-Level Rooting.</li>
+<li><a href="https://github.com/bkerler/mtkclient">mtkclient by @bkerler</a> : For allowing MTK Devices to be Rooted Easily ( Including my Phone ).</li>
+<li><a href="https://github.com/LSPosed/LSPosed.github.io/releases/">Shamiko by @LSPosed</a> : For hiding root traces and faking bootloader status.</li>
+<li><a href="https://github.com/5ec1cff/TrickyStore">Tricky Store by @5ec1cff</a> : For spoofing Hardware Backed Attestation.</li>
+<li><a href="https://github.com/KOWX712/Tricky-Addon-Update-Target-List">Tricky Addon by @KOWX712</a> : For making the Tricky Store process accessible via WebUI.</li>
+<li><a href="https://github.com/Dr-TSNG/ZygiskNext">Zygisk Next by @Dr-TSNG</a> : For providing a standalone Zygisk implementation.</li>
+<li><a href="https://github.com/PerformanC/ReZygisk">ReZygisk by @PerformanC</a> : For an alternative Zygisk implementation.</li>
+<li><a href="https://github.com/snake-4/Zygisk-Assistant">Zygisk Assistant by @snake-4</a> : For helping hide Zygisk from detection.</li>
+<li><a href="https://github.com/KOWX712/PlayIntegrityFix">Play Integrity Fix by @KOWX712</a> : For maintaining Google Play Integrity standards.</li>
+<li><a href="https://github.com/osm0sis/PlayIntegrityFork">Play Integrity Fork by @osm0sis</a> : For the widely used community fork of the integrity fix.</li>
+<li><a href="https://github.com/JingMatrix/TEESimulator">TEESimulator by @JingMatrix</a> : An open-source alternative for TEE spoofing.</li>
+<li><a href="https://github.com/MhmRdd/NoHello">NoHello by @MhmRdd</a> : An open-source alternative for hiding root.</li>
+<li><a href="https://github.com/beakthoven/TrickyStoreOSS">Tricky Store OSS by @beakthoven</a> : For providing an open-source version of Tricky Store.</li>
+<li><a href="https://github.com/KernelSU-Next/KernelSU-Next">KernelSU Next by @KernelSU-Next</a> : For the continued development and community fork of KSU.</li>
+<li><a href="https://github.com/SkiSU-Ultra/SkiSU-Ultra">SkiSU Ultra by @SkiSU-Ultra</a> : For providing specialized kernel-level rooting features.</li>
+<li><a href="https://twrp.me/">TWRP &amp; OrangeFox</a> : For the custom recoveries that make flashing these modules possible.</li>
+</ul>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/rooting.js"></script>
+</body>
+
+</html>

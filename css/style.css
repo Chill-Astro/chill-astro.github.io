@@ -422,6 +422,53 @@ footer{padding:2rem 1.25rem 2.5rem}
     background:var(--surface);
 }
 
+/* ======================================
+   Header Nav: Modal-like link animations
+   Mirrors the download modal link style with
+   staggered reveal when `.header-nav.open` is set.
+====================================== */
+
+.header-nav a{
+    /* start hidden for animated reveal */
+    opacity:0;
+    transform:translateX(-12px);
+    transition:opacity .38s cubic-bezier(.22,1,.36,1), transform .38s cubic-bezier(.22,1,.36,1);
+    padding:.95rem 1.2rem .95rem 0;
+    border-top:1px solid var(--card-border);
+    white-space:nowrap;
+}
+
+.header-nav.open a{
+    opacity:1;
+    transform:none;
+}
+
+.header-nav.open a:nth-of-type(1){ transition-delay: .06s; }
+.header-nav.open a:nth-of-type(2){ transition-delay: .12s; }
+.header-nav.open a:nth-of-type(3){ transition-delay: .18s; }
+.header-nav.open a:nth-of-type(4){ transition-delay: .24s; }
+
+.header-nav a::before{
+    content:"";
+    display:inline-block;
+    width:0;
+    opacity:0;
+    margin-right:0;
+    transition:width .2s ease, opacity .2s ease, margin-right .2s ease;
+}
+
+.header-nav a:hover{
+    padding-left:1.2rem;
+    color:var(--text);
+}
+
+.header-nav a:hover::before{
+    content:">>";
+    width:1.2rem;
+    opacity:1;
+    margin-right:.2rem;
+}
+
 .header-left{
 
     display:flex;

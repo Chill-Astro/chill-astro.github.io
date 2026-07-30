@@ -16,7 +16,10 @@
       "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-official-release.apk",
       "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v36.23.2.0/app-offline-release.apk",
       "izzy": "https://apt.izzysoft.de/fdroid/index/apk/foss.chillastro.root.checker.offline",
-      "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android"
+      "openapk": "https://www.openapk.net/root-checker/foss.chillastro.root.checker.offline/",
+      "androidfreeware": "https://www.androidfreeware.net/download-root-checker-apk.html",
+      "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android",
+      "appteka": "https://appteka.store/apps/760r278239"
     }
   },
 
