@@ -1,0 +1,8 @@
+>[!CAUTION]
+> THIS REPOSITORY IS NOT FOR BEING CLONED BY USERS. 
+
+---
+
+© Chill-Astro Software | 2026
+
+---
