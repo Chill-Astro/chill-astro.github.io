@@ -67,7 +67,7 @@ const modalInfo = {
             openapk: "Download from OpenAPK (Offline)",
             androidfreeware: "Download from Android Freeware (Offline)",
             uptodown: "Download from Uptodown (Official)",
-            appteka:"Download from Appteka (Official)",
+            appteka: "Download from Appteka (Official)"
 
         }
 
@@ -88,6 +88,30 @@ const modalInfo = {
             python: "Python Script",
             executable: "Executable (.exe)",
             setup: "Setup.exe"
+
+        }
+
+    },
+
+    minima: {
+
+        title: "Minima",
+
+        names: {
+
+            json: "Theme File (.omp.json)",
+
+        }
+
+    },
+
+    minimaPlus: {
+
+        title: "Minima PLUS!",
+
+        names: {
+
+            json: "Theme File (.omp.json)",
 
         }
 
@@ -176,7 +200,7 @@ function handleProjectDownloadClick(event) {
         "tmm-download": "trustMyMsix"
     };
 
-    const project = projects[button.id];
+    const project = button.dataset.project || projects[button.id];
 
     if (!project)
         return;
@@ -215,17 +239,21 @@ async function openDownload(project) {
         await loadRepoData();
 
     const overlay = document.getElementById("downloadOverlay");
-    const projectData = repoData[project];
     const ui = modalInfo[project];
 
-    if (!overlay || !projectData || !ui)
+    if (!overlay || !ui)
         return;
+
+    const projectData = repoData[project];
+    const downloads = projectData?.downloads || ui.downloads || {};
 
     document.getElementById("downloadTitle").textContent =
         ui.title;
 
-    document.getElementById("downloadVersion").textContent =
-        `Version ${projectData.tag}`;
+    const versionElement = document.getElementById("downloadVersion");
+    const versionText = projectData?.tag ? `Version ${projectData.tag}` : (ui.version || "");
+    versionElement.textContent = versionText;
+    versionElement.style.display = versionText ? "block" : "none";
 
     document.getElementById("downloadInfo").textContent =
         ui.info;
@@ -251,7 +279,7 @@ async function openDownload(project) {
 
     container.innerHTML = "";
 
-    Object.entries(projectData.downloads).forEach(([key, url]) => {
+    Object.entries(downloads).forEach(([key, url]) => {
 
         const link = document.createElement("a");
 

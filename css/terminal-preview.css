@@ -1,0 +1,365 @@
+/* ======================================
+   Terminal Preview
+   Tokyo Night Inspired
+====================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+.terminal-preview{
+
+    width:100%;
+    max-width:900px;
+
+    margin:2rem auto;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    font-family:"Fira Code",monospace;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    border:1px solid transparent;
+
+    transition:
+        background .25s,
+        border-color .25s;
+
+}
+
+/* ======================================
+   Tokyo Night Dark
+====================================== */
+
+.terminal-preview.dark{
+
+    background:#1a1b26;
+
+    border-color:#2a2f45;
+
+}
+
+/* ======================================
+   Tokyo Night Light
+====================================== */
+
+.terminal-preview.light{
+
+    background:#d5d6db;
+
+    border-color:#b7b8bd;
+
+}
+
+/* ======================================
+   Title Bar
+====================================== */
+
+.terminal-titlebar{
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 18px;
+
+}
+
+.dark .terminal-titlebar{
+
+    background:#16161e;
+
+}
+
+.light .terminal-titlebar{
+
+    background:#cbccd1;
+
+}
+
+/* ======================================
+   macOS Buttons
+====================================== */
+
+.terminal-controls{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.control{
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+}
+
+.close{
+
+    background:#ff5f57;
+
+}
+
+.minimize{
+
+    background:#febc2e;
+
+}
+
+.maximize{
+
+    background:#28c840;
+
+}
+
+/* ======================================
+   Terminal Body
+====================================== */
+
+.terminal-body{
+
+    padding:24px;
+
+    min-height:145px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:18px;
+
+}
+
+/* ======================================
+   Prompt
+====================================== */
+
+.terminal-prompt{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:.15rem;
+
+    font-size:1rem;
+
+    font-weight:500;
+
+    line-height:1.7;
+
+}
+
+.dark .terminal-prompt{
+
+    color:#c0caf5;
+
+}
+
+.light .terminal-prompt{
+
+    color:#343b58;
+
+}
+
+/* ======================================
+   Theme Name
+====================================== */
+
+.terminal-command{
+
+    font-size:1rem;
+
+    font-weight:600;
+
+}
+
+.dark .terminal-command{
+
+    color:#7aa2f7;
+
+}
+
+.light .terminal-command{
+
+    color:#34548a;
+
+}
+
+/* ======================================
+   Prompt Segments
+====================================== */
+
+.seg.user{
+
+    color:#7aa2f7;
+
+}
+
+.seg.host{
+
+    color:#9ece6a;
+
+}
+
+.seg.path{
+
+    color:#e0af68;
+
+}
+
+.seg.symbol{
+
+    color:#bb9af7;
+
+}
+
+.seg.git{
+
+    color:#f7768e;
+
+}
+
+.seg.time{
+
+    color:#7dcfff;
+
+}
+
+.separator{
+
+    color:#565f89;
+
+}
+
+.light .seg.user{
+
+    color:#2e7de9;
+
+}
+
+.light .seg.host{
+
+    color:#587539;
+
+}
+
+.light .seg.path{
+
+    color:#8c6c3e;
+
+}
+
+.light .seg.symbol{
+
+    color:#7847bd;
+
+}
+
+.light .seg.git{
+
+    color:#d20065;
+
+}
+
+.light .seg.time{
+
+    color:#007197;
+
+}
+
+.light .separator{
+
+    color:#7a7a7a;
+
+}
+
+/* ======================================
+   Plain Text
+====================================== */
+
+.plain{
+
+    color:inherit;
+
+}
+
+/* ======================================
+   Cursor
+====================================== */
+
+.cursor{
+
+    display:inline-block;
+
+    width:9px;
+
+    height:1.15em;
+
+    margin-left:4px;
+
+    vertical-align:middle;
+
+    animation:cursorBlink 1s steps(1) infinite;
+
+}
+
+.dark .cursor{
+
+    background:#c0caf5;
+
+}
+
+.light .cursor{
+
+    background:#343b58;
+
+}
+
+@keyframes cursorBlink{
+
+    50%{
+
+        opacity:0;
+
+    }
+
+}
+
+/* ======================================
+   Responsive
+====================================== */
+
+@media(max-width:700px){
+
+    .terminal-body{
+
+        padding:18px;
+
+    }
+
+    .terminal-prompt{
+
+        font-size:.92rem;
+
+    }
+
+    .terminal-command{
+
+        font-size:.92rem;
+
+    }
+
+}

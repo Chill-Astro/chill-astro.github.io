@@ -29,6 +29,20 @@
       "python": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.py",
       "executable": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.exe",
       "setup": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/Setup.exe"
-    }
+    }    
+  },
+
+  "minima": {
+    "tag": "v1.3",
+    "downloads": {
+      "json": "https://github.com/Chill-Astro/Minima-OMP-Theme/releases/download/v1.3/Minima.omp.json"
+    }    
+  },
+
+  "minimaPlus": {
+    "tag": "v1.1",
+    "downloads": {
+      "json": "https://github.com/Chill-Astro/Minima-PLUS-OMP/releases/download/v1.1/Minima-PLUS.omp.json"
+    }    
   }
 }
