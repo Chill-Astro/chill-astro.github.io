@@ -227,7 +227,28 @@
     background:transparent;
 }
 
-/* hero button uses the site's `.primary-btn` class for consistent styling */
+.hero-cta .primary-btn,
+.hero-cta .project-download {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:0;
+    padding:15px 32px;
+    border-radius:999px;
+    border:none;
+    background:var(--button-bg);
+    color:var(--button-text);
+    font-family:"Tomorrow", sans-serif;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.hero-cta .primary-btn:hover,
+.hero-cta .project-download:hover {
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:var(--shadow);
+}
 
 /* Module link button to match header Contact Me */
 .module-link{
