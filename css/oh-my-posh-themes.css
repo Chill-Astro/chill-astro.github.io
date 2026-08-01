@@ -9,11 +9,11 @@
 
 .omp-page{
 
-    max-width:1200px;
+    width:min(100%, 1120px);
 
     margin:0 auto;
 
-    padding:3rem 1.5rem 5rem;
+    padding:3rem 1.25rem 5rem;
 
 }
 
@@ -96,7 +96,9 @@
 
 .theme-showcase{
 
-    margin:3rem 0 5rem;
+    width:min(100%, 920px);
+
+    margin:2rem auto 4rem;
 
 }
 
@@ -138,9 +140,16 @@
 
 .theme-description{
 
+    width:100%;
+
     max-width:900px;
 
     margin:0 auto;
+
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
 
 }
 
@@ -238,7 +247,7 @@
 
     .omp-page{
 
-        padding:2rem 1rem 4rem;
+        padding:2rem .9rem 4rem;
 
     }
 
@@ -250,7 +259,9 @@
 
     .theme-showcase{
 
-        margin:4rem 0;
+        width:100%;
+
+        margin:2rem 0 3rem;
 
     }
 
@@ -262,7 +273,15 @@
 
     .theme-description{
 
-        padding:0 .5rem;
+        padding:0 .25rem;
+
+    }
+
+    .theme-description .primary-btn{
+
+        width:100%;
+
+        min-width:0;
 
     }
 
