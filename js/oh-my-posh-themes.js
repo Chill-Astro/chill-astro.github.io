@@ -54,11 +54,17 @@ function loadTerminalPreviews() {
 // Page Init
 // ======================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function initOhMyPoshPage() {
 
     if (!document.querySelector(".omp-page")) return;
 
     setupRevealAnimations();
     loadTerminalPreviews();
 
-});
+}
+
+document.addEventListener("DOMContentLoaded", initOhMyPoshPage);
+
+if (document.readyState !== "loading") {
+    initOhMyPoshPage();
+}

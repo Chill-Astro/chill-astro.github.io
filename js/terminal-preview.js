@@ -1,147 +1,66 @@
-// ======================================
-// Chill-Astro Software
-// terminal-preview.js
-// ======================================
+function createTerminalPreview(containerId, variant) {
+    const container = document.getElementById(containerId);
 
-function escapeHtml(text) {
-
-    return String(text)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;");
-
-}
-
-// ======================================
-// Set Theme
-// ======================================
-
-function setTerminalPreview(config, targetId = "terminalPreview") {
-
-    const terminal =
-        document.getElementById(targetId);
-
-    if (!terminal)
+    if (!container) {
         return;
+    }
 
-    terminal.className = `terminal-preview ${config.mode ?? "dark"}`;
-
-    terminal.innerHTML = `
-        <div class="terminal-titlebar">
-            <div class="terminal-controls">
-                <span class="control close"></span>
-                <span class="control minimize"></span>
-                <span class="control maximize"></span>
+    const previewMarkup = {
+        minima: `
+            <div class="terminal-preview minima-preview">
+                <div class="terminal-titlebar">
+                    <div class="terminal-controls">
+                        <span class="control close"></span>
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                    </div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="user">minima</span>
+                        <span class="plain">@</span>
+                        <span class="host">simplicity</span>
+                        <span class="space"></span>
+                        <span class="path">~</span>
+                        <span class="space"></span>
+                        <span class="prompt">$</span>
+                        <span class="cursor"></span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="terminal-body">
-            <div class="terminal-prompt">
-                <span class="seg user">${escapeHtml(config.user ?? "")}</span>
-                <span class="plain">@</span>
-                <span class="seg host">${escapeHtml(config.host ?? "")}</span>
-                <span class="plain">:</span>
-                <span class="seg path">${escapeHtml(config.path ?? "~")}</span>
-                <span class="seg symbol">${escapeHtml(config.symbol ?? "$")}</span>
-                <span class="cursor"></span>
+        `,
+        minimaPlus: `
+            <div class="terminal-preview minima-plus-preview">
+                <div class="terminal-titlebar">
+                    <div class="terminal-controls">
+                        <span class="control close"></span>
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                    </div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="user">minima</span>
+                        <span class="plain">@</span>
+                        <span class="host">simplicity</span>
+                        <span class="space"></span>
+                        <span class="path">~</span>
+                        <span class="space"></span>
+                        <span class="arrow1">›</span>
+                        <span class="space"></span>
+                        <span class="time">in 1.008s</span>
+                        <span class="space"></span>
+                        <span class="arrow2">›</span>
+                        <span class="space"></span>
+                        <span class="git">main</span>
+                        <span class="space"></span>
+                        <span class="prompt">$</span>
+                        <span class="cursor"></span>
+                    </div>
+                </div>
             </div>
-        </div>
-    `;
+        `
+    };
 
+    container.innerHTML = previewMarkup[variant === "minimaPlus" ? "minimaPlus" : "minima"];
 }
-
-// ======================================
-// Theme Presets
-// ======================================
-
-const terminalThemes = {
-
-    minima: {
-
-        mode: "dark",
-
-        theme: "Minima",
-
-        user: "minima",
-
-        host: "simplicity",
-
-        path: "~",
-
-        symbol: "$",
-
-        extra: []
-
-    },
-
-    minimaPlus: {
-
-        mode: "dark",
-
-        theme: "Minima PLUS!",
-
-        user: "minima",
-
-        host: "simplicity",
-
-        path: "~",
-
-        symbol: "$",
-
-        extra: [
-
-            {
-                separator: "›"
-            },
-
-            {
-                class: "time",
-                text: "in 1.008s"
-            },
-
-            {
-                separator: "›"
-            },
-
-            {
-                class: "git",
-                text: "main"
-            }
-
-        ]
-
-    }
-
-};
-
-// ======================================
-// Auto Preview
-// ======================================
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        if (document.getElementById("terminal-minima")) {
-
-            setTerminalPreview(
-                terminalThemes.minima,
-                "terminal-minima"
-            );
-
-        }
-
-        if (document.getElementById("terminal-minima-plus")) {
-
-            setTerminalPreview(
-                terminalThemes.minimaPlus,
-                "terminal-minima-plus"
-            );
-
-        }
-
-    }
-
-);

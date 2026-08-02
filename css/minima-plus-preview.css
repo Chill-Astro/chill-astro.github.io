@@ -1,0 +1,217 @@
+/* ======================================
+   Minima PLUS! Preview
+====================================== */
+
+.minima-plus-preview{
+
+    display:block;
+    width:100%;
+    max-width:100%;
+
+    background:#24283B;
+
+    border:1px solid #414868;
+    border-radius:18px;
+
+    overflow:hidden;
+
+    font-family:"Fira Code",monospace;
+
+    box-shadow:0 18px 50px rgba(0,0,0,.28);
+
+}
+
+/* ======================================
+   Title Bar
+====================================== */
+
+.minima-plus-preview .terminal-titlebar{
+
+    height:40px;
+
+    background:#1F2335;
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+
+    display:flex;
+    align-items:center;
+
+    padding:0 16px;
+
+}
+
+.minima-plus-preview .terminal-controls{
+
+    display:flex;
+    gap:8px;
+
+}
+
+.minima-plus-preview .control{
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+}
+
+.minima-plus-preview .close{
+
+    background:#F7768E;
+
+}
+
+.minima-plus-preview .minimize{
+
+    background:#E0AF68;
+
+}
+
+.minima-plus-preview .maximize{
+
+    background:#73DACA;
+
+}
+
+/* ======================================
+   Body
+====================================== */
+
+.minima-plus-preview .terminal-body{
+
+    padding:34px 22px;
+
+}
+
+.minima-plus-preview .terminal-line{
+
+    display:flex;
+    align-items:center;
+
+    white-space:nowrap;
+
+    font-size:1.06rem;
+    font-weight:500;
+
+    line-height:1;
+
+}
+
+/* ======================================
+   Colours (Tokyo Night Storm)
+====================================== */
+
+.minima-plus-preview .user{
+
+    color:#C0CAF5;
+
+}
+
+.minima-plus-preview .plain{
+
+    color:#C0CAF5;
+
+}
+
+.minima-plus-preview .host{
+
+    color:#C0CAF5;
+
+}
+
+.minima-plus-preview .path{
+
+    color:#7DCFFF;
+
+}
+
+.minima-plus-preview .arrow1{
+
+    color:#7AA2F7;
+
+}
+
+.minima-plus-preview .time{
+
+    color:#7AA2F7;
+
+}
+
+.minima-plus-preview .arrow2{
+
+    color:#73DACA;
+
+}
+
+.minima-plus-preview .git{
+
+    color:#73DACA;
+
+}
+
+.minima-plus-preview .prompt{
+
+    color:#C0CAF5;
+
+}
+
+/* ======================================
+   Spacing
+====================================== */
+
+.minima-plus-preview .space{
+
+    display:inline-block;
+    width:.60rem;
+
+}
+
+/* ======================================
+   Cursor
+====================================== */
+
+.minima-plus-preview .cursor{
+
+    display:inline-block;
+
+    width:11px;
+    height:1.2em;
+
+    margin-left:6px;
+
+    background:#C0CAF5;
+
+    animation:minimaPlusCursor 1s steps(1) infinite;
+
+}
+
+@keyframes minimaPlusCursor{
+
+    50%{
+
+        opacity:0;
+
+    }
+
+}
+
+/* ======================================
+   Responsive
+====================================== */
+
+@media(max-width:700px){
+
+    .minima-plus-preview .terminal-body{
+
+        padding:24px 18px;
+
+    }
+
+    .minima-plus-preview .terminal-line{
+
+        font-size:.95rem;
+
+    }
+
+}

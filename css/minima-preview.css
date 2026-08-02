@@ -1,0 +1,167 @@
+/* ======================================
+   Minima Preview
+====================================== */
+
+.minima-preview{
+
+    display:block;
+    width:100%;
+    max-width:100%;
+
+    background:#24283B;
+
+    border:1px solid #414868;
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+
+    font-family:"Fira Code",monospace;
+
+}
+
+/* ======================================
+   Title Bar
+====================================== */
+
+.minima-preview .terminal-titlebar{
+
+    height:40px;
+
+    background:#1f2335;
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+
+    display:flex;
+    align-items:center;
+
+    padding:0 16px;
+
+}
+
+.minima-preview .terminal-controls{
+
+    display:flex;
+    gap:8px;
+
+}
+
+.minima-preview .control{
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+}
+
+.minima-preview .close{
+
+    background:#F7768E;
+
+}
+
+.minima-preview .minimize{
+
+    background:#E0AF68;
+
+}
+
+.minima-preview .maximize{
+
+    background:#73DACA;
+
+}
+
+/* ======================================
+   Terminal
+====================================== */
+
+.minima-preview .terminal-body{
+
+    padding:34px 24px;
+
+}
+
+.minima-preview .terminal-line{
+
+    display:flex;
+    align-items:center;
+
+    font-size:1.06rem;
+    font-weight:500;
+
+    line-height:1;
+
+    white-space:nowrap;
+
+}
+
+/* ======================================
+   Colours
+====================================== */
+
+.minima-preview .user{
+
+    color:#C0CAF5;
+
+}
+
+.minima-preview .plain{
+
+    color:#C0CAF5;
+
+}
+
+.minima-preview .host{
+
+    color:#C0CAF5;
+
+}
+
+.minima-preview .path{
+
+    color:#7DCFFF;
+
+}
+
+.minima-preview .prompt{
+
+    color:#C0CAF5;
+
+}
+
+.minima-preview .space{
+
+    width:.65rem;
+    display:inline-block;
+
+}
+
+/* ======================================
+   Cursor
+====================================== */
+
+.minima-preview .cursor{
+
+    width:11px;
+    height:1.2em;
+
+    margin-left:8px;
+
+    background:#C0CAF5;
+
+    animation:minimaBlink 1s steps(1) infinite;
+
+}
+
+@keyframes minimaBlink{
+
+    50%{
+
+        opacity:0;
+
+    }
+
+}

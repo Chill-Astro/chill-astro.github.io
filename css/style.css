@@ -309,7 +309,7 @@ footer{padding:2rem 1.25rem 2.5rem}
 
     margin:0 auto;
 
-    padding:0 2rem;
+    padding:0 1.25rem;
 
     height:72px;
 
@@ -317,6 +317,12 @@ footer{padding:2rem 1.25rem 2.5rem}
     align-items:center;
     justify-content:space-between;
 
+}
+
+@media (min-width: 1200px) {
+    .site-header-inner {
+        padding:0 3rem;
+    }
 }
 
 .site-header .site-header-inner {
