@@ -1,0 +1,15 @@
+{
+  "name": "Chill-Astro Software",
+  "short_name": "Chill-Astro",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "/assets/images/tabicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
