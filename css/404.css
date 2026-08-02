@@ -1,0 +1,122 @@
+body.error-404-page {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background: #000;
+    color: #fff;
+    font-family: "Tomorrow", sans-serif;
+    overflow-x: hidden;
+}
+body.error-404-page {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background: #000;
+    color: #fff;
+    font-family: "Tomorrow", sans-serif;
+    overflow-x: hidden;
+}
+.error-shell {
+    width: min(900px, 95%);
+    padding: 3rem 2.25rem;
+    background: #000;
+    border: 1px solid #fff;
+    border-radius: 18px;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    animation: appear 0.7s ease;
+    text-align: center;
+}
+.error-code {
+    font-size: clamp(5.5rem, 12vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    color: #fff;
+    margin-bottom: 0.75rem;
+}
+.error-text {
+    margin: 0.4rem auto 0;
+}
+.error-text p {
+    margin: 0.5rem auto;
+    font-size: clamp(1rem, 1.9vw, 1.35rem);
+    line-height: 1.8;
+    color: #fff;
+}
+.error-text p:first-child {
+    font-weight: 700;
+}
+.error-details {
+    margin: 2rem auto 2.5rem;
+    padding-left: 0;
+    border-left: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 1rem;
+    color: #fff;
+    line-height: 1.8;
+    display: inline-block;
+    text-align: left;
+}
+.error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+.error-actions .primary-btn {
+    min-width: 180px;
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.error-actions .primary-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(255, 255, 255, 0.12);
+    background: #f5f5f5;
+}
+@media (prefers-color-scheme: light) {
+    body.error-404-page {
+        background: #fafafa;
+        color: #000;
+    }
+    .error-shell {
+        background: #fff;
+        border-color: #000;
+    }
+    .error-code,
+    .error-text p,
+    .error-details {
+        color: #000;
+    }
+    .error-actions .primary-btn {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+    }
+    .error-actions .primary-btn:hover {
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+        background: #111;
+    }
+}
+@media (max-width: 720px) {
+    .error-shell {
+        padding: 2rem 1.5rem;
+    }
+    .error-actions {
+        justify-content: center;
+    }
+    .error-actions .primary-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
