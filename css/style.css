@@ -9,10 +9,14 @@
 :root{
 --bg:#fff;--surface:#f7f7f8;--text:#111;--muted:#666;
 --button-bg:#111;--button-text:#fff;--card-border:#e6e6e6;
+--scroll-meter-fill:var(--text);
+--scroll-meter-track:rgba(255,255,255,0.18);
 --shadow:0 8px 30px rgba(0,0,0,.08);--radius:24px}
 @media(prefers-color-scheme:dark){
 :root{--bg:#0b0b0b;--surface:#151515;--text:#fff;--muted:#b8b8b8;
 --button-bg:#fff;--button-text:#111;--card-border:#292929;
+--scroll-meter-fill:var(--text);
+--scroll-meter-track:rgba(255,255,255,0.18);
 --shadow:0 8px 30px rgba(0,0,0,.45)}}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -291,16 +295,42 @@ footer{padding:2rem 1.25rem 2.5rem}
 ====================================== */
 
 .site-header{
-
-    position:sticky;
+    position:fixed !important;
     top:0;
-    z-index:1000;
+    left:0;
+    right:0;
+    z-index:10000;
 
     width:100%;
 
     background:var(--background);
     border-bottom:1px solid var(--border);
 
+}
+
+.site-header .scroll-meter{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:transparent;
+    overflow:hidden;
+    z-index:10001;
+}
+
+.site-header .scroll-meter-fill{
+    width:0%;
+    height:100%;
+    background:var(--scroll-meter-fill, var(--text));
+    border-radius:999px;
+    transform-origin:left;
+    transition:width .15s ease-out;
+}
+
+/* Ensure page content sits below the fixed header */
+body {
+    padding-top:72px;
 }
 
 .site-header-inner{
@@ -328,6 +358,20 @@ footer{padding:2rem 1.25rem 2.5rem}
 .site-header .site-header-inner {
     max-width:none;
     width:100%;
+}
+
+/* Header visible by default; add `.header-hidden` to hide it with a slide
+   and fade. Applies to all viewports for consistent behavior. */
+.site-header {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+}
+
+/* Ensure any residual class cannot hide the header */
+.site-header.header-hidden {
+    transform: none !important;
+    opacity: 1 !important;
 }
 
 .header-left-group {
@@ -391,6 +435,9 @@ footer{padding:2rem 1.25rem 2.5rem}
     box-shadow:var(--shadow);
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
+    /* allow internal scrolling when content exceeds available height */
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
     transform:translateX(-110%);
     transition:transform .28s ease;
     z-index:1100;
@@ -533,7 +580,17 @@ footer{padding:2rem 1.25rem 2.5rem}
 
 
 /* CLEAN HEADER OVERRIDES */
-.site-header{position:sticky;top:0;z-index:1000;width:100%;background:var(--bg);border-bottom:1px solid var(--card-border);}
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background: var(--surface);
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom:1px solid var(--card-border);
+}
 .site-header-inner{width:min(1400px,94%);margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between;}
 .header-left{display:flex;align-items:center;gap:18px;}
 .menu-btn{width:44px;height:44px;border:none;background:transparent;color:var(--text);font-size:1.8rem;cursor:pointer;border-radius:12px;}

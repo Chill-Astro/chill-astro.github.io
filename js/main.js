@@ -613,11 +613,18 @@ async function loadComponent(id, file) {
             if (!response.ok)
                 continue;
 
-            document.getElementById(id).innerHTML =
-                await response.text();
+            // Remove any existing header/nav/backdrop to avoid duplicates
+            if (id === "header") {
+                document.querySelectorAll('.site-header, .mobile-nav-backdrop, .header-nav').forEach(el => el.remove());
+            }
 
-            if (id === "header")
+            document.getElementById(id).innerHTML = await response.text();
+
+            if (id === "header") {
                 initHeaderMenu();
+                initScrollHeader();
+                initScrollProgress();
+            }
 
             return;
 
@@ -627,6 +634,40 @@ async function loadComponent(id, file) {
 
     }
 
+}
+
+// Header show/hide on scroll: initially visible, hides after a large downward scroll,
+// reappears on small upward scrolls. Keeps header visible while nav is open.
+function initScrollHeader() {
+    // No-op: header should always remain visible (user requested)
+    return;
+}
+
+function initScrollProgress() {
+    if (window.__scrollProgressInitialized)
+        return;
+
+    const header = document.querySelector('.site-header');
+    const meter = header?.querySelector('.scroll-meter');
+    const fill = meter?.querySelector('.scroll-meter-fill');
+
+    if (!header || !meter || !fill)
+        return;
+
+    window.__scrollProgressInitialized = true;
+
+    const updateProgress = () => {
+        const doc = document.documentElement;
+        const scrollTop = window.scrollY || window.pageYOffset || doc.scrollTop;
+        const scrollHeight = doc.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? Math.min(100, (scrollTop / scrollHeight) * 100) : 0;
+
+        fill.style.width = `${progress}%`;
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
