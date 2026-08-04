@@ -832,7 +832,7 @@ body {
     .hero{padding:1.5rem 1.25rem 2.5rem;gap:1.25rem!important;}
     .hero-left{flex:none;}
     .hero-right{flex:none;}
-    .logo-circle{width:min(62vw,240px);height:min(62vw,240px);}
+    .logo-circle{width:min(65vw,255px);height:min(65vw,255px);}
     .username{margin-top:0.75rem;}
     .hero-right h1{margin:0 0 0.75rem;}
     .hero-right p{margin:0 0 1.25rem;line-height:1.65;}
@@ -855,7 +855,7 @@ body {
 
 @media (max-width: 420px){
     .hero{padding-inline:1rem;}
-    .logo-circle{width:min(60vw,220px);height:min(60vw,220px);}
+    .logo-circle{width:min(62vw,230px);height:min(62vw,230px);}
     .project-image{height:min(66vw,250px)!important;}
     .primary-btn{padding:0.8rem 1.1rem;}
     .project-grid{gap:2.5rem;}
