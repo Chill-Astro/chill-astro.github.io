@@ -244,7 +244,7 @@
 
     .omp-page{
 
-        padding:2rem .9rem 4rem;
+        padding:1.75rem 1rem 3.5rem;
 
     }
 
@@ -258,13 +258,55 @@
 
         width:100%;
 
-        margin:2rem 0 3rem;
+        margin:1.5rem 0 2.5rem;
 
     }
 
     .theme-showcase .terminal-body{
 
-        padding:14px 16px;
+        padding:12px 14px;
+
+    }
+
+    .theme-showcase .minima-preview .terminal-titlebar,
+    .theme-showcase .minima-plus-preview .terminal-titlebar{
+
+        height:34px;
+        padding:0 12px;
+
+    }
+
+    .theme-showcase .minima-preview .terminal-body,
+    .theme-showcase .minima-plus-preview .terminal-body{
+
+        padding:16px 14px;
+
+    }
+
+    .theme-showcase .minima-preview .terminal-line,
+    .theme-showcase .minima-plus-preview .terminal-line{
+
+        font-size:.82rem;
+
+    }
+
+    .theme-description p,
+    .theme-feature-list li{
+
+        line-height:1.65;
+
+    }
+
+    .theme-feature-list{
+
+        margin-bottom:1.5rem;
+
+    }
+
+    .theme-description .primary-btn{
+
+        margin-top:1.25rem;
+        padding:.85rem 1rem;
 
     }
 

@@ -810,3 +810,40 @@ body {
     opacity:1;
     margin-right:.2rem;
 }
+
+/* ======================================
+   Mobile layout refinements
+   These overrides intentionally apply only below the tablet breakpoint.
+====================================== */
+@media (max-width: 768px){
+    .hero{padding:1.5rem 1.25rem 2.5rem;gap:1.25rem!important;}
+    .hero-left{flex:none;}
+    .hero-right{flex:none;}
+    .logo-circle{width:min(62vw,240px);height:min(62vw,240px);}
+    .username{margin-top:0.75rem;}
+    .hero-right h1{margin:0 0 0.75rem;}
+    .hero-right p{margin:0 0 1.25rem;line-height:1.65;}
+    .hero-btn{width:100%;gap:0.75rem;}
+    .hero-btn .primary-btn{flex:1 1 210px;justify-content:center;margin-top:0;padding:0.85rem 1.25rem;}
+
+    .projects{padding:3.5rem 0;}
+    .projects h2{margin-bottom:2rem;}
+    .project-grid{gap:3rem;}
+    .project-image{height:min(68vw,280px)!important;}
+    .project-image img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;}
+    .project-card h3{margin-top:1rem;}
+    .project-card p{margin-top:0.5rem;max-width:34ch;}
+    .project-version{margin-top:0.75rem;}
+    .project-download{margin-top:1rem;}
+
+    .download-dialog{width:calc(100vw - 2rem);max-height:calc(100dvh - 2rem);overflow:auto;}
+    .dialog-header,.dialog-body{padding:1rem;}
+}
+
+@media (max-width: 420px){
+    .hero{padding-inline:1rem;}
+    .logo-circle{width:min(60vw,220px);height:min(60vw,220px);}
+    .project-image{height:min(66vw,250px)!important;}
+    .primary-btn{padding:0.8rem 1.1rem;}
+    .project-grid{gap:2.5rem;}
+}
