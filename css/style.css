@@ -360,18 +360,31 @@ body {
     width:100%;
 }
 
-/* Header visible by default; add `.header-hidden` to hide it with a slide
-   and fade. Applies to all viewports for consistent behavior. */
+/* Header entrance is applied to the whole bar, not to its individual links. */
 .site-header {
-    transform: none !important;
-    opacity: 1 !important;
-    transition: none !important;
+    animation:header-enter .55s cubic-bezier(.22,1,.36,1) both;
+    transition:none;
 }
 
-/* Ensure any residual class cannot hide the header */
+@keyframes header-enter {
+    from { opacity:0; transform:translateY(-100%); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* Ensure any residual class cannot hide the header. */
 .site-header.header-hidden {
-    transform: none !important;
-    opacity: 1 !important;
+    transform:none;
+    opacity:1;
+}
+
+.site-header .secondary-btn {
+    animation:none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header {
+        animation:none;
+    }
 }
 
 .header-left-group {
