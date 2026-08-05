@@ -7,13 +7,13 @@
 @font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800}
 
 :root{
---bg:#fff;--surface:#f7f7f8;--text:#111;--muted:#666;
+--bg:#fff;--surface:#f7f7f8;--text:#111;--muted:var(--text);
 --button-bg:#111;--button-text:#fff;--card-border:#e6e6e6;
 --scroll-meter-fill:var(--text);
 --scroll-meter-track:rgba(255,255,255,0.18);
 --shadow:0 8px 30px rgba(0,0,0,.08);--radius:24px}
 @media(prefers-color-scheme:dark){
-:root{--bg:#0b0b0b;--surface:#151515;--text:#fff;--muted:#b8b8b8;
+:root{--bg:#0b0b0b;--surface:#151515;--text:#fff;--muted:var(--text);
 --button-bg:#fff;--button-text:#111;--card-border:#292929;
 --scroll-meter-fill:var(--text);
 --scroll-meter-track:rgba(255,255,255,0.18);
@@ -123,10 +123,19 @@ font-weight:600;transition:.25s}
 
 .hero-right p{
 
-    margin-bottom:2rem;
+    margin-bottom:1rem;
 
     line-height:1.8;
 
+}
+
+.skill-icons{
+    display:block;
+    align-self:flex-start;
+    width:auto;
+    max-width:100%;
+    height:52px;
+    margin:0 0 1.25rem;
 }
 
 .hero-btn{
@@ -137,6 +146,11 @@ font-weight:600;transition:.25s}
 
     flex-wrap:wrap;
 
+}
+
+.hero-btn .primary-btn{
+    margin-top:0;
+    padding:16px 34px;
 }
 
 @media (max-width:900px){
@@ -325,7 +339,7 @@ footer{padding:2rem 1.25rem 2.5rem}
     background:var(--scroll-meter-fill, var(--text));
     border-radius:999px;
     transform-origin:left;
-    transition:width .15s ease-out;
+    transition:none;
 }
 
 /* Ensure page content sits below the fixed header */
@@ -360,9 +374,9 @@ body {
     width:100%;
 }
 
-/* Header entrance is applied to the whole bar, not to its individual links. */
+/* The header has its own entrance; the hamburger menu retains its drawer motion. */
 .site-header {
-    animation:header-enter .55s cubic-bezier(.22,1,.36,1) both;
+    animation:header-enter .45s cubic-bezier(.22,1,.36,1) both;
     transition:none;
 }
 
@@ -378,13 +392,11 @@ body {
 }
 
 .site-header .secondary-btn {
-    animation:none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .site-header {
-        animation:none;
-    }
+    display:inline-flex;
+    flex-shrink:0;
+    visibility:visible;
+    opacity:1;
+    transition:none;
 }
 
 .header-left-group {
@@ -836,8 +848,9 @@ body {
     .username{margin-top:0.75rem;}
     .hero-right h1{margin:0 0 0.75rem;}
     .hero-right p{margin:0 0 1.25rem;line-height:1.65;}
+    .skill-icons{align-self:center;height:48px;margin:0 auto 1rem;}
     .hero-btn{width:100%;gap:0.75rem;}
-    .hero-btn .primary-btn{flex:1 1 210px;justify-content:center;margin-top:0;padding:0.85rem 1.25rem;}
+    .hero-btn .primary-btn{flex:1 1 210px;justify-content:center;margin-top:0;padding:0.9rem 1.25rem;}
 
     .projects{padding:3.5rem 0;}
     .projects h2{margin-bottom:2rem;}

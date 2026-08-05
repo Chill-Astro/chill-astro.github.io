@@ -26,7 +26,16 @@
 .about-text{
     max-width:900px;
     line-height:1.9;
-    color:#bdbdbd;
+    color:var(--text);
+}
+
+/* Keep every About-page text element at the normal site brightness. */
+.about-page p,
+.about-page .about-text,
+.about-page .score-label,
+.about-page .future p{
+    color:var(--text)!important;
+    opacity:1;
 }
 
 .academic{
@@ -68,7 +77,7 @@
     margin-top:14px;
     font-size:1.15rem;
     font-weight:600;
-    color:#bdbdbd;
+    color:var(--text);
 }
 
 .future{
@@ -83,7 +92,7 @@
 .future p{
     font-size:1.8rem;
     letter-spacing:2px;
-    color:#bdbdbd;
+    color:var(--text);
 }
 
 @media(max-width:768px){
@@ -98,7 +107,7 @@
 
     .about-hero .hero-image{
         width:min(100%, 560px);
-        aspect-ratio:4/3;
+        aspect-ratio:16/9;
         border-radius:18px;
     }
 

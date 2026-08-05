@@ -9,6 +9,29 @@
 
 let repoData = {};
 
+const headerHTML = `
+<header class="site-header">
+    <div class="scroll-meter"><div class="scroll-meter-fill"></div></div>
+    <div class="site-header-inner">
+        <div class="header-left-group">
+            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+            <a href="/" class="site-title">Chill-Astro</a>
+        </div>
+        <a href="mailto:masterarc3435@outlook.com" class="secondary-btn">Email</a>
+    </div>
+</header>
+<div class="mobile-nav-backdrop" aria-hidden="true"></div>
+<nav class="header-nav" aria-label="Header navigation">
+    <div class="header-nav-top"><span>Navigation</span><button class="nav-close" type="button" aria-label="Close navigation menu">✕</button></div>
+    <a href="/">Home Page</a>
+    <a href="https://github.com/Chill-Astro">Github Profile</a>
+    <a href="/android-rooting-guide/">Android Rooting Guide</a>
+    <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
+    <a href="/about">About Me</a>
+    <a href="mailto:masterarc3435@outlook.com">Submit Feedback</a>
+    <a href="https://github.com/Chill-Astro/chill-astro.github.io/issues/new" target="_blank" rel="noopener noreferrer">Report Site Issue</a>
+</nav>`;
+
 const downloadModalHTML = `
 <div class="download-overlay" id="downloadOverlay">
     <div class="download-dialog">
@@ -602,6 +625,15 @@ function aboutAnimation() {
 
 async function loadComponent(id, file) {
 
+    if (id === "header") {
+        document.querySelectorAll('.site-header, .mobile-nav-backdrop, .header-nav').forEach(el => el.remove());
+        document.getElementById(id).innerHTML = headerHTML;
+        initHeaderMenu();
+        initScrollHeader();
+        initScrollProgress();
+        return;
+    }
+
     const prefixes = ["", "../"];
 
     for (const prefix of prefixes) {
@@ -613,18 +645,7 @@ async function loadComponent(id, file) {
             if (!response.ok)
                 continue;
 
-            // Remove any existing header/nav/backdrop to avoid duplicates
-            if (id === "header") {
-                document.querySelectorAll('.site-header, .mobile-nav-backdrop, .header-nav').forEach(el => el.remove());
-            }
-
             document.getElementById(id).innerHTML = await response.text();
-
-            if (id === "header") {
-                initHeaderMenu();
-                initScrollHeader();
-                initScrollProgress();
-            }
 
             return;
 
@@ -670,24 +691,20 @@ function initScrollProgress() {
     window.addEventListener('resize', updateProgress);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+if (document.getElementById("header")) {
 
-    if (document.getElementById("header")) {
+    loadComponent(
+        "header",
+        "components/header.html"
+    );
 
-        loadComponent(
-            "header",
-            "components/header.html"
-        );
+}
 
-    }
+if (document.getElementById("footer")) {
 
-    if (document.getElementById("footer")) {
+    loadComponent(
+        "footer",
+        "components/footer.html"
+    );
 
-        loadComponent(
-            "footer",
-            "components/footer.html"
-        );
-
-    }
-
-});
+}
