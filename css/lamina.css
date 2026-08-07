@@ -1,0 +1,289 @@
+/* =========================================================
+   LAMINA ✦
+   Simple showcase/documentation layout
+   ========================================================= */
+
+.lamina-page {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+    padding: 64px 0 120px;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.lamina-content {
+    width: min(980px, 100%);
+    margin: 0 auto;
+}
+
+.lamina-section {
+    margin-top: 72px;
+}
+
+.lamina-content h2 {
+    margin: 0 0 24px;
+    text-align: left;
+    white-space: normal;
+}
+
+.lamina-content h3 {
+    margin: 36px 0 14px;
+    text-align: left;
+    line-height: 1.35;
+}
+
+.lamina-content p,
+.lamina-content li {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.lamina-content ul,
+.lamina-content ol {
+    padding-left: 24px;
+}
+
+.lamina-content li {
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   HERO MEDIA
+   ========================================================= */
+
+.lamina-media {
+    width: min(1100px, 100%);
+    margin: 28px auto;
+}
+
+.lamina-media img,
+.lamina-media video {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    height: auto;
+
+    object-fit: cover;
+
+    border-radius: 24px;
+
+    background: var(--surface);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero-media {
+    margin-top: 0;
+    margin-bottom: 36px;
+}
+
+.hero-media img {
+    border-radius: 24px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.lamina-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin: 28px 0 38px;
+}
+
+.lamina-actions .primary-btn {
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   CODE
+   ========================================================= */
+
+.lamina-content pre {
+    width: 100%;
+
+    margin: 20px 0;
+
+    padding: 18px 20px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+
+    background: var(--surface);
+
+    text-align: left;
+}
+
+.lamina-content pre code {
+    padding: 0;
+
+    background: transparent;
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+
+    font-size: .92rem;
+
+    color: var(--text);
+}
+
+.lamina-content code {
+    padding: .15rem .4rem;
+
+    border-radius: 7px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-family:
+        Consolas,
+        "Courier New",
+        monospace;
+}
+
+
+/* =========================================================
+   YOUTUBE
+   ========================================================= */
+
+.youtube-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.youtube-media iframe {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    border: 0;
+    border-radius: 24px;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.lamina-content a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.lamina-actions a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+.lamina-page .hidden {
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+.lamina-page .show {
+    opacity: 1;
+    transform: translateY(0);
+
+    transition:
+        opacity .8s cubic-bezier(.22, 1, .36, 1),
+        transform .8s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .lamina-page {
+        width: 92%;
+        padding: 36px 0 72px;
+    }
+
+    .lamina-section {
+        margin-top: 52px;
+    }
+
+    .lamina-media {
+        width: 100%;
+        margin: 22px auto;
+    }
+
+    .lamina-media img,
+    .lamina-media video,
+    .youtube-media iframe {
+        border-radius: 18px;
+    }
+
+    .lamina-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .lamina-actions .primary-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .lamina-content h2 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+    }
+
+    .lamina-content h3 {
+        margin-top: 28px;
+    }
+
+    .lamina-content pre {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .lamina-content pre code {
+        font-size: .82rem;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lamina-page .hidden,
+    .lamina-page .show {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

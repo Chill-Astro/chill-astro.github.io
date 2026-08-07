@@ -304,6 +304,59 @@ footer{padding:2rem 1.25rem 2.5rem}
     box-shadow:var(--shadow);
 }
 
+.project-actions{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:0.75rem;
+    margin-top:1rem;
+    flex-wrap:wrap;
+}
+
+.project-actions .primary-btn{
+    margin:0;
+}
+
+.details-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px 32px;
+    border:none;
+    border-radius:999px;
+    background:var(--button-bg);
+    color:var(--button-text);
+    font-family:"Tomorrow",sans-serif;
+    font-weight:600;
+    transition:.25s;
+}
+
+.details-btn:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:var(--shadow);
+}
+
+.github-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:0.75rem;
+    padding:12px 28px;
+    border-radius:999px;
+    color:var(--text);
+    background:transparent;
+    font-family:"Tomorrow",sans-serif;
+    font-weight:600;
+    transition:transform .25s, background .25s;
+}
+
+.github-btn:hover{
+    transform:translateY(-2px);
+    background:var(--surface);
+    text-decoration:underline;
+    text-underline-offset:4px;
+}
+
 /* ======================================
    Header
 ====================================== */
