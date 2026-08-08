@@ -1,0 +1,269 @@
+/* =========================================================
+   FOSS ROOT CHECKER
+   Adopted Lamina style formatting and structure
+   ========================================================= */
+
+.root-checker-page {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+    padding: 64px 0 120px;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.root-checker-intro,
+.root-checker-section {
+    width: min(980px, 100%);
+    margin: 0 auto;
+}
+
+.root-checker-intro {
+    max-width: 850px;
+    margin: 0 auto 72px;
+    text-align: center;
+}
+
+.root-checker-section {
+    margin-top: 72px;
+    margin-bottom: 0;
+}
+
+.root-checker-hero {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.root-checker-section h2 {
+    margin: 0 0 24px;
+    text-align: left;
+    white-space: normal;
+}
+
+.root-checker-hero h2 {
+    margin: 0 0 24px;
+    text-align: center;
+    white-space: normal;
+}
+
+.root-checker-section h3 {
+    margin: 36px 0 14px;
+    text-align: left;
+    line-height: 1.35;
+}
+
+.root-checker-intro p,
+.root-checker-section p,
+.root-checker-section li,
+.root-checker-meta p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.root-checker-intro p {
+    margin: 0 0 18px;
+}
+
+.root-checker-meta {
+    margin: 28px 0;
+}
+
+.root-checker-meta p {
+    margin: 8px 0;
+}
+
+.root-checker-section ul,
+.root-checker-section ol {
+    padding-left: 24px;
+}
+
+.root-checker-section li {
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   HERO & SECTION MEDIA
+   ========================================================= */
+
+.root-checker-media {
+    width: min(1100px, 100%);
+    margin: 28px auto;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+.root-checker-media img,
+.root-checker-media video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+    border-radius: 24px;
+    background: var(--surface);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.root-checker-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0 38px;
+}
+
+.root-checker-actions .primary-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 250px;
+    padding: 12px 28px;
+    margin-top: 0;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+}
+
+
+/* =========================================================
+   NOTE / BLOCKQUOTE
+   ========================================================= */
+
+.root-checker-section blockquote {
+    margin: 20px 0;
+    padding: 18px 20px;
+    border-left: 3px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   VIDEOS & YOUTUBE
+   ========================================================= */
+
+.root-checker-section .video-player {
+    margin: 28px auto;
+    width: min(1100px, 100%);
+}
+
+.youtube-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.youtube-media iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 24px;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.root-checker-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.root-checker-features li span {
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.root-checker-page a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.root-checker-actions a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .root-checker-page {
+        width: 92%;
+        padding: 36px 0 72px;
+    }
+
+    .root-checker-hero {
+        margin-bottom: 36px;
+    }
+
+    .root-checker-intro {
+        margin-bottom: 52px;
+    }
+
+    .root-checker-section {
+        margin-top: 52px;
+    }
+
+    .root-checker-media {
+        width: 100%;
+        margin: 22px auto;
+        border-radius: 18px;
+    }
+
+    .root-checker-media img,
+    .root-checker-media video,
+    .youtube-media iframe {
+        border-radius: 18px;
+    }
+
+    .root-checker-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .root-checker-actions .primary-btn {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .root-checker-section h2,
+    .root-checker-hero h2 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+    }
+
+    .root-checker-section h3 {
+        margin-top: 28px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Inherits standard behavior */
+}

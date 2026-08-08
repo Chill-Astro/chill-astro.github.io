@@ -26,6 +26,7 @@ const headerHTML = `
     <a href="/">Home Page</a>
     <a href="https://github.com/Chill-Astro">Github Profile</a>
     <a href="/lamina-calculator/">Lamina ✦</a>
+    <a href="/foss-root-checker/">FOSS Root Checker</a>
     <a href="/android-rooting-guide/">Android Rooting Guide</a>
     <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
     <a href="/about">About Me</a>

@@ -1,25 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SITE UNDER DEVELOPMENT | Chill-Astro Software</title>
-    <link rel="icon" type="image/png" href="/assets/images/tabicon.png">
-    <meta name="description" content="Page not found — Chill-Astro Software 404 error.">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/rooting.css">
-    <link rel="stylesheet" href="/css/404.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FOSS Root Checker — an open source Android root checker focused on transparency and privacy."    
+    >
+
+    <meta
+    name="description"
+    content="FOSS Root Checker is an open-source Android root checker for verifying root access, detecting root traces, and checking BusyBox on Android 6+ devices."
+>
+
+<link
+    rel="canonical"
+    href="https://chill-astro.github.io/foss-root-checker/"
+>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="FOSS Root Checker | Chill-Astro Software">
+<meta
+    property="og:description"
+    content="An open-source Android root checker with transparent root-trace, root-access, and BusyBox verification."
+>
+<meta
+    property="og:url"
+    content="https://chill-astro.github.io/foss-root-checker/"
+>
+<meta
+    property="og:image"
+    content="https://chill-astro.github.io/assets/images/root-checker-hero.png"
+>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOSS Root Checker | Chill-Astro Software">
+<meta
+    name="twitter:description"
+    content="Open-source Android root checker for transparent root access and BusyBox verification."
+>
+<meta
+    name="twitter:image"
+    content="https://chill-astro.github.io/assets/images/root-checker-hero.png"
+>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Chill-Astro Software",
+  "url":"https://chill-astro.github.io/foss-root-checker/",
+  "logo":"https://chill-astro.github.io/assets/images/logo.png",
+  "sameAs":[
+    "https://github.com/Chill-Astro",
+    "https://www.youtube.com/@chill-astro-sfs",
+    "https://www.reddit.com/user/Chill-Astro/",
+    "https://www.instagram.com/seasoned_impasta/"
+  ]
+}
+</script>
+
+<title>FOSS Root Checker | Chill-Astro Software</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/tabicon.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/root-checker.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/video-player.css"
+    >
+
+    <title>FOSS Root Checker | Chill-Astro Software</title>
+
 </head>
-<body class="error-404-page">
-    <main class="error-shell">
-        <div class="error-code">UPCOMING</div>
-        <div class="error-text">
-            <p>This page is under development.</p>            
-            <p>You can return home. This is normal behaviour</p>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div id="header"></div>
+
+
+    <main class="root-checker-page">
+
+        <!-- HERO -->
+
+        <section class="root-checker-hero">
+
+            <div class="root-checker-media">
+
+                <img
+                    src="../assets/images/root-checker-hero.png"
+                    alt="FOSS Root Checker"
+                >
+
+            </div>
+
+            <div class="root-checker-actions">
+
+                <a
+                    class="primary-btn"
+                    href="https://github.com/Chill-Astro/FOSS-Root-Checker"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View on GitHub
+                </a>
+
+                <a
+                    id="root-download"
+                    class="primary-btn project-download"
+                    href="#"
+                >
+                    Download
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- INTRODUCTION -->
+
+        <section class="root-checker-intro">
+
+            <p>
+                FOSS Root Checker as the name suggests is a
+                <strong>Open Source</strong> Root Checker app for
+                verifying <strong>Root Access</strong> on Android
+                Mobile Devices from Android 6 +.
+            </p>
+
+            <div class="root-checker-meta">
+
+                <p>
+                    <strong>Package ID:</strong>
+                    <code>foss.chillastro.root.checker</code>                    
+                    <br>
+                    <strong>App Version:</strong>
+                    <code>v36.23.2.0</code>
+                </p>
+
+                <p>
+                    <strong>Codename:</strong>
+                    <code>FRC-SU</code>
+                </p>
+            </div>
+
+            <p>
+                An Online Version of the App's Guide is given
+                <a href="../android-rooting-guide/">
+                    here
+                </a>.
+            </p>
+
+        </section>
+
+
+        <!-- HOW IT WORKS -->
+
+        <section class="root-checker-section">
+
+            <h2>How it works?</h2>
+
+            <blockquote>
+                All checks are performed on a background thread
+                (<code>Dispatchers.IO</code>) to ensure your device
+                remains responsive during the scan.
+            </blockquote>
+
+
+            <ul>
+
+                <li>
+
+                    <p>
+                        If <strong>"Search Root"</strong> is pressed,
+                        she checks 40+ system paths to find traces of
+                        Root Access. If it finds them, Root Traces are
+                        found. If not, it is clearly shown.
+                    </p>
+
+                            <div class="lamina-media">
+            <div class="video-player">
+                <video class="video-player__media" muted loop playsinline preload="metadata">
+                    <source src="../assets/videos/search-root.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
-        <div class="hero-cta error-actions">
-            <a href="/" class="primary-btn">Return Home</a>            
+
+                </li>
+
+
+                <li>
+
+                    <p>
+                        Now if <strong>"Verify Root"</strong> is pressed,
+                        the App executes <code>su -c id</code> and if it
+                        returns 0, Root Access is Verified.
+                        Else, Root Access is not Available.
+                    </p>
+
+                            <div class="lamina-media">
+            <div class="video-player">
+                <video class="video-player__media" muted loop playsinline preload="metadata">
+                    <source src="../assets/videos/verify-root.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
+
+                </li>
+
+
+                <li>
+
+                    <p>
+                        For BusyBox Checker, she checks BusyBox specific
+                        paths. If not found, the App executes
+                        <code>su -c which busybox</code> to verify
+                        BusyBox Installation.
+                    </p>
+
+                           <div class="lamina-media">
+            <div class="video-player">
+                <video class="video-player__media" muted loop playsinline preload="metadata">
+                    <source src="../assets/videos/busybox-checker.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+                </li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="root-checker-section">
+
+            <h2>Key Features:</h2>
+
+            <ul class="root-checker-features">
+
+                <li>
+                    Ultra Low Footprint of 1.55MB ONLY!
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Privacy First Design with full transparency.
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Reduced Animations Enforced on Low end Devices
+                    (if RAM &lt; 4 GB).
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Modern Material UI with Monet Theming.
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Support for Android 6+ Devices.
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Works with Magisk, KernelSU, KSU Forks, APatch
+                    and older Methods.
+                    <span>✓</span>
+                </li>
+
+                <li>
+                    Thorough Guidance provided on Rooting and
+                    Unlocking Bootloader.
+                    <span>✓</span>
+                </li>
+
+            </ul>
+
+        </section>
+
+        <section class="root-checker-section">
+
+            <h2>More Screenshots :</h2>            
+
+            <div class="root-checker-media">
+                <img
+                    src="../assets/images/root-checker-preview.png"
+                    alt="FOSS Root Checker Preview"
+                >
+                <p align="center"><b>Showcase of Mobile UI</b></p><br>
+                <img
+                    src="../assets/images/info-menu.png"
+                    alt="FOSS Root Checker Info Menu"
+                >
+                <p align="center"><b>Info Panel</b></p>
+            </div>
+        </section>
+
+        <!-- TRAILER -->
+
+        <section class="root-checker-section">
+
+            <h2>Trailer:</h2>
+
+            <div class="lamina-media youtube-media">
+                <iframe
+                    src="https://www.youtube.com/embed/ikYPs2zk7Yc"
+                    title="FOSS Root Checker Trailer"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </section>
+
     </main>
+
+
+    <!-- FOOTER -->
+
+    <div id="footer"></div>
+
+
+    <script src="../js/main.js"></script>
+    <script src="../js/video-player.js"></script>
+    <script src="../js/root-checker.js"></script>
+
 </body>
+
 </html>
