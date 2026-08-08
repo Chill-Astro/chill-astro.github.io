@@ -90,7 +90,7 @@
         /*
          * Make every local video behave like a looping showcase video.
          */
-        document.querySelectorAll(".lamina-page video").forEach((video) => {
+        document.querySelectorAll(".lamina-page video:not([data-video-player] video)").forEach((video) => {
             video.autoplay = true;
             video.muted = true;
             video.loop = true;
@@ -161,7 +161,7 @@
 })();
 document.addEventListener("DOMContentLoaded", () => {
 
-    const videos = document.querySelectorAll(".lamina-page video");
+    const videos = document.querySelectorAll(".lamina-page video:not([data-video-player] video)");
 
     if (!videos.length) {
         return;

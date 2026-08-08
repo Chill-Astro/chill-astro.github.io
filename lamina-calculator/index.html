@@ -40,6 +40,7 @@
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/lamina.css">
+    <link rel="stylesheet" href="../css/video-player.css">
 
     <title>Lamina ✦ | Chill-Astro Software</title>
 </head>
@@ -180,7 +181,6 @@
                     alt="Lamina Calculation Options"
                     type="images/png"
                 >
-            </video>
         </div>
 
         <h3>
@@ -212,19 +212,11 @@
         </h3>
 
         <div class="lamina-media">
-
-            <video                
-                muted
-                loop
-                playsinline
-                preload="none"
-            >               
-
-                <source
-                    src="../assets/videos/ui.mp4"
-                    type="video/mp4"
-                >
-            </video>
+            <div class="video-player">
+                <video class="video-player__media" muted loop playsinline preload="metadata">
+                    <source src="../assets/videos/ui.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
 
 
@@ -263,12 +255,13 @@
         </h3>
 
         <div class="lamina-media">
-            <video                
+            <video  
+                autoplay                
                 muted
                 loop
                 playsinline
                 preload="none"
-            >  
+            >   
 
                 <source
                     src="../assets/videos/backdrop.mp4"
@@ -283,7 +276,8 @@
         </h3>
 
         <div class="lamina-media">
-            <video                
+            <video  
+                autoplay              
                 muted
                 loop
                 playsinline
@@ -478,6 +472,7 @@
 <div id="footer"></div>
 
 <script src="../js/main.js"></script>
+<script src="../js/video-player.js"></script>
 <script src="../js/lamina.js"></script>
 
 </body>
