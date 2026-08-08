@@ -25,6 +25,7 @@ const headerHTML = `
     <div class="header-nav-top"><span>Navigation</span><button class="nav-close" type="button" aria-label="Close navigation menu">✕</button></div>
     <a href="/">Home Page</a>
     <a href="https://github.com/Chill-Astro">Github Profile</a>
+    <a href="/lamina-calculator/">Lamina ✦</a>
     <a href="/android-rooting-guide/">Android Rooting Guide</a>
     <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
     <a href="/about">About Me</a>
@@ -239,19 +240,6 @@ function bindDownloadButtons() {
     document.removeEventListener("click", handleProjectDownloadClick);
     document.addEventListener("click", handleProjectDownloadClick);
 
-}
-
-function initHeaderMenu() {
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.header-nav');
-
-    if (!toggle || !nav)
-        return;
-
-    toggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
-    });
 }
 
 async function openDownload(project) {
