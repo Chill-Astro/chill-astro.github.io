@@ -926,3 +926,105 @@ body {
     .primary-btn{padding:0.8rem 1.1rem;}
     .project-grid{gap:2.5rem;}
 }
+/* ======================================
+   ADDITIONAL STUFF
+   ====================================== */
+
+.additional-stuff {
+    width: min(1100px, 100%);
+    margin: 80px auto 0;
+}
+
+.additional-stuff h2 {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.additional-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 220px);
+    justify-content: center;
+    gap: 18px;
+}
+
+.additional-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 22px 16px;
+
+    text-decoration: none;
+    text-align: center;
+
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+
+    background: var(--surface);
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease;
+}
+
+.additional-card:hover {
+    transform: translateY(-4px);
+}
+
+.additional-image {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 14px;
+}
+
+.additional-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.additional-card h3 {
+    margin: 0;
+
+    font-size: 1rem;
+    line-height: 1.35;
+
+    color: var(--text);
+}
+
+
+/* ======================================
+   MOBILE
+   ====================================== */
+
+@media (max-width: 768px) {
+
+    .additional-stuff {
+        width: 92%;
+        margin-top: 60px;
+    }
+
+    .additional-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .additional-card {
+        padding: 18px 10px;
+        border-radius: 16px;
+    }
+
+    .additional-image {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 10px;
+    }
+
+    .additional-card h3 {
+        font-size: .9rem;
+    }
+
+}

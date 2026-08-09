@@ -501,8 +501,9 @@ function prepareScrollAnimations() {
 
         ...document.querySelectorAll(".projects h2"),
         ...document.querySelectorAll(".project-card"),
-        ...document.querySelectorAll(".cta h2"),
-        ...document.querySelectorAll(".cta .primary-btn")
+
+        ...document.querySelectorAll(".additional-stuff h2"),
+        ...document.querySelectorAll(".additional-grid"),
 
     ];
 
@@ -523,10 +524,16 @@ function prepareScrollAnimations() {
 
                 const element = entry.target;
 
-                if (element.classList.contains("project-card")) {
+                if (
+                    element.classList.contains("project-card") ||
+                    element.classList.contains("additional-stuff-card")
+                ) {
 
                     const cards = [
-                        ...document.querySelectorAll(".project-card")
+
+                        ...document.querySelectorAll(".project-card"),
+                        ...document.querySelectorAll(".additional-stuff-card")
+
                     ];
 
                     const index = cards.indexOf(element);
