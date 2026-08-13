@@ -123,6 +123,12 @@ const modalInfo = {
 
         title: "Minima",
 
+        info:
+            "Paste Minima into an accessible folder and then open your Powershell / Bash Profile as : notepad $Profile for Powershell or nano ~/.bashrc on Linux. Once the following command is pasted, reload Powershell or run source ~/.bashrc.",
+
+        command:
+            "oh-my-posh --init --shell pwsh --config <path> Minima.omp.json | Invoke-Expression # For Windows Powershell\n\neval \"$(oh-my-posh init bash --config <path>/Minima.omp.json)\" # For Bash",
+
         names: {
 
             json: "Theme File (.omp.json)",
@@ -134,6 +140,12 @@ const modalInfo = {
     minimaPlus: {
 
         title: "Minima PLUS!",
+
+        info:
+            "Paste Minima PLUS into an accessible folder and then open your Powershell / Bash Profile as : notepad $Profile for Powershell or nano ~/.bashrc on Linux. Once the following command is pasted, reload Powershell or run source ~/.bashrc.",
+
+        command:
+            "oh-my-posh --init --shell pwsh --config <path> Minima-PLUS.omp.json | Invoke-Expression # For Windows Powershell\n\neval \"$(oh-my-posh init bash --config <path>/Minima-PLUS.omp.json)\" # For Bash",
 
         names: {
 
@@ -148,7 +160,6 @@ const modalInfo = {
 async function loadRepoData() {
 
     const paths = [
-        "assets/data/repo-data.json",
         "../assets/data/repo-data.json"
     ];
 
