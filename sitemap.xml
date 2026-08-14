@@ -23,16 +23,21 @@
   <url>
     <loc>https://chill-astro.github.io/android-rooting-guide/</loc>
     <lastmod>2026-08-02</lastmod>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chill-astro.github.io/oh-my-posh-themes/</loc>
     <lastmod>2026-08-02</lastmod>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+  </url>
+    <url>
+    <loc>https://chill-astro.github.io/easter-egg-guide/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chill-astro.github.io/about/</loc>
     <lastmod>2026-08-02</lastmod>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>
