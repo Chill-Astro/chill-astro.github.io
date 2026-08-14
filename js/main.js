@@ -30,6 +30,7 @@ const headerHTML = `
     <a href="/trust-my-msix/">Trust My Msix!</a>
     <a href="/android-rooting-guide/">Android Rooting Guide</a>
     <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
+    <a href="/easter-egg-guide/">Easter Egg Guide</a>
     <a href="/about">About Me</a>
     <a href="mailto:masterarc3435@outlook.com">Submit Feedback</a>
     <a href="https://github.com/Chill-Astro/chill-astro.github.io/issues/new" target="_blank" rel="noopener noreferrer">Report Site Issue</a>

@@ -1,0 +1,295 @@
+/* ======================================
+   Chill-Astro Software
+   easter-egg-guide.css
+====================================== */
+
+/* ======================================
+   Page Layout
+====================================== */
+
+.eeg-page {
+    width: min(100%, 1120px);
+    margin: 0 auto;
+    padding: 3rem 1.25rem 5rem;
+}
+
+/* ======================================
+   Hero Section
+====================================== */
+
+.eeg-hero {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.eeg-hero h1 {
+    margin-bottom: 1rem;
+}
+
+.eeg-hero p {
+    margin: 0;
+    line-height: 1.8;
+}
+
+/* ======================================
+   App Sections
+====================================== */
+
+.eeg-app {
+    margin-bottom: 6rem;
+}
+
+.eeg-app > h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* ======================================
+   Easter Egg Entries
+====================================== */
+
+.eeg-entry {
+    width: min(100%, 920px);
+    margin: 0 auto 4rem;
+}
+
+.eeg-entry:last-child {
+    margin-bottom: 0;
+}
+
+.eeg-entry h3 {
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+}
+
+/* ======================================
+   Difficulty & Gold Pop-In Stars
+====================================== */
+
+.eeg-difficulty {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+.eeg-difficulty-label {
+    font-weight: 600;
+}
+
+.eeg-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    min-height: 1.5em;
+}
+
+/* Base Star Styling (Hidden state) */
+.eeg-star {
+    display: inline-block;
+    
+    /* Vibrant Gold Gradient */
+    background: linear-gradient(135deg, #ffe066 0%, #ffb400 50%, #cc7a00 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Warm ambient glow */
+    filter: drop-shadow(0 2px 6px rgba(255, 180, 0, 0.45));
+
+    opacity: 0;
+    transform: scale(0);
+    will-change: transform, opacity, filter;
+}
+
+/* Active class triggered by JavaScript JS timer stagger */
+.eeg-star.eeg-star-visible {
+    animation: starPop 0.5s cubic-bezier(0.34, 1.8, 0.64, 1) forwards;
+}
+
+/* Keyframe step-by-step overshoot animation */
+@keyframes starPop {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+        filter: drop-shadow(0 0 0px rgba(255, 180, 0, 0));
+    }
+    60% {
+        opacity: 1;
+        /* Overshoot beyond 100% size for the classic pop */
+        transform: scale(1.35) rotate(10deg);
+        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+    }
+    80% {
+        /* Slight recoil contraction */
+        transform: scale(0.92) rotate(-3deg);
+    }
+    100% {
+        opacity: 1;
+        /* Settle perfectly at normal size */
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 2px 6px rgba(255, 180, 0, 0.45));
+    }
+}
+
+/* ======================================
+   Media
+====================================== */
+
+.eeg-media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--card);
+}
+
+.eeg-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.eeg-video-media {
+    border: 0;
+    background: #000;
+}
+
+.eeg-video-media .video-player {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.eeg-video-media .video-player__media {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ======================================
+   Steps & Content
+====================================== */
+
+.eeg-steps {
+    margin-top: 1rem;
+}
+
+.eeg-steps h4,
+.eeg-caution h4 {
+    margin-bottom: 1rem;
+}
+
+.eeg-steps ol,
+.eeg-caution ol {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.eeg-steps li,
+.eeg-caution li {
+    margin-bottom: .75rem;
+    line-height: 1.8;
+}
+
+/* ======================================
+   Caution
+====================================== */
+
+.eeg-caution {
+    margin-top: 2rem;
+}
+
+.eeg-caution li {
+    line-height: 1.7;
+}
+
+/* ======================================
+   Source Links
+====================================== */
+
+.eeg-source-link {
+    display: inline-block;
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    text-underline-offset: 4px;
+    transition: text-decoration-color .2s ease;
+}
+
+.eeg-source-link:hover,
+.eeg-source-link:focus-visible {
+    text-decoration: underline;
+}
+
+/* ======================================
+   Standard Section Reveal Animations
+====================================== */
+
+.eeg-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity .75s ease,
+        transform .75s cubic-bezier(.16, 1, .3, 1);
+}
+
+.eeg-reveal.eeg-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ======================================
+   Responsive
+====================================== */
+
+@media(max-width: 700px) {
+    .eeg-page {
+        padding: 1.75rem 1rem 3.5rem;
+    }
+
+    .eeg-hero {
+        margin-bottom: 3.5rem;
+    }
+
+    .eeg-app {
+        margin-bottom: 4.5rem;
+    }
+
+    .eeg-app > h2 {
+        margin-bottom: 2.25rem;
+    }
+
+    .eeg-entry {
+        margin-bottom: 3.5rem;
+    }
+
+    .eeg-entry h3 {
+        line-height: 1.45;
+    }
+
+    .eeg-difficulty {
+        gap: .6rem;
+    }
+
+    .eeg-stars {
+        gap: .15rem;
+        flex-wrap: nowrap;
+    }
+
+    .eeg-star {
+        font-size: clamp(.9rem, 4vw, 1.15rem);
+    }
+
+    .eeg-media {
+        border-radius: 14px;
+        margin-bottom: 1.5rem;
+    }
+
+    .eeg-steps li,
+    .eeg-caution li {
+        line-height: 1.65;
+    }
+}

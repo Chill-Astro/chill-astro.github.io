@@ -942,8 +942,10 @@ body {
 
 .additional-grid {
     display: grid;
-    grid-template-columns: repeat(2, 220px);
+    /* On PC: fits as many 220px cards as possible, centering the whole grid and wrapping leftover cards to center */
+    grid-template-columns: repeat(auto-fit, 220px);
     justify-content: center;
+    justify-items: center;
     gap: 18px;
 }
 
@@ -953,6 +955,7 @@ body {
     align-items: center;
     justify-content: center;
 
+    width: 100%;
     padding: 22px 16px;
 
     text-decoration: none;
@@ -1008,13 +1011,22 @@ body {
     }
 
     .additional-grid {
+        display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        justify-content: center;
+        gap: 14px;
     }
 
     .additional-card {
         padding: 18px 10px;
         border-radius: 16px;
+    }
+
+    /* Target the 3rd card when it wraps alone and center it */
+    .additional-grid .additional-card:nth-child(odd):last-child {
+        grid-column: 1 / -1;
+        max-width: calc(50% - 7px);
+        justify-self: center;
     }
 
     .additional-image {
