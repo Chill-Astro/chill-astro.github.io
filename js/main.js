@@ -397,12 +397,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function heroAnimation() {
 
+    const heroCard = document.querySelector(".hero");
     const logo = document.querySelector(".hero-left");
     const title = document.querySelector(".hero-right h1");
     const desc = document.querySelector(".hero-right p");    
     const buttons = document.querySelector(".hero-btn");
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    heroCard.style.opacity = "0";
+    heroCard.style.transform = "translateY(30px)";
 
     logo.style.opacity = "0";
     logo.style.transform = "translate(-50%, calc(-50% - 36px))";
@@ -417,6 +421,8 @@ function heroAnimation() {
     buttons.style.transform = "translateY(24px) scale(.96)";
 
     requestAnimationFrame(() => {
+
+        animate(heroCard, "translateY(0)", 0);
 
         animate(
             logo,
