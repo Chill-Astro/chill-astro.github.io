@@ -1,9 +1,6 @@
 <div class="video-player" data-video-player>
     <video
         class="video-player__media"
-        autoplay
-        muted
-        loop
         playsinline
         preload="metadata"
     >
@@ -11,9 +8,13 @@
     </video>
 
     <div class="video-player__controls" data-video-controls>
-        <button class="video-player__play" type="button" aria-label="Play video" data-video-play>
-            <span class="video-player__play-icon" aria-hidden="true">▶</span>
-        </button>
+        <div class="video-player__center-controls">
+            <button class="video-player__skip" type="button" aria-label="Skip backward 3 seconds" data-video-skip="-3">&lt;&lt;</button>
+            <button class="video-player__play" type="button" aria-label="Play video" data-video-play>
+                <span class="video-player__play-icon" aria-hidden="true">▶</span>
+            </button>
+            <button class="video-player__skip" type="button" aria-label="Skip forward 3 seconds" data-video-skip="3">&gt;&gt;</button>
+        </div>
         <div class="video-player__progress">
             <input type="range" min="0" max="100" value="0" step="0.1" aria-label="Video progress" data-video-progress>
         </div>

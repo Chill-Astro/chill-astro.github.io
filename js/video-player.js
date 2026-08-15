@@ -10,7 +10,8 @@
         const playIcon = player.querySelector(".video-player__play-icon");
         const progress = player.querySelector("[data-video-progress]");
         const fullscreenButton = player.querySelector("[data-video-fullscreen]");
-        
+        const skipButtons = player.querySelectorAll("[data-video-skip]");
+
         if (!media || !playButton || !playIcon || !progress || !fullscreenButton) {
             console.warn("Video player skipped: required controls are missing.", player);
             return;
@@ -19,15 +20,16 @@
         player.dataset.videoInitialized = "true";
         player.tabIndex = player.tabIndex >= 0 ? player.tabIndex : 0;
         
-        media.muted = true;
-        media.loop = true;
+        // Remove autoplay and loop, and start muted
+        media.autoplay = false;
+        media.loop = false;
+        media.muted = true; // Start muted, user can unmute
         media.playsInline = true;
         media.preload = "metadata";
 
         let hideTimer;
         let lastClientX = 0;
         let lastClientY = 0;
-        const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
 
         const setProgress = () => progress.style.setProperty("--progress", `${Number(progress.value) || 0}%`);
         
@@ -35,7 +37,7 @@
             player.classList.add("is-active");
             clearTimeout(hideTimer);
             
-            // Auto-hide controls when playing, on both mobile and PC fullscreen
+            // Auto-hide controls when playing
             if (!media.paused) {
                 hideTimer = window.setTimeout(() => {
                     player.classList.remove("is-active");
@@ -63,6 +65,10 @@
             showControls();
         };
 
+        const skip = (seconds) => {
+            media.currentTime += seconds;
+        };
+
         const updateProgress = () => {
             if (!Number.isFinite(media.duration) || media.duration <= 0) return;
             progress.value = String((media.currentTime / media.duration) * 100);
@@ -76,9 +82,27 @@
             showControls();
         };
 
+        const seekVideoToProgress = () => {
+            if (Number.isFinite(media.duration) && media.duration > 0) {
+                media.currentTime = (Number(progress.value) / 100) * media.duration;
+            }
+            setProgress();
+            showControls();
+        };
+
         playButton.addEventListener("click", togglePlayback);
-        media.addEventListener("click", togglePlayback);
+
+        media.addEventListener("click", (event) => {
+            event.preventDefault();
+        });
         
+        skipButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const seconds = parseFloat(button.dataset.videoSkip);
+                skip(seconds);
+            });
+        });
+
         media.addEventListener("play", () => { 
             updatePlaybackState(); 
             showControls(); 
@@ -92,14 +116,10 @@
 
         media.addEventListener("ended", updateProgress);
         media.addEventListener("timeupdate", updateProgress);
+        media.addEventListener("loadedmetadata", updateProgress);
         
-        progress.addEventListener("input", () => {
-            if (Number.isFinite(media.duration) && media.duration > 0) {
-                media.currentTime = (Number(progress.value) / 100) * media.duration;
-            }
-            setProgress();
-            showControls();
-        });
+        progress.addEventListener("input", seekVideoToProgress);
+        progress.addEventListener("change", seekVideoToProgress);
 
         fullscreenButton.addEventListener("click", async () => {
             try {
@@ -119,6 +139,12 @@
             if (event.code === "Space" || event.code === "Enter") {
                 event.preventDefault();
                 togglePlayback();
+            } else if (event.code === "ArrowLeft") {
+                event.preventDefault();
+                skip(-3);
+            } else if (event.code === "ArrowRight") {
+                event.preventDefault();
+                skip(3);
             }
         });
 
@@ -143,7 +169,7 @@
         }, { passive: true });
 
         player.addEventListener("pointerleave", () => {
-            if (!media.paused && document.fullscreenElement !== player) {
+            if (!media.paused) {
                 clearTimeout(hideTimer);
                 player.classList.remove("is-active");
             }
@@ -152,25 +178,9 @@
         setProgress();
         updatePlaybackState();
         updateFullscreenState();
-
-        // Ensure class state starts completely clean
-        player.classList.remove("is-active");
-
-        if (isMobile) {
-            media.pause();
-            player.classList.add("is-active"); // Force show play prompt on mobile initially
-        } else {
-            media.autoplay = true;
-            const startAutoplay = () => media.play().catch(() => {
-                player.classList.add("is-active");
-            });
-            
-            if (media.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-                startAutoplay();
-            } else {
-                media.addEventListener("loadeddata", startAutoplay, { once: true });
-            }
-        }
+        
+        // Start with controls visible
+        player.classList.add("is-active");
     }
 
     function initVideoPlayers(root = document) {
@@ -185,9 +195,13 @@
             media.classList.add("video-player__media");
             player.insertAdjacentHTML("beforeend", `
                 <div class="video-player__controls" data-video-controls>
-                    <button class="video-player__play" type="button" aria-label="Play video" data-video-play>
-                        <span class="video-player__play-icon" aria-hidden="true">▶</span>
-                    </button>
+                    <div class="video-player__center-controls">
+                        <button class="video-player__skip" type="button" aria-label="Skip backward 3 seconds" data-video-skip="-3">&lt;&lt;</button>
+                        <button class="video-player__play" type="button" aria-label="Play video" data-video-play>
+                            <span class="video-player__play-icon" aria-hidden="true">▶</span>
+                        </button>
+                        <button class="video-player__skip" type="button" aria-label="Skip forward 3 seconds" data-video-skip="3">&gt;&gt;</button>
+                    </div>
                     <div class="video-player__progress">
                         <input type="range" min="0" max="100" value="0" step="0.1" aria-label="Video progress" data-video-progress>
                     </div>
