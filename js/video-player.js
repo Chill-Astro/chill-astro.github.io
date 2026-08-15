@@ -41,7 +41,7 @@
             if (!media.paused) {
                 hideTimer = window.setTimeout(() => {
                     player.classList.remove("is-active");
-                }, 2000);
+                }, 3000);
             }
         };
 
