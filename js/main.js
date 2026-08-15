@@ -9,51 +9,6 @@
 
 let repoData = {};
 
-const headerHTML = `
-<header class="site-header">
-    <div class="scroll-meter"><div class="scroll-meter-fill"></div></div>
-    <div class="site-header-inner">
-        <div class="header-left-group">
-            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
-            <a href="/" class="site-title">Chill-Astro</a>
-        </div>
-        <a href="mailto:masterarc3435@outlook.com" class="secondary-btn">Email</a>
-    </div>
-</header>
-<div class="mobile-nav-backdrop" aria-hidden="true"></div>
-<nav class="header-nav" aria-label="Header navigation">
-    <div class="header-nav-top"><span>Navigation</span><button class="nav-close" type="button" aria-label="Close navigation menu">✕</button></div>
-    <a href="/">Home Page</a>
-    <a href="https://github.com/Chill-Astro">Github Profile</a>
-    <a href="/lamina-calculator/">Lamina ✦</a>
-    <a href="/foss-root-checker/">FOSS Root Checker</a>
-    <a href="/trust-my-msix/">Trust My Msix!</a>
-    <a href="/android-rooting-guide/">Android Rooting Guide</a>
-    <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
-    <a href="/easter-egg-guide/">Easter Egg Guide</a>
-    <a href="/about">About Me</a>
-    <a href="mailto:masterarc3435@outlook.com">Submit Feedback</a>
-    <a href="https://github.com/Chill-Astro/chill-astro.github.io/issues/new" target="_blank" rel="noopener noreferrer">Report Site Issue</a>
-</nav>`;
-
-const downloadModalHTML = `
-<div class="download-overlay" id="downloadOverlay">
-    <div class="download-dialog">
-        <div class="dialog-header">
-            <h2 id="downloadTitle"></h2>
-            <button class="dialog-close" id="downloadClose">✕</button>
-        </div>
-        <div class="dialog-body">
-            <div class="dialog-version" id="downloadVersion"></div>
-            <p id="downloadInfo"></p>
-            <div class="command-box">
-                <pre id="downloadCommand" class="download-command"></pre>
-            </div>
-            <div class="dialog-links" id="downloadLinks"></div>
-        </div>
-    </div>
-</div>`;
-
 const modalInfo = {
 
     lamina: {
@@ -191,14 +146,18 @@ async function loadRepoData() {
 
 }
 
-function ensureDownloadModal() {
+async function ensureDownloadModal() {
+    if (document.getElementById("downloadOverlay")) return;
 
-    if (document.getElementById("downloadOverlay"))
-        return;
-
-    document.body.insertAdjacentHTML("beforeend", downloadModalHTML);
-    attachDownloadModalEvents();
-
+    try {
+        const response = await fetch('/components/download.html');
+        if (!response.ok) throw new Error('Failed to fetch download modal');
+        const modalHTML = await response.text();
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+        attachDownloadModalEvents();
+    } catch (error) {
+        console.error("Failed to load download modal:", error);
+    }
 }
 
 function attachDownloadModalEvents() {
@@ -258,7 +217,7 @@ function bindDownloadButtons() {
 
 async function openDownload(project) {
 
-    ensureDownloadModal();
+    await ensureDownloadModal();
 
     if (!repoData || Object.keys(repoData).length === 0)
         await loadRepoData();
@@ -631,41 +590,34 @@ function aboutAnimation() {
 }
 
 async function loadComponent(id, file) {
+    const targetElement = document.getElementById(id);
+    if (!targetElement) return;
 
+    // Special handling for header to replace multiple elements
     if (id === "header") {
         document.querySelectorAll('.site-header, .mobile-nav-backdrop, .header-nav').forEach(el => el.remove());
-        document.getElementById(id).innerHTML = headerHTML;
-        initHeaderMenu();
-        initScrollHeader();
-        initScrollProgress();
-        return;
     }
 
     const prefixes = ["", "../"];
-
     for (const prefix of prefixes) {
-
         try {
-
             const response = await fetch(prefix + file);
-
-            if (!response.ok)
-                continue;
-
-            document.getElementById(id).innerHTML = await response.text();
-
-            return;
-
+            if (response.ok) {
+                targetElement.innerHTML = await response.text();
+                if (id === "header") {
+                    initHeaderMenu();
+                    initScrollHeader();
+                    initScrollProgress();
+                }
+                return; // Exit after successful fetch
+            }
+        } catch (error) {
+            // Log error for debugging, but continue to try next prefix
+            console.warn(`Failed to load component from ${prefix + file}:`, error);
         }
-
-        catch {}
-
     }
-
+    console.error(`Failed to load component for ID '${id}' from all provided paths.`);
 }
-
-// Header show/hide on scroll: initially visible, hides after a large downward scroll,
-// reappears on small upward scrolls. Keeps header visible while nav is open.
 function initScrollHeader() {
     // No-op: header should always remain visible (user requested)
     return;
