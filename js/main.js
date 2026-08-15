@@ -440,46 +440,44 @@ function heroAnimation() {
 
     const logo = document.querySelector(".hero-left");
     const title = document.querySelector(".hero-right h1");
-    const desc = document.querySelector(".hero-right p");
-    const button = document.querySelector(".hero-right");
+    const desc = document.querySelector(".hero-right p");    
+    const buttons = document.querySelector(".hero-btn");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     logo.style.opacity = "0";
-    logo.style.transform = "translateX(-60px)";
+    logo.style.transform = "translate(-50%, calc(-50% - 36px))";
 
     title.style.opacity = "0";
-    title.style.transform = "translateX(60px)";
+    title.style.transform = "translateY(30px)";
 
     desc.style.opacity = "0";
-    desc.style.transform = "translateX(60px)";
+    desc.style.transform = "translateY(30px)";
 
-    button.style.opacity = "0";
-    button.style.transform = "translateX(60px) scale(.95)";
+    buttons.style.opacity = "0";
+    buttons.style.transform = "translateY(24px) scale(.96)";
 
     requestAnimationFrame(() => {
 
         animate(
             logo,
-            "translateX(0)",
+            "translate(-50%, -50%)",
             0
         );
 
         animate(
             title,
-            "translateX(0)",
-            200
+            "translateY(0)",
+            400
         );
 
         animate(
             desc,
-            "translateX(0)",
-            350
+            "translateY(0)",
+            700
         );
 
-        animate(
-            button,
-            "translateX(0) scale(1)",
-            500
-        );
+        animate(buttons, "translateY(0) scale(1)", 1300);
 
     });
 
@@ -494,7 +492,7 @@ function animate(element, transform, delay) {
     setTimeout(() => {
 
         element.style.transition =
-            "all .8s cubic-bezier(.22,1,.36,1)";
+            "all 1.2s cubic-bezier(.22,1,.36,1)";
 
         element.style.opacity = "1";
         element.style.transform = transform;
@@ -554,7 +552,7 @@ function prepareScrollAnimations() {
 
                         element.classList.add("show");
 
-                    }, index * 140);
+                    }, index * 280);
 
                 }
 
