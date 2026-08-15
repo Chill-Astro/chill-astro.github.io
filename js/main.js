@@ -465,82 +465,60 @@ function animate(element, transform, delay) {
 // ======================================
 
 function prepareScrollAnimations() {
-
-    const animated = [
-
+    // Elements to be initially hidden and observed.
+    // This list determines WHICH elements the observer will watch.
+    const elementsToObserve = [
         ...document.querySelectorAll(".projects h2"),
         ...document.querySelectorAll(".project-card"),
-
         ...document.querySelectorAll(".additional-stuff h2"),
-        ...document.querySelectorAll(".additional-grid"),
-
+        ...document.querySelectorAll(".additional-card")
     ];
 
-    animated.forEach(item => {
-
+    elementsToObserve.forEach(item => {
         item.classList.add("hidden");
-
     });
 
     const observer = new IntersectionObserver(
-
         entries => {
-
             entries.forEach(entry => {
-
-                if (!entry.isIntersecting)
-                    return;
+                if (!entry.isIntersecting) return;
 
                 const element = entry.target;
 
-                if (
-                    element.classList.contains("project-card") ||
-                    element.classList.contains("additional-stuff-card")
-                ) {
+                // This array defines the desired animation order and which elements get staggered.
+                // It's important that this array contains all elements that should be staggered.
+                const orderedStaggeredAnimations = [
+                    document.querySelector(".projects h2"),
+                    document.querySelector(".project-card:first-of-type"),
+                    ...document.querySelectorAll(".project-card:not(:first-of-type)"),
+                    document.querySelector(".additional-stuff h2"),
+                    ...document.querySelectorAll(".additional-card")
+                ].filter(Boolean); // Filter out any null elements if selectors don't find anything
 
-                    const cards = [
+                const index = orderedStaggeredAnimations.indexOf(element);
 
-                        ...document.querySelectorAll(".project-card"),
-                        ...document.querySelectorAll(".additional-stuff-card")
-
-                    ];
-
-                    const index = cards.indexOf(element);
-
+                if (index !== -1) {
                     setTimeout(() => {
-
                         element.classList.add("show");
-
-                    }, index * 280);
-
-                }
-
-                else {
-
+                    }, index * 150);
+                } else {
+                    // This else block should theoretically not be hit if all 'elementsToObserve'
+                    // are also present in 'orderedStaggeredAnimations'.
+                    // However, it's a safe fallback if some element was observed but not meant for staggered.
                     element.classList.add("show");
-
                 }
 
                 observer.unobserve(element);
-
             });
-
         },
-
         {
-
             threshold: .15
-
         }
-
     );
 
-    animated.forEach(item => {
-
+    elementsToObserve.forEach(item => {
         observer.observe(item);
-
     });
-
 }
 
 // ======================================

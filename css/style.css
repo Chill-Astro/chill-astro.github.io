@@ -239,8 +239,8 @@ footer {
 .socials svg {
     display: block;
 }
-.hidden{opacity:0;transform:translateY(35px)}
-.show{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+.hidden{opacity:0;transform:translateY(30px);will-change:transform,opacity}
+.show{opacity:1;transform:none;transition:all 1.2s cubic-bezier(.22,1,.36,1)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
 @media(max-width:768px){
