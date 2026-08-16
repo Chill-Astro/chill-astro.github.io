@@ -124,12 +124,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 250px;
-    padding: 12px 28px;
+    min-width: 238px;
+    padding: 13.5px 28px;
     margin-top: 0;
     text-align: center;
     text-decoration: none;
     border-radius: 999px;
+    box-sizing: border-box;
 }
 
 

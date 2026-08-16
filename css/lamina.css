@@ -107,7 +107,16 @@
 }
 
 .lamina-actions .primary-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    padding: 15px 28px;
     margin-top: 0;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+    box-sizing: border-box;
 }
 
 

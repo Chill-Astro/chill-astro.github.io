@@ -43,7 +43,10 @@
 }
 
 .tmm-actions .primary-btn {
+    min-width: 240px;
+    padding: 13px 28px;
     margin-top: 0;
+    justify-content: center;
 }
 
 
