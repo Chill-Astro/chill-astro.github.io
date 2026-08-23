@@ -1,11 +1,11 @@
 {
   "lamina": {
-    "tag": "v11.28000.16.0",
+    "tag": "v11.28000.17.0",
     "downloads": {
-      "certificate": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0.cer",
-      "msix_x64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0_x64.msix",
-      "msix_arm64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Lamina_11.28000.16.0_arm64.msix",
-      "setup": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.16.0/Setup.exe",
+      "certificate": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.17.0/Lamina_11.28000.17.0.cer",
+      "msix_x64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.17.0/Lamina_11.28000.17.0_x64.msix",
+      "msix_arm64": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.17.0/Lamina_11.28000.17.0_arm64.msix",
+      "setup": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.17.0/Setup.exe",
       "uptodown": "https://lamina.en.uptodown.com/windows"
     }
   },
