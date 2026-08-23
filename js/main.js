@@ -481,14 +481,7 @@ function prepareScrollAnimations() {
     ];
 
     elementsToObserve.forEach(item => {
-        if (item.classList.contains("project-card") || item.classList.contains("additional-card")) {
-            // Cards use inline styles for animation
-            item.style.opacity = "0";
-            item.style.transform = "translateY(20px)";
-            item.style.transition = "opacity 1.0s cubic-bezier(.25,1,.5,1), transform 1.0s cubic-bezier(.25,1,.5,1)";
-        } else {
-            item.classList.add("hidden");
-        }
+        item.classList.add("hidden");
     });
 
     const observer = new IntersectionObserver(
@@ -512,23 +505,13 @@ function prepareScrollAnimations() {
 
                 if (index !== -1) {
                     setTimeout(() => {
-                        if (element.classList.contains("project-card") || element.classList.contains("additional-card")) {
-                            element.style.opacity = "1";
-                            element.style.transform = "translateY(0)";
-                        } else {
-                            element.classList.add("show");
-                        }
-                    }, index * 120);
+                        element.classList.add("show");
+                    }, index * 150);
                 } else {
                     // This else block should theoretically not be hit if all 'elementsToObserve'
                     // are also present in 'orderedStaggeredAnimations'.
                     // However, it's a safe fallback if some element was observed but not meant for staggered.
-                    if (element.classList.contains("project-card") || element.classList.contains("additional-card")) {
-                        element.style.opacity = "1";
-                        element.style.transform = "translateY(0)";
-                    } else {
-                        element.classList.add("show");
-                    }
+                    element.classList.add("show");
                 }
 
                 observer.unobserve(element);
