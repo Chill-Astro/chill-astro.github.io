@@ -1052,13 +1052,18 @@ body {
     border:1px solid var(--card-border);
     border-radius:18px;
     box-shadow:0 8px 24px rgba(0,0,0,.05);
-    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    transition:transform .65s cubic-bezier(.22, 1, .36, 1), border-color .65s cubic-bezier(.22, 1, .36, 1), box-shadow .65s cubic-bezier(.22, 1, .36, 1);
 }
 
 .project-card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-4px) scale(1.015);
     border-color:var(--card-border); /* Keep original border color */
     box-shadow:var(--glow-shadow);
+}
+
+/* Keep app logos steady; the card itself provides the hover feedback. */
+.project-card:hover .project-image img{
+    transform:none;
 }
 
 .project-card h3{margin-top:1rem;}
@@ -1157,12 +1162,14 @@ body {
     background: var(--surface);
 
     transition:
-        transform .3s ease,
-        border-color .3s ease;
+        transform .65s cubic-bezier(.22, 1, .36, 1),
+        border-color .65s cubic-bezier(.22, 1, .36, 1),
+        box-shadow .65s cubic-bezier(.22, 1, .36, 1);
 }
 
 .additional-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:var(--glow-shadow);
 }
 
 .additional-image {
@@ -1229,4 +1236,36 @@ body {
         font-size: 0.8rem;
     }
 
+}
+
+/* Project cards use the same centered 3 / 2+1 / 1 arrangement as Additional Stuff. */
+.project-grid{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    justify-content:center;
+    gap:2rem;
+}
+
+@media (min-width: 561px) and (max-width: 900px){
+    .project-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+
+    .project-grid .project-card:nth-child(odd):last-child{
+        grid-column:1 / -1;
+        width:calc(50% - 1rem);
+        justify-self:center;
+    }
+}
+
+@media (max-width: 560px){
+    .project-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .project-card,
+    .additional-card{
+        transition:none;
+    }
 }
