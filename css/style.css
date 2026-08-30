@@ -469,10 +469,36 @@ body {
     gap:4px;
     width:40px;
     height:40px;
-    border:none;
+    border:1px solid var(--card-border);
     background:transparent;
     cursor:pointer;
     padding:0 10px;
+    border-radius:12px;
+    transition:background .2s ease, border-color .2s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.menu-toggle::before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    transform:translateY(105%);
+    background:var(--surface);
+    transition:transform .23s cubic-bezier(.2,.8,.2,1);
+}
+
+.menu-toggle:hover::before {
+    transform:translateY(0);
+}
+
+.menu-toggle:hover {
+    border-color:var(--card-border);
+}
+
+.menu-toggle:hover span {
+    background:var(--text);
 }
 
 .menu-toggle span {
@@ -481,6 +507,7 @@ body {
     width:100%;
     background:var(--text);
     border-radius:999px;
+    transition:background .23s cubic-bezier(.2,.8,.2,1);
 }
 
 .mobile-nav-backdrop {
@@ -1269,3 +1296,88 @@ body {
         transition:none;
     }
 }
+
+/* Chill-Astro // monochrome interface layer */
+:root{color-scheme:light dark;--bg:#fafafa;--surface:#fff;--surface-2:#f1f1f1;--text:#0a0a0a;--muted:#515151;--button-bg:#0a0a0a;--button-text:#fff;--card-border:#d8d8d8;--line:#c9c9c9;--shadow:0 22px 60px rgba(0,0,0,.08);--glow-shadow:0 0 0 1px var(--text),0 18px 42px rgba(0,0,0,.12);--radius:0}
+@media (prefers-color-scheme:dark){:root{--bg:#050505;--surface:#0b0b0b;--surface-2:#121212;--text:#f5f5f5;--muted:#b4b4b4;--button-bg:#f5f5f5;--button-text:#050505;--card-border:#292929;--line:#383838;--shadow:0 22px 60px rgba(0,0,0,.48);--glow-shadow:0 0 0 1px var(--text),0 18px 48px rgba(255,255,255,.08)}}
+*{scroll-margin-top:7rem}body{background:var(--bg);color:var(--text);letter-spacing:.01em;background-image:linear-gradient(color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px);background-size:40px 40px}body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 50% -20%,color-mix(in srgb,var(--text) 8%,transparent),transparent 42%)}p{color:var(--muted)}h1,h2,h3,h4{letter-spacing:-.035em;text-wrap:balance}h1{font-weight:800}h2{font-weight:700}a{transition:color .2s ease,background .2s ease,transform .2s ease}:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+
+/* Shared navigation */
+.site-header{height:68px!important;background:color-mix(in srgb,var(--bg) 83%,transparent)!important;border-bottom:1px solid var(--line)!important;backdrop-filter:blur(18px) saturate(0)!important}.site-header::after{content:"SYSTEM / CHILL-ASTRO";position:absolute;right:7.4rem;top:50%;transform:translateY(-50%);font-size:.58rem;letter-spacing:.18em;color:var(--muted);pointer-events:none}.site-header-inner{height:68px!important}.site-title{font-size:1rem!important;letter-spacing:.08em;text-transform:uppercase}.menu-toggle{border:1px solid var(--card-border)!important;width:36px!important;height:36px!important;padding:0 8px!important}.menu-toggle:hover{background:var(--surface)!important;color:var(--text)!important}.menu-toggle:hover span{background:var(--text)!important}.secondary-btn{border:1px solid var(--card-border);padding:.5rem .8rem!important;font-size:.72rem!important;letter-spacing:.1em;text-transform:uppercase}.secondary-btn:hover{background:var(--text);color:var(--bg);text-decoration:none!important}.header-nav{border-radius:0!important;background:color-mix(in srgb,var(--bg) 94%,transparent)!important;border-color:var(--line)!important}.header-nav-top{letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}.header-nav a{border-color:var(--line)!important;text-transform:uppercase;font-size:.76rem;letter-spacing:.08em}.header-nav a:hover{background:var(--text)!important;color:var(--bg)!important}.mobile-nav-backdrop{background:rgba(0,0,0,.62)!important}
+
+/* Shared surfaces, actions, media and document content */
+.primary-btn,.download-btn,.copy-command-btn{border-radius:0!important;border:1px solid var(--button-bg)!important;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem!important;padding:.78rem 1.15rem!important;box-shadow:4px 4px 0 color-mix(in srgb,var(--text) 25%,transparent)}.primary-btn:hover,.download-btn:hover,.copy-command-btn:hover{transform:translate(-2px,-2px)!important;box-shadow:6px 6px 0 var(--text)!important}.details-btn,.secondary-hero-btn{border-radius:0!important;border:1px solid var(--line)!important;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem!important}.details-btn:hover,.secondary-hero-btn:hover{background:var(--text)!important;color:var(--bg)!important}pre,code,.terminal-preview,.tmm-command{font-family:Consolas,"Courier New",monospace!important}.lamina-content pre,.tmm-section pre,.rooting-content pre,.tmm-command{border-radius:0!important;border-color:var(--line)!important;background:var(--surface-2)!important}.lamina-media img,.lamina-media video,.root-checker-media,.root-checker-media img,.root-checker-media video,.tmm-media img,.tmm-media video,.eeg-media,.hero-image{border-radius:0!important;border:1px solid var(--line);box-shadow:var(--shadow)}.lamina-page,.root-checker-page,.tmm-page,.rooting-page,.eeg-page,.omp-page,.about-page{padding-top:clamp(3rem,7vw,6rem)!important;padding-bottom:clamp(4rem,9vw,8rem)!important}.lamina-section,.root-checker-section,.tmm-section{position:relative;padding-top:1.25rem;border-top:1px solid var(--line)}.lamina-section h2::before,.root-checker-section h2::before,.tmm-section h2::before,.rooting-content h2::before{content:"// ";color:var(--muted);font-family:Consolas,monospace;font-size:.65em}
+blockquote,.rooting-note,.doc-note,.eeg-caution{box-sizing:border-box;border-radius:0!important;border:1px solid var(--line)!important;border-left:4px solid var(--text)!important;background:var(--surface-2)!important;padding:1.25rem 1.4rem!important}blockquote>:first-child,.rooting-note>:first-child,.doc-note>:first-child,.eeg-caution>:first-child{margin-top:0!important}blockquote>:last-child,.rooting-note>:last-child,.doc-note>:last-child,.eeg-caution>:last-child{margin-bottom:0!important}
+
+/* Home */
+.hero{margin-top:6rem!important;border-radius:0!important;background:var(--surface)!important;border:1px solid var(--line)!important;box-shadow:var(--shadow)!important}.hero::before{content:"CHILL-ASTRO / INDEPENDENT SOFTWARE";position:absolute;top:1rem;left:1.25rem;font:600 .62rem Consolas,monospace;letter-spacing:.13em;color:var(--muted)}.hero::after{content:"01";position:absolute;right:1.25rem;bottom:1rem;font:600 .68rem Consolas,monospace;color:var(--muted)}.logo-circle{border-radius:0!important;border:1px solid var(--text)!important;box-shadow:8px 8px 0 color-mix(in srgb,var(--text) 24%,transparent)!important}.projects h2,.additional-stuff h2{margin-bottom:2rem!important}.projects h2::before,.additional-stuff h2::before{content:"[ ";font:500 .55em Consolas,monospace;color:var(--muted)}.projects h2::after,.additional-stuff h2::after{content:" ]";font:500 .55em Consolas,monospace;color:var(--muted)}.project-card,.additional-card{border-radius:0!important;background:var(--surface)!important;border-color:var(--line)!important;box-shadow:none!important}.project-card{padding:1.25rem 0 1.6rem!important}.project-card:hover,.additional-card:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--text)!important;border-color:var(--text)!important}.project-image{height:300px!important;overflow:visible!important}.project-image img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important}.project-version,.github-btn{font-family:Consolas,monospace!important;font-size:.72rem!important;color:var(--muted)!important}.github-btn{border:1px solid var(--line)}.github-btn:hover{background:var(--text)!important;color:var(--bg)!important}.additional-card{min-height:170px}
+
+/* Project pages */
+.root-checker-hero,.tmm-hero,.eeg-hero,.rooting-hero,.about-hero{position:relative}.root-checker-hero::before,.tmm-hero::before,.eeg-hero::before,.rooting-hero::before{content:"PRODUCT BRIEF";display:block;margin-bottom:1rem;font:600 .65rem Consolas,monospace;letter-spacing:.16em;color:var(--muted)}.root-checker-intro,.tmm-intro,.doc-intro-card,.eeg-app,.feature-card,.theme-showcase{background:var(--surface)!important;border:1px solid var(--line)!important;border-radius:0!important;box-shadow:var(--shadow)}.eeg-app{padding:clamp(1.25rem,4vw,2.5rem)!important}.eeg-entry{border-color:var(--line)!important}.eeg-difficulty,.hero-badges span{border-radius:0!important;border-color:var(--line)!important;background:var(--surface-2)!important}.eeg-star{color:var(--text)!important}.feature-card{padding:1.35rem!important}.feature-card:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--text)!important}.theme-showcase{padding:clamp(1.25rem,4vw,2.5rem)!important}.terminal-preview{border:1px solid var(--line)!important;border-radius:0!important}.terminal-titlebar{border-radius:0!important}.about-page{max-width:1100px!important}.about-hero .hero-image{border-radius:0!important}.academic-row{gap:clamp(2rem,10vw,7rem)!important}.academic-item{border-top:1px solid var(--line);padding-top:1.25rem;min-width:180px}.score-main,.score-secondary{font-family:Consolas,monospace;font-weight:700!important;letter-spacing:-.09em}.future{padding:2rem;border:1px solid var(--line);background:var(--surface)}.error-shell{border-radius:0!important;border:1px solid var(--line)!important;background:var(--surface)!important;box-shadow:10px 10px 0 color-mix(in srgb,var(--text) 22%,transparent)!important}.error-code{font-family:Consolas,monospace!important}footer{border-color:var(--line)!important;background:var(--surface);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}footer .socials a{border:1px solid var(--line);padding:.45rem}footer .socials a:hover{background:var(--text);color:var(--bg)}
+@media(max-width:700px){.site-header::after{display:none}.hero{margin-top:4.5rem!important}.project-image{height:min(72vw,300px)!important}.primary-btn,.download-btn{width:auto}.root-checker-intro,.tmm-intro{padding:1.25rem!important}.future{padding:1.25rem}blockquote,.rooting-note,.doc-note,.eeg-caution{padding:1rem!important}}
+
+/* Rounded sci-fi refinements: one radius scale, minimal decoration, touch-friendly controls. */
+:root{--ui-radius:20px;--ui-radius-small:14px}
+.site-header{border-radius:0 0 var(--ui-radius) var(--ui-radius)!important}.site-header::after,.hero::before,.hero::after,.root-checker-hero::before,.tmm-hero::before,.eeg-hero::before,.rooting-hero::before{display:none!important}
+.header-nav,.download-dialog,.project-card,.additional-card,.root-checker-intro,.tmm-intro,.doc-intro-card,.eeg-app,.feature-card,.theme-showcase,.future,.error-shell{border-radius:var(--ui-radius)!important}
+.primary-btn,.download-btn,.copy-command-btn,.details-btn,.secondary-hero-btn,.github-btn,.hero-badges span,.eeg-difficulty{border-radius:var(--ui-radius-small)!important}
+.logo-circle,.lamina-media img,.lamina-media video,.root-checker-media,.root-checker-media img,.root-checker-media video,.tmm-media img,.tmm-media video,.eeg-media,.hero-image{border-radius:var(--ui-radius)!important}
+.project-card,.additional-card{overflow:hidden}.project-image{border-radius:var(--ui-radius-small) var(--ui-radius-small) 0 0;overflow:hidden!important}
+
+/* The homepage needs room for its floating logo, without decorative text competing for space. */
+.hero{margin-top:10rem!important;border-radius:var(--ui-radius)!important;overflow:visible!important}
+
+/* Download picker */
+.download-overlay{background:color-mix(in srgb,#000 62%,transparent)!important;backdrop-filter:blur(12px)!important}.download-dialog{background:var(--surface)!important;border:1px solid var(--line)!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}.dialog-header{padding:1rem 1.25rem!important;border-color:var(--line)!important}.dialog-header h2{font-size:1rem!important;letter-spacing:.03em}.dialog-body{padding:1.25rem!important}.dialog-links a{border-color:var(--line)!important;border-radius:var(--ui-radius-small)!important;padding:.85rem .9rem!important}.dialog-links a:hover{padding-left:1.1rem!important;background:var(--surface-2)!important}.download-command{border-radius:var(--ui-radius-small)!important;background:var(--surface-2)!important;border-color:var(--line)!important}.dialog-close{width:36px;height:36px;border-radius:50%;border:1px solid var(--line)!important}.dialog-close:hover{background:var(--text);color:var(--bg)}
+
+/* Video player */
+.video-player{border:1px solid var(--line)!important;border-radius:var(--ui-radius)!important;background:#000!important}.video-player__play,.video-player__skip,.video-player__fullscreen{border:1px solid rgba(255,255,255,.38)!important;background:rgba(8,8,8,.72)!important;box-shadow:none!important;backdrop-filter:blur(14px)!important}.video-player__play:hover,.video-player__skip:hover,.video-player__fullscreen:hover{background:#fff!important;color:#000!important;box-shadow:0 0 0 4px rgba(255,255,255,.16)!important}.video-player__progress{border:1px solid rgba(255,255,255,.3)!important;border-radius:var(--ui-radius-small)!important;background:rgba(8,8,8,.72)!important;box-shadow:none!important;backdrop-filter:blur(14px)!important}
+
+@media(max-width:700px){.site-header{border-radius:0 0 var(--ui-radius-small) var(--ui-radius-small)!important}.hero{width:calc(100% - 1.25rem)!important;margin-top:7.5rem!important;padding:6.5rem 1.25rem 1.75rem!important}.logo-circle{width:min(44vw,170px)!important;height:min(44vw,170px)!important}.project-card,.additional-card,.root-checker-intro,.tmm-intro,.doc-intro-card,.eeg-app,.feature-card,.theme-showcase,.future,.error-shell{border-radius:var(--ui-radius-small)!important}.download-dialog{width:calc(100vw - 1.25rem)!important;max-height:calc(100dvh - 1.25rem)!important;border-radius:var(--ui-radius)!important}.dialog-header,.dialog-body{padding:1rem!important}.dialog-links a{white-space:normal!important}.video-player{border-radius:var(--ui-radius-small)!important}.video-player__center-controls{gap:12px!important}.video-player__play{width:62px!important;height:62px!important;font-size:20px!important}.video-player__skip{width:48px!important;height:48px!important;font-size:14px!important}.video-player__fullscreen{right:12px!important;bottom:12px!important;width:40px!important;height:40px!important}.video-player__progress{right:60px!important;bottom:12px!important;left:12px!important;padding:11px 12px!important}}
+
+/* Gaming interface feedback — deliberately no bracketed-title treatment. */
+.projects h2::before,.projects h2::after,.additional-stuff h2::before,.additional-stuff h2::after,.lamina-section h2::before,.root-checker-section h2::before,.tmm-section h2::before,.rooting-content h2::before{content:none!important}
+@media (hover:hover){
+  .project-card,.additional-card,.feature-card,.theme-showcase,.eeg-app{transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s ease,border-color .24s ease,background .24s ease!important}
+  .project-card:hover,.additional-card:hover,.feature-card:hover,.theme-showcase:hover,.eeg-app:hover{transform:translateY(-7px)!important;border-color:var(--text)!important;box-shadow:0 0 0 1px var(--text),0 18px 48px color-mix(in srgb,var(--text) 18%,transparent)!important}
+  .project-card:hover .project-image img{transform:none!important;}
+  .additional-card:hover .additional-image img{transform:none!important;}
+  .additional-image img,.project-image img{transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease!important}
+  .primary-btn,.download-btn,.copy-command-btn,.details-btn,.secondary-hero-btn{position:relative;isolation:isolate;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease!important}
+  .primary-btn::before,.download-btn::before,.copy-command-btn::before,.details-btn::before,.secondary-hero-btn::before{content:"";position:absolute;z-index:-1;inset:0;transform:translateY(105%);background:var(--text);transition:transform .23s cubic-bezier(.2,.8,.2,1)}
+  .primary-btn:hover::before,.download-btn:hover::before,.copy-command-btn:hover::before,.details-btn:hover::before,.secondary-hero-btn:hover::before{transform:translateY(0)}
+  .primary-btn:hover,.download-btn:hover,.copy-command_btn:hover,.details-btn:hover,.secondary-hero-btn:hover{color:var(--bg)!important;transform:translateY(-3px)!important;box-shadow:0 0 0 1px var(--text),0 9px 24px color-mix(in srgb,var(--text) 25%,transparent)!important}
+  .header-nav a:hover{padding-left:1.35rem!important;letter-spacing:.13em}
+  .github-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px color-mix(in srgb,var(--text) 18%,transparent)}
+}
+
+/* Menu selection marker: the row stays quiet; its leading edge lights up. */
+.header-nav a,.dialog-links a{position:relative;border-left:0!important;border-radius:0!important;background:transparent!important;padding-left:1.1rem!important}.header-nav a::before,.dialog-links a::before{content:none!important}.header-nav a::after,.dialog-links a::after{content:"";position:absolute;top:0;bottom:0;left:0;width:3px;background:var(--text);transform:scaleY(0);transform-origin:center;transition:transform .18s ease}
+@media (hover:hover){.header-nav a:hover,.dialog-links a:hover{background:var(--surface-2)!important;color:var(--text)!important;padding-left:1.1rem!important}.header-nav a:hover{letter-spacing:.08em!important}.dialog-links a:hover{letter-spacing:.01em!important}.header-nav a:hover::after,.dialog-links a:hover::after{transform:scaleY(1)}}
+.header-nav a:focus-visible,.dialog-links a:focus-visible{background:var(--surface-2)!important}.header-nav a:focus-visible::after,.dialog-links a:focus-visible::after{transform:scaleY(1)}
+
+/* Restore the original soft interface feel everywhere; menu markers stay square. */
+:root{--ui-radius:24px;--ui-radius-small:16px}
+.site-header{border-radius:0 0 var(--ui-radius) var(--ui-radius)!important}.menu-toggle,.secondary-btn,.nav-close{border-radius:var(--ui-radius-small)!important}
+.hero,.header-nav,.download-dialog,.project-card,.additional-card,.root-checker-intro,.tmm-intro,.doc-intro-card,.eeg-app,.feature-card,.theme-showcase,.future,.error-shell,.video-player{border-radius:var(--ui-radius)!important}
+.primary-btn,.download-btn,.copy-command-btn,.details-btn,.secondary-hero-btn,.github-btn,.hero-badges span,.eeg-difficulty{border-radius:999px!important}
+.project-image{border-radius:var(--ui-radius-small) var(--ui-radius-small) 0 0!important}.dialog-links a,.header-nav a{border-radius:0!important}
+@media(max-width:700px){.site-header{border-radius:0 0 var(--ui-radius-small) var(--ui-radius-small)!important}.hero,.header-nav,.download-dialog,.project-card,.additional-card,.root-checker-intro,.tmm-intro,.doc-intro-card,.eeg-app,.feature-card,.theme-showcase,.future,.error-shell,.video-player{border-radius:var(--ui-radius-small)!important}}
+
+/* Keep the header deliberately flat and quiet. */
+.site-header{border-radius:0!important}.menu-toggle,.secondary-btn,.dialog-close{background:transparent!important}.menu-toggle:hover,.secondary-btn:hover,.dialog-close:hover{background:var(--surface)!important;color:var(--text)!important;box-shadow:none!important;transform:none!important}.menu-toggle:hover span{background:var(--text)!important}.secondary-btn:hover{text-decoration:underline!important;text-underline-offset:4px}.dialog-close{border-color:transparent!important}
+.menu-toggle,.menu-toggle:hover,.menu-toggle:focus-visible{border-color:var(--card-border)!important;box-shadow:none!important;background:transparent!important}
+.secondary-btn:hover,.secondary-btn:focus-visible{text-decoration:none!important;background:transparent!important;box-shadow:inset 3px 0 0 var(--text)!important}
+
+/* Scrollable code panels use the same rounded surface as the rest of the UI. */
+.lamina-content pre,.tmm-section pre,.rooting-content pre,.tmm-command{border-radius:var(--ui-radius-small)!important;overflow:auto!important}
+
+/* Subtle corners throughout; the profile image remains deliberately circular. */
+:root{--ui-radius:10px;--ui-radius-small:8px}
+.primary-btn,.download-btn,.copy-command-btn,.details-btn,.secondary-hero-btn,.github-btn,.hero-badges span,.eeg-difficulty{border-radius:var(--ui-radius-small)!important}
+footer .socials a{border-radius:var(--ui-radius-small)!important}
+.logo-circle{border-radius:50%!important}
+
+/* Footer controls are the rounded, game-like interactive elements. */
+footer .socials a{display:grid;place-items:center;width:42px;height:42px;padding:0!important;border-radius:50%!important;border:1px solid var(--line)!important;background:var(--surface)!important;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,background .2s ease,color .2s ease!important}
+@media (hover:hover){footer .socials a:hover{background:var(--text)!important;color:var(--bg)!important;transform:translateY(-4px) scale(1.06)!important;box-shadow:0 0 0 4px color-mix(in srgb,var(--text) 12%,transparent),0 10px 22px color-mix(in srgb,var(--text) 22%,transparent)!important}}

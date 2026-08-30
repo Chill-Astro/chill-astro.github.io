@@ -1,122 +1,184 @@
+/* 404 Page - Chill-Astro Software */
+
+/* Tomorrow Font */
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.ttf") format("truetype");font-weight:400}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.ttf") format("truetype");font-weight:500}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.ttf") format("truetype");font-weight:600}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Bold.ttf") format("truetype");font-weight:700}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800}
+
+/* CSS Variables - Blueprint styling */
+:root{color-scheme:light dark;--bg:#fafafa;--surface:#fff;--surface-2:#f1f1f1;--text:#0a0a0a;--muted:#515151;--button-bg:#0a0a0a;--button-text:#fff;--card-border:#d8d8d8;--line:#c9c9c9;--shadow:0 22px 60px rgba(0,0,0,.08);--glow-shadow:0 0 0 1px var(--text),0 18px 42px rgba(0,0,0,.12);--ui-radius:24px;--ui-radius-small:16px}
+@media (prefers-color-scheme:dark){:root{--bg:#050505;--surface:#0b0b0b;--surface-2:#121212;--text:#f5f5f5;--muted:#b4b4b4;--button-bg:#f5f5f5;--button-text:#050505;--card-border:#292929;--line:#383838;--shadow:0 22px 60px rgba(0,0,0,.48);--glow-shadow:0 0 0 1px var(--text),0 18px 48px rgba(255,255,255,.08)}}
+
+*{margin:0;padding:0;box-sizing:border-box}
+a{text-decoration:none;color:inherit}
+
 body.error-404-page {
     min-height: 100vh;
     margin: 0;
     display: grid;
     place-items: center;
-    background: #000;
-    color: #fff;
+    background: var(--bg);
+    color: var(--text);
     font-family: "Tomorrow", sans-serif;
     overflow-x: hidden;
+    padding: 1rem;
+    background-image: linear-gradient(color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px);
+    background-size: 40px 40px;
 }
-body.error-404-page {
-    min-height: 100vh;
-    margin: 0;
-    display: grid;
-    place-items: center;
-    background: #000;
-    color: #fff;
-    font-family: "Tomorrow", sans-serif;
-    overflow-x: hidden;
+
+body.error-404-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% -20%,color-mix(in srgb,var(--text) 8%,transparent),transparent 42%);
 }
+
 .error-shell {
     width: min(900px, 95%);
-    padding: 3rem 2.25rem;
-    background: #000;
-    border: 1px solid #fff;
-    border-radius: 18px;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    animation: appear 0.7s ease;
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--ui-radius);
+    box-shadow: var(--shadow);
+    animation: appear 0.7s cubic-bezier(.22, 1, .36, 1);
     text-align: center;
+    position: relative;
 }
+
+.error-shell::before {
+    content: "ERROR / 404";
+    position: absolute;
+    top: 1rem;
+    left: 1.25rem;
+    font: 600 .62rem Consolas, monospace;
+    letter-spacing: .13em;
+    color: var(--muted);
+}
+
+.error-shell::after {
+    content: "PAGE NOT FOUND";
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1rem;
+    font: 600 .68rem Consolas, monospace;
+    color: var(--muted);
+}
+
 .error-code {
-    font-size: clamp(5.5rem, 12vw, 8rem);
-    font-weight: 800;
-    letter-spacing: -0.08em;
-    color: #fff;
-    margin-bottom: 0.75rem;
+    font-size: clamp(6rem, 15vw, 10rem);
+    font-weight: 900;
+    letter-spacing: -0.12em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+    font-family: "Tomorrow", sans-serif;
 }
+
 .error-text {
-    margin: 0.4rem auto 0;
+    margin: 1rem auto 2rem;
+    max-width: 600px;
 }
+
 .error-text p {
-    margin: 0.5rem auto;
-    font-size: clamp(1rem, 1.9vw, 1.35rem);
-    line-height: 1.8;
-    color: #fff;
+    margin: 0.75rem auto;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.7;
+    color: var(--muted);
 }
+
 .error-text p:first-child {
     font-weight: 700;
+    color: var(--text);
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
 }
+
 .error-details {
     margin: 2rem auto 2.5rem;
     padding-left: 0;
     border-left: none;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-    font-size: 1rem;
-    color: #fff;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.9rem;
+    color: var(--muted);
     line-height: 1.8;
     display: inline-block;
     text-align: left;
 }
+
 .error-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
+    margin-top: 2rem;
 }
+
 .error-actions .primary-btn {
     min-width: 180px;
-    padding: 1rem 1.8rem;
-    border-radius: 999px;
+    padding: .78rem 1.15rem;
+    border-radius: var(--ui-radius-small);
     font-weight: 700;
-    letter-spacing: 0.01em;
-    background: #fff;
-    color: #000;
-    border: 1px solid #fff;
-    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: .72rem;
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-bg);
+    box-shadow: 4px 4px 0 color-mix(in srgb,var(--text) 25%,transparent);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
+
+.error-actions .primary-btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    transform: translateY(105%);
+    background: var(--text);
+    transition: transform .23s cubic-bezier(.2, .8, .2, 1);
+}
+
+.error-actions .primary-btn:hover::before {
+    transform: translateY(0);
+}
+
 .error-actions .primary-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 14px 40px rgba(255, 255, 255, 0.12);
-    background: #f5f5f5;
+    transform: translate(-2px,-2px);
+    box-shadow: 6px 6px 0 var(--text);
+    color: var(--bg);
 }
-@media (prefers-color-scheme: light) {
-    body.error-404-page {
-        background: #fafafa;
-        color: #000;
-    }
-    .error-shell {
-        background: #fff;
-        border-color: #000;
-    }
-    .error-code,
-    .error-text p,
-    .error-details {
-        color: #000;
-    }
-    .error-actions .primary-btn {
-        background: #000;
-        color: #fff;
-        border-color: #000;
-    }
-    .error-actions .primary-btn:hover {
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
-        background: #111;
-    }
-}
+
 @media (max-width: 720px) {
     .error-shell {
         padding: 2rem 1.5rem;
+        border-radius: var(--ui-radius-small);
+    }
+    .error-code {
+        font-size: clamp(4rem, 18vw, 7rem);
     }
     .error-actions {
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     .error-actions .primary-btn {
         width: 100%;
+        max-width: 300px;
         text-align: center;
     }
 }
+
 @keyframes appear {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
