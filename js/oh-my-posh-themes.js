@@ -24,7 +24,8 @@ function setupRevealAnimations() {
 
     const revealElements = [
 
-        ...document.querySelectorAll(".theme-showcase")
+        ...document.querySelectorAll(".theme-showcase"),
+        ...document.querySelectorAll(".credits-section")
 
     ];
 

@@ -24,6 +24,18 @@
     max-width: 850px;
     margin: 0 auto 72px;
     text-align: center;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+}
+
+.root-checker-intro:hover {
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .root-checker-section {
@@ -66,14 +78,6 @@
     margin: 0 0 18px;
 }
 
-.root-checker-meta {
-    margin: 28px 0;
-}
-
-.root-checker-meta p {
-    margin: 8px 0;
-}
-
 .root-checker-section ul,
 .root-checker-section ol {
     padding-left: 24px;
@@ -103,6 +107,7 @@
     height: auto;
     object-fit: cover;
     border-radius: 24px;
+    border: none !important;
     background: var(--surface);
 }
 
@@ -218,6 +223,12 @@
 
     .root-checker-intro {
         margin-bottom: 52px;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        transform: none !important;
     }
 
     .root-checker-section {

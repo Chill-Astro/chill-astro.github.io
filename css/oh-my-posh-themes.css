@@ -99,6 +99,9 @@
     width:min(100%, 920px);
 
     margin:2rem auto 4rem;
+    background:none;
+    border:none;
+    box-shadow:none;
 
 }
 
@@ -111,7 +114,7 @@
     max-width:900px;
     align-self:stretch;
 
-    border-radius:18px;
+    border-radius:10px;
 
     border:1px solid rgba(255,255,255,.08);
 
@@ -153,6 +156,9 @@
     flex-direction:column;
     align-items:flex-start;
     text-align:left;
+    background:none;
+    border:none;
+    box-shadow:none;
 
 }
 
@@ -224,6 +230,29 @@
 
     margin:0;
     line-height:1.8;
+    background:none;
+    border:none;
+    box-shadow:none;
+    padding:0;
+
+}
+
+.credits-section.theme-showcase{
+
+    background:none !important;
+    border:none !important;
+    box-shadow:none !important;
+    padding:0 !important;
+    border-radius:0 !important;
+
+}
+
+.credits-section .theme-description{
+
+    background:none !important;
+    border:none !important;
+    box-shadow:none !important;
+    padding:0 !important;
 
 }
 

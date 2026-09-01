@@ -6,6 +6,7 @@
     border-radius: 28px;
     background: #000;
     isolation: isolate;
+    border: none !important;
 }
 
 .video-player__media {

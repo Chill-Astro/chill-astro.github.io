@@ -31,6 +31,7 @@
     display: block;
     width: 100%;
     height: auto;
+    border: none !important;
 }
 
 .tmm-actions {
@@ -58,19 +59,23 @@
     text-align: center;
     max-width: 850px;
     margin: 0 auto 80px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+}
+
+.tmm-intro:hover {
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .tmm-intro p {
     margin: 0 0 18px;
     line-height: 1.8;
-}
-
-.tmm-meta {
-    margin: 30px 0;
-}
-
-.tmm-meta p {
-    margin: 8px 0;
 }
 
 
@@ -246,6 +251,12 @@
 
     .tmm-intro {
         margin-bottom: 55px;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        transform: none !important;
     }
 
     .tmm-section {
