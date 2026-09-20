@@ -24,11 +24,11 @@
   },
 
   "trustMyMsix": {
-    "tag": "v3.14.1.5",
+    "tag": "v3.14.1.6",
     "downloads": {
-      "python": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.py",
-      "executable": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/tmm.exe",
-      "setup": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.5/Setup.exe"
+      "python": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.6/tmm.py",
+      "executable": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.6/tmm.exe",
+      "setup": "https://github.com/Chill-Astro/Trust-My-Msix/releases/download/v3.14.1.6/Setup.exe"
     }    
   },
 
