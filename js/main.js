@@ -23,8 +23,7 @@ const modalInfo = {
         names: {
 
             certificate: "Certificate (.cer)",
-            msix_x64: "MSIX (x64)",
-            msix_arm64: "MSIX (ARM64)",
+            msix_bundle: ".MSIXBUNDLE (x64 & ARM64)",            
             setup: "Setup.exe",
             uptodown: "Download from Uptodown"
 
