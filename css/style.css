@@ -558,6 +558,21 @@ body {
     font-weight:700;
 }
 
+.header-nav-group {
+    display:flex;
+    flex-direction:column;
+    gap:0.15rem;
+}
+
+.header-nav-group-title {
+    margin:0.35rem 0 0.1rem;
+    color:var(--muted);
+    font-size:0.68rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+}
+
 .nav-close {
     border:none;
     background:transparent;

@@ -1,0 +1,1865 @@
+.pong-main {
+    width: min(1480px, 94%);
+    margin: 0 auto;
+    padding: 2.5rem 0 1rem;
+}
+
+.pong-intro {
+    text-align: center;
+    margin: 0 auto 2rem;
+}
+
+.pong-eyebrow {
+    margin-bottom: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.pong-intro h1 {
+    margin-bottom: 0.6rem;
+}
+
+.pong-page .site-header .scroll-meter {
+    display: none;
+}
+
+.pong-game {
+    display: grid;
+    grid-template-columns: minmax(145px, 1fr) minmax(0, 960px) minmax(145px, 1fr);
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.pong-game button {
+    min-height: 44px;
+}
+
+.pong-game button:not(.fullscreen-game-button) {
+    border-width: 1px !important;
+    border-radius: 0.8rem !important;
+    font-family: "Tomorrow", sans-serif;
+    font-weight: 600;
+}
+
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1.25rem 0.75rem;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+}
+
+.player-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.player-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.player-score {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.keyboard-hint {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+}
+
+.pong-game .keyboard-hint {
+    display: none;
+}
+
+kbd {
+    display: inline-grid;
+    min-width: 1.7rem;
+    min-height: 1.7rem;
+    place-items: center;
+    padding: 0.15rem 0.4rem;
+    color: var(--text);
+    font: 600 0.8rem "Tomorrow", sans-serif;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 0.45rem;
+    box-shadow: 0 2px 0 var(--card-border);
+}
+
+.touch-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.fullscreen-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.fullscreen-key-hints {
+    display: none;
+}
+
+.touch-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    width: 5rem;
+    height: 5rem;
+    padding: 0.55rem 0.4rem;
+    color: var(--button-text);
+    font-family: "Tomorrow", sans-serif;
+    background: var(--button-bg);
+    border: 1px solid var(--button-bg);
+    border-radius: 0.8rem !important;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.touch-button-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.touch-button-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+}
+
+@media (hover: hover) {
+    .touch-button {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .touch-button::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: var(--text);
+        content: "";
+        transform: translateY(105%);
+        transition: transform 0.23s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .touch-button:hover::before {
+        transform: translateY(0);
+    }
+
+    .touch-button:hover {
+        color: var(--bg) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+    }
+}
+
+.touch-button:active,
+.touch-button.is-pressed {
+    transform: scale(0.94);
+    opacity: 0.78;
+}
+
+.touch-button:focus-visible,
+.game-toggle:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+}
+
+.court-column {
+    min-width: 0;
+}
+
+.court-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 4.1rem;
+    margin-bottom: 0.65rem;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.scoreboard strong {
+    font-size: 1.3rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.scoreboard-divider {
+    opacity: 0.55;
+}
+
+.match-clock {
+    min-width: 3.2rem;
+    padding: 0.25rem 0.45rem;
+    text-align: center;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+}
+
+.court-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg);
+    border: 3px solid var(--text);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.fullscreen-game-button {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 2;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    padding: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 1.35rem;
+    background: rgba(40, 40, 45, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.fullscreen-game-button span {
+    pointer-events: none;
+}
+
+.fullscreen-game-button:hover {
+    background: rgba(60, 60, 68, 0.72);
+    transform: scale(1.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.fullscreen-game-button:active {
+    transform: scale(.96);
+}
+
+.fullscreen-game-button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+#pong-court {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.court-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 1rem;
+    text-align: center;
+    background: color-mix(in srgb, var(--bg) 84%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.court-overlay[hidden] {
+    display: none;
+}
+
+.overlay-title {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 700;
+}
+
+.overlay-message {
+    max-width: 28rem;
+    font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+}
+
+.game-toggle {
+    margin-top: 0.25rem;
+    cursor: pointer;
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.9rem;
+    margin-top: 1rem;
+}
+
+.game-actions[hidden],
+.game-action[hidden] {
+    display: none;
+}
+
+.fullscreen-wordmark {
+    display: none;
+}
+
+.game-action {
+    padding: 0.4rem 0.8rem;
+    color: var(--text);
+    font: 600 0.75rem "Tomorrow", sans-serif;
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+
+.game-action-end {
+    color: var(--button-text);
+    background: var(--button-bg);
+    border-color: var(--button-bg);
+}
+
+.game-action:hover {
+    color: var(--bg);
+    background: var(--text);
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+}
+
+.game-action-end:hover {
+    color: var(--bg);
+    background: var(--text);
+}
+
+.game-action:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+}
+
+.pong-game:fullscreen {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    margin: 0;
+    padding: clamp(0.5rem, 2vh, 1.5rem) clamp(0.75rem, 3vw, 3rem) 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.25rem clamp(0.75rem, 3vw, 3rem);
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(color-mix(in srgb, var(--text) 4%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--text) 4%, transparent) 1px, transparent 1px);
+    background-size: 40px 40px;
+    overflow: hidden;
+}
+
+.pong-game:fullscreen .fullscreen-wordmark {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: end;
+    transform: translateY(-0.4rem);
+    color: var(--text);
+    font-family: "Tomorrow", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.pong-game:fullscreen .court-column {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    width: min(100%, calc((100dvh - 275px) * 16 / 9));
+}
+
+.pong-game:fullscreen .court-toolbar {
+    min-height: 3.7rem;
+    margin-bottom: 0.35rem;
+}
+
+.pong-game:fullscreen .game-actions {
+    min-height: 2.5rem;
+    margin-top: 0.85rem;
+}
+
+.pong-game:fullscreen .player-controls {
+    align-self: end;
+    width: 100%;
+    gap: 0;
+    padding: 0.4rem 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.pong-game:fullscreen .player-heading,
+.pong-game:fullscreen .keyboard-hint {
+    display: none;
+}
+
+.pong-game:fullscreen .player-controls-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.pong-game:fullscreen .player-controls-right {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.pong-game:fullscreen .fullscreen-controls,
+.pong-game:fullscreen .touch-controls {
+    display: flex;
+}
+
+.pong-game:fullscreen .fullscreen-key-hints {
+    display: none;
+}
+
+.pong-game:fullscreen .fullscreen-controls {
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.pong-game:fullscreen .player-controls-left .fullscreen-controls {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.pong-game:fullscreen .player-controls-right .fullscreen-controls {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.pong-game:fullscreen .player-controls-left {
+    align-items: flex-start;
+}
+
+.pong-game:fullscreen .player-controls-right {
+    align-items: flex-end;
+}
+
+.pong-game:fullscreen .fullscreen-controls {
+    width: 100%;
+}
+
+.pong-game:fullscreen .touch-controls,
+.pong-game:fullscreen .fullscreen-key-hints {
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.pong-game:fullscreen .fullscreen-key-hints kbd {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    font-size: 1rem;
+    border-radius: 0.65rem;
+}
+
+.pong-game:fullscreen .touch-button {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.8rem !important;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+    .pong-game:fullscreen .touch-button:hover {
+        color: var(--bg);
+        background: var(--text);
+        border-color: var(--text);
+        transform: translateY(-2px);
+        box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+    }
+}
+
+.pong-game:fullscreen .fullscreen-game-button {
+    right: 1.5rem;
+    bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .pong-main {
+        width: min(820px, 94%);
+    }
+
+    .pong-game {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .player-controls {
+        padding: 1rem 0.5rem;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 205px);
+    }
+}
+
+@media (max-width: 480px) {
+    .pong-main {
+        width: 94%;
+        padding-top: 1.75rem;
+    }
+
+    .pong-intro {
+        margin-bottom: 1rem;
+    }
+
+    .pong-game {
+        gap: 0.65rem;
+    }
+
+    .player-controls {
+        gap: 0.65rem;
+        padding: 0.8rem 0.35rem;
+        border-radius: 14px;
+    }
+
+    .player-name {
+        font-size: 0.72rem;
+    }
+
+    .player-score {
+        font-size: 2rem;
+    }
+
+    .keyboard-hint {
+        gap: 0.3rem;
+        font-size: 0.65rem;
+    }
+
+    kbd {
+        min-width: 1.45rem;
+        min-height: 1.45rem;
+        font-size: 0.72rem;
+    }
+
+    .touch-button {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .court-frame {
+        border-width: 2px;
+        border-radius: 0.85rem;
+    }
+
+    .game-action {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.68rem;
+    }
+
+    .scoreboard {
+        gap: 0.45rem;
+        font-size: 0.68rem;
+    }
+
+    .court-toolbar {
+        min-height: 3.7rem;
+        gap: 0.4rem;
+        margin-bottom: 0.45rem;
+    }
+
+    .scoreboard strong {
+        font-size: 1.05rem;
+    }
+
+    .match-clock {
+        min-width: 2.8rem;
+        padding: 0.2rem 0.35rem;
+        font-size: 0.72rem;
+    }
+
+    .fullscreen-game-button {
+        right: 1rem;
+        bottom: 1rem;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+}
+
+@media (min-width: 901px) {
+    .pong-game:not(:fullscreen) .player-controls {
+        gap: 0.6rem;
+        padding: 0.4rem 0;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .pong-game:not(:fullscreen) .player-name {
+        display: none;
+    }
+
+    .pong-game:not(:fullscreen) .player-score {
+        font-size: 1.5rem;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 520px) {
+    .pong-main {
+        width: 100%;
+        padding: 0.25rem 0.5rem 0;
+    }
+
+    .pong-intro {
+        display: none;
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: 5.25rem minmax(0, 1fr) 5.25rem;
+        grid-template-rows: minmax(0, 1fr);
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+        width: min(100%, calc((100svh - 175px) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .court-toolbar {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.75rem;
+        min-height: 2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-frame {
+        max-height: calc(100svh - 175px);
+    }
+
+    .pong-game:not(:fullscreen) .game-actions {
+        min-height: 2.75rem;
+        margin-top: 0.45rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        grid-row: 1;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0;
+        background: transparent;
+        border: 0;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-left {
+        grid-column: 1;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-right {
+        grid-column: 3;
+    }
+
+    .pong-game:not(:fullscreen) .player-name {
+        display: none;
+    }
+
+    .pong-game:not(:fullscreen) .player-score {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-height: 480px) {
+    .pong-game:fullscreen {
+        padding: 0.35rem 0.75rem 2.5rem;
+        grid-template-rows: minmax(0, 1fr) auto;
+    }
+
+    .pong-game:fullscreen .court-column {
+        width: min(100%, calc((100dvh - 250px) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-toolbar {
+        min-height: 2.8rem;
+        gap: 0.3rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 240px);
+    }
+
+    .pong-game:fullscreen .game-actions {
+        min-height: 2rem;
+        margin-top: 0.55rem;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        padding: 0.2rem 0;
+    }
+
+    .pong-game:fullscreen .fullscreen-wordmark {
+        transform: translateY(-0.2rem);
+    }
+
+    .pong-game:fullscreen .fullscreen-wordmark {
+        font-size: 0.65rem;
+    }
+
+    .pong-game:fullscreen .fullscreen-controls {
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .touch-controls,
+    .pong-game:fullscreen .fullscreen-key-hints {
+        gap: 0.25rem;
+    }
+
+    .pong-game:fullscreen .touch-button,
+    .pong-game:fullscreen .fullscreen-key-hints kbd {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 0.8rem !important;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 520px) {
+    .pong-game:fullscreen {
+        grid-template-columns: 6rem minmax(0, 1fr) 6rem;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 0.25rem;
+        padding: 0.25rem 0.5rem 0.4rem;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 2;
+        grid-row: 1;
+        width: min(100%, calc((100svh - 120px) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-toolbar {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.75rem;
+        min-height: 2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100svh - 120px);
+    }
+
+    .pong-game:fullscreen .game-actions {
+        min-height: 2.75rem;
+        margin-top: 0.45rem;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        align-self: center;
+        width: auto;
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        grid-column: 1;
+        grid-row: 1;
+        align-items: center;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        grid-column: 3;
+        grid-row: 1;
+        align-items: center;
+    }
+
+    .pong-game:fullscreen .fullscreen-controls {
+        width: auto;
+    }
+
+    .pong-game:fullscreen .touch-controls,
+    .pong-game:fullscreen .fullscreen-key-hints {
+        gap: 0.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .fullscreen-game-button {
+        right: 1rem;
+        bottom: 1rem;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .game-action,
+    .fullscreen-game-button,
+    .touch-button {
+        transition: none;
+    }
+}
+
+.pong-main {
+    width: min(1600px, 98%);
+}
+
+.pong-game {
+    width: min(1600px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pong-game:not(:fullscreen) {
+    grid-template-columns: minmax(4.5rem, 1fr) minmax(0, 4fr) minmax(4.5rem, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(0.35rem, 1.5vw, 1.5rem);
+}
+
+.pong-game .scoreboard {
+    display: none;
+}
+
+.pong-game .court-toolbar {
+    flex-direction: row;
+    justify-content: center;
+    min-height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pong-game:not(:fullscreen) .court-column,
+.pong-game:fullscreen .court-column {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    width: min(100%, 960px, calc((100dvh - 9rem) * 16 / 9));
+}
+
+.pong-game:not(:fullscreen) .player-controls-left,
+.pong-game:fullscreen .player-controls-left {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.pong-game:not(:fullscreen) .player-controls-right,
+.pong-game:fullscreen .player-controls-right {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.pong-game:not(:fullscreen) .player-controls,
+.pong-game:fullscreen .player-controls {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    max-width: 100%;
+    justify-self: center;
+    gap: 0.65rem;
+    padding: 0.75rem 0.4rem;
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+}
+
+.pong-game:not(:fullscreen) .player-name,
+.pong-game:fullscreen .player-name {
+    display: block;
+}
+
+.pong-game:not(:fullscreen) .player-score,
+.pong-game:fullscreen .player-score {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+}
+
+.pong-game .touch-button {
+    width: clamp(3rem, 5vw, 5rem);
+    height: clamp(3rem, 5vw, 5rem);
+}
+
+.pong-game:fullscreen {
+    grid-template-columns: minmax(4.5rem, 1fr) minmax(0, 4fr) minmax(4.5rem, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 0.5rem clamp(0.35rem, 1.5vw, 1.5rem);
+    padding: 0.75rem;
+}
+
+.pong-game:fullscreen .court-column {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.pong-game:fullscreen .court-toolbar {
+    flex-direction: row;
+    min-height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pong-game:fullscreen .game-actions {
+    margin-top: 0.5rem;
+}
+
+.pong-game:fullscreen .player-heading,
+.pong-game:fullscreen .player-name,
+.pong-game:fullscreen .player-score {
+    display: flex;
+}
+
+.pong-game:fullscreen .fullscreen-wordmark {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: center;
+    transform: none;
+}
+
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto auto;
+        gap: 0.4rem;
+        padding: 0.75rem;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: min(100%, 960px, calc((100dvh - 15rem) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .player-controls {
+        align-self: stretch;
+        width: max-content;
+        max-width: 100%;
+        justify-self: center;
+        padding: 0.4rem 0.2rem;
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .pong-game:fullscreen .touch-controls {
+        flex-direction: row;
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: clamp(3rem, 12vw, 4rem);
+        height: clamp(3rem, 12vw, 4rem);
+    }
+
+    .pong-game:fullscreen .fullscreen-wordmark {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
+}
+
+@media (orientation: portrait) and (max-width: 600px) {
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-items: start;
+        gap: 0.75rem 0.4rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        align-self: start;
+        padding: 0.55rem 0.4rem;
+        gap: 0.45rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-left {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-right {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 900px) and (max-height: 520px) {
+    .pong-main {
+        width: 100%;
+        padding: 0.25rem 0.5rem 0;
+    }
+
+    .pong-intro {
+        display: none;
+    }
+
+    .pong-intro {
+        display: none;
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(4.5rem, 1fr) minmax(0, 4fr) minmax(4.5rem, 1fr);
+        grid-template-rows: minmax(0, 1fr);
+        gap: 0.35rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        width: min(100%, 960px, calc((100dvh - 8rem) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .court-toolbar {
+        margin-bottom: 0.25rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-frame {
+        max-height: calc(100dvh - 8rem);
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        gap: 0.35rem;
+        padding: 0.4rem 0.2rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-name {
+        font-size: 0.65rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        width: clamp(2.75rem, 12vh, 4rem);
+        height: clamp(2.75rem, 12vh, 4rem);
+    }
+
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(4.5rem, 1fr) minmax(0, 4fr) minmax(4.5rem, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 0.35rem;
+        padding: 0.35rem;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 2;
+        grid-row: 1;
+        width: min(100%, 960px, calc((100dvh - 8rem) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 8rem);
+    }
+
+    .pong-game:fullscreen .player-controls {
+        gap: 0.35rem;
+        padding: 0.4rem 0.2rem;
+    }
+
+    .pong-game:fullscreen .player-name {
+        font-size: 0.65rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: clamp(2.75rem, 12vh, 4rem);
+        height: clamp(2.75rem, 12vh, 4rem);
+    }
+}
+
+@media (max-width: 900px) {
+    .pong-game .touch-button {
+        gap: 0.15rem;
+        padding: 0.3rem 0.2rem;
+    }
+
+    .pong-game .touch-button-icon {
+        font-size: 1.15rem;
+    }
+
+    .pong-game .touch-button-label {
+        font-size: 0.55rem;
+    }
+}
+
+/* Responsive Pong layout: maximize the court while keeping controls close. */
+.pong-main {
+    width: min(1720px, calc(100% - 2rem));
+    padding: clamp(1.25rem, 3vw, 2.5rem) 0 1.5rem;
+}
+
+.pong-intro {
+    margin-bottom: clamp(1rem, 2.5vw, 2rem);
+}
+
+.pong-game:not(:fullscreen) {
+    width: 100%;
+    grid-template-columns: minmax(5.5rem, 0.16fr) minmax(0, 1fr) minmax(5.5rem, 0.16fr);
+    grid-template-rows: auto;
+    align-items: center;
+    gap: clamp(0.65rem, 2vw, 1.75rem);
+}
+
+.pong-game:not(:fullscreen) .court-column {
+    grid-column: 2;
+    grid-row: 1;
+    width: min(100%, 1280px, calc((100dvh - 13rem) * 16 / 9));
+}
+
+.pong-game:not(:fullscreen) .player-controls {
+    grid-row: 1;
+    width: 100%;
+    min-height: 12rem;
+    gap: 0.9rem;
+    padding: 1.1rem 0.7rem;
+    border-radius: 1rem;
+}
+
+.pong-game:not(:fullscreen) .player-controls-left { grid-column: 1; }
+.pong-game:not(:fullscreen) .player-controls-right { grid-column: 3; }
+
+.pong-game:not(:fullscreen) .player-heading {
+    gap: 0.5rem;
+}
+
+.pong-game:not(:fullscreen) .player-name {
+    display: block;
+    font-size: clamp(0.68rem, 0.9vw, 0.82rem);
+}
+
+.pong-game:not(:fullscreen) .player-score {
+    font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+}
+
+.pong-game:not(:fullscreen) .fullscreen-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.pong-game:not(:fullscreen) .touch-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pong-game:not(:fullscreen) .touch-button {
+    width: clamp(3.5rem, 5vw, 4.5rem);
+    height: clamp(3.5rem, 5vw, 4.5rem);
+    border-radius: 0.9rem !important;
+}
+
+.pong-game .court-toolbar {
+    justify-content: center;
+    min-height: 2.25rem;
+    margin-bottom: 0.55rem;
+}
+
+.pong-game .court-frame {
+    border-width: 2px;
+    border-radius: clamp(0.85rem, 1.5vw, 1.25rem);
+}
+
+.pong-game .fullscreen-game-button {
+    right: clamp(0.65rem, 1.5vw, 1.25rem);
+    bottom: clamp(0.65rem, 1.5vw, 1.25rem);
+    border-radius: 50% !important;
+}
+
+.pong-game .game-actions {
+    min-height: 2.75rem;
+    margin-top: 0.65rem;
+}
+
+@media (orientation: portrait) {
+    .pong-main {
+        width: min(100% - 1.25rem, 900px);
+        padding-top: 1.4rem;
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-items: start;
+        gap: 0.75rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        grid-row: 2;
+        min-height: 0;
+        gap: 0.65rem;
+        padding: 0.85rem 0.5rem;
+        border-radius: 0.9rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-left { grid-column: 1; }
+    .pong-game:not(:fullscreen) .player-controls-right { grid-column: 2; }
+
+    .pong-game:not(:fullscreen) .player-name {
+        font-size: clamp(0.65rem, 2.5vw, 0.8rem);
+    }
+
+    .pong-game:not(:fullscreen) .fullscreen-controls {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-controls {
+        flex-direction: row;
+        gap: 0.4rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        width: clamp(3.1rem, 12vw, 4rem);
+        height: clamp(3.1rem, 12vw, 4rem);
+    }
+}
+
+@media (max-width: 520px) and (orientation: portrait) {
+    .pong-main {
+        width: calc(100% - 1rem);
+        padding-top: 1rem;
+    }
+
+    .pong-intro {
+        margin-bottom: 1rem;
+    }
+
+    .pong-intro p {
+        max-width: 24rem;
+        margin-inline: auto;
+        font-size: 0.85rem;
+    }
+
+    .pong-game:not(:fullscreen) {
+        gap: 0.55rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-toolbar {
+        min-height: 1.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        gap: 0.5rem;
+        padding: 0.7rem 0.3rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-score {
+        font-size: 1.5rem;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .pong-main {
+        width: calc(100% - 1.25rem);
+        padding: 0.5rem 0 0.75rem;
+    }
+
+    .pong-intro { display: none; }
+
+    .pong-game:not(:fullscreen) .court-column {
+        width: min(100%, 1280px, calc((100dvh - 6rem) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        min-height: 0;
+        padding: 0.65rem 0.35rem;
+    }
+}
+
+/* Fullscreen layout: give the court the available space and keep controls clear. */
+.pong-game:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    margin: 0;
+    padding: clamp(0.75rem, 2.5vw, 2rem);
+    grid-template-columns: minmax(5rem, 0.14fr) minmax(0, 1fr) minmax(5rem, 0.14fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    overflow: hidden;
+}
+
+.pong-game:fullscreen .court-column {
+    grid-column: 2;
+    grid-row: 1;
+    width: min(100%, 1600px, calc((100dvh - 6.5rem) * 16 / 9));
+    max-height: 100%;
+}
+
+.pong-game:fullscreen .court-toolbar {
+    min-height: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pong-game:fullscreen .court-frame {
+    max-height: calc(100dvh - 6.5rem);
+}
+
+.pong-game:fullscreen .player-controls {
+    grid-row: 1;
+    align-self: center;
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    gap: 0.8rem;
+    padding: 1rem 0.35rem;
+    border-radius: 1rem;
+}
+
+.pong-game:fullscreen .player-controls-left { grid-column: 1; }
+.pong-game:fullscreen .player-controls-right { grid-column: 3; }
+
+.pong-game:fullscreen .player-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.pong-game:fullscreen .player-name {
+    display: block;
+    font-size: clamp(0.62rem, 1vw, 0.8rem);
+    text-align: center;
+}
+
+.pong-game:fullscreen .player-score {
+    display: block;
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+
+.pong-game:fullscreen .keyboard-hint,
+.pong-game:fullscreen .fullscreen-key-hints {
+    display: none;
+}
+
+.pong-game:fullscreen .fullscreen-controls,
+.pong-game:fullscreen .touch-controls {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.35rem, 1vh, 0.65rem);
+}
+
+.pong-game:fullscreen .touch-button {
+    width: clamp(3.1rem, 5.5vw, 4.5rem);
+    height: clamp(3.1rem, 5.5vw, 4.5rem);
+    border-radius: 0.9rem !important;
+}
+
+.pong-game:fullscreen .fullscreen-wordmark {
+    display: none;
+}
+
+.pong-game:fullscreen .fullscreen-game-button {
+    right: 0.75rem;
+    bottom: 0.75rem;
+}
+
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        padding: max(0.5rem, env(safe-area-inset-top)) max(0.65rem, env(safe-area-inset-right)) max(0.65rem, env(safe-area-inset-bottom)) max(0.65rem, env(safe-area-inset-left));
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: clamp(0.4rem, 1.5vh, 0.8rem);
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        justify-self: center;
+        width: min(100%, 1200px, calc((100dvh - 12rem) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 12rem);
+    }
+
+    .pong-game:fullscreen .player-controls {
+        grid-row: 2;
+        align-self: stretch;
+        justify-self: center;
+        width: max-content;
+        max-width: 100%;
+        flex-direction: row;
+        gap: clamp(0.55rem, 2vw, 1rem);
+        padding: 0.55rem clamp(0.45rem, 2vw, 1rem);
+        border-radius: 0.9rem;
+    }
+
+    .pong-game:fullscreen .player-controls-left { grid-column: 1; }
+    .pong-game:fullscreen .player-controls-right { grid-column: 2; }
+
+    .pong-game:fullscreen .player-heading {
+        gap: 0.2rem;
+    }
+
+    .pong-game:fullscreen .player-name {
+        font-size: clamp(0.58rem, 2.1vw, 0.75rem);
+    }
+
+    .pong-game:fullscreen .player-score {
+        font-size: clamp(1.15rem, 4vw, 1.6rem);
+    }
+
+    .pong-game:fullscreen .fullscreen-controls,
+    .pong-game:fullscreen .touch-controls {
+        width: auto;
+        flex-direction: row;
+        gap: clamp(0.3rem, 1.2vw, 0.5rem);
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: clamp(2.8rem, 10vw, 4rem);
+        height: clamp(2.8rem, 10vw, 4rem);
+    }
+
+    .pong-game:fullscreen .fullscreen-game-button {
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+    .pong-game:fullscreen {
+        padding: 0.35rem 0.5rem;
+        grid-template-columns: minmax(4rem, 0.12fr) minmax(0, 1fr) minmax(4rem, 0.12fr);
+        gap: 0.4rem;
+    }
+
+    .pong-game:fullscreen .court-column {
+        width: min(100%, 1600px, calc((100dvh - 4rem) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-toolbar {
+        min-height: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 4rem);
+    }
+
+    .pong-game:fullscreen .player-controls {
+        gap: 0.35rem;
+        padding: 0.4rem 0.2rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: clamp(2.65rem, 9vh, 3.5rem);
+        height: clamp(2.65rem, 9vh, 3.5rem);
+    }
+}
+
+/* Normal mode sizing and compact mobile control placement. */
+.pong-game:not(:fullscreen) .court-column {
+    width: min(100%, 1040px, calc((100dvh - 16rem) * 16 / 9));
+}
+
+@media (max-width: 700px) {
+    .pong-main {
+        width: calc(100% - 1rem);
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-items: start;
+        gap: 0.65rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        max-width: 920px;
+        justify-self: center;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        grid-row: 2;
+        min-height: 0;
+        gap: 0.5rem;
+        padding: 0.65rem 0.3rem;
+        border-radius: 0.85rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-left { grid-column: 1; }
+    .pong-game:not(:fullscreen) .player-controls-right { grid-column: 2; }
+
+    .pong-game:not(:fullscreen) .fullscreen-controls,
+    .pong-game:not(:fullscreen) .touch-controls {
+        width: auto;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.4rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        width: clamp(2.8rem, 11vw, 3.6rem);
+        height: clamp(2.8rem, 11vw, 3.6rem);
+    }
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-main {
+        padding-top: 0.5rem;
+    }
+
+    .pong-intro {
+        display: none;
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: 0.45rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        width: min(100%, 760px, calc((100dvh - 11rem) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .court-toolbar {
+        min-height: 1.6rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        padding: 0.4rem 0.25rem;
+    }
+}
+
+/* In mobile landscape, keep the control panels beside the court. */
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(3.75rem, 0.18fr) minmax(0, 1fr) minmax(3.75rem, 0.18fr);
+        grid-template-rows: minmax(0, 1fr);
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        grid-column: 2;
+        grid-row: 1;
+        width: min(100%, 760px, calc((100dvh - 8rem) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        grid-row: 1;
+        width: 100%;
+        align-self: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.15rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls-left { grid-column: 1; }
+    .pong-game:not(:fullscreen) .player-controls-right { grid-column: 3; }
+
+    .pong-game:not(:fullscreen) .player-name {
+        font-size: 0.6rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-score {
+        font-size: 1.25rem;
+    }
+
+    .pong-game:not(:fullscreen) .fullscreen-controls,
+    .pong-game:not(:fullscreen) .touch-controls {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        width: clamp(2.45rem, 10vh, 3.25rem);
+        height: clamp(2.45rem, 10vh, 3.25rem);
+    }
+}
+
+/* Final spacing pass across desktop, tablet, and phone sizes. */
+.pong-main {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.pong-game:not(:fullscreen) {
+    box-sizing: border-box;
+}
+
+.pong-game:not(:fullscreen) .player-controls {
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.pong-game .touch-button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+}
+
+.pong-game .game-action {
+    min-height: 2.75rem;
+    padding: 0.55rem 1rem;
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+    .pong-main {
+        width: calc(100% - 2rem);
+        padding-top: clamp(1rem, 3vw, 2rem);
+    }
+
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(5rem, 0.18fr) minmax(0, 1fr) minmax(5rem, 0.18fr);
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    .pong-game:not(:fullscreen) .court-column {
+        width: min(100%, 920px, calc((100dvh - 15rem) * 16 / 9));
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        padding: 0.8rem 0.4rem;
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        width: clamp(3rem, 6vw, 3.8rem);
+        height: clamp(3rem, 6vw, 3.8rem);
+    }
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+    .pong-main {
+        width: calc(100% - 1rem);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        padding-inline: clamp(0.2rem, 1.5vw, 0.5rem);
+    }
+
+    .pong-game:not(:fullscreen) .touch-button {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+    }
+}
+
+/* Phone controls: stack Up and Down for each player. */
+@media (max-width: 700px) {
+    .pong-game:not(:fullscreen) .player-controls .fullscreen-controls,
+    .pong-game:not(:fullscreen) .player-controls .touch-controls {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Keep phone Up/Down buttons stacked in fullscreen too. */
+@media (max-width: 700px) {
+    .pong-game:fullscreen .fullscreen-controls,
+    .pong-game:fullscreen .touch-controls {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Fullscreen player identity sits above that player's touch controls. */
+.pong-game:fullscreen .player-controls {
+    flex-direction: column;
+}
+
+.pong-game:fullscreen .player-heading {
+    order: 0;
+}
+
+.pong-game:fullscreen .fullscreen-controls {
+    order: 1;
+}
+
+/* Bring fullscreen controls closer to the display edges. */
+.pong-game:fullscreen {
+    padding: clamp(0.35rem, 1vw, 0.75rem);
+    gap: clamp(0.25rem, 1vw, 0.75rem);
+}
+
+.pong-game:fullscreen .player-controls-left {
+    justify-self: start;
+}
+
+.pong-game:fullscreen .player-controls-right {
+    justify-self: end;
+}
+
+.pong-game:fullscreen .fullscreen-game-button {
+    right: 0.4rem;
+    bottom: 0.4rem;
+}
+
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        padding-top: max(0.35rem, env(safe-area-inset-top));
+        padding-right: max(0.4rem, env(safe-area-inset-right));
+        padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+        padding-left: max(0.4rem, env(safe-area-inset-left));
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        justify-self: start;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        justify-self: end;
+    }
+}
+
+/* Larger touch targets for phone fullscreen in both orientations. */
+@media (max-width: 700px) {
+    .pong-game:fullscreen .touch-button {
+        width: clamp(3.5rem, 14vw, 4.25rem);
+        height: clamp(3.5rem, 14vw, 4.25rem);
+        gap: 0.2rem;
+        padding: 0.35rem 0.2rem;
+    }
+
+    .pong-game:fullscreen .touch-button-icon {
+        font-size: 1.4rem;
+    }
+
+    .pong-game:fullscreen .touch-button-label {
+        font-size: 0.62rem;
+    }
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-game:fullscreen .touch-button {
+        width: clamp(3.5rem, 12vh, 4.25rem);
+        height: clamp(3.5rem, 12vh, 4.25rem);
+    }
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(5rem, 0.2fr) minmax(0, 1fr) minmax(5rem, 0.2fr);
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        padding-right: 0.2rem;
+        padding-left: 0.2rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: clamp(4.5rem, 14vh, 5rem);
+        height: clamp(4.5rem, 14vh, 5rem);
+    }
+}
+
+/* Use one generous, consistent size for every Up/Down touch button. */
+.pong-game .touch-button {
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+    min-width: 4.5rem;
+    min-height: 4.5rem;
+    flex: 0 0 4.5rem;
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(5.25rem, 0.2fr) minmax(0, 1fr) minmax(5.25rem, 0.2fr);
+    }
+
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(5.25rem, 0.2fr) minmax(0, 1fr) minmax(5.25rem, 0.2fr);
+    }
+}
+
+/* Keep the normal court at its available column width instead of over-capping by height. */
+.pong-game:not(:fullscreen) .court-column {
+    width: min(100%, 1100px);
+    max-height: none;
+}
+
+.pong-game:not(:fullscreen) .court-frame {
+    max-height: none;
+}
+
+@media (max-width: 700px) and (orientation: landscape) {
+    .pong-game:not(:fullscreen) .court-column {
+        width: min(100%, 900px, calc((100dvh - 5rem) * 16 / 9));
+    }
+}
