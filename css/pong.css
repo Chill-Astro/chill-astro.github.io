@@ -2256,6 +2256,12 @@ kbd {
     animation: pong-page-fade-in 500ms ease-out both;
 }
 
+/* Keep the animated header wrapper above the game so its navigation drawer covers it. */
+.pong-page #header {
+    position: relative;
+    z-index: 10010;
+}
+
 .pong-page #header,
 .pong-page #footer {
     animation: pong-page-fade-in 650ms ease-out both;
@@ -2759,5 +2765,30 @@ kbd {
 @media (orientation: landscape) {
     .pong-game:fullscreen .player-controls {
         translate: 0 -50% !important;
+    }
+}
+
+/* In windowed play, keep the match actions in the layout below the court. */
+.pong-game:not(:fullscreen) .game-actions {
+    position: static;
+    inset: auto;
+    z-index: auto;
+    display: grid;
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin: 0.55rem 0 0;
+    pointer-events: auto;
+}
+
+.pong-game:not(:fullscreen) .game-actions > .game-action {
+    pointer-events: auto;
+}
+
+@media (max-width: 520px) {
+    .pong-game:not(:fullscreen) .game-actions {
+        gap: 0.35rem;
+        margin-top: 0.45rem;
     }
 }

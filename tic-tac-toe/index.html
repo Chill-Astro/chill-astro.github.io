@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Play Tic Tac Toe Online against a clever AI or challenge a friend in two-player mode.">
+    <meta name="keywords" content="Tic Tac Toe Online, Tic-Tac-Toe, browser game, AI game, two-player game, Chill-Astro">
+    <meta name="author" content="Chill-Astro Software">
+    <link rel="canonical" href="https://chill-astro.github.io/tic-tac-toe/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tic Tac Toe Online | Chill-Astro Software">
+    <meta property="og:description" content="Play Tic Tac Toe Online against AI or a friend. A clean, quick game from Chill-Astro Software.">
+    <meta property="og:url" content="https://chill-astro.github.io/tic-tac-toe/">
+    <meta property="og:image" content="https://chill-astro.github.io/assets/images/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Tic Tac Toe Online",
+      "url": "https://chill-astro.github.io/tic-tac-toe/",
+      "description": "A browser Tic-Tac-Toe game with AI and local two-player modes.",
+      "genre": "Puzzle",
+      "gamePlatform": "Web browser",
+      "inLanguage": "en",
+      "creator": {
+        "@type": "Organization",
+        "name": "Chill-Astro Software",
+        "url": "https://chill-astro.github.io/"
+      }
+    }
+    </script>
+    <link rel="icon" type="image/png" href="../assets/images/tabicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=7">
+    <title>Tic Tac Toe Online | Chill-Astro Software</title>
+</head>
+<body class="tic-tac-toe-page">
+    <div id="header"></div>
+
+    <main class="ttt-main">
+        <section class="ttt-intro" aria-labelledby="ttt-title">
+            <h1 id="ttt-title">Tic Tac Toe Online</h1>
+            <p>Get four in a row. Choose your opponent and make your move.</p>
+        </section>
+
+        <section class="ttt-game is-choosing" id="ttt-game" aria-label="Tic-Tac-Toe game">
+            <div class="ttt-game-content" id="ttt-game-content" aria-hidden="true">
+                <p class="ttt-status" id="ttt-status" role="status" aria-live="polite">Choose a mode to begin.</p>
+
+                <div class="ttt-actions" aria-label="Game controls">
+                    <button class="ttt-action" id="pause-game" type="button" disabled>Pause</button>
+                    <button class="ttt-action" id="restart-game" type="button" disabled>Restart</button>
+                </div>
+
+                <div class="ttt-board" id="ttt-board" role="grid" aria-label="Five by five Tic-Tac-Toe board">
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="0" aria-label="Row 1, column 1, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="1" aria-label="Row 1, column 2, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="2" aria-label="Row 1, column 3, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="3" aria-label="Row 1, column 4, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="4" aria-label="Row 1, column 5, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="5" aria-label="Row 2, column 1, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="6" aria-label="Row 2, column 2, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="7" aria-label="Row 2, column 3, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="8" aria-label="Row 2, column 4, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="9" aria-label="Row 2, column 5, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="10" aria-label="Row 3, column 1, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="11" aria-label="Row 3, column 2, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="12" aria-label="Row 3, column 3, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="13" aria-label="Row 3, column 4, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="14" aria-label="Row 3, column 5, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="15" aria-label="Row 4, column 1, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="16" aria-label="Row 4, column 2, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="17" aria-label="Row 4, column 3, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="18" aria-label="Row 4, column 4, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="19" aria-label="Row 4, column 5, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="20" aria-label="Row 5, column 1, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="21" aria-label="Row 5, column 2, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="22" aria-label="Row 5, column 3, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="23" aria-label="Row 5, column 4, empty"></button>
+                    <button class="ttt-cell" type="button" role="gridcell" data-cell="24" aria-label="Row 5, column 5, empty"></button>
+                    <span class="ttt-win-line" id="ttt-win-line" aria-hidden="true" hidden></span>
+                    <div class="ttt-paused-overlay" id="paused-overlay" aria-hidden="true" hidden>Paused</div>
+                </div>
+
+                <div class="ttt-game-footer">
+                    <button class="ttt-text-button" id="change-mode" type="button" disabled>Change mode</button>
+                    <span class="ttt-mode-label" id="mode-label"></span>
+                </div>
+            </div>
+
+            <div class="ttt-mode-overlay" id="mode-picker" aria-labelledby="mode-title">
+                <div class="ttt-mode-dialog" id="mode-dialog">
+                    <h2 id="mode-title">Choose a mode</h2>
+                    <p>Play against the AI or take turns with a friend.</p>
+                    <div class="ttt-mode-options" id="mode-options">
+                        <button class="ttt-mode-button" type="button" data-mode="ai">
+                            <span class="ttt-mode-name">Vs. AI</span>
+                            <span class="ttt-mode-description">You play X. The AI plays O.</span>
+                        </button>
+                        <button class="ttt-mode-button" type="button" data-mode="pvp">
+                            <span class="ttt-mode-name">Two players</span>
+                            <span class="ttt-mode-description">Take turns on the same device.</span>
+                        </button>
+                    </div>
+                    <div class="ttt-mode-options ttt-difficulty-options" id="difficulty-options" hidden>
+                        <button class="ttt-mode-button" type="button" data-difficulty="beginner">
+                            <span class="ttt-mode-name">Beginner</span>
+                            <span class="ttt-mode-description">A relaxed opponent that leaves openings.</span>
+                        </button>
+                        <button class="ttt-mode-button" type="button" data-difficulty="god">
+                            <span class="ttt-mode-name">God Mode</span>
+                            <span class="ttt-mode-description">Plans ahead and punishes mistakes.</span>
+                        </button>
+                        <button class="ttt-text-button ttt-picker-back" id="mode-back" type="button">Back to modes</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+    <script src="../js/main.js"></script>
+    <script src="../js/tic-tac-toe.js"></script>
+</body>
+</html>
