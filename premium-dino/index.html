@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Play Premium Dino, a stylish Chrome Dino inspired runner game by Chill-Astro Software.">
+    <link rel="canonical" href="https://chill-astro.github.io/premium-dino/">
+    <link rel="icon" type="image/png" href="../assets/images/tabicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/premium-dino.css">
+    <link rel="stylesheet" href="../css/premium-dino-theme.css">
+    <title>Premium Dino | Chill-Astro Software</title>
+</head>
+<body class="dino-page">
+    <div id="header"></div>
+    <main class="dino-main">
+        <section class="dino-intro" aria-labelledby="dino-title">
+            <h1 id="dino-title">Premium Dino</h1>
+            <p>Ah the Classic Game! How far can you go?</p>
+        </section>
+        <section class="dino-game" id="dino-game" aria-label="Premium Dino game">
+            <aside class="dino-controls" aria-label="Game controls">
+                <div class="dino-stats">
+                    <span class="dino-label">SCORE</span><output id="dino-score">00000</output>
+                    <span class="dino-label">BEST</span><output id="dino-best">00000</output>
+                </div>
+                <p class="dino-instructions">Jump over cacti and duck beneath birds.</p>
+                <div class="dino-touch-controls">
+                    <button class="dino-touch-button" id="jump-button" type="button" aria-label="Jump"><span aria-hidden="true">▲</span> JUMP</button>
+                    <button class="dino-touch-button" id="duck-button" type="button" aria-label="Duck"><span aria-hidden="true">▼</span> DUCK</button>
+                </div>
+                <p class="dino-key-hint"><kbd>Space</kbd> / <kbd>↑</kbd> jump<br><kbd>↓</kbd> duck</p>
+            </aside>
+            <div class="dino-court-column">
+                <div class="dino-frame">
+                    <canvas id="dino-canvas" width="960" height="420" role="img" aria-label="Dino runner game. Jump over cacti and duck under birds.">Your browser does not support canvas.</canvas>
+                    <div class="dino-overlay" id="dino-overlay">
+                        <p class="dino-overlay-title" id="overlay-title">Ready to run?</p>
+                        <p class="dino-overlay-message" id="overlay-message">Press Space or tap Jump to get started.</p>
+                        <button class="primary-btn" id="start-game" type="button">Start game</button>
+                    </div>
+                    <div class="dino-actions" id="dino-actions" aria-label="Game actions">
+                        <button class="dino-action" id="pause-game" type="button" hidden>Pause</button>
+                        <button class="dino-action" id="restart-game" type="button" hidden>Restart</button>
+                        <button class="dino-action dino-action-end" id="end-game" type="button" hidden>End</button>
+                    </div>
+                    <p class="dino-attribution">Dino sprites: Chromium Authors · <a href="../assets/images/premium-dino-sprite-license.txt" target="_blank" rel="noopener noreferrer">BSD 3-Clause</a></p>
+                    <button class="dino-fullscreen" id="fullscreen-game" type="button" aria-label="Enter fullscreen" aria-pressed="false">⛶</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="footer"></div>
+    <script src="../js/main.js"></script>
+    <script src="../js/premium-dino.js"></script>
+</body>
+</html>
