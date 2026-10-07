@@ -1913,3 +1913,851 @@ kbd {
         flex: 0 0 4.5rem;
     }
 }
+
+/* Rebuild portrait fullscreen around a visible bottom control row. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        height: 100vh;
+        height: 100dvh;
+        padding-top: max(0.35rem, env(safe-area-inset-top));
+        padding-right: max(0.35rem, env(safe-area-inset-right));
+        padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+        padding-left: max(0.35rem, env(safe-area-inset-left));
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: end;
+        column-gap: clamp(0.5rem, 2vw, 1rem);
+        row-gap: 0.5rem;
+        overflow: hidden;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        align-self: start;
+        justify-self: center;
+        width: min(100%, 1200px, calc((100dvh - 19rem) * 16 / 9));
+        min-height: 0;
+        max-height: 100%;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        width: 100%;
+        max-height: calc(100dvh - 19rem);
+    }
+
+    .pong-game:fullscreen .player-controls {
+        grid-row: 2;
+        align-self: end;
+        width: max-content;
+        max-width: calc(50vw - 0.65rem);
+        min-width: 0;
+        min-height: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        margin-bottom: 0.15rem;
+        padding: 0.55rem clamp(0.35rem, 1.5vw, 0.75rem);
+        background: var(--surface);
+        border: 1px solid var(--card-border);
+        border-radius: 0.9rem;
+        box-shadow: var(--shadow);
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        grid-column: 1;
+        justify-self: start;
+        margin-left: max(0.15rem, env(safe-area-inset-left));
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        grid-column: 2;
+        justify-self: end;
+        margin-right: max(0.15rem, env(safe-area-inset-right));
+    }
+
+    .pong-game:fullscreen .player-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+    }
+
+    .pong-game:fullscreen .player-name {
+        display: block;
+        font-size: clamp(0.58rem, 2vw, 0.75rem);
+        text-align: center;
+    }
+
+    .pong-game:fullscreen .player-score {
+        display: block;
+        font-size: clamp(1rem, 3vw, 1.35rem);
+        line-height: 1;
+    }
+
+    .pong-game:fullscreen .fullscreen-controls,
+    .pong-game:fullscreen .touch-controls {
+        display: flex;
+        width: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+        min-width: 4.5rem;
+        min-height: 4.5rem;
+        flex: 0 0 4.5rem;
+    }
+}
+
+/* Portrait fullscreen: show each keyboard pair beside its touch buttons. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen .fullscreen-controls {
+        display: flex;
+        width: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.35rem, 1.5vw, 0.65rem);
+    }
+
+    .pong-game:fullscreen .player-controls-left .fullscreen-controls {
+        flex-direction: row;
+    }
+
+    .pong-game:fullscreen .player-controls-right .fullscreen-controls {
+        flex-direction: row;
+    }
+
+    .pong-game:fullscreen .touch-controls {
+        width: auto;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints kbd {
+        width: 2.5rem;
+        height: 2.5rem;
+        min-width: 2.5rem;
+        min-height: 2.5rem;
+        padding: 0;
+        font-size: 0.9rem;
+        border-radius: 0.6rem;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        min-width: min-content;
+        max-width: calc(50vw - 0.5rem);
+    }
+
+    .pong-game:fullscreen .court-column {
+        width: min(100%, 1200px, calc((100dvh - 20rem) * 16 / 9));
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 20rem);
+    }
+}
+
+/* Enforce portrait fullscreen control placement after all legacy fullscreen rules. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        grid-template-rows: minmax(0, 1fr) auto !important;
+        row-gap: 0.5rem !important;
+        overflow: hidden !important;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 / -1 !important;
+        grid-row: 1 !important;
+        align-self: start !important;
+        justify-self: center !important;
+        width: min(100%, 1200px, calc((100dvh - 20rem) * 16 / 9)) !important;
+        min-height: 0 !important;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        width: 100% !important;
+        max-height: calc(100dvh - 20rem) !important;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        grid-row: 2 !important;
+        align-self: end !important;
+        width: max-content !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        max-width: calc(50vw - 0.65rem) !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.45rem !important;
+        margin-bottom: 0.15rem !important;
+        padding: 0.55rem clamp(0.35rem, 1.5vw, 0.75rem) !important;
+        background: var(--surface) !important;
+        border: 1px solid var(--card-border) !important;
+        border-radius: 0.9rem !important;
+        box-shadow: var(--shadow) !important;
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        grid-column: 1 !important;
+        justify-self: start !important;
+        margin-left: max(0.15rem, env(safe-area-inset-left)) !important;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        grid-column: 2 !important;
+        justify-self: end !important;
+        margin-right: max(0.15rem, env(safe-area-inset-right)) !important;
+    }
+
+    .pong-game:fullscreen .player-heading,
+    .pong-game:fullscreen .player-name {
+        display: flex !important;
+    }
+
+    .pong-game:fullscreen .player-heading {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-controls {
+        display: grid !important;
+        width: auto !important;
+        grid-template-columns: max-content max-content !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: clamp(0.35rem, 1.5vw, 0.65rem) !important;
+    }
+
+    .pong-game:fullscreen .touch-controls {
+        display: flex !important;
+        width: auto !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints kbd {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        min-width: 2.5rem !important;
+        min-height: 2.5rem !important;
+        padding: 0 !important;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+        min-width: 4.5rem !important;
+        min-height: 4.5rem !important;
+        flex: 0 0 4.5rem !important;
+    }
+}
+
+/* Portrait fullscreen: center the timer and number-only scoreboard over the court. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen .court-column {
+        position: relative;
+    }
+
+    .pong-game:fullscreen .court-toolbar {
+        position: absolute;
+        top: clamp(0.45rem, 1.5vh, 0.85rem);
+        left: 50%;
+        z-index: 3;
+        display: flex;
+        width: max-content;
+        min-height: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.45rem, 2vw, 0.8rem);
+        margin: 0;
+        padding: 0.35rem 0.55rem;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        box-shadow: var(--shadow);
+        transform: translateX(-50%);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .pong-game:fullscreen .match-clock {
+        min-width: 3.25rem;
+        padding: 0.2rem 0.45rem;
+    }
+
+    .pong-game:fullscreen .scoreboard {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        font-size: 0;
+    }
+
+    .pong-game:fullscreen .scoreboard > span:not(.scoreboard-divider) {
+        font-size: 0;
+        letter-spacing: 0;
+    }
+
+    .pong-game:fullscreen .scoreboard strong {
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+
+    .pong-game:fullscreen .scoreboard-divider {
+        font-size: 1rem;
+    }
+}
+
+/* Page-load entrance for the complete Pong Reimagined interface. */
+@keyframes pong-page-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pong-section-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pong-page {
+    animation: pong-page-fade-in 500ms ease-out both;
+}
+
+.pong-page #header,
+.pong-page #footer {
+    animation: pong-page-fade-in 650ms ease-out both;
+}
+
+.pong-page .pong-intro {
+    animation: pong-section-enter 650ms cubic-bezier(0.2, 0.75, 0.25, 1) 80ms both;
+}
+
+.pong-page .pong-game {
+    animation: pong-section-enter 700ms cubic-bezier(0.2, 0.75, 0.25, 1) 160ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pong-page,
+    .pong-page #header,
+    .pong-page #footer,
+    .pong-page .pong-intro,
+    .pong-page .pong-game {
+        animation: none !important;
+    }
+}
+
+/* Keep the match clock and number-only score centered at the top of every court. */
+.pong-game .court-column {
+    position: relative;
+}
+
+.pong-game .court-toolbar {
+    position: absolute;
+    top: clamp(0.45rem, 1.5vw, 0.85rem);
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    width: max-content;
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.45rem, 2vw, 0.8rem);
+    margin: 0;
+    padding: 0.35rem 0.55rem;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    transform: translateX(-50%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.pong-game .match-clock {
+    min-width: 3.25rem;
+    padding: 0.2rem 0.45rem;
+}
+
+.pong-game .scoreboard {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-size: 0;
+}
+
+.pong-game .scoreboard > span:not(.scoreboard-divider) {
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.pong-game .scoreboard strong {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.pong-game .scoreboard-divider {
+    font-size: 1rem;
+}
+
+/* Clean arcade HUD: timer above a centered numeric score, without control-card duplicates. */
+.pong-game .court-toolbar,
+.pong-game:fullscreen .court-toolbar {
+    top: clamp(0.45rem, 1.5vw, 0.85rem) !important;
+    flex-direction: column !important;
+    gap: 0.1rem !important;
+    padding: 0 !important;
+    color: var(--text) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.pong-game .match-clock,
+.pong-game:fullscreen .match-clock {
+    min-width: 0 !important;
+    padding: 0 !important;
+    color: var(--text) !important;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem) !important;
+    font-weight: 600;
+    line-height: 1.2;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.pong-game .scoreboard,
+.pong-game:fullscreen .scoreboard {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.4rem, 1.3vw, 0.75rem);
+    color: var(--text) !important;
+    font-size: 0 !important;
+    letter-spacing: 0;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    text-shadow: none !important;
+}
+
+.pong-game .scoreboard > span:not(.scoreboard-divider),
+.pong-game:fullscreen .scoreboard > span:not(.scoreboard-divider) {
+    font-size: 0 !important;
+    letter-spacing: 0 !important;
+}
+
+.pong-game .scoreboard strong,
+.pong-game:fullscreen .scoreboard strong {
+    color: var(--text) !important;
+    font-size: clamp(1.45rem, 4vw, 2.2rem) !important;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: none !important;
+}
+
+.pong-game .scoreboard-divider,
+.pong-game:fullscreen .scoreboard-divider {
+    color: var(--text) !important;
+    font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
+    line-height: 1;
+}
+
+.pong-game .player-controls .player-score,
+.pong-game:fullscreen .player-controls .player-score {
+    display: none !important;
+}
+
+/* Explicit phone/tablet portrait fullscreen keyboard hints and bottom controls. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen .player-controls {
+        grid-row: 2 !important;
+        width: max-content !important;
+        max-width: calc(50vw - 0.65rem) !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: var(--surface) !important;
+        border: 1px solid var(--card-border) !important;
+        border-radius: 0.9rem !important;
+        box-shadow: var(--shadow) !important;
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        grid-column: 1 !important;
+        justify-self: start !important;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        grid-column: 2 !important;
+        justify-self: end !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-controls {
+        display: flex !important;
+        width: auto !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.45rem !important;
+    }
+
+    .pong-game:fullscreen .player-controls-left .fullscreen-controls {
+        flex-direction: row !important;
+    }
+
+    .pong-game:fullscreen .player-controls-right .fullscreen-controls {
+        flex-direction: row !important;
+    }
+
+    .pong-game:fullscreen .touch-controls {
+        display: flex !important;
+        width: auto !important;
+        flex-direction: column !important;
+        gap: 0.35rem !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+    }
+
+    .pong-game:fullscreen .fullscreen-key-hints kbd {
+        display: inline-grid !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        min-width: 2.5rem !important;
+        min-height: 2.5rem !important;
+        padding: 0 !important;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+        min-width: 4.5rem !important;
+        min-height: 4.5rem !important;
+        flex: 0 0 4.5rem !important;
+    }
+
+    .pong-game:fullscreen .court-column {
+        width: min(100%, 1200px, calc((100dvh - 20rem) * 16 / 9)) !important;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 20rem) !important;
+    }
+}
+
+/* Make fullscreen key hints visible in either orientation. */
+.pong-game:fullscreen .fullscreen-controls {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+}
+
+.pong-game:fullscreen .touch-controls {
+    display: flex !important;
+    width: auto !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+}
+
+.pong-game:fullscreen .fullscreen-key-hints {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+}
+
+.pong-game:fullscreen .fullscreen-key-hints kbd {
+    display: inline-grid !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    padding: 0 !important;
+}
+
+/* W/S sit outside the left player's buttons; arrow keys sit outside the right player's. */
+.pong-game:fullscreen .player-controls-left .fullscreen-controls {
+    flex-direction: row !important;
+}
+
+.pong-game:fullscreen .player-controls-right .fullscreen-controls {
+    flex-direction: row !important;
+}
+
+@media (orientation: landscape) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(8.75rem, 0.24fr) minmax(0, 1fr) minmax(8.75rem, 0.24fr) !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        gap: 0.4rem !important;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        width: min(100%, 1600px, calc((100dvh - 7rem) * 16 / 9)) !important;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 7rem) !important;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        grid-row: 1 !important;
+        align-self: center !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        padding: 0.65rem 0.25rem !important;
+        background: var(--surface) !important;
+        border: 1px solid var(--card-border) !important;
+        border-radius: 0.9rem !important;
+        box-shadow: var(--shadow) !important;
+    }
+
+    .pong-game:fullscreen .player-controls-left { grid-column: 1 !important; }
+    .pong-game:fullscreen .player-controls-right { grid-column: 3 !important; }
+
+    .pong-game:fullscreen .touch-button {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+        min-width: 4.5rem !important;
+        min-height: 4.5rem !important;
+        flex: 0 0 4.5rem !important;
+    }
+}
+
+/* Show keyboard hints beside the real touch buttons in normal mode too. */
+.pong-game:not(:fullscreen) .fullscreen-controls {
+    display: flex !important;
+    width: auto !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+}
+
+.pong-game:not(:fullscreen) .touch-controls {
+    display: flex !important;
+    width: auto !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+}
+
+.pong-game:not(:fullscreen) .fullscreen-key-hints {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+}
+
+.pong-game:not(:fullscreen) .fullscreen-key-hints kbd {
+    display: inline-grid !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    padding: 0 !important;
+}
+
+@media (max-width: 1100px) and (orientation: landscape) {
+    .pong-game:not(:fullscreen) {
+        grid-template-columns: minmax(8.75rem, 0.24fr) minmax(0, 1fr) minmax(8.75rem, 0.24fr) !important;
+    }
+
+    .pong-game:not(:fullscreen) .player-controls {
+        width: 100%;
+        min-width: 0;
+        padding-inline: 0.25rem;
+    }
+}
+
+/* Let the controls float without player labels or surrounding cards. */
+.pong-game .player-controls {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.pong-game .player-heading,
+.pong-game .keyboard-hint {
+    display: none !important;
+}
+
+/* Keep player control areas transparent in fullscreen as well. */
+.pong-game:fullscreen .player-controls {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Match actions float over the court: Pause/Restart left, End right. */
+.pong-game .court-column {
+    position: relative;
+}
+
+.pong-game .game-actions {
+    position: absolute;
+    top: clamp(0.55rem, 1.2vw, 0.85rem);
+    right: clamp(0.55rem, 1.2vw, 0.85rem);
+    left: clamp(0.55rem, 1.2vw, 0.85rem);
+    z-index: 4;
+    display: grid;
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content;
+    align-items: start;
+    gap: clamp(0.3rem, 0.8vw, 0.55rem);
+    min-height: 0;
+    margin: 0;
+    pointer-events: none;
+}
+
+.pong-game .game-actions > .game-action {
+    pointer-events: auto;
+}
+
+.pong-game #pause-game { grid-column: 1; }
+.pong-game #restart-game { grid-column: 2; }
+.pong-game #end-game {
+    grid-column: 4;
+    justify-self: end;
+}
+
+@media (max-width: 520px) {
+    .pong-game .game-actions {
+        top: 0.4rem;
+        right: 0.4rem;
+        left: 0.4rem;
+        gap: 0.25rem;
+    }
+
+    .pong-game .game-action {
+        min-height: 2.5rem;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.68rem;
+    }
+}
+
+/* Fullscreen: edge-anchor the floating controls and maximize the court between them. */
+@media (orientation: landscape) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        padding: max(0.35rem, env(safe-area-inset-top)) 0 max(0.35rem, env(safe-area-inset-bottom));
+        gap: 0 !important;
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        width: min(1800px, calc(100vw - 17rem), calc((100dvh - 5rem) * 16 / 9)) !important;
+        max-height: 100% !important;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 5rem) !important;
+    }
+
+    .pong-game:fullscreen .player-controls {
+        position: absolute !important;
+        top: 50% !important;
+        z-index: 5 !important;
+        grid-row: 1 !important;
+        width: max-content !important;
+        max-width: none !important;
+        transform: translateY(-50%);
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .pong-game:fullscreen .player-controls-left {
+        left: max(0.4rem, env(safe-area-inset-left)) !important;
+        grid-column: 1 !important;
+        justify-self: start !important;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        right: max(0.4rem, env(safe-area-inset-right)) !important;
+        left: auto !important;
+        grid-column: 1 !important;
+        justify-self: end !important;
+    }
+}
+
+@media (orientation: portrait) {
+    .pong-game:fullscreen .player-controls-left {
+        justify-self: start !important;
+        margin-left: max(0.15rem, env(safe-area-inset-left)) !important;
+    }
+
+    .pong-game:fullscreen .player-controls-right {
+        justify-self: end !important;
+        margin-right: max(0.15rem, env(safe-area-inset-right)) !important;
+    }
+}
+
+@media (orientation: landscape) {
+    .pong-game:fullscreen .player-controls {
+        translate: 0 -50% !important;
+    }
+}
