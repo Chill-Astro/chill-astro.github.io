@@ -1,5 +1,4 @@
 (() => {
-    const SIZE = 5;
     const WIN_LENGTH = 4;
     const SEARCH_DEPTH = 4;
     const modePicker = document.getElementById("mode-picker");
@@ -27,7 +26,6 @@
         return;
     }
 
-    const winningCombinations = [];
     const directions = [
         { row: 0, column: 1, name: "horizontal" },
         { row: 1, column: 0, name: "vertical" },
@@ -35,31 +33,38 @@
         { row: 1, column: -1, name: "diagonal-up" }
     ];
 
-    for (let row = 0; row < SIZE; row += 1) {
-        for (let column = 0; column < SIZE; column += 1) {
-            for (const direction of directions) {
-                const endRow = row + direction.row * (WIN_LENGTH - 1);
-                const endColumn = column + direction.column * (WIN_LENGTH - 1);
-                if (endRow < 0 || endRow >= SIZE || endColumn < 0 || endColumn >= SIZE) continue;
+    let boardSize = 5;
 
-                const indexes = Array.from({ length: WIN_LENGTH }, (_, step) =>
-                    (row + direction.row * step) * SIZE + column + direction.column * step
-                );
-                winningCombinations.push({
-                    cells: indexes,
-                    row,
-                    column,
-                    deltaRow: direction.row,
-                    deltaColumn: direction.column,
-                    direction: direction.name
-                });
+    function buildWinningCombinations(size) {
+        const combinations = [];
+        for (let row = 0; row < size; row += 1) {
+            for (let column = 0; column < size; column += 1) {
+                for (const direction of directions) {
+                    const endRow = row + direction.row * (WIN_LENGTH - 1);
+                    const endColumn = column + direction.column * (WIN_LENGTH - 1);
+                    if (endRow < 0 || endRow >= size || endColumn < 0 || endColumn >= size) continue;
+
+                    const indexes = Array.from({ length: WIN_LENGTH }, (_, step) =>
+                        (row + direction.row * step) * size + column + direction.column * step
+                    );
+                    combinations.push({
+                        cells: indexes,
+                        row,
+                        column,
+                        deltaRow: direction.row,
+                        deltaColumn: direction.column,
+                        direction: direction.name
+                    });
+                }
             }
         }
+        return combinations;
     }
 
+    let winningCombinations = buildWinningCombinations(boardSize);
     let mode = null;
     let difficulty = null;
-    let marks = Array(SIZE * SIZE).fill("");
+    let marks = Array(boardSize * boardSize).fill("");
     let currentPlayer = "X";
     let paused = false;
     let gameOver = false;
@@ -88,8 +93,11 @@
 
         cells.forEach((cell, index) => {
             const mark = marks[index];
-            const row = Math.floor(index / SIZE) + 1;
-            const column = (index % SIZE) + 1;
+            const active = index < boardSize * boardSize;
+            cell.hidden = !active;
+            if (!active) return;
+            const row = Math.floor(index / boardSize) + 1;
+            const column = (index % boardSize) + 1;
             cell.textContent = mark;
             cell.classList.toggle("mark-x", mark === "X");
             cell.classList.toggle("mark-o", mark === "O");
@@ -123,10 +131,10 @@
 
     function showWinningStroke(winner) {
         winner.cells.forEach(index => cells[index].classList.add("is-winning"));
-        const centerX = ((winner.column + winner.deltaColumn * (WIN_LENGTH - 1) / 2 + 0.5) / SIZE) * 100;
-        const centerY = ((winner.row + winner.deltaRow * (WIN_LENGTH - 1) / 2 + 0.5) / SIZE) * 100;
+        const centerX = ((winner.column + winner.deltaColumn * (WIN_LENGTH - 1) / 2 + 0.5) / boardSize) * 100;
+        const centerY = ((winner.row + winner.deltaRow * (WIN_LENGTH - 1) / 2 + 0.5) / boardSize) * 100;
         const diagonalScale = winner.direction.startsWith("diagonal") ? Math.SQRT2 : 1;
-        const span = ((WIN_LENGTH - 1) / SIZE) * 100 * diagonalScale;
+        const span = ((WIN_LENGTH - 1) / boardSize) * 100 * diagonalScale;
         const angle = winner.direction === "horizontal" ? 0 : winner.direction === "vertical" ? 90 : winner.direction === "diagonal-down" ? 45 : -45;
         winLine.dataset.line = `${winner.row}-${winner.column}`;
         winLine.dataset.direction = winner.direction;
@@ -154,11 +162,14 @@
 
     function renderCellsOnly() {
         cells.forEach((cell, index) => {
+            const active = index < boardSize * boardSize;
+            cell.hidden = !active;
+            if (!active) return;
             const mark = marks[index];
             cell.textContent = mark;
             cell.classList.toggle("mark-x", mark === "X");
             cell.classList.toggle("mark-o", mark === "O");
-            cell.setAttribute("aria-label", `Row ${Math.floor(index / SIZE) + 1}, column ${(index % SIZE) + 1}, ${mark || "empty"}`);
+            cell.setAttribute("aria-label", `Row ${Math.floor(index / boardSize) + 1}, column ${(index % boardSize) + 1}, ${mark || "empty"}`);
             cell.disabled = true;
         });
         pausedOverlay.hidden = true;
@@ -183,18 +194,21 @@
     }
 
     function candidateMoves(state) {
-        if (state.every(mark => !mark)) return [12];
+        if (state.every(mark => !mark)) {
+            const middle = Math.floor(boardSize / 2);
+            return [middle * boardSize + middle];
+        }
         const candidates = new Set();
         state.forEach((mark, index) => {
             if (!mark) return;
-            const row = Math.floor(index / SIZE);
-            const column = index % SIZE;
+            const row = Math.floor(index / boardSize);
+            const column = index % boardSize;
             for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
                 for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
                     const nextRow = row + rowOffset;
                     const nextColumn = column + columnOffset;
-                    if (nextRow < 0 || nextRow >= SIZE || nextColumn < 0 || nextColumn >= SIZE) continue;
-                    const nextIndex = nextRow * SIZE + nextColumn;
+                    if (nextRow < 0 || nextRow >= boardSize || nextColumn < 0 || nextColumn >= boardSize) continue;
+                    const nextIndex = nextRow * boardSize + nextColumn;
                     if (!state[nextIndex]) candidates.add(nextIndex);
                 }
             }
@@ -218,9 +232,10 @@
         }
         state.forEach((mark, index) => {
             if (!mark) return;
-            const row = Math.floor(index / SIZE);
-            const column = index % SIZE;
-            const centerValue = 4 - Math.abs(2 - row) - Math.abs(2 - column);
+            const row = Math.floor(index / boardSize);
+            const column = index % boardSize;
+            const middle = (boardSize - 1) / 2;
+            const centerValue = boardSize - 1 - Math.abs(middle - row) - Math.abs(middle - column);
             score += (mark === "O" ? 1 : -1) * centerValue * 0.4;
         });
         return score;
@@ -334,7 +349,7 @@
 
     function resetRound() {
         clearAiTurn();
-        marks = Array(SIZE * SIZE).fill("");
+        marks = Array(boardSize * boardSize).fill("");
         currentPlayer = "X";
         paused = false;
         gameOver = false;
@@ -361,14 +376,19 @@
     function selectMode(nextMode, nextDifficulty = null) {
         mode = nextMode;
         difficulty = nextDifficulty;
+        boardSize = mode === "ai" && difficulty === "god" ? 5 : 4;
+        winningCombinations = buildWinningCombinations(boardSize);
+        boardElement.style.setProperty("--ttt-grid-size", boardSize);
+        boardElement.setAttribute("aria-label", `${boardSize} by ${boardSize} Tic-Tac-Toe board`);
         game.classList.remove("is-choosing");
         modePicker.hidden = true;
         gameContent.setAttribute("aria-hidden", "false");
         modeLabel.textContent = mode === "ai"
-            ? `AI · ${difficulty === "god" ? "God Mode" : "Beginner"}`
-            : "Two-player mode";
+            ? `AI · ${difficulty === "god" ? "God Mode · 5×5" : "Beginner · 4×4"}`
+            : "Two-player mode · 4×4";
         resetRound();
-        cells[12].focus({ preventScroll: true });
+        const middle = Math.floor(boardSize / 2);
+        cells[middle * boardSize + middle].focus({ preventScroll: true });
     }
 
     modeButtons.forEach(button => {

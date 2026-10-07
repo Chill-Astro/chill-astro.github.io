@@ -672,9 +672,13 @@ body.tic-tac-toe-page .site-footer {
 }
 
 .ttt-board {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    grid-template-rows: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--ttt-grid-size, 5), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--ttt-grid-size, 5), minmax(0, 1fr));
     gap: clamp(0.2rem, 0.75cqh, 0.45rem);
+}
+
+.ttt-cell[hidden] {
+    display: none !important;
 }
 
 .ttt-cell {
