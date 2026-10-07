@@ -376,6 +376,10 @@ document.addEventListener("DOMContentLoaded", () => {
         loadRepoData();
         prepareScrollAnimations();
 
+    } else if (document.querySelector(".dino-page")) {
+
+        prepareScrollAnimations();
+
     }
 
     if (document.querySelector(".about-page")) {
@@ -475,7 +479,8 @@ function prepareScrollAnimations() {
         ...document.querySelectorAll(".projects h2"),
         ...document.querySelectorAll(".project-card"),
         ...document.querySelectorAll(".additional-stuff h2"),
-        ...document.querySelectorAll(".additional-card")
+        ...document.querySelectorAll(".additional-card"),
+        ...document.querySelectorAll(".dino-intro, .dino-game")
     ];
 
     elementsToObserve.forEach(item => {
@@ -496,7 +501,9 @@ function prepareScrollAnimations() {
                     document.querySelector(".project-card:first-of-type"),
                     ...document.querySelectorAll(".project-card:not(:first-of-type)"),
                     document.querySelector(".additional-stuff h2"),
-                    ...document.querySelectorAll(".additional-card")
+                    ...document.querySelectorAll(".additional-card"),
+                    document.querySelector(".dino-intro"),
+                    document.querySelector(".dino-game")
                 ].filter(Boolean); // Filter out any null elements if selectors don't find anything
 
                 const index = orderedStaggeredAnimations.indexOf(element);
