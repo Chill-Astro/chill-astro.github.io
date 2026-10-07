@@ -1863,3 +1863,53 @@ kbd {
         width: min(100%, 900px, calc((100dvh - 5rem) * 16 / 9));
     }
 }
+
+/* Portrait fullscreen: reserve vertical room for the same stacked touch controls on phones and tablets. */
+@media (orientation: portrait) {
+    .pong-game:fullscreen {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-content: stretch;
+        row-gap: clamp(0.5rem, 1.5vh, 1rem);
+    }
+
+    .pong-game:fullscreen .court-column {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: min(100%, 1200px, calc((100dvh - 17rem) * 16 / 9));
+        justify-self: center;
+    }
+
+    .pong-game:fullscreen .court-frame {
+        max-height: calc(100dvh - 17rem);
+    }
+
+    .pong-game:fullscreen .player-controls {
+        grid-row: 2;
+        align-self: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 0;
+        padding: 0.5rem clamp(0.3rem, 1.5vw, 0.8rem);
+    }
+
+    .pong-game:fullscreen .player-controls-left { grid-column: 1; }
+    .pong-game:fullscreen .player-controls-right { grid-column: 2; }
+
+    .pong-game:fullscreen .fullscreen-controls,
+    .pong-game:fullscreen .touch-controls {
+        width: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+    }
+
+    .pong-game:fullscreen .touch-button {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+        min-width: 4.5rem;
+        min-height: 4.5rem;
+        flex: 0 0 4.5rem;
+    }
+}

@@ -2,4 +2,4 @@ User-agent: *
 
 Allow: /
 
-Sitemap: https://chill-astro.pages.dev/sitemap.xml
+Sitemap: https://chill-astro.github.io/sitemap.xml

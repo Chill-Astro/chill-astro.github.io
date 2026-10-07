@@ -10,7 +10,7 @@
     const gameElement = document.querySelector(".pong-game");
 
     if (!canvas || !context || !toggleButton || !pauseButton || !restartButton || !endButton || !fullscreenButton || !matchClock || !gameElement) {
-        console.error("Pong could not initialize because required game elements are missing.");
+        console.error("Pong Reimagined could not initialize because required game elements are missing.");
         return;
     }
 
@@ -373,7 +373,7 @@
                 await gameElement.requestFullscreen();
             }
         } catch (error) {
-            console.error("Failed to change Pong fullscreen mode:", error);
+            console.error("Failed to change Pong Reimagined fullscreen mode:", error);
         }
     });
     document.addEventListener("fullscreenchange", () => {
