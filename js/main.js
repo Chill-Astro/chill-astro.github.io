@@ -275,10 +275,9 @@ async function openDownload(project) {
 
     });
 
-    document
-        .getElementById("downloadOverlay")
-        .classList
-        .add("show");
+    const wasOpen = overlay.classList.contains("show");
+    overlay.classList.add("show");
+    if (!wasOpen) playUiSound("dialogOpen");
 
 }
 
@@ -286,8 +285,10 @@ function closeDownload(){
 
     const overlay = document.getElementById("downloadOverlay");
 
-    if (overlay)
+    if (overlay && overlay.classList.contains("show")) {
         overlay.classList.remove("show");
+        playUiSound("dialogClose");
+    }
 
 }
 
@@ -341,10 +342,12 @@ function initHeaderMenu() {
         return;
 
     const setOpen = (isOpen) => {
+        const wasOpen = nav.classList.contains("open");
         nav.classList.toggle("open", isOpen);
         backdrop.classList.toggle("open", isOpen);
         toggle.setAttribute("aria-expanded", String(isOpen));
         document.body.style.overflow = isOpen ? "hidden" : "";
+        if (wasOpen !== isOpen) playUiSound(isOpen ? "menuOpen" : "menuClose");
     };
 
     toggle.addEventListener("click", () => {
@@ -370,6 +373,9 @@ function initHeaderMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    initUiSounds();
+    initCursorShadow();
+
     if (document.querySelector(".hero")) {
 
         heroAnimation();
@@ -392,6 +398,86 @@ document.addEventListener("DOMContentLoaded", () => {
     bindDownloadButtons();
 
 });
+
+// UI sounds are synthesized from a tiny JSON profile, so there are no audio
+// files to download or autoplay. AudioContext starts only after user input.
+let uiSoundProfile = {
+    click: { frequency: 620, endFrequency: 470, duration: 0.05, gain: 0.03, wave: "triangle", overtone: 1.7, overtoneGain: 0.32 },
+    menuOpen: { frequency: 330, endFrequency: 740, duration: 0.14, gain: 0.04, wave: "sine", overtone: 1.51, overtoneGain: 0.28 },
+    menuClose: { frequency: 740, endFrequency: 310, duration: 0.12, gain: 0.035, wave: "sine", overtone: 0.67, overtoneGain: 0.24 },
+    dialogOpen: { frequency: 280, endFrequency: 590, duration: 0.15, gain: 0.04, wave: "sine", overtone: 1.33, overtoneGain: 0.25 },
+    dialogClose: { frequency: 590, endFrequency: 280, duration: 0.12, gain: 0.032, wave: "sine", overtone: 0.75, overtoneGain: 0.2 }
+};
+let uiAudioContext;
+
+function initUiSounds() {
+    const configUrl = new URL("../assets/data/ui-sounds.json", document.currentScript?.src || location.href);
+    fetch(configUrl).then(response => response.ok ? response.json() : null)
+        .then(profile => { if (profile && typeof profile === "object") uiSoundProfile = profile; })
+        .catch(() => {});
+
+    document.addEventListener("pointerdown", event => {
+        const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
+        if (!control || control.matches(":disabled,[aria-disabled='true'],.menu-toggle") || control.closest(".pong-game,.dino-game,.ttt-game")) return;
+        playUiSound("click");
+    }, { capture: true });
+    document.addEventListener("click", event => {
+        if (event.detail !== 0) return; // pointer clicks were handled on pointerdown
+        const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
+        if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
+    }, { capture: true });
+    document.addEventListener("pointermove", event => {
+        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase");
+        if (!target) return;
+        const bounds = target.getBoundingClientRect();
+        target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, event.clientX - bounds.left - bounds.width / 2))}px`);
+        target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, event.clientY - bounds.top - bounds.height / 2))}px`);
+    }, { passive: true });
+}
+
+function initCursorShadow() {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+    const shadow = document.createElement("div");
+    shadow.id = "cursor-shadow";
+    shadow.setAttribute("aria-hidden", "true");
+    document.body.appendChild(shadow);
+    document.addEventListener("pointermove", event => {
+        if (event.pointerType !== "mouse") return;
+        shadow.style.setProperty("--cursor-x", `${event.clientX}px`);
+        shadow.style.setProperty("--cursor-y", `${event.clientY}px`);
+        shadow.classList.add("is-visible");
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => shadow.classList.remove("is-visible"));
+    document.addEventListener("pointerenter", () => shadow.classList.add("is-visible"));
+}
+
+function playUiSound(name) {
+    const sound = uiSoundProfile[name];
+    if (!sound) return;
+    try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        uiAudioContext ||= new AudioContextClass();
+        if (uiAudioContext.state === "suspended") uiAudioContext.resume();
+        const start = uiAudioContext.currentTime;
+        const duration = Math.max(0.02, Math.min(0.16, Number(sound.duration) || 0.05));
+        const tones = [{ frequency: sound.frequency, endFrequency: sound.endFrequency, gain: sound.gain }];
+        if (sound.overtone) tones.push({ frequency: sound.frequency * sound.overtone, endFrequency: sound.endFrequency * sound.overtone, gain: sound.gain * (sound.overtoneGain || 0.25) });
+        tones.forEach(tone => {
+            const oscillator = uiAudioContext.createOscillator();
+            const gain = uiAudioContext.createGain();
+            oscillator.type = sound.wave || "sine";
+            oscillator.frequency.setValueAtTime(Number(tone.frequency) || 480, start);
+            oscillator.frequency.exponentialRampToValueAtTime(Math.max(80, Number(tone.endFrequency) || 360), start + duration);
+            gain.gain.setValueAtTime(Math.max(0.001, Math.min(0.06, Number(tone.gain) || 0.03)), start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+            oscillator.connect(gain);
+            gain.connect(uiAudioContext.destination);
+            oscillator.start(start);
+            oscillator.stop(start + duration);
+        });
+    } catch (_) { /* Sound is optional; controls must always work silently too. */ }
+}
 
 // ======================================
 // Hero Animation
@@ -656,3 +742,32 @@ if (document.getElementById("footer")) {
     );
 
 }
+
+// Soft entrance for content as it enters view, plus immediate press feedback in CSS.
+function initSiteMotion() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+
+    const candidates = document.querySelectorAll(
+        "main > section, main > article, .project-card, .additional-card, .feature-card, .theme-showcase, .eeg-app, .future, .pong-game"
+    );
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("motion-visible");
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
+
+    candidates.forEach((element, index) => {
+        if (element.getBoundingClientRect().top > window.innerHeight * 0.85) {
+            element.classList.add("motion-reveal");
+            if (element.matches(".project-card,.additional-card")) {
+                element.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
+            }
+            observer.observe(element);
+        }
+    });
+    if (document.querySelector(".motion-reveal")) document.body.classList.add("motion-enabled");
+}
+
+initSiteMotion();

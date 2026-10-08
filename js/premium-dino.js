@@ -2,12 +2,13 @@
     const canvas = document.getElementById('dino-canvas');
     const ctx = canvas?.getContext('2d');
     const game = document.getElementById('dino-game');
+    const stage = document.querySelector('.dino-stage');
     const overlay = document.getElementById('dino-overlay');
     const title = document.getElementById('overlay-title');
     const message = document.getElementById('overlay-message');
     const startButton = document.getElementById('start-game');
     const layoutRoot = document.querySelector('.dino-main');
-    if (!canvas || !ctx || !game || !overlay || !startButton || !layoutRoot) return;
+    if (!canvas || !ctx || !game || !stage || !overlay || !startButton || !layoutRoot) return;
 
     const W = canvas.width, H = canvas.height, ground = Math.round(H * .9), dinoX = 50;
     const gravity = 2300, jumpVelocity = -625, jumpBufferDuration = .2;
@@ -33,15 +34,18 @@
 
     let best = 0;
     try { best = Number(localStorage.getItem('premium-dino-best') || 0); } catch { /* Storage can be disabled. */ }
-    let score = 0, speed = 360, obstacles = [], clouds = [], running = false, dead = false, ducking = false;
+    let score = 0, speed = 360, obstacles = [], clouds = [], running = false, dead = false, ducking = false, nextScoreBeep = 500;
     let lastCactusVariant = -1;
     let dinoY = ground, vy = 0, jumpBuffer = 0, last = 0, elapsed = 0, obstacleTimer = 1.1, raf = 0;
 
     function syncLayoutScale() {
-        const scale = document.fullscreenElement === game
-            ? 1
-            : Math.min(1, layoutRoot.clientWidth / designWidth);
-        game.style.zoom = String(scale);
+        const fullscreen = document.fullscreenElement === game;
+        let scale = Math.min(1, layoutRoot.clientWidth / designWidth);
+        if (fullscreen) {
+            const stageHeight = 420;
+            scale = Math.min((window.innerWidth - 24) / designWidth, (window.innerHeight - 24) / stageHeight);
+        }
+        stage.style.zoom = String(Math.max(0.1, scale));
     }
 
     syncLayoutScale();
@@ -116,7 +120,7 @@
     }
 
     function reset() {
-        score = 0; speed = 360; elapsed = 0; dinoY = ground; vy = 0; jumpBuffer = 0; ducking = false;
+        score = 0; speed = 360; elapsed = 0; dinoY = ground; vy = 0; jumpBuffer = 0; ducking = false; nextScoreBeep = 500;
         obstacles = [];
         lastCactusVariant = -1;
         clouds = Array.from({ length: 5 }, (_, i) => ({ x: 150 + i * 190, y: 54 + (i % 3) * 33 }));
@@ -126,6 +130,7 @@
 
     function begin() {
         if (running) return;
+        playGameSound("dinoStart");
         if (dead) reset();
         dead = false; running = true; overlay.hidden = true;
         pauseButton.hidden = false; restartButton.hidden = false; endButton.hidden = false;
@@ -135,6 +140,8 @@
     }
 
     function finish() {
+        playGameSound("dinoHit");
+        window.setTimeout(() => playGameSound("dinoOver"), 100);
         running = false; dead = true; ducking = false;
         cancelAnimationFrame(raf);
         pauseButton.hidden = true; restartButton.hidden = true; endButton.hidden = true;
@@ -171,6 +178,10 @@
         if (!running) return;
         const dt = Math.min(last ? (now - last) / 1000 : 0, .04);
         last = now; elapsed += dt; score += dt * 100;
+        if (score >= nextScoreBeep) {
+            playGameSound("dinoMilestone");
+            nextScoreBeep += 500;
+        }
         speed = Math.min(760, 360 + score * .22);
         if (dinoY < ground || vy < 0) {
             dinoY += vy * dt + .5 * gravity * dt * dt;
@@ -228,6 +239,7 @@
             vy = jumpVelocity;
             ducking = false;
             jumpBuffer = 0;
+            playGameSound("dinoJump");
         }
     }
     function setDuck(on) { ducking = on; }
@@ -235,6 +247,7 @@
     startButton.addEventListener('click', begin);
     pauseButton.addEventListener('click', () => {
         if (!running) return;
+        playGameSound("dinoPause");
         running = false; cancelAnimationFrame(raf); pauseButton.hidden = true;
         show('Paused', 'Take a breather. Your run is waiting.', 'Resume');
     });

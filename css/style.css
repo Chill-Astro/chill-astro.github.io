@@ -1473,3 +1473,44 @@ footer .socials a{border-radius:var(--ui-radius-small)!important}
 /* Footer controls are the rounded, game-like interactive elements. */
 footer .socials a{display:grid;place-items:center;width:42px;height:42px;padding:0!important;border-radius:50%!important;border:1px solid var(--line)!important;background:var(--surface)!important;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,background .2s ease,color .2s ease!important}
 @media (hover:hover){footer .socials a:hover{background:var(--text)!important;color:var(--bg)!important;transform:translateY(-4px) scale(1.06)!important;box-shadow:0 0 0 4px color-mix(in srgb,var(--text) 12%,transparent),0 10px 22px color-mix(in srgb,var(--text) 22%,transparent)!important}}
+
+/* Site-wide motion: short, springy responses with restrained scroll entrances. */
+:root{--motion-ease:cubic-bezier(.2,.75,.25,1);--motion-fast:180ms;--motion-base:320ms}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{transition:background-color 420ms ease,color 280ms ease}
+:where(button,[role="button"],input[type="button"],input[type="submit"],summary,.touch-button,.game-action){transition:transform var(--motion-fast) var(--motion-ease),filter var(--motion-fast) ease,box-shadow var(--motion-fast) ease}
+:where(button,[role="button"],input[type="button"],input[type="submit"],.touch-button,.game-action):active{transform:scale(.96)!important;filter:brightness(.92)}
+:where(a,button,[role="button"],input,select,textarea,summary):focus-visible{scroll-margin-block:6rem}
+:where(.project-card,.additional-card,.feature-card,.theme-showcase,.eeg-app,.future,.error-shell,.root-checker-intro,.tmm-intro,.doc-intro-card,.pong-intro,.pong-game,.lamina-section,.root-checker-section,.tmm-section){transition:transform var(--motion-base) var(--motion-ease),box-shadow var(--motion-base) ease,border-color var(--motion-base) ease,background-color var(--motion-base) ease}
+:where(img,video){transition:transform 420ms var(--motion-ease),filter 320ms ease}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  :where(.project-card,.additional-card,.feature-card,.theme-showcase,.eeg-app,.pong-intro,.pong-game):hover{transform:translateY(-4px)}
+  .project-card:hover .project-image img,.additional-card:hover .additional-image img{transform:scale(1.035)}
+  .logo-circle:hover img{transform:scale(1.06)}
+  :where(.touch-button,.game-action,.fullscreen-game-button):hover{transform:translateY(-2px)}
+}
+body.motion-enabled .motion-reveal{opacity:0;transform:translateY(18px);transition:opacity 650ms var(--motion-ease),transform 650ms var(--motion-ease)}
+body.motion-enabled .motion-reveal.motion-visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  body.motion-enabled .motion-reveal{opacity:1;transform:none}
+}
+#cursor-shadow{position:fixed;z-index:9998;top:0;left:0;width:72px;height:72px;border-radius:50%;pointer-events:none;opacity:0;transform:translate3d(calc(var(--cursor-x,-200px) - 50%),calc(var(--cursor-y,-200px) - 50%),0);background:radial-gradient(circle at center,color-mix(in srgb,var(--text) 17%,transparent),transparent 70%);filter:blur(8px);transition:opacity 160ms ease;will-change:transform}
+#cursor-shadow.is-visible{opacity:.48}
+@media(prefers-reduced-motion:reduce){#cursor-shadow{display:none}}
+@media (hover:hover){
+  :where(a,button,[role="button"],summary,input[type="button"],input[type="submit"],.project-card,.additional-card,.feature-card,.theme-showcase):hover{filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent))}
+}
+
+/* Frame banner media and product screenshots, while leaving brand marks and icons clear. */
+:root{--banner-media-radius:12px}
+html body .hero-image,
+html body .lamina-media img,
+html body .lamina-media>video,
+html body .root-checker-media img,
+html body .tmm-media img,
+html body .eeg-media img,
+html body .youtube-media iframe{box-sizing:border-box!important;border:2px solid var(--text)!important;border-radius:var(--banner-media-radius)!important}
+html body .video-player{box-sizing:border-box!important;border:2px solid var(--text)!important;border-radius:var(--banner-media-radius)!important;overflow:hidden}
+html body .tmm-media,
+html body .rooting-hero{border-radius:var(--banner-media-radius)!important}

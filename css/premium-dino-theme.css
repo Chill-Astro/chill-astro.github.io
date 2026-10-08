@@ -125,3 +125,25 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
         color: #fff;
     }
 }
+
+/* Keep all Dino controls and the court inside one viewport-scaled stage. */
+.dino-game{display:flex!important;align-items:center;justify-content:center;width:100%!important;max-width:none!important;grid-template-columns:none!important;gap:0!important;overflow:visible}
+.dino-stage{display:grid;grid-template-columns:170px 960px;align-items:center;gap:28px;width:1158px;transform-origin:center center}
+.dino-stage .dino-controls{grid-column:1;grid-row:1;display:flex!important;gap:1rem!important}
+.dino-stage .dino-court-column{grid-column:2;grid-row:1}
+.dino-game:fullscreen{display:grid!important;place-items:center;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;gap:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;margin:0!important;padding:0!important;overflow:hidden;background:var(--bg)}
+.dino-game:fullscreen .dino-stage{margin:0;gap:28px}
+.dino-game:fullscreen .dino-court-column{width:960px!important}
+.dino-game:fullscreen .dino-frame{width:960px!important;max-height:none!important}
+.dino-game:fullscreen .dino-controls{display:flex!important;flex-direction:column!important;gap:1rem!important;width:170px!important;max-width:170px!important;grid-column:1!important;grid-row:1!important}
+.dino-game:fullscreen .dino-stats{padding:.9rem!important}
+.dino-game:fullscreen .dino-stats output{font-size:1.35rem!important}
+.dino-game:fullscreen .dino-touch-controls{flex-direction:column!important}
+.dino-game:fullscreen .dino-touch-button{flex:0 1 auto!important;min-height:44px!important;font-size:.75rem!important}
+.dino-game:fullscreen .dino-overlay-title{font-size:2rem!important}
+.dino-game:fullscreen .dino-overlay-message{font-size:.95rem!important}
+@media(max-width:680px){
+  .dino-stage .dino-touch-controls{flex-direction:column!important}
+  .dino-stage .dino-touch-button{flex:0 1 auto!important}
+  .dino-stage .dino-frame{border-width:3px!important;border-radius:1.25rem!important}
+}

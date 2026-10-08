@@ -144,6 +144,7 @@
     }
 
     function startGame() {
+        if (!running) playGameSound("pongStart");
         if (!started) {
             started = true;
             scores.left = 0;
@@ -165,6 +166,7 @@
 
     function pauseGame() {
         if (!running) return;
+        playGameSound("pongPause");
         matchRemaining = Math.max(0, (matchDeadline - performance.now()) / 1000);
         updateClock();
         if (matchRemaining <= 0) {
@@ -178,6 +180,7 @@
     }
 
     function restartGame() {
+        playGameSound("pongStart");
         started = true;
         scores.left = 0;
         scores.right = 0;
@@ -204,6 +207,7 @@
         const result = scores.left === scores.right
             ? "It's a draw!"
             : `${scores.left > scores.right ? "Left" : "Right"} player wins!`;
+        playGameSound(scores.left === scores.right ? "pongDraw" : "pongVictory");
         setOverlay(
             result,
             `Time's up! Final score: ${scores.left}–${scores.right}.`,
@@ -214,6 +218,7 @@
 
     function endGame() {
         if (!started) return;
+        playGameSound("pongEnd");
         running = false;
         started = false;
         cancelAnimationFrame(animationFrame);
@@ -227,6 +232,7 @@
     }
 
     function scorePoint(side, now) {
+        playGameSound("pongScore");
         scores[side] += 1;
         updateScores();
         resetBall(side === "left" ? 1 : -1, now);
@@ -273,6 +279,7 @@
         ball.x = direction < 0
             ? paddle.x + paddleWidth + ballRadius
             : paddle.x - ballRadius;
+        playGameSound("pongPaddle");
     }
 
     function updateBall(delta, now) {
@@ -285,9 +292,11 @@
         if (ball.y - ballRadius <= 0) {
             ball.y = ballRadius;
             ball.vy = Math.abs(ball.vy);
+            playGameSound("pongWall");
         } else if (ball.y + ballRadius >= height) {
             ball.y = height - ballRadius;
             ball.vy = -Math.abs(ball.vy);
+            playGameSound("pongWall");
         }
 
         if (ball.vx < 0) collideWithPaddle(paddles.left, -1);

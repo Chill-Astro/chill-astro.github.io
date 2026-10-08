@@ -147,6 +147,8 @@
     }
 
     function finishRound(winner) {
+        const resultSound = !winner ? "tttDraw" : mode === "ai" && winner.player !== "X" ? "tttDefeat" : "tttVictory";
+        playGameSound(resultSound);
         gameOver = true;
         paused = false;
         pauseButton.hidden = true;
@@ -177,6 +179,7 @@
 
     function placeMark(index, player) {
         if (gameOver || paused || marks[index]) return;
+        playGameSound(player === "X" ? "tttMoveX" : "tttMoveO");
         marks[index] = player;
         const winner = getWinner(marks);
         if (winner) {
@@ -366,6 +369,7 @@
     }
 
     function showDifficultyScreen() {
+        playGameSound("tttMenu");
         modeTitle.textContent = "Choose difficulty";
         modeDescription.textContent = "Pick how challenging you want the AI to be.";
         modeOptions.hidden = true;
@@ -374,6 +378,7 @@
     }
 
     function selectMode(nextMode, nextDifficulty = null) {
+        playGameSound("tttMenu");
         mode = nextMode;
         difficulty = nextDifficulty;
         boardSize = mode === "ai" && difficulty === "god" ? 5 : 4;
@@ -415,9 +420,17 @@
         });
     });
 
+    document.addEventListener("pointerdown", event => {
+        if (event.target.closest(".ttt-game button")) playGameSound("tttPress");
+    }, { capture: true });
+    document.addEventListener("click", event => {
+        if (event.detail === 0 && event.target.closest(".ttt-game button")) playGameSound("tttPress");
+    }, { capture: true });
+
     pauseButton.addEventListener("click", () => {
         if (gameOver) return;
         paused = !paused;
+        playGameSound("tttPause");
         if (paused) clearAiTurn();
         render();
         if (!paused && mode === "ai" && currentPlayer === "O") scheduleAiMove();

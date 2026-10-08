@@ -28,6 +28,9 @@ body.error-404-page {
     background-size: 40px 40px;
 }
 
+#cursor-shadow{position:fixed;z-index:9998;top:0;left:0;width:72px;height:72px;border-radius:50%;pointer-events:none;opacity:0;transform:translate3d(calc(var(--cursor-x,-200px) - 50%),calc(var(--cursor-y,-200px) - 50%),0);background:radial-gradient(circle at center,color-mix(in srgb,var(--text) 17%,transparent),transparent 70%);filter:blur(8px);transition:opacity 160ms ease;will-change:transform}#cursor-shadow.is-visible{opacity:.48}
+@media (hover:hover){a:hover,button:hover{filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent))}}
+
 body.error-404-page::before {
     content: "";
     position: fixed;
