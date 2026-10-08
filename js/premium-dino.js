@@ -6,7 +6,8 @@
     const title = document.getElementById('overlay-title');
     const message = document.getElementById('overlay-message');
     const startButton = document.getElementById('start-game');
-    if (!canvas || !ctx || !game || !overlay || !startButton) return;
+    const layoutRoot = document.querySelector('.dino-main');
+    if (!canvas || !ctx || !game || !overlay || !startButton || !layoutRoot) return;
 
     const W = canvas.width, H = canvas.height, ground = Math.round(H * .9), dinoX = 50;
     const gravity = 2300, jumpVelocity = -625, jumpBufferDuration = .2;
@@ -24,6 +25,7 @@
     const restartButton = document.getElementById('restart-game');
     const endButton = document.getElementById('end-game');
     const fullscreenButton = document.getElementById('fullscreen-game');
+    const designWidth = 1158;
     const format = n => String(Math.floor(n)).padStart(5, '0');
     const sprite = new Image();
     sprite.src = '../assets/images/premium-dino-sprite.png';
@@ -34,6 +36,18 @@
     let score = 0, speed = 360, obstacles = [], clouds = [], running = false, dead = false, ducking = false;
     let lastCactusVariant = -1;
     let dinoY = ground, vy = 0, jumpBuffer = 0, last = 0, elapsed = 0, obstacleTimer = 1.1, raf = 0;
+
+    function syncLayoutScale() {
+        const scale = document.fullscreenElement === game
+            ? 1
+            : Math.min(1, layoutRoot.clientWidth / designWidth);
+        game.style.zoom = String(scale);
+    }
+
+    syncLayoutScale();
+    window.addEventListener('resize', syncLayoutScale);
+    if ('ResizeObserver' in window) new ResizeObserver(syncLayoutScale).observe(layoutRoot);
+
     bestOut.textContent = format(best);
 
     function colors() {
@@ -252,6 +266,7 @@
     });
     document.addEventListener('fullscreenchange', () => {
         const fullscreen = document.fullscreenElement === game;
+        syncLayoutScale();
         fullscreenButton.setAttribute('aria-label', fullscreen ? 'Exit fullscreen' : 'Enter fullscreen');
         fullscreenButton.setAttribute('aria-pressed', String(fullscreen));
     });

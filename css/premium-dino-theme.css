@@ -10,6 +10,11 @@
     --line: #000;
     --shadow: none;
     color: #000;
+    width: 1158px;
+    max-width: none;
+    margin-inline: auto;
+    grid-template-columns: 170px 960px;
+    gap: 28px;
 }
 
 body.dino-page {
@@ -19,30 +24,29 @@ body.dino-page {
     min-height: 100svh;
 }
 
-body.dino-page > .dino-main {
-    flex: 1 0 auto;
+body.dino-page > .dino-main { flex: 1 0 auto; }
+body.dino-page > #footer { flex: 0 0 auto; }
+body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
+
+.dino-game .dino-controls {
+    display: flex;
+    grid-row: auto;
+    grid-column: auto;
+    flex-direction: column;
 }
 
-body.dino-page > #footer {
-    flex: 0 0 auto;
+.dino-game .dino-court-column {
+    width: 960px;
+    min-width: 0;
+    grid-row: auto;
+    grid-column: auto;
 }
 
-body.dino-page > #footer > .site-footer {
-    height: auto;
-    min-height: 0;
-}
-
-.dino-game .dino-fullscreen {
-    color: var(--button-text);
-    background: var(--button-bg);
-    border-color: var(--button-bg);
-    backdrop-filter: none;
-}
-
-.dino-game .dino-frame {
-    box-sizing: border-box;
-    border: 2px solid var(--text);
-}
+.dino-game .dino-touch-controls { flex-direction: column; }
+.dino-game .dino-touch-button { flex: 0 1 auto; }
+.dino-game .dino-fullscreen { color: var(--button-text); background: var(--button-bg); border-color: var(--button-bg); backdrop-filter: none; }
+.dino-game .dino-frame { box-sizing: border-box; width: 960px; border: 2px solid var(--text); }
+.dino-game .dino-stats { border-radius: 1rem; }
 
 .dino-attribution {
     position: absolute;
@@ -55,13 +59,7 @@ body.dino-page > #footer > .site-footer {
     letter-spacing: 0.02em;
 }
 
-.dino-attribution a {
-    color: inherit;
-}
-
-.dino-game .dino-stats {
-    border-radius: 1rem;
-}
+.dino-attribution a { color: inherit; }
 
 .dino-actions {
     position: absolute;
@@ -76,28 +74,10 @@ body.dino-page > #footer > .site-footer {
     pointer-events: none;
 }
 
-.dino-actions > .dino-action {
-    pointer-events: auto;
-}
-
-.dino-actions #end-game {
-    grid-column: 4;
-    justify-self: end;
-}
+.dino-actions > .dino-action { pointer-events: auto; }
+.dino-actions #end-game { grid-column: 4; justify-self: end; }
 
 @media (min-width: 681px) {
-    .dino-court-column {
-        width: 100%;
-        min-width: 0;
-    }
-
-    .dino-court-column .dino-frame {
-        box-sizing: border-box;
-        width: min(100%, 960px, max(12rem, calc(228.57dvh - 45.72rem)));
-        aspect-ratio: 16 / 7;
-        margin-inline: auto;
-    }
-
     .dino-game:fullscreen {
         box-sizing: border-box;
         width: 100vw;
@@ -105,7 +85,7 @@ body.dino-page > #footer > .site-footer {
         height: 100dvh;
         margin: 0;
         padding: clamp(0.5rem, 1.5vh, 1.25rem);
-        grid-template-columns: clamp(130px, 14vw, 220px) minmax(0, 1fr);
+        grid-template-columns: clamp(6rem, 19dvh, 220px) minmax(0, 1fr);
         grid-template-rows: minmax(0, 1fr);
         align-items: center;
         justify-content: stretch;
@@ -113,33 +93,22 @@ body.dino-page > #footer > .site-footer {
         overflow: hidden;
     }
 
-    .dino-game:fullscreen .dino-court-column {
-        width: 100%;
-        align-self: center;
-    }
-
+    .dino-game:fullscreen .dino-court-column { width: 100%; align-self: center; }
+    .dino-game:fullscreen .dino-controls { gap: clamp(0.4rem, 1.5dvh, 1rem); }
+    .dino-game:fullscreen .dino-stats { padding: clamp(0.4rem, 1.2dvh, 0.9rem); }
+    .dino-game:fullscreen .dino-stats output { font-size: clamp(0.8rem, 1.8dvh, 1.35rem); }
+    .dino-game:fullscreen .dino-touch-button { min-height: clamp(2.25rem, 4.1dvh, 2.75rem); font-size: clamp(0.65rem, 1.1dvh, 0.75rem); }
     .dino-game:fullscreen .dino-frame {
-        width: min(100%, calc((100dvh - 6rem) * 16 / 7));
+        width: min(100%, calc(228.57dvh - 219px));
         max-height: calc(100dvh - 6rem);
         margin-inline: auto;
     }
 }
 
 @media (max-width: 680px) {
-    .dino-game {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .dino-actions {
-        inset: 0.45rem;
-        gap: 0.25rem;
-    }
-
-    .dino-actions .dino-action {
-        min-height: 2.5rem;
-        padding: 0.4rem 0.6rem;
-        font-size: 0.68rem;
-    }
+    .dino-game { grid-template-columns: 170px 960px; }
+    .dino-actions { inset: 0.45rem; gap: 0.25rem; }
+    .dino-actions .dino-action { min-height: 2.5rem; padding: 0.4rem 0.6rem; font-size: 0.68rem; }
 }
 
 @media (prefers-color-scheme: dark) {
