@@ -55,11 +55,9 @@
     bestOut.textContent = format(best);
 
     function colors() {
-        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         return {
-            fg: dark ? '#fff' : '#000',
-            bg: dark ? '#000' : '#fff',
-            muted: dark ? '#fff' : '#000'
+            bg: '#fff',
+            muted: '#000'
         };
     }
 
