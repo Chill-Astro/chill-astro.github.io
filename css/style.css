@@ -1495,13 +1495,6 @@ body.motion-enabled .motion-reveal.motion-visible{opacity:1;transform:translateY
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   body.motion-enabled .motion-reveal{opacity:1;transform:none}
 }
-#cursor-shadow{position:fixed;z-index:9998;top:0;left:0;width:72px;height:72px;border-radius:50%;pointer-events:none;opacity:0;transform:translate3d(calc(var(--cursor-x,-200px) - 50%),calc(var(--cursor-y,-200px) - 50%),0);background:radial-gradient(circle at center,color-mix(in srgb,var(--text) 17%,transparent),transparent 70%);filter:blur(8px);transition:opacity 160ms ease;will-change:transform}
-#cursor-shadow.is-visible{opacity:.48}
-@media(prefers-reduced-motion:reduce){#cursor-shadow{display:none}}
-@media (hover:hover){
-  :where(a,button,[role="button"],summary,input[type="button"],input[type="submit"],.project-card,.additional-card,.feature-card,.theme-showcase):hover{filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent))}
-}
-
 /* Frame banner media and product screenshots, while leaving brand marks and icons clear. */
 :root{--banner-media-radius:12px}
 html body .hero-image,
@@ -1514,3 +1507,57 @@ html body .youtube-media iframe{box-sizing:border-box!important;border:2px solid
 html body .video-player{box-sizing:border-box!important;border:2px solid var(--text)!important;border-radius:var(--banner-media-radius)!important;overflow:hidden}
 html body .tmm-media,
 html body .rooting-hero{border-radius:var(--banner-media-radius)!important}
+
+:root{--grid-size:40px}
+body{background-size:var(--grid-size) var(--grid-size)}
+body{
+    isolation:isolate;
+    --grid-hover-x:-1000px;
+    --grid-hover-y:-1000px;
+    --grid-rim-color:#fff;
+    --grid-rim-opacity:20%;
+    background-image:
+        linear-gradient(color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px),
+        linear-gradient(90deg,color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px);
+    background-size:
+        var(--grid-size) var(--grid-size),
+        var(--grid-size) var(--grid-size);
+    background-position:
+        0 0,
+        0 0;
+    background-attachment:fixed,fixed;
+    background-repeat:repeat,repeat;
+}
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background-image:
+        linear-gradient(color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px),
+        linear-gradient(90deg,color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px);
+    background-size:var(--grid-size) var(--grid-size),var(--grid-size) var(--grid-size);
+    background-position:0 0;
+    -webkit-mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
+    mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
+    filter:blur(.5px);
+    opacity:0;
+    transition:opacity 900ms ease-out;
+}
+body.grid-hover-glow::after{
+    opacity:1;
+}
+@media(prefers-color-scheme:light){
+    body{--grid-rim-color:#000}
+}
+
+@media (hover:hover){
+    :where(a,button,[role="button"],summary,input[type="button"],input[type="submit"],.project-card,.additional-card,.feature-card,.theme-showcase,.hero):hover{
+        filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent));
+    }
+}
+.logo-circle:hover{transform:none!important;box-shadow:var(--glow-shadow)!important}
+.logo-circle:hover img{transform:none!important}
+.hero:hover .logo-circle{box-shadow:var(--glow-shadow)!important}
+.hero:hover{transform:translateY(-7px)!important}

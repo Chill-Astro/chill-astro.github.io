@@ -372,9 +372,8 @@ function initHeaderMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
     initUiSounds();
-    initCursorShadow();
+    initGridHoverGlow();
 
     if (document.querySelector(".hero")) {
 
@@ -427,7 +426,7 @@ function initUiSounds() {
         if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
     }, { capture: true });
     document.addEventListener("pointermove", event => {
-        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase");
+        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero");
         if (!target) return;
         const bounds = target.getBoundingClientRect();
         target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, event.clientX - bounds.left - bounds.width / 2))}px`);
@@ -435,20 +434,36 @@ function initUiSounds() {
     }, { passive: true });
 }
 
-function initCursorShadow() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
-    const shadow = document.createElement("div");
-    shadow.id = "cursor-shadow";
-    shadow.setAttribute("aria-hidden", "true");
-    document.body.appendChild(shadow);
+function initGridHoverGlow() {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    const gridSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--grid-size"));
+    let pointerPosition = null;
+    let glowTimeout;
+    const updateGlow = (clientX, clientY) => {
+        const x = Math.floor(clientX / gridSize) * gridSize;
+        const y = Math.floor(clientY / gridSize) * gridSize;
+        document.body.style.setProperty("--grid-hover-x", `${x}px`);
+        document.body.style.setProperty("--grid-hover-y", `${y}px`);
+        document.body.classList.add("grid-hover-glow");
+        window.clearTimeout(glowTimeout);
+    };
     document.addEventListener("pointermove", event => {
         if (event.pointerType !== "mouse") return;
-        shadow.style.setProperty("--cursor-x", `${event.clientX}px`);
-        shadow.style.setProperty("--cursor-y", `${event.clientY}px`);
-        shadow.classList.add("is-visible");
+        pointerPosition = { x: event.clientX, y: event.clientY };
+        updateGlow(event.clientX, event.clientY);
     }, { passive: true });
-    document.addEventListener("pointerleave", () => shadow.classList.remove("is-visible"));
-    document.addEventListener("pointerenter", () => shadow.classList.add("is-visible"));
+    window.addEventListener("scroll", () => {
+        if (!pointerPosition) return;
+        updateGlow(pointerPosition.x, pointerPosition.y);
+    }, { passive: true, capture: true });
+    document.addEventListener("pointerleave", () => {
+        pointerPosition = null;
+        window.clearTimeout(glowTimeout);
+        glowTimeout = window.setTimeout(() => {
+            document.body.classList.remove("grid-hover-glow");
+        }, 300);
+    });
 }
 
 function playUiSound(name) {
