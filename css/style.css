@@ -791,8 +791,8 @@ body {
 
     background:rgba(0,0,0,.30);
 
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(24px) saturate(125%);
+    -webkit-backdrop-filter:blur(24px) saturate(125%);
 
     opacity:0;
     visibility:hidden;
@@ -1188,7 +1188,6 @@ body {
  the card itself provides the hover feedback. */
 .project-card:hover .project-image img{
     transform:none;
-}
 }
 
 .project-card h3{margin-top:1rem;}
@@ -1874,6 +1873,26 @@ html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-tog
         animation: none !important;
         transition: none !important;
         will-change: auto !important;
+    }
+}
+
+/* Download glass: blur the page behind the overlay and the page seen through the dialog. */
+html.os-effects .download-overlay.show {
+    background: rgba(0, 0, 0, .38) !important;
+    backdrop-filter: blur(24px) saturate(125%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
+}
+html.os-effects .download-overlay.show .download-dialog {
+    background: rgba(0, 0, 0, .5) !important;
+    backdrop-filter: blur(24px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+}
+@media (prefers-color-scheme: light) {
+    html.os-effects .download-overlay.show {
+        background: rgba(255, 255, 255, .3) !important;
+    }
+    html.os-effects .download-overlay.show .download-dialog {
+        background: rgba(255, 255, 255, .6) !important;
     }
 }
 
