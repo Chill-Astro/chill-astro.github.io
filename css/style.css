@@ -1896,6 +1896,53 @@ html.os-effects .download-overlay.show .download-dialog {
     }
 }
 
+/* Match card and media-frame glass to the download dialog, including on hover. */
+html.os-effects :is(
+    [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+    .project-image, .additional-image, .lamina-media, .root-checker-media,
+    .tmm-media, .eeg-media, .youtube-media, .video-player
+):not(img):not(video):not(iframe):not(canvas) {
+    background: rgba(0, 0, 0, .1) !important;
+    background-image: none !important;
+    border-color: rgba(255, 255, 255, .2) !important;
+    backdrop-filter: blur(1px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(1px) saturate(130%) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+    :is(
+        [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+        .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+        .project-image, .additional-image, .lamina-media, .root-checker-media,
+        .tmm-media, .eeg-media, .youtube-media, .video-player
+    ):hover:not(img):not(video):not(iframe):not(canvas) {
+        background: rgba(0, 0, 0, .1) !important;
+        backdrop-filter: blur(1px) saturate(130%) !important;
+        -webkit-backdrop-filter: blur(1px) saturate(130%) !important;
+    }
+}
+@media (prefers-color-scheme: light) {
+    html.os-effects :is(
+        [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+        .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+        .project-image, .additional-image, .lamina-media, .root-checker-media,
+        .tmm-media, .eeg-media, .youtube-media, .video-player
+    ):not(img):not(video):not(iframe):not(canvas) {
+        background: rgba(255, 255, 255, .1) !important;
+        border-color: rgba(0, 0, 0, .16) !important;
+    }
+    @media (hover: hover) and (pointer: fine) {
+        :is(
+            [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+            .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+            .project-image, .additional-image, .lamina-media, .root-checker-media,
+            .tmm-media, .eeg-media, .youtube-media, .video-player
+        ):hover:not(img):not(video):not(iframe):not(canvas) {
+            background: rgba(255, 255, 255, .1) !important;
+        }
+    }
+}
+
 /* Make surfaces solid whenever their backdrop blur is disabled. */
 html:not(.os-effects) .site-header,
 html:not(.os-effects) .video-player__play,
