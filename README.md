@@ -42,6 +42,35 @@
 >
 > As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
 
+<details>
+<summary><b>View Ranting ( NO OFFENCE MEANT! 💀 ) </b></summary>
+
+<br>
+
+> Why PC gets everything? Performance is surely a reason. AND Powerful Mobile Phones exist too ( for scrolling Reels at 165 Hz and taking Lunch Photos in 4K ).
+> 
+> SECOND REASON : My Website's Purpose Serves PCs best.
+>
+> Rooting a Phone and Need a Guide? PC.
+> 
+> Most of my Software is for PC.
+> 
+> OH MY POSH! is mostly used on PC.
+> 
+> My Games are best Viewed on PC.
+> 
+> The content is easier to Read on PC.
+>
+> The only Reason for a phone to come, is to download FOSS Root Checker!
+>
+> The website always lags on Mobile.
+>
+> And anyway you will fall asleep reading to watch more Reels ANYWAY! 💀💀💀
+>
+> So ENJOY the RTX ON vs RTX OFF Ahh Difference on a Website. 🥰🥰🥰
+
+</details>
+
 Here's An Example :
 
 | PC | Mobile & Tablets |
