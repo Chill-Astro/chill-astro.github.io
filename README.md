@@ -1,5 +1,5 @@
 >[!CAUTION]
-> THIS REPOSITORY IS NOT FOR BEING CLONED BY USERS. 
+> THIS REPOSITORY IS NOT FOR SITE DEPLOYMENT NOR STANDALONE CLONING OR LOCAL INSTALLATION
 
 © Chill-Astro Software | 2026
 
@@ -34,3 +34,16 @@
 - Patriotic Easter Egg ([/jai-hind/](https://chill-astro.github.io/jai-hind/))
 
 ---
+
+## NOTE :
+
+> [!WARNING]
+> Due to use of HEAVY Blur Effects, Scroll effects, Glow, Animations, etc, Mobile Devices get Affected. 
+>
+> As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
+
+Here's An Example :
+
+| PC | Mobile & Tablets |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/fc226d43-ec02-4e14-b3f6-2de4296fc7e0" width="100%" alt="PC View" /> | <img src="https://github.com/user-attachments/assets/ec6dfb13-318b-4436-af0c-ccfcddba6172" width="100%" alt="Mobile View" /> |
