@@ -1205,7 +1205,7 @@ body {
 
 .additional-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     justify-content: center;
     justify-items: center;
     gap: 12px;
@@ -1587,3 +1587,74 @@ body.grid-hover-glow::after{
     transition:opacity 900ms ease-out;
 }
 body.grid-hover-glow :fullscreen::after { opacity:1; }
+
+/* Nostalgia Centre game cards */
+.games {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+}
+.games .project-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.game-card {
+    grid-template-rows: 260px auto 1fr auto !important;
+    gap: .75rem;
+    padding: 1.25rem 0 1.6rem !important;
+}
+.game-card .project-image {
+    width: 100%;
+    height: 260px !important;
+}
+.game-card h3 { margin: .5rem 0 0 !important; }
+.game-card p {
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 1rem;
+}
+.game-play-btn {
+    display: flex;
+    width: calc(100% - 2rem);
+    margin: .25rem auto 0;
+    justify-content: center;
+}
+@media (max-width: 768px) {
+    .games { width: 92%; }
+    .games .project-grid { grid-template-columns: 1fr; }
+    .game-card { grid-template-rows: 220px auto auto auto !important; }
+    .game-card .project-image { height: 220px !important; }
+}
+
+/* Keep the homepage sections closer together. */
+.projects { padding: 2.75rem 0; }
+.games { margin-top: 0; }
+.projects:not(.games) { padding-bottom: 1rem; }
+.games { padding-top: 1rem; }
+.additional-stuff { margin-top: 0; }
+@media (max-width: 768px) {
+    .projects { padding: 2rem 0; }
+    .projects:not(.games) { padding-bottom: .75rem; }
+    .games { padding-top: .75rem; }
+    .additional-stuff { margin-top: 0; }
+}
+@media (max-width: 700px) {
+    .hero-btn {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .hero-btn .primary-btn {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: none;
+        flex: 0 0 auto;
+    }
+}
+@media (min-width: 561px) and (max-width: 768px) {
+    .projects:not(.games) .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .games .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .games .project-grid .game-card:nth-child(odd):last-child {
+        grid-column: 1 / -1;
+        width: calc(50% - 1rem);
+        justify-self: center;
+    }
+}

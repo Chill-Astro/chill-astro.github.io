@@ -23,7 +23,7 @@
 
 ## UPCOMING :
 
-- Game Store ([/game-store/](https://chill-astro.github.io/game-store/))
+- Nostalgia Centre ([/nostalgia-centre/](https://chill-astro.github.io/nostalgia-centre/))
 - Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
 - Modern Pacman ([/modern-pacman/](https://chill-astro.github.io/modern-pacman/))
 
