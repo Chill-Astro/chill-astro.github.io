@@ -28,6 +28,7 @@ p{color:var(--muted);line-height:1.6}
 body {
     min-height: 100vh;
 }
+
 h1{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.1;white-space:nowrap}
 h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;white-space:nowrap}
 .primary-btn{display:inline-flex;padding:10px 24px;border-radius:999px;
@@ -2004,4 +2005,30 @@ html:not(.os-effects) body .motion-reveal {
         transition: none !important;
         transform: none !important;
     }
+}
+
+/* Use the diffused glass surface on desktop only. */
+@media (hover: hover) and (pointer: fine) {
+  :is(
+    [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+    .project-image, .additional-image, .lamina-media, .root-checker-media,
+    .tmm-media, .eeg-media, .youtube-media, .video-player
+  ):not(img):not(video):not(iframe):not(canvas) {
+    background: color-mix(in srgb, var(--bg) 72%, transparent) !important;
+    background-image: none !important;
+    backdrop-filter: blur(18px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  :is(
+    [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .pong-intro,
+    .project-image, .additional-image, .lamina-media, .root-checker-media,
+    .tmm-media, .eeg-media, .youtube-media, .video-player
+  ):not(img):not(video):not(iframe):not(canvas) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }
