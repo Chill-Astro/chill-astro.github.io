@@ -115,7 +115,6 @@
                     <span class="dino-label">SCORE</span><output id="dino-score">00000</output>
                     <span class="dino-label">BEST</span><output id="dino-best">00000</output>
                 </div>
-                <p class="dino-instructions">Jump over cacti and duck beneath birds.</p>
                 <div class="dino-touch-controls">
                     <button class="dino-touch-button" id="jump-button" type="button" aria-label="Jump"><span aria-hidden="true">▲</span> JUMP</button>
                     <button class="dino-touch-button" id="duck-button" type="button" aria-label="Duck"><span aria-hidden="true">▼</span> DUCK</button>
@@ -127,7 +126,7 @@
                     <canvas id="dino-canvas" width="960" height="420" role="img" aria-label="Dino runner game. Jump over cacti and duck under birds.">Your browser does not support canvas.</canvas>
                     <div class="dino-overlay" id="dino-overlay">
                         <p class="dino-overlay-title" id="overlay-title">Ready to run?</p>
-                        <p class="dino-overlay-message" id="overlay-message">Press Space or tap Jump to get started.</p>
+                        <p class="dino-overlay-message" id="overlay-message"></p>
                         <button class="primary-btn" id="start-game" type="button">Start game</button>
                     </div>
                     <div class="dino-actions" id="dino-actions" aria-label="Game actions">
@@ -135,16 +134,21 @@
                         <button class="dino-action" id="restart-game" type="button" hidden>Restart</button>
                         <button class="dino-action dino-action-end" id="end-game" type="button" hidden>End</button>
                     </div>
-                    <p class="dino-attribution">Dino sprites: Chromium Authors · <a href="../assets/images/premium-dino-sprite-license.txt" target="_blank" rel="noopener noreferrer">BSD 3-Clause</a></p>
                     <button class="dino-fullscreen" id="fullscreen-game" type="button" aria-label="Enter fullscreen" aria-pressed="false">⛶</button>
                 </div>
+                <p class="dino-attribution"><a href="https://github.com/loparcog/chrome-dinosaur" target="_blank" rel="noopener noreferrer">T-Rex Runner</a>: Chromium Authors · <a href="../assets/t-rex-runner/LICENSE" target="_blank" rel="noopener noreferrer">BSD 3-Clause</a></p>
             </div>
           </div>
         </section>
     </main>
     <div id="footer"></div>
+    <div hidden aria-hidden="true">
+        <img id="offline-resources-1x" src="../assets/t-rex-runner/default_100_percent/100-offline-sprite.png" alt="">
+        <img id="offline-resources-2x" src="../assets/t-rex-runner/default_200_percent/200-offline-sprite.png" alt="">
+    </div>
     <script src="../js/main.js"></script>
     <script src="../js/game-audio.js"></script>
+    <script src="../js/premium-dino-engine.js"></script>
     <script src="../js/premium-dino.js"></script>
 </body>
 </html>

@@ -63,6 +63,8 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 }
 
 .dino-attribution a { color: inherit; }
+.dino-attribution:hover { text-decoration: underline; }
+.dino-attribution a:focus-visible { text-decoration: underline; }
 
 .dino-actions {
     position: absolute;
@@ -102,7 +104,7 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
     .dino-game:fullscreen .dino-stats output { font-size: clamp(0.8rem, 1.8dvh, 1.35rem); }
     .dino-game:fullscreen .dino-touch-button { min-height: clamp(2.25rem, 4.1dvh, 2.75rem); font-size: clamp(0.65rem, 1.1dvh, 0.75rem); }
     .dino-game:fullscreen .dino-frame {
-        width: min(100%, calc(228.57dvh - 219px));
+        width: 960px;
         max-height: calc(100dvh - 6rem);
         margin-inline: auto;
     }
@@ -135,3 +137,8 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
   .dino-stage .dino-touch-button{flex:0 1 auto!important}
   .dino-stage .dino-frame{border-width:3px!important;border-radius:1.25rem!important}
 }
+
+.dino-frame{aspect-ratio:20/7}
+.dino-frame .runner-container{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden;touch-action:none}
+.dino-frame .runner-canvas{display:block;width:100%!important;height:100%!important;image-rendering:pixelated}
+.dino-attribution{position:static;margin:.5rem .75rem 0;text-align:right}
