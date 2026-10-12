@@ -3,6 +3,87 @@
 // main.js
 // ======================================
 
+function enableDesktopEffectsOnSupportedOS() {
+    const ua = navigator.userAgent || "";
+    const platform = navigator.userAgentData?.platform || navigator.platform || "";
+    const supportedOS = !/Android|CrOS|iPad|iPhone|iPod|iOS/i.test(ua) &&
+        (/Windows|Win32|Win64/i.test(platform) ||
+         /Macintosh|MacIntel|MacPPC|Mac68K/i.test(platform) && (navigator.maxTouchPoints || 0) <= 1 ||
+         /Linux|X11/i.test(platform));
+
+    if (supportedOS) document.documentElement.classList.add("os-effects");
+
+    // Require the supported OS class for every stylesheet hover selector.
+    function splitSelectors(selectorText) {
+        const selectors = [];
+        let depth = 0;
+        let start = 0;
+        for (let i = 0; i < selectorText.length; i++) {
+            if (selectorText[i] === "(") depth++;
+            else if (selectorText[i] === ")") depth--;
+            else if (selectorText[i] === "," && depth === 0) {
+                selectors.push(selectorText.slice(start, i).trim());
+                start = i + 1;
+            }
+        }
+        selectors.push(selectorText.slice(start).trim());
+        return selectors;
+    }
+
+    function scopeHoverRules(rules) {
+        for (const rule of rules) {
+            if (rule.selectorText && rule.selectorText.includes(":hover")) {
+                try {
+                    rule.selectorText = splitSelectors(rule.selectorText).map(selector => {
+                        if (/^(html|:root)(?=[\s.#:[>+~])/i.test(selector)) {
+                            return selector.replace(/^(html|:root)/i, "html.os-effects");
+                        }
+                        if (/^body(?=[\s.#:[>+~])/i.test(selector)) {
+                            return `html.os-effects ${selector}`;
+                        }
+                        return `html.os-effects ${selector}`;
+                    }).join(", ");
+                } catch { /* Ignore selectors the browser does not allow to rewrite. */ }
+            }
+            if (rule.cssRules) {
+                try { scopeHoverRules(rule.cssRules); } catch { /* Ignore inaccessible rules. */ }
+            }
+        }
+    }
+
+    for (const sheet of document.styleSheets) {
+        try { scopeHoverRules(sheet.cssRules); } catch { /* Ignore cross-origin stylesheets. */ }
+    }
+}
+
+enableDesktopEffectsOnSupportedOS();
+
+let scrollRevealLastY = window.scrollY;
+let scrollRevealDirection = 1;
+window.addEventListener("scroll", () => {
+    const currentY = window.scrollY;
+    if (currentY !== scrollRevealLastY) {
+        scrollRevealDirection = currentY > scrollRevealLastY ? 1 : -1;
+        scrollRevealLastY = currentY;
+    }
+}, { passive: true });
+
+window.getScrollRevealOptions = function () {
+    const triggerOffset = Math.min(60, Math.max(16, Math.round(window.innerHeight * 0.08)));
+    return {
+        threshold: 0.01,
+        rootMargin: `0px 0px -${triggerOffset}px 0px`
+    };
+};
+
+window.orderScrollRevealEntries = function (entries) {
+    return [...entries]
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) =>
+            (a.boundingClientRect.top - b.boundingClientRect.top) * scrollRevealDirection
+        );
+};
+
 // ======================================
 // Repository Data
 // ======================================
@@ -435,7 +516,8 @@ function initUiSounds() {
 }
 
 function initGridHoverGlow() {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!document.documentElement.classList.contains("os-effects") ||
+        !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const gridSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--grid-size"));
     let pointerPosition = null;
@@ -590,42 +672,13 @@ function prepareScrollAnimations() {
 
     const observer = new IntersectionObserver(
         entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-
+            window.orderScrollRevealEntries(entries).forEach(entry => {
                 const element = entry.target;
-
-                // This array defines the desired animation order and which elements get staggered.
-                // It's important that this array contains all elements that should be staggered.
-                const orderedStaggeredAnimations = [
-                    document.querySelector(".projects h2"),
-                    document.querySelector(".project-card:first-of-type"),
-                    ...document.querySelectorAll(".project-card:not(:first-of-type)"),
-                    document.querySelector(".additional-stuff h2"),
-                    ...document.querySelectorAll(".additional-card"),
-                    document.querySelector(".dino-intro"),
-                    document.querySelector(".dino-game")
-                ].filter(Boolean); // Filter out any null elements if selectors don't find anything
-
-                const index = orderedStaggeredAnimations.indexOf(element);
-
-                if (index !== -1) {
-                    setTimeout(() => {
-                        element.classList.add("show");
-                    }, index * 150);
-                } else {
-                    // This else block should theoretically not be hit if all 'elementsToObserve'
-                    // are also present in 'orderedStaggeredAnimations'.
-                    // However, it's a safe fallback if some element was observed but not meant for staggered.
-                    element.classList.add("show");
-                }
-
+                element.classList.add("show");
                 observer.unobserve(element);
             });
         },
-        {
-            threshold: .15
-        }
+        window.getScrollRevealOptions()
     );
 
     elementsToObserve.forEach(item => {
@@ -642,25 +695,12 @@ function aboutAnimation() {
     const observer = new IntersectionObserver(
 
         entries => {
-
-            entries.forEach(entry => {
-
-                if (!entry.isIntersecting)
-                    return;
-
+            window.orderScrollRevealEntries(entries).forEach(entry => {
                 entry.target.classList.add("show");
                 observer.unobserve(entry.target);
-
             });
-
         },
-
-        {
-
-            threshold: .15
-
-        }
-
+        window.getScrollRevealOptions()
     );
 
     const elements = [
@@ -763,22 +803,18 @@ function initSiteMotion() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
 
     const candidates = document.querySelectorAll(
-        "main > section, main > article, .project-card, .additional-card, .feature-card, .theme-showcase, .eeg-app, .future, .pong-game"
+        "main:not(.lamina-page):not(.rooting-page) > section, main > article, .project-card, .additional-card, .feature-card, .theme-showcase, .eeg-app, .future, .pong-game"
     );
     const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+        window.orderScrollRevealEntries(entries).forEach(entry => {
             entry.target.classList.add("motion-visible");
             observer.unobserve(entry.target);
         });
-    }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
+    }, window.getScrollRevealOptions());
 
-    candidates.forEach((element, index) => {
+    candidates.forEach(element => {
         if (element.getBoundingClientRect().top > window.innerHeight * 0.85) {
             element.classList.add("motion-reveal");
-            if (element.matches(".project-card,.additional-card")) {
-                element.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
-            }
             observer.observe(element);
         }
     });

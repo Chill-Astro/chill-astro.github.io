@@ -60,7 +60,8 @@
         border-color .25s,
         box-shadow .25s;
 
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .feature-card:hover{
 
@@ -70,6 +71,7 @@
 
     box-shadow:0 16px 40px rgba(0,0,0,.18);
 
+}
 }
 
 .feature-card span{

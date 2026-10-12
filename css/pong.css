@@ -273,12 +273,14 @@ kbd {
 
 .fullscreen-game-button span {
     pointer-events: none;
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .fullscreen-game-button:hover {
     background: rgba(60, 60, 68, 0.72);
     transform: scale(1.04);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
 }
 
 .fullscreen-game-button:active {
@@ -363,7 +365,8 @@ kbd {
     color: var(--button-text);
     background: var(--button-bg);
     border-color: var(--button-bg);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .game-action:hover {
     color: var(--bg);
@@ -371,10 +374,13 @@ kbd {
     transform: translateY(-3px);
     box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
 }
+}@media (hover: hover) and (pointer: fine) {
+
 
 .game-action-end:hover {
     color: var(--bg);
     background: var(--text);
+}
 }
 
 .game-action:focus-visible {

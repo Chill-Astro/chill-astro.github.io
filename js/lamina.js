@@ -8,39 +8,22 @@
             return;
         }
 
-        /*
-         * Animate the actual sections rather than every individual
-         * paragraph/list item. This keeps the page smooth and avoids
-         * hundreds of tiny animations.
-         */
         const elements = [
-        page.querySelector(".hero-media"),
-        ...page.querySelectorAll(
-        ".lamina-page > .lamina-content, .lamina-page > .lamina-actions, .lamina-page > .lamina-section"
-        )
+            page.querySelector(".hero-media"),
+            ...page.querySelectorAll(".lamina-page > section, .lamina-page > div")
         ].filter(Boolean);
 
-        /*
-         * Remove duplicates while preserving order.
-         */
         const animated = [...new Set(elements)];
 
-        /*
-         * Hide everything before the observer starts.
-         */
         animated.forEach((element) => {
             element.classList.add("hidden");
         });
 
-        /*
-         * Respect users who disable animations.
-         */
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
             animated.forEach((element) => {
                 element.classList.remove("hidden");
                 element.classList.add("show");
             });
-
             return;
         }
 
@@ -61,27 +44,17 @@
 
         const observer = new IntersectionObserver(
             (entries, obs) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
+                window.orderScrollRevealEntries(entries).forEach((entry) => {
                     entry.target.classList.remove("hidden");
                     entry.target.classList.add("show");
-
                     obs.unobserve(entry.target);
                 });
             },
-            {
-                threshold: 0.12,
-                rootMargin: "0px 0px -60px 0px"
-            }
+            window.getScrollRevealOptions()
         );
 
         animated.forEach((element) => {
-            if (element !== hero) {
-                observer.observe(element);
-            }
+            if (element !== hero) observer.observe(element);
         });
     }
 

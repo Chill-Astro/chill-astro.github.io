@@ -127,11 +127,18 @@
     transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
-.ttt-action:hover,
 .ttt-action.is-active {
     color: var(--bg);
     background: var(--text);
     transform: translateY(-1px);
+}@media (hover: hover) and (pointer: fine) {
+
+
+.ttt-action:hover {
+    color: var(--bg);
+    background: var(--text);
+    transform: translateY(-1px);
+}
 }
 
 .ttt-board {
@@ -164,11 +171,13 @@
 
 .ttt-cell:disabled {
     cursor: default;
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .ttt-cell:not(:disabled):hover {
     background: var(--surface);
     border-color: var(--text);
+}
 }
 
 .ttt-cell.mark-o {
@@ -296,11 +305,13 @@
     background: transparent;
     border: 0;
     cursor: pointer;
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .ttt-text-button:hover {
     color: var(--text);
     text-decoration: underline;
+}
 }
 
 .ttt-mode-label {
@@ -588,11 +599,13 @@ body.tic-tac-toe-page > #footer {
 
 .ttt-mode-button .ttt-mode-description {
     color: color-mix(in srgb, var(--ttt-choice-ink) 78%, transparent);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .ttt-mode-button:hover {
     border-color: var(--ttt-game-muted);
     box-shadow: var(--ttt-game-shadow);
+}
 }
 
 .ttt-status {
@@ -619,10 +632,12 @@ body.tic-tac-toe-page > #footer {
     color: var(--ttt-game-ink);
     background: var(--ttt-game-bg);
     border-color: var(--ttt-game-border);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .ttt-cell:hover:not(:disabled) {
     background: var(--ttt-game-hover);
+}
 }
 
 .ttt-paused-overlay {
@@ -634,10 +649,12 @@ body.tic-tac-toe-page > #footer {
 
 .ttt-text-button {
     color: var(--ttt-game-muted);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .ttt-text-button:hover {
     color: var(--ttt-game-ink);
+}
 }
 
 body.tic-tac-toe-page .site-footer {

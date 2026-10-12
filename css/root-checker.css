@@ -30,12 +30,14 @@
     padding: 0 !important;
     border-radius: 0 !important;
     transform: none !important;
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .root-checker-intro:hover {
     transform: none !important;
     border: none !important;
     box-shadow: none !important;
+}
 }
 
 .root-checker-section {

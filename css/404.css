@@ -150,16 +150,20 @@ body.error-404-page::before {
     transform: translateY(105%);
     background: var(--text);
     transition: transform .23s cubic-bezier(.2, .8, .2, 1);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .error-actions .primary-btn:hover::before {
     transform: translateY(0);
 }
+}@media (hover: hover) and (pointer: fine) {
+
 
 .error-actions .primary-btn:hover {
     transform: translate(-2px,-2px);
     box-shadow: 6px 6px 0 var(--text);
     color: var(--bg);
+}
 }
 
 @media (max-width: 720px) {

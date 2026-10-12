@@ -242,12 +242,13 @@
     font-weight:600;
     cursor:pointer;
     transition:.25s;
-}
+}@media (hover: hover) and (pointer: fine) {
 
-.hero-cta .primary-btn:hover,
-.hero-cta .project-download:hover {
+
+.hero-cta .primary-btn:hover, .hero-cta .project-download:hover {
     transform:translateY(-3px) scale(1.02);
     box-shadow:var(--shadow);
+}
 }
 
 /* Module link button to match header Contact Me */
@@ -264,10 +265,12 @@
     transition:.2s;
     margin:6px 8px 6px 0;
     border:1px solid var(--card-border);
-}
+}@media (hover: hover) and (pointer: fine) {
+
 .module-link:hover{
     text-decoration:underline;
     text-underline-offset:4px;
+}
 }
 
 .rooting-content ul,

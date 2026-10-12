@@ -1,4 +1,31 @@
 (() => {
+    const ua = navigator.userAgent || "";
+    const platform = navigator.userAgentData?.platform || navigator.platform || "";
+    const supportedOS = !/Android|CrOS|iPad|iPhone|iPod|iOS/i.test(ua) &&
+        (/Windows|Win32|Win64/i.test(platform) ||
+         /Macintosh|MacIntel|MacPPC|Mac68K/i.test(platform) && (navigator.maxTouchPoints || 0) <= 1 ||
+         /Linux|X11/i.test(platform));
+    if (supportedOS) document.documentElement.classList.add("os-effects");
+    for (const sheet of document.styleSheets) {
+        try {
+            const scopeRules = rules => {
+                for (const rule of rules) {
+                    if (rule.selectorText?.includes(":hover")) {
+                        try {
+                            rule.selectorText = rule.selectorText.split(/,(?![^()]*\))/).map(selector => {
+                                selector = selector.trim();
+                                if (/^(html|:root)/i.test(selector)) return selector.replace(/^(html|:root)/i, "html.os-effects");
+                                return `html.os-effects ${selector}`;
+                            }).join(", ");
+                        } catch { /* Ignore selectors the browser does not allow to rewrite. */ }
+                    }
+                    if (rule.cssRules) scopeRules(rule.cssRules);
+                }
+            };
+            scopeRules(sheet.cssRules);
+        } catch { /* Ignore inaccessible stylesheets. */ }
+    }
+
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const body = document.body;

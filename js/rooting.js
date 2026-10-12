@@ -45,15 +45,11 @@ function prepareRootingAnimations() {
     });
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-                observer.unobserve(entry.target);
-            }
+        window.orderScrollRevealEntries(entries).forEach((entry) => {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
         });
-    }, {
-        threshold: 0.12
-    });
+    }, window.getScrollRevealOptions());
 
     animated.forEach((item) => {
         observer.observe(item);

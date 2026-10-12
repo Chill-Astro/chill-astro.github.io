@@ -68,21 +68,14 @@
          */
         const observer = new IntersectionObserver(
             (entries, obs) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
+                window.orderScrollRevealEntries(entries).forEach((entry) => {
                     entry.target.classList.remove("hidden");
                     entry.target.classList.add("show");
 
                     obs.unobserve(entry.target);
                 });
             },
-            {
-                threshold: 0.12,
-                rootMargin: "0px 0px -60px 0px"
-            }
+            window.getScrollRevealOptions()
         );
 
         animated.forEach((element) => {

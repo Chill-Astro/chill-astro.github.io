@@ -6,21 +6,11 @@
 function setupRevealAnimations() {
 
     const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach((entry) => {
-
-            if (!entry.isIntersecting) return;
-
+        window.orderScrollRevealEntries(entries).forEach((entry) => {
             entry.target.classList.add("show");
             observer.unobserve(entry.target);
-
         });
-
-    }, {
-
-        threshold: 0.12
-
-    });
+    }, window.getScrollRevealOptions());
 
     const revealElements = [
 

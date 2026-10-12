@@ -160,7 +160,9 @@
 
         player.addEventListener("pointerenter", showControls, { passive: true });
         player.addEventListener("pointerdown", showControls, { passive: true });
-        player.addEventListener("pointermove", handleMouseMove, { passive: true });
+        player.addEventListener("pointermove", event => {
+            if (event.pointerType === "mouse") handleMouseMove(event);
+        }, { passive: true });
         
         document.addEventListener("mousemove", event => {
             if (document.fullscreenElement === player) {
@@ -174,6 +176,15 @@
                 player.classList.remove("is-active");
             }
         });
+
+        const visibilityObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting && document.fullscreenElement !== player && !media.paused) {
+                    media.pause();
+                }
+            });
+        }, { threshold: 0.01 });
+        visibilityObserver.observe(player);
 
         setProgress();
         updatePlaybackState();

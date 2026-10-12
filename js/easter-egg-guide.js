@@ -22,15 +22,11 @@ function setupEasterEggRevealAnimations() {
     }
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
+        window.orderScrollRevealEntries(entries).forEach(entry => {
             entry.target.classList.add("eeg-show");
             observer.unobserve(entry.target);
         });
-    }, {
-        threshold: 0.12
-    });
+    }, window.getScrollRevealOptions());
 
     revealElements.forEach(element => {
         observer.observe(element);
@@ -87,11 +83,11 @@ function setupDifficultyStars() {
 
         if (parentReveal && "IntersectionObserver" in window) {
             const starObserver = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
+                if (window.orderScrollRevealEntries(entries).length) {
                     animateStars();
                     starObserver.disconnect();
                 }
-            }, { threshold: 0.15 });
+            }, window.getScrollRevealOptions());
 
             starObserver.observe(parentReveal);
         } else {

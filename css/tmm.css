@@ -65,12 +65,14 @@
     padding: 0 !important;
     border-radius: 0 !important;
     transform: none !important;
-}
+}@media (hover: hover) and (pointer: fine) {
+
 
 .tmm-intro:hover {
     transform: none !important;
     border: none !important;
     box-shadow: none !important;
+}
 }
 
 .tmm-intro p {
@@ -244,7 +246,7 @@
     }
 
     .tmm-actions .primary-btn {
-        width: min(100%, 320px);
+        width: 100%;
         justify-content: center;
         box-sizing: border-box;
     }

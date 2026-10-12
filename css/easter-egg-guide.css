@@ -219,9 +219,14 @@
     transition: text-decoration-color .2s ease;
 }
 
-.eeg-source-link:hover,
 .eeg-source-link:focus-visible {
     text-decoration: underline;
+}@media (hover: hover) and (pointer: fine) {
+
+
+.eeg-source-link:hover {
+    text-decoration: underline;
+}
 }
 
 /* ======================================

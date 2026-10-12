@@ -62,8 +62,10 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
     letter-spacing: 0.02em;
 }
 
-.dino-attribution a { color: inherit; }
+.dino-attribution a { color: inherit; }@media (hover: hover) and (pointer: fine) {
+
 .dino-attribution:hover { text-decoration: underline; }
+}
 .dino-attribution a:focus-visible { text-decoration: underline; }
 
 .dino-actions {
