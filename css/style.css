@@ -1714,6 +1714,41 @@ body.grid-hover-glow :fullscreen::after { opacity:1; }
 .games .project-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.games-centre-title-link {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: .4rem;
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+}
+.games-centre-title-link > span:first-child {
+    position: relative;
+}
+.games-centre-title-link > span:first-child::after {
+    position: absolute;
+    right: 0;
+    bottom: -.12em;
+    left: 0;
+    height: 2px;
+    content: "";
+    background: currentColor;
+    box-shadow: 0 0 7px currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .28s ease;
+}
+.games-centre-link-open {
+    margin-left: .15rem;
+    font-size: 1.15em;
+    line-height: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+    .games-centre-title-link:hover > span:first-child::after,
+    .games-centre-title-link:focus-visible > span:first-child::after { transform: scaleX(1); }
+    .games-centre-title-link:hover .games-centre-link-open { transform: translate(2px, -2px); }
+}
 .game-card {
     grid-template-rows: 260px auto 1fr auto !important;
     gap: .75rem;

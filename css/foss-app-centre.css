@@ -1,0 +1,97 @@
+.app-centre-page .game-centre-heading {
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.app-centre-page .game-centre-heading > p {
+    margin: .65rem 0 0;
+    color: var(--muted);
+}
+
+.app-showcase {
+    grid-template-rows: auto auto auto;
+    row-gap: clamp(.45rem, 1vw, .7rem);
+}
+
+.app-showcase .game-info {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+}
+
+.app-showcase > .game-description {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+}
+
+.app-title {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: .45rem .75rem;
+}
+
+.app-version {
+    color: var(--muted);
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.app-centre-page .app-centre-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    width: 100%;
+    margin: .35rem 0 0;
+}
+
+.app-centre-page .app-centre-github {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    width: 100%;
+    margin: .35rem 0 0;
+}
+
+.app-centre-page .game-centre-play {
+    margin-top: .45rem;
+}
+
+@media (max-width: 760px) {
+    .app-centre-page .game-centre-heading {
+        margin-bottom: 1.5rem;
+    }
+
+    .app-title {
+        gap: .2rem .45rem;
+    }
+
+    .app-centre-page .app-centre-download {
+        grid-column: 1 / -1;
+        grid-row: 4;
+    }
+
+    .app-centre-page .app-centre-github {
+        grid-column: 1 / -1;
+        grid-row: 5;
+    }
+
+    .app-centre-page .game-centre-play {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin-top: 0;
+    }
+
+    .app-showcase .game-info { display: contents; }
+    .app-showcase .game-logo-frame { grid-column: 1; grid-row: 2; }
+    .app-showcase .game-preview { grid-column: 2; grid-row: 2; }
+    .app-showcase > .game-description { grid-row: 6; }
+}

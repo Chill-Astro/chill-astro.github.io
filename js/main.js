@@ -499,15 +499,24 @@ function initUiSounds() {
         .then(profile => { if (profile && typeof profile === "object") uiSoundProfile = profile; })
         .catch(() => {});
 
+    // Let the shared click cue finish before the browser unloads this page.
+    document.addEventListener("click", event => {
+        const gameLink = event.target.closest("a.game-centre-play");
+        if (!gameLink || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        playUiSound("click");
+        window.setTimeout(() => { window.location.href = gameLink.href; }, 90);
+    }, { capture: true });
+
     document.addEventListener("pointerdown", event => {
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
-        if (!control || control.matches(":disabled,[aria-disabled='true'],.menu-toggle") || control.closest(".pong-game,.dino-game,.ttt-game")) return;
+        if (!control || control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") || control.closest(".pong-game,.dino-game,.ttt-game")) return;
         playUiSound("click");
     }, { capture: true });
     document.addEventListener("click", event => {
         if (event.detail !== 0) return; // pointer clicks were handled on pointerdown
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
-        if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
+        if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
     }, { capture: true });
     document.addEventListener("pointermove", event => {
         const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero");

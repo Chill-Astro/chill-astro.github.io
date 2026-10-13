@@ -9,6 +9,8 @@
 
 - Home ([/](https://chill-astro.github.io/))
 - About ([/about/](https://chill-astro.github.io/about/))
+- FOSS App Centre ([/foss-app-centre/](https://chill-astro.github.io/foss-app-centre/))
+- Nostalgic Games Centre ([/nostalgic-games-centre/](https://chill-astro.github.io/nostalgic-games-centre/))
 - Lamina Calculator ([/lamina-calculator/](https://chill-astro.github.io/lamina-calculator/))
 - FOSS Root Checker ([/foss-root-checker/](https://chill-astro.github.io/foss-root-checker/))
 - Trust My MSIX ([/trust-my-msix/](https://chill-astro.github.io/trust-my-msix/))
@@ -22,8 +24,6 @@
 ---
 
 ## UPCOMING :
-
-- Nostalgia Centre ([/nostalgia-centre/](https://chill-astro.github.io/nostalgia-centre/))
 - Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
 - Modern Pacman ([/modern-pacman/](https://chill-astro.github.io/modern-pacman/))
 
