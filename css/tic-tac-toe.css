@@ -662,6 +662,14 @@ body.tic-tac-toe-page .site-footer {
     padding: 1rem 1.25rem;
 }
 
+@media (hover: none), (pointer: coarse) {
+    body.tic-tac-toe-page .ttt-paused-overlay {
+        background: var(--ttt-game-bg);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
 @media (max-width: 520px) {
     .ttt-main {
         width: calc(100% - 1rem);
