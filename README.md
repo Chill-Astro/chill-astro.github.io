@@ -25,7 +25,6 @@
 
 ## UPCOMING :
 - Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
-- Modern Pacman ([/modern-pacman/](https://chill-astro.github.io/modern-pacman/))
 
 ---
 
@@ -35,10 +34,26 @@
 
 ---
 
+## Recent Optimization :
+
+- Images are now converted to `.WEBP` from `.PNG`.
+- Scroll effects are now removed, and instead replaced by a Simpler Entrance Animation ( PC ONLY ).
+- Grid Hover effects and Blur under Cards is now removed ( PC ONLY ).
+- Animations, Blurs and Hover effects are removed from Mobile.
+
+ENJOY THE RESULTS! 🥰🥰🥰
+
+
+| PC ( 100/100 ) | Mobile (95/100) |
+| :---: | :---: |
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fc7499d9-8c68-49d6-a2a8-76db79058566" /> | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5dfc473c-3586-493b-9a73-86c0f1364658" /> |
+
+---
+
 ## NOTE :
 
 > [!WARNING]
-> Due to use of HEAVY Blur Effects, Scroll effects, Glow, Animations, etc, Mobile Devices get Affected. 
+> Due to use of Blurs, Sticky hovers & Animations, Low-end Mobile Devices get Affected. 
 >
 > As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
 
@@ -61,9 +76,9 @@
 > 
 > The content is easier to Read on PC.
 >
-> The only Reason for a phone to come, is to download FOSS Root Checker!
+> The only Reason for a phone to come, is to download FOSS Root Checker! ( Thanks if you download! 💖 ) 
 >
-> The website always lags on Mobile.
+> The website without optimization will lag on mobile.
 >
 > And anyway you will fall asleep reading to watch more Reels ANYWAY! 💀💀💀
 >
