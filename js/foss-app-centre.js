@@ -1,5 +1,4 @@
 (() => {
-    const cards = [...document.querySelectorAll(".app-showcase")];
     const versionLabels = [...document.querySelectorAll("[data-repo-version]")];
 
     const loadVersions = async () => {
@@ -17,33 +16,5 @@
         }
     };
 
-    const revealCards = () => {
-        if (!cards.length) return;
-        if (!("IntersectionObserver" in window) || !window.getScrollRevealOptions) {
-            cards.forEach(card => {
-                card.classList.remove("hidden");
-                card.classList.add("show");
-            });
-            return;
-        }
-
-        const observer = new IntersectionObserver(entries => {
-            const visibleEntries = window.orderScrollRevealEntries
-                ? window.orderScrollRevealEntries(entries)
-                : entries.filter(entry => entry.isIntersecting);
-
-            visibleEntries.forEach(entry => {
-                entry.target.classList.add("show");
-                observer.unobserve(entry.target);
-            });
-        }, window.getScrollRevealOptions());
-
-        cards.forEach(card => {
-            card.classList.add("hidden");
-            observer.observe(card);
-        });
-    };
-
     loadVersions();
-    revealCards();
 })();

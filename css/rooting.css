@@ -285,17 +285,6 @@
     background: linear-gradient(90deg, transparent, var(--card-border), transparent);
 }
 
-.hidden {
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.show {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
 @media (max-width: 900px) {
     .rooting-hero {
         grid-template-columns: 1fr;

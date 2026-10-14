@@ -280,12 +280,3 @@
    REDUCED MOTION
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
-
-    .tmm-page .hidden,
-    .tmm-page .show {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-}

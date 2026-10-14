@@ -4,36 +4,6 @@
 // ======================================
 
 /* ======================================
-   Reveal Animations (Standard Smooth)
-====================================== */
-
-function setupEasterEggRevealAnimations() {
-    const revealElements = [
-        ...document.querySelectorAll(".eeg-reveal")
-    ];
-
-    if (!revealElements.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-        revealElements.forEach(element => {
-            element.classList.add("eeg-show");
-        });
-        return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        window.orderScrollRevealEntries(entries).forEach(entry => {
-            entry.target.classList.add("eeg-show");
-            observer.unobserve(entry.target);
-        });
-    }, window.getScrollRevealOptions());
-
-    revealElements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
-/* ======================================
    Difficulty Stars (Ultra-Bouncy Cascade)
 ====================================== */
 
@@ -78,21 +48,7 @@ function setupDifficultyStars() {
             });
         };
 
-        // 3. Trigger when parent reveal section enters viewport
-        const parentReveal = difficulty.closest(".eeg-reveal");
-
-        if (parentReveal && "IntersectionObserver" in window) {
-            const starObserver = new IntersectionObserver((entries) => {
-                if (window.orderScrollRevealEntries(entries).length) {
-                    animateStars();
-                    starObserver.disconnect();
-                }
-            }, window.getScrollRevealOptions());
-
-            starObserver.observe(parentReveal);
-        } else {
-            animateStars();
-        }
+        animateStars();
     });
 }
 
@@ -104,7 +60,6 @@ function initEasterEggGuide() {
     if (!document.querySelector(".eeg-page")) return;
 
     setupDifficultyStars();
-    setupEasterEggRevealAnimations();
 }
 
 document.addEventListener(

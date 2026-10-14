@@ -213,20 +213,6 @@
    ANIMATION
    ========================================================= */
 
-.lamina-page .hidden {
-    opacity: 0;
-    transform: translateY(28px);
-}
-
-.lamina-page .show {
-    opacity: 1;
-    transform: translateY(0);
-
-    transition:
-        opacity .8s cubic-bezier(.22, 1, .36, 1),
-        transform .8s cubic-bezier(.22, 1, .36, 1);
-}
-
 
 /* =========================================================
    MOBILE
@@ -288,12 +274,3 @@
    REDUCED MOTION
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
-
-    .lamina-page .hidden,
-    .lamina-page .show {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-}

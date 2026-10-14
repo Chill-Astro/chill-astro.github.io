@@ -1,91 +1,6 @@
 (() => {
     "use strict";
 
-    function prepareAnimations() {
-        const page = document.querySelector(".tmm-page");
-
-        if (!page) {
-            return;
-        }
-
-        /*
-         * Animate sections rather than individual elements.
-         * This keeps the page smooth and avoids excessive animations.
-         */
-        const elements = [
-            page.querySelector(".tmm-hero"),
-            ...page.querySelectorAll(
-                ".tmm-page > .tmm-content, " +
-                ".tmm-page > .tmm-actions, " +
-                ".tmm-page > .tmm-section"
-            )
-        ].filter(Boolean);
-
-        /*
-         * Remove duplicates while preserving order.
-         */
-        const animated = [...new Set(elements)];
-
-        /*
-         * Hide everything before the observer starts.
-         */
-        animated.forEach((element) => {
-            element.classList.add("hidden");
-        });
-
-        /*
-         * Respect reduced-motion preferences.
-         */
-        if (
-            window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches
-        ) {
-            animated.forEach((element) => {
-                element.classList.remove("hidden");
-                element.classList.add("show");
-            });
-
-            return;
-        }
-
-        /*
-         * Hero appears immediately.
-         */
-        const hero = page.querySelector(".tmm-hero");
-
-        if (hero) {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    hero.classList.remove("hidden");
-                    hero.classList.add("show");
-                });
-            });
-        }
-
-        /*
-         * Remaining sections appear as they enter the viewport.
-         */
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                window.orderScrollRevealEntries(entries).forEach((entry) => {
-                    entry.target.classList.remove("hidden");
-                    entry.target.classList.add("show");
-
-                    obs.unobserve(entry.target);
-                });
-            },
-            window.getScrollRevealOptions()
-        );
-
-        animated.forEach((element) => {
-            if (element !== hero) {
-                observer.observe(element);
-            }
-        });
-    }
-
-
     function prepareMedia() {
         /*
          * Make local TMM videos behave like looping showcase videos.
@@ -155,7 +70,6 @@
 
 
     function init() {
-        prepareAnimations();
         prepareMedia();
         prepareYoutube();
     }

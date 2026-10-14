@@ -3,6 +3,8 @@
 // main.js
 // ======================================
 
+const componentsBaseURL = new URL("../components/", document.currentScript?.src || location.href);
+
 function enableDesktopEffectsOnSupportedOS() {
     const ua = navigator.userAgent || "";
     const uaData = navigator.userAgentData;
@@ -15,77 +17,9 @@ function enableDesktopEffectsOnSupportedOS() {
          /Linux|X11/i.test(platform));
 
     if (supportedOS) document.documentElement.classList.add("os-effects");
-
-    // Require the supported OS class for every stylesheet hover selector.
-    function splitSelectors(selectorText) {
-        const selectors = [];
-        let depth = 0;
-        let start = 0;
-        for (let i = 0; i < selectorText.length; i++) {
-            if (selectorText[i] === "(") depth++;
-            else if (selectorText[i] === ")") depth--;
-            else if (selectorText[i] === "," && depth === 0) {
-                selectors.push(selectorText.slice(start, i).trim());
-                start = i + 1;
-            }
-        }
-        selectors.push(selectorText.slice(start).trim());
-        return selectors;
-    }
-
-    function scopeHoverRules(rules) {
-        for (const rule of rules) {
-            if (rule.selectorText && rule.selectorText.includes(":hover")) {
-                try {
-                    rule.selectorText = splitSelectors(rule.selectorText).map(selector => {
-                        if (/^(html|:root)(?=[\s.#:[>+~])/i.test(selector)) {
-                            return selector.replace(/^(html|:root)/i, "html.os-effects");
-                        }
-                        if (/^body(?=[\s.#:[>+~])/i.test(selector)) {
-                            return `html.os-effects ${selector}`;
-                        }
-                        return `html.os-effects ${selector}`;
-                    }).join(", ");
-                } catch { /* Ignore selectors the browser does not allow to rewrite. */ }
-            }
-            if (rule.cssRules) {
-                try { scopeHoverRules(rule.cssRules); } catch { /* Ignore inaccessible rules. */ }
-            }
-        }
-    }
-
-    for (const sheet of document.styleSheets) {
-        try { scopeHoverRules(sheet.cssRules); } catch { /* Ignore cross-origin stylesheets. */ }
-    }
 }
 
 enableDesktopEffectsOnSupportedOS();
-
-let scrollRevealLastY = window.scrollY;
-let scrollRevealDirection = 1;
-window.addEventListener("scroll", () => {
-    const currentY = window.scrollY;
-    if (currentY !== scrollRevealLastY) {
-        scrollRevealDirection = currentY > scrollRevealLastY ? 1 : -1;
-        scrollRevealLastY = currentY;
-    }
-}, { passive: true });
-
-window.getScrollRevealOptions = function () {
-    const triggerOffset = Math.min(60, Math.max(16, Math.round(window.innerHeight * 0.08)));
-    return {
-        threshold: 0.01,
-        rootMargin: `0px 0px -${triggerOffset}px 0px`
-    };
-};
-
-window.orderScrollRevealEntries = function (entries) {
-    return [...entries]
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) =>
-            (a.boundingClientRect.top - b.boundingClientRect.top) * scrollRevealDirection
-        );
-};
 
 // ======================================
 // Repository Data
@@ -457,24 +391,9 @@ function initHeaderMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initUiSounds();
-    initGridHoverGlow();
 
     if (document.querySelector(".hero")) {
-
-        heroAnimation();
         loadRepoData();
-        prepareScrollAnimations();
-
-    } else if (document.querySelector(".dino-page")) {
-
-        prepareScrollAnimations();
-
-    }
-
-    if (document.querySelector(".about-page")) {
-
-        aboutAnimation();
-
     }
 
     ensureDownloadModal();
@@ -518,46 +437,31 @@ function initUiSounds() {
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
         if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
     }, { capture: true });
+
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    let hoverFrame = 0;
+    let hoverTarget = null;
+    let pointerX = 0;
+    let pointerY = 0;
     document.addEventListener("pointermove", event => {
-        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero");
+        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero,.game-showcase,.eeg-app,.future,.error-shell");
         if (!target) return;
-        const bounds = target.getBoundingClientRect();
-        target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, event.clientX - bounds.left - bounds.width / 2))}px`);
-        target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, event.clientY - bounds.top - bounds.height / 2))}px`);
-    }, { passive: true });
-}
 
-function initGridHoverGlow() {
-    if (!document.documentElement.classList.contains("os-effects") ||
-        !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        hoverTarget = target;
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        if (hoverFrame) return;
 
-    const gridSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--grid-size"));
-    let pointerPosition = null;
-    let glowTimeout;
-    const updateGlow = (clientX, clientY) => {
-        const x = Math.floor(clientX / gridSize) * gridSize;
-        const y = Math.floor(clientY / gridSize) * gridSize;
-        document.body.style.setProperty("--grid-hover-x", `${x}px`);
-        document.body.style.setProperty("--grid-hover-y", `${y}px`);
-        document.body.classList.add("grid-hover-glow");
-        window.clearTimeout(glowTimeout);
-    };
-    document.addEventListener("pointermove", event => {
-        if (event.pointerType !== "mouse") return;
-        pointerPosition = { x: event.clientX, y: event.clientY };
-        updateGlow(event.clientX, event.clientY);
+        hoverFrame = requestAnimationFrame(() => {
+            hoverFrame = 0;
+            if (!hoverTarget?.isConnected) return;
+
+            const bounds = hoverTarget.getBoundingClientRect();
+            hoverTarget.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
+            hoverTarget.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);
+        });
     }, { passive: true });
-    window.addEventListener("scroll", () => {
-        if (!pointerPosition) return;
-        updateGlow(pointerPosition.x, pointerPosition.y);
-    }, { passive: true, capture: true });
-    document.addEventListener("pointerleave", () => {
-        pointerPosition = null;
-        window.clearTimeout(glowTimeout);
-        glowTimeout = window.setTimeout(() => {
-            document.body.classList.remove("grid-hover-glow");
-        }, 300);
-    });
 }
 
 function playUiSound(name) {
@@ -588,149 +492,6 @@ function playUiSound(name) {
     } catch (_) { /* Sound is optional; controls must always work silently too. */ }
 }
 
-// ======================================
-// Hero Animation
-// ======================================
-
-function heroAnimation() {
-
-    const heroCard = document.querySelector(".hero");
-    const logo = document.querySelector(".hero-left");
-    const title = document.querySelector(".hero-right h1");
-    const desc = document.querySelector(".hero-right p");    
-    const buttons = document.querySelector(".hero-btn");
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    heroCard.style.opacity = "0";
-    heroCard.style.transform = "translateY(30px)";
-
-    logo.style.opacity = "0";
-    logo.style.transform = "translate(-50%, calc(-50% - 36px))";
-
-    title.style.opacity = "0";
-    title.style.transform = "translateY(30px)";
-
-    desc.style.opacity = "0";
-    desc.style.transform = "translateY(30px)";
-
-    buttons.style.opacity = "0";
-    buttons.style.transform = "translateY(24px) scale(.96)";
-
-    requestAnimationFrame(() => {
-
-        animate(heroCard, "translateY(0)", 0);
-
-        animate(
-            logo,
-            "translate(-50%, -50%)",
-            0
-        );
-
-        animate(
-            title,
-            "translateY(0)",
-            400
-        );
-
-        animate(
-            desc,
-            "translateY(0)",
-            700
-        );
-
-        animate(buttons, "translateY(0) scale(1)", 1300);
-
-    });
-
-}
-
-// ======================================
-// Generic Animation
-// ======================================
-
-function animate(element, transform, delay) {
-
-    setTimeout(() => {
-
-        element.style.transition =
-            "all 1.2s cubic-bezier(.22,1,.36,1)";
-
-        element.style.opacity = "1";
-        element.style.transform = transform;
-
-    }, delay);
-
-}
-
-// ======================================
-// Scroll Animations
-// ======================================
-
-function prepareScrollAnimations() {
-    // Elements to be initially hidden and observed.
-    // This list determines WHICH elements the observer will watch.
-    const elementsToObserve = [
-        ...document.querySelectorAll(".projects h2"),
-        ...document.querySelectorAll(".project-card"),
-        ...document.querySelectorAll(".additional-stuff h2"),
-        ...document.querySelectorAll(".additional-card"),
-        ...document.querySelectorAll(".dino-intro, .dino-game")
-    ];
-
-    elementsToObserve.forEach(item => {
-        item.classList.add("hidden");
-    });
-
-    const observer = new IntersectionObserver(
-        entries => {
-            window.orderScrollRevealEntries(entries).forEach(entry => {
-                const element = entry.target;
-                element.classList.add("show");
-                observer.unobserve(element);
-            });
-        },
-        window.getScrollRevealOptions()
-    );
-
-    elementsToObserve.forEach(item => {
-        observer.observe(item);
-    });
-}
-
-// ======================================
-// About Page Animation
-// ======================================
-
-function aboutAnimation() {
-
-    const observer = new IntersectionObserver(
-
-        entries => {
-            window.orderScrollRevealEntries(entries).forEach(entry => {
-                entry.target.classList.add("show");
-                observer.unobserve(entry.target);
-            });
-        },
-        window.getScrollRevealOptions()
-    );
-
-    const elements = [
-
-        ...document.querySelectorAll(".about-hero .hidden"),
-        ...document.querySelectorAll(".academic .hidden"),
-        ...document.querySelectorAll(".future")
-
-    ];
-
-    elements.forEach(element => {
-
-        observer.observe(element);
-
-    });
-
-}
-
 async function loadComponent(id, file) {
     const targetElement = document.getElementById(id);
     if (!targetElement) return;
@@ -740,29 +501,19 @@ async function loadComponent(id, file) {
         document.querySelectorAll('.site-header, .mobile-nav-backdrop, .header-nav').forEach(el => el.remove());
     }
 
-    const prefixes = ["", "../"];
-    for (const prefix of prefixes) {
-        try {
-            const response = await fetch(prefix + file);
-            if (response.ok) {
-                targetElement.innerHTML = await response.text();
-                if (id === "header") {
-                    initHeaderMenu();
-                    initScrollHeader();
-                    initScrollProgress();
-                }
-                return; // Exit after successful fetch
-            }
-        } catch (error) {
-            // Log error for debugging, but continue to try next prefix
-            console.warn(`Failed to load component from ${prefix + file}:`, error);
+    try {
+        const componentName = file.replace(/^components\//, "");
+        const response = await fetch(new URL(componentName, componentsBaseURL));
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        targetElement.innerHTML = await response.text();
+        if (id === "header") {
+            initHeaderMenu();
+            initScrollProgress();
         }
+    } catch (error) {
+        console.error(`Failed to load component '${file}':`, error);
     }
-    console.error(`Failed to load component for ID '${id}' from all provided paths.`);
-}
-function initScrollHeader() {
-    // No-op: header should always remain visible (user requested)
-    return;
 }
 
 function initScrollProgress() {
@@ -810,27 +561,3 @@ if (document.getElementById("footer")) {
 
 }
 
-// Soft entrance for content as it enters view, plus immediate press feedback in CSS.
-function initSiteMotion() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-
-    const candidates = document.querySelectorAll(
-        "main:not(.lamina-page):not(.rooting-page) > section, main > article, .project-card, .additional-card, .feature-card, .theme-showcase, .eeg-app, .future, .pong-game"
-    );
-    const observer = new IntersectionObserver(entries => {
-        window.orderScrollRevealEntries(entries).forEach(entry => {
-            entry.target.classList.add("motion-visible");
-            observer.unobserve(entry.target);
-        });
-    }, window.getScrollRevealOptions());
-
-    candidates.forEach(element => {
-        if (element.getBoundingClientRect().top > window.innerHeight * 0.85) {
-            element.classList.add("motion-reveal");
-            observer.observe(element);
-        }
-    });
-    if (document.querySelector(".motion-reveal")) document.body.classList.add("motion-enabled");
-}
-
-initSiteMotion();

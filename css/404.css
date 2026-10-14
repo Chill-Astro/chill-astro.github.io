@@ -9,7 +9,7 @@
 
 /* CSS Variables - Blueprint styling */
 :root{color-scheme:light dark;--bg:#fafafa;--surface:#fff;--surface-2:#f1f1f1;--text:#0a0a0a;--muted:#515151;--button-bg:#0a0a0a;--button-text:#fff;--card-border:#d8d8d8;--line:#c9c9c9;--shadow:0 22px 60px rgba(0,0,0,.08);--glow-shadow:0 0 0 1px var(--text),0 18px 42px rgba(0,0,0,.12);--ui-radius:24px;--ui-radius-small:16px}
-@media (prefers-color-scheme:dark){:root{--bg:#050505;--surface:#0b0b0b;--surface-2:#121212;--text:#f5f5f5;--muted:#b4b4b4;--button-bg:#f5f5f5;--button-text:#050505;--card-border:#292929;--line:#383838;--shadow:0 22px 60px rgba(0,0,0,.48);--glow-shadow:0 0 0 1px var(--text),0 18px 48px rgba(255,255,255,.08)}}
+@media (prefers-color-scheme:dark){:root{--bg:#050505;--surface:#000;--surface-2:#121212;--text:#f5f5f5;--muted:#b4b4b4;--button-bg:#f5f5f5;--button-text:#050505;--card-border:#292929;--line:#383838;--shadow:0 22px 60px rgba(0,0,0,.48);--glow-shadow:0 0 0 1px var(--text),0 18px 48px rgba(255,255,255,.08)}}
 
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
@@ -28,9 +28,6 @@ body.error-404-page {
     background-size: 40px 40px;
 }
 
-#cursor-shadow{position:fixed;z-index:9998;top:0;left:0;width:72px;height:72px;border-radius:50%;pointer-events:none;opacity:0;transform:translate3d(calc(var(--cursor-x,-200px) - 50%),calc(var(--cursor-y,-200px) - 50%),0);background:radial-gradient(circle at center,color-mix(in srgb,var(--text) 17%,transparent),transparent 70%);filter:blur(8px);transition:opacity 160ms ease;will-change:transform}#cursor-shadow.is-visible{opacity:.48}
-@media (hover:hover){a:hover,button:hover{filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent))}}
-
 body.error-404-page::before {
     content: "";
     position: fixed;
@@ -38,6 +35,12 @@ body.error-404-page::before {
     z-index: -1;
     pointer-events: none;
     background: radial-gradient(circle at 50% -20%,color-mix(in srgb,var(--text) 8%,transparent),transparent 42%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    a:hover, button:hover {
+        filter: drop-shadow(var(--cursor-shadow-x, 0px) var(--cursor-shadow-y, 0px) 7px color-mix(in srgb, var(--text) 15%, transparent));
+    }
 }
 
 .error-shell {

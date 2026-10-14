@@ -3,31 +3,6 @@
 // oh-my-posh-themes.js
 // ======================================
 
-function setupRevealAnimations() {
-
-    const observer = new IntersectionObserver((entries) => {
-        window.orderScrollRevealEntries(entries).forEach((entry) => {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-        });
-    }, window.getScrollRevealOptions());
-
-    const revealElements = [
-
-        ...document.querySelectorAll(".theme-showcase"),
-        ...document.querySelectorAll(".credits-section")
-
-    ];
-
-    revealElements.forEach((element) => {
-
-        element.classList.add("hidden");
-        observer.observe(element);
-
-    });
-
-}
-
 // ======================================
 // Terminal Previews
 // ======================================
@@ -49,7 +24,6 @@ function initOhMyPoshPage() {
 
     if (!document.querySelector(".omp-page")) return;
 
-    setupRevealAnimations();
     loadTerminalPreviews();
 
 }

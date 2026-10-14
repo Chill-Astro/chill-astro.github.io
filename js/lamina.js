@@ -1,64 +1,6 @@
 (() => {
     "use strict";
 
-    function prepareAnimations() {
-        const page = document.querySelector(".lamina-page");
-
-        if (!page) {
-            return;
-        }
-
-        const elements = [
-            page.querySelector(".hero-media"),
-            ...page.querySelectorAll(".lamina-page > section, .lamina-page > div")
-        ].filter(Boolean);
-
-        const animated = [...new Set(elements)];
-
-        animated.forEach((element) => {
-            element.classList.add("hidden");
-        });
-
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            animated.forEach((element) => {
-                element.classList.remove("hidden");
-                element.classList.add("show");
-            });
-            return;
-        }
-
-        /*
-         * Hero media appears immediately.
-         * The remaining content animates as it enters the viewport.
-         */
-        const hero = page.querySelector(".hero-media");
-
-        if (hero) {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    hero.classList.remove("hidden");
-                    hero.classList.add("show");
-                });
-            });
-        }
-
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                window.orderScrollRevealEntries(entries).forEach((entry) => {
-                    entry.target.classList.remove("hidden");
-                    entry.target.classList.add("show");
-                    obs.unobserve(entry.target);
-                });
-            },
-            window.getScrollRevealOptions()
-        );
-
-        animated.forEach((element) => {
-            if (element !== hero) observer.observe(element);
-        });
-    }
-
-
     function prepareMedia() {
         /*
          * Make every local video behave like a looping showcase video.
@@ -118,7 +60,6 @@
 
 
     function init() {
-        prepareAnimations();
         prepareMedia();
         prepareYoutube();
     }

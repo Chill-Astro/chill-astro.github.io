@@ -34,31 +34,8 @@ function heroAnimation() {
     });
 }
 
-function prepareRootingAnimations() {
-    const animated = [
-        ...document.querySelectorAll(".rooting-page .hidden"),
-        ...document.querySelectorAll(".rooting-content > *")
-    ];
-
-    animated.forEach((item) => {
-        item.classList.add("hidden");
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-        window.orderScrollRevealEntries(entries).forEach((entry) => {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-        });
-    }, window.getScrollRevealOptions());
-
-    animated.forEach((item) => {
-        observer.observe(item);
-    });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector(".rooting-page")) {
         heroAnimation();
-        prepareRootingAnimations();
     }
 });

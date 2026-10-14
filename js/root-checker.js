@@ -8,70 +8,6 @@
 
 
     // ======================================
-    // Scroll Animations
-    // ======================================
-
-    function prepareAnimations() {
-        const page = document.querySelector(".root-checker-page");
-
-        if (!page) {
-            return;
-        }
-
-        const elements = [
-            page.querySelector(".root-checker-hero img, .root-checker-media"),
-
-            ...page.querySelectorAll(
-                ".root-checker-page > section, " +
-                ".root-checker-page > div"
-            )
-        ].filter(Boolean);
-
-        const animated = [...new Set(elements)];
-
-        animated.forEach((element) => {
-            element.classList.add("hidden");
-        });
-
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            animated.forEach((element) => {
-                element.classList.remove("hidden");
-                element.classList.add("show");
-            });
-            return;
-        }
-
-        const hero = page.querySelector(".root-checker-hero img, .root-checker-media");
-
-        if (hero) {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    hero.classList.remove("hidden");
-                    hero.classList.add("show");
-                });
-            });
-        }
-
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                window.orderScrollRevealEntries(entries).forEach((entry) => {
-                    entry.target.classList.remove("hidden");
-                    entry.target.classList.add("show");
-                    obs.unobserve(entry.target);
-                });
-            },
-            window.getScrollRevealOptions()
-        );
-
-        animated.forEach((element) => {
-            if (element !== hero) {
-                observer.observe(element);
-            }
-        });
-    }
-
-
-    // ======================================
     // YouTube
     // ======================================
 
@@ -92,7 +28,6 @@
     // ======================================
 
     function init() {
-        prepareAnimations();
         prepareYoutube();
     }
 

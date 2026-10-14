@@ -47,26 +47,27 @@
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
         if (control && !control.matches(":disabled,[aria-disabled='true']")) play("click");
     }, { capture: true });
-    document.addEventListener("pointermove", event => {
-        const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
-        if (!target) return;
-        const bounds = target.getBoundingClientRect();
-        target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, event.clientX - bounds.left - bounds.width / 2))}px`);
-        target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, event.clientY - bounds.top - bounds.height / 2))}px`);
-    }, { passive: true });
-    if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) {
-        const shadow = document.createElement("div");
-        shadow.id = "cursor-shadow";
-        shadow.setAttribute("aria-hidden", "true");
-        document.body.appendChild(shadow);
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        let frame = 0;
+        let target = null;
+        let pointerX = 0;
+        let pointerY = 0;
         document.addEventListener("pointermove", event => {
-            if (event.pointerType !== "mouse") return;
-            shadow.style.setProperty("--cursor-x", `${event.clientX}px`);
-            shadow.style.setProperty("--cursor-y", `${event.clientY}px`);
-            shadow.classList.add("is-visible");
+            target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
+            if (!target) return;
+
+            pointerX = event.clientX;
+            pointerY = event.clientY;
+            if (frame) return;
+
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                if (!target?.isConnected) return;
+                const bounds = target.getBoundingClientRect();
+                target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
+                target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);
+            });
         }, { passive: true });
-        document.addEventListener("pointerleave", () => shadow.classList.remove("is-visible"));
-        document.addEventListener("pointerenter", () => shadow.classList.add("is-visible"));
     }
     document.addEventListener("click", event => {
         if (event.detail !== 0) return;

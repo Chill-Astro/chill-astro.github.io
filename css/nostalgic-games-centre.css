@@ -44,18 +44,6 @@
         box-shadow .24s ease, border-color .24s ease;
 }
 
-.game-showcase.hidden {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 1.5s cubic-bezier(.22, 1, .36, 1),
-        transform 1.5s cubic-bezier(.22, 1, .36, 1);
-}
-
-.game-showcase.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 .game-title {
     grid-column: 1 / -1;
     margin: 0;
@@ -140,11 +128,6 @@
         transform: translateY(-7px);
         border-color: var(--text);
         box-shadow: 0 0 0 1px var(--text), 0 18px 48px color-mix(in srgb, var(--text) 18%, transparent);
-    }
-
-    .game-showcase.show:hover {
-        transition: transform .24s cubic-bezier(.2, .8, .2, 1),
-            box-shadow .24s ease, border-color .24s ease;
     }
 
     .game-centre-play:hover {

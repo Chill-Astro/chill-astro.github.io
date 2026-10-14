@@ -265,8 +265,6 @@ footer {
 .socials svg {
     display: block;
 }
-.hidden{opacity:0;transform:translateY(30px);will-change:transform,opacity}
-.show{opacity:1;transform:none;transition:all 1.2s cubic-bezier(.22,1,.36,1)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
 @media(max-width:768px){
@@ -1600,11 +1598,8 @@ body{transition:background-color 420ms ease,color 280ms ease}
   .logo-circle:hover img{transform:scale(1.06)}
   :where(.touch-button,.game-action,.fullscreen-game-button):hover{transform:translateY(-2px)}
 }
-body.motion-enabled .motion-reveal{opacity:0;transform:translateY(18px);transition:opacity 650ms var(--motion-ease),transform 650ms var(--motion-ease)}
-body.motion-enabled .motion-reveal.motion-visible{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  body.motion-enabled .motion-reveal{opacity:1;transform:none}
 }
 /* Frame banner media and product screenshots, while leaving brand marks and icons clear. */
 :root{--banner-media-radius:12px}
@@ -1620,54 +1615,15 @@ html body .tmm-media,
 html body .rooting-hero{border-radius:var(--banner-media-radius)!important}
 
 :root{--grid-size:40px}
-body{background-size:var(--grid-size) var(--grid-size)}
 body{
-    isolation:isolate;
-    --grid-hover-x:-1000px;
-    --grid-hover-y:-1000px;
-    --grid-rim-color:#fff;
-    --grid-rim-opacity:20%;
     background-image:
         linear-gradient(color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px),
         linear-gradient(90deg,color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px);
-    background-size:
-        var(--grid-size) var(--grid-size),
-        var(--grid-size) var(--grid-size);
-    background-position:
-        0 0,
-        0 0;
-    background-attachment:fixed,fixed;
-    background-repeat:repeat,repeat;
-}
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    background-image:
-        linear-gradient(color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px),
-        linear-gradient(90deg,color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px);
-    background-size:var(--grid-size) var(--grid-size),var(--grid-size) var(--grid-size);
-    background-position:0 0;
-    -webkit-mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
-    mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
-    filter:blur(.5px);
-    opacity:0;
-    transition:opacity 900ms ease-out;
-}
-body.grid-hover-glow::after{
-    opacity:1;
-}
-@media(prefers-color-scheme:light){
-    body{--grid-rim-color:#000}
+    background-size:var(--grid-size) var(--grid-size);
+    background-repeat:repeat;
 }
 
-@media (hover:hover){
-    :where(a,button,[role="button"],summary,input[type="button"],input[type="submit"],.project-card,.additional-card,.feature-card,.theme-showcase,.hero):hover{
-        filter:drop-shadow(var(--cursor-shadow-x,0px) var(--cursor-shadow-y,0px) 7px color-mix(in srgb,var(--text) 15%,transparent));
-    }
-}@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) {
 
 .logo-circle:hover{transform:none!important;box-shadow:var(--glow-shadow)!important}
 }@media (hover: hover) and (pointer: fine) {
@@ -1681,31 +1637,13 @@ body.grid-hover-glow::after{
 .hero:hover{transform:translateY(-7px)!important}
 }
 
-/* Keep the site grid and cursor glow visible when a game enters the fullscreen top layer. */
+/* Keep the static site grid visible when a game enters the fullscreen top layer. */
 :fullscreen {
-    isolation: isolate;
     background-image:
         linear-gradient(color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px),
         linear-gradient(90deg,color-mix(in srgb,var(--text) 4%,transparent) 1px,transparent 1px);
     background-size:var(--grid-size) var(--grid-size),var(--grid-size) var(--grid-size);
 }
-:fullscreen::after {
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    background-image:
-        linear-gradient(color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px),
-        linear-gradient(90deg,color-mix(in srgb,var(--grid-rim-color) var(--grid-rim-opacity),transparent) 1px,transparent 1px);
-    background-size:var(--grid-size) var(--grid-size),var(--grid-size) var(--grid-size);
-    -webkit-mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
-    mask-image:radial-gradient(circle 150px at calc(var(--grid-hover-x) + var(--grid-size) / 2) calc(var(--grid-hover-y) + var(--grid-size) / 2),#000 0%,transparent 100%);
-    filter:blur(.5px);
-    opacity:0;
-    transition:opacity 900ms ease-out;
-}
-body.grid-hover-glow :fullscreen::after { opacity:1; }
 /* Nostalgia Centre game cards */
 .games {
     width: min(1100px, 100%);
@@ -1899,17 +1837,6 @@ html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-tog
         -webkit-backdrop-filter: none !important;
     }
 
-    html:not(.os-effects) body .hidden,
-    html:not(.os-effects) body .lamina-page .hidden,
-    html:not(.os-effects) body .eeg-reveal,
-    html:not(.os-effects) body .motion-reveal {
-        opacity: 1 !important;
-        transform: none !important;
-        visibility: visible !important;
-        animation: none !important;
-        transition: none !important;
-        will-change: auto !important;
-    }
 }
 
 /* Download glass: blur the page behind the overlay and the page seen through the dialog. */
@@ -1998,17 +1925,6 @@ html:not(.os-effects) .fullscreen-game-button,
 html:not(.os-effects) .dino-fullscreen {
     background: #080808 !important;
 }
-html:not(.os-effects) body .hidden,
-html:not(.os-effects) body .lamina-page .hidden,
-html:not(.os-effects) body .eeg-reveal,
-html:not(.os-effects) body .motion-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-    animation: none !important;
-    transition: none !important;
-    will-change: auto !important;
-}
 @media (hover: none), (pointer: coarse) {
     html:not(.os-effects) .site-header,
     html:not(.os-effects) .video-player__play,
@@ -2056,6 +1972,46 @@ html:not(.os-effects) body .motion-reveal {
     -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
   }
 }
+
+/* Opaque card surfaces; keep the glass treatment on navigation, dialogs and media controls. */
+:root { --card-surface: #fff; }
+@media (prefers-color-scheme: dark) {
+    :root { --card-surface: #000; }
+}
+
+html body :is(
+    [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
+    .eeg-app, .eeg-entry, .future, .doc-intro-card, .pong-intro,
+    .root-checker-intro, .tmm-intro, .error-shell
+),
+html body :is(
+    [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
+    .eeg-app, .eeg-entry, .future, .doc-intro-card, .pong-intro,
+    .root-checker-intro, .tmm-intro, .error-shell
+):hover {
+    background-color: var(--card-surface) !important;
+    background-image: none !important;
+    border-color: var(--card-border, var(--line)) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+html.os-effects body :is(
+    [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
+    .eeg-app, .eeg-entry, .future, .doc-intro-card, .pong-intro,
+    .root-checker-intro, .tmm-intro, .error-shell
+),
+html.os-effects body :is(
+    [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
+    .eeg-app, .eeg-entry, .future, .doc-intro-card, .pong-intro,
+    .root-checker-intro, .tmm-intro, .error-shell
+):hover {
+    background-color: var(--card-surface) !important;
+    background-image: none !important;
+    border-color: var(--card-border, var(--line)) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
 @media (hover: none), (pointer: coarse) {
   :is(
     [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
@@ -2066,4 +2022,44 @@ html:not(.os-effects) body .motion-reveal {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
+}
+
+/* Desktop-only page-load motion; never tied to scrolling. */
+@keyframes desktop-content-enter {
+    from { opacity: 0; transform: translate3d(0, 18px, 0) scale(.985); }
+    to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body > main,
+    body > section {
+        animation: desktop-content-enter 720ms cubic-bezier(.16, 1, .3, 1) backwards;
+    }
+
+    body > section:nth-of-type(2) {
+        animation-delay: 60ms;
+    }
+
+    body > section:nth-of-type(3) {
+        animation-delay: 120ms;
+    }
+
+    body > section:nth-of-type(4) {
+        animation-delay: 180ms;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    :where(
+        a, button, [role="button"], summary, input[type="button"], input[type="submit"],
+        .project-card, .additional-card, .feature-card, .theme-showcase, .hero,
+        .game-showcase, .eeg-app, .future, .error-shell
+    ):hover {
+        filter: drop-shadow(
+            var(--cursor-shadow-x, 0px)
+            var(--cursor-shadow-y, 0px)
+            7px
+            color-mix(in srgb, var(--text) 15%, transparent)
+        );
+    }
 }
