@@ -8,8 +8,21 @@
     const fullscreenButton = document.getElementById("fullscreen-game");
     const matchClock = document.getElementById("match-clock");
     const gameElement = document.querySelector(".pong-game");
+    const overlayChangeModeButton = document.getElementById("overlay-change-mode");
+    const modePicker = document.getElementById("mode-picker");
+    const changeModeButton = document.getElementById("change-mode");
+    const modeLabel = document.getElementById("mode-label");
+    const modeTitle = document.getElementById("mode-title");
+    const modeDescription = document.getElementById("mode-description");
+    const modeOptions = document.getElementById("mode-options");
+    const difficultyOptions = document.getElementById("difficulty-options");
+    const modeBackButton = document.getElementById("mode-back");
+    const modeButtons = [...document.querySelectorAll(".pong-mode-button[data-mode]")];
+    const difficultyButtons = [...document.querySelectorAll(".pong-mode-button[data-difficulty]")];
+    const rightPlayerName = document.querySelector(".player-controls-right .player-name");
+    const rightPlayerControls = document.querySelector(".player-controls-right");
 
-    if (!canvas || !context || !toggleButton || !pauseButton || !restartButton || !endButton || !fullscreenButton || !matchClock || !gameElement) {
+    if (!canvas || !context || !toggleButton || !pauseButton || !restartButton || !endButton || !fullscreenButton || !matchClock || !gameElement || !modePicker || !changeModeButton || !modeLabel || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !modeBackButton || !rightPlayerName || !rightPlayerControls || !overlayChangeModeButton || modeButtons.length !== 2 || difficultyButtons.length !== 2) {
         console.error("Pong Reimagined could not initialize because required game elements are missing.");
         return;
     }
@@ -52,6 +65,11 @@
     let matchDeadline = 0;
     let displayedClock = "";
     let animationFrame = 0;
+    let difficulty = "beginner";
+    let playMode = "human";
+    let aiTarget = height / 2;
+    let aiMissOffset = 0;
+    let aiWasIncoming = false;
 
     function gameColors() {
         const styles = getComputedStyle(document.documentElement);
@@ -107,17 +125,21 @@
         pauseButton.hidden = false;
         restartButton.hidden = false;
         endButton.hidden = false;
+        changeModeButton.hidden = false;
     }
 
     function hideGameActions() {
         pauseButton.hidden = true;
         restartButton.hidden = true;
         endButton.hidden = true;
+        changeModeButton.hidden = true;
     }
 
     function setOverlay(title, message, buttonText) {
         if (!overlay || !overlayTitle || !overlayMessage) return;
         overlay.hidden = false;
+        toggleButton.hidden = false;
+        overlayChangeModeButton.hidden = false;
         overlayTitle.textContent = title;
         overlayMessage.textContent = message;
         toggleButton.textContent = buttonText;
@@ -157,6 +179,8 @@
         }
         running = true;
         overlay.hidden = true;
+        toggleButton.hidden = true;
+        overlayChangeModeButton.hidden = true;
         toggleButton.textContent = "Resume game";
         showGameActions();
         matchDeadline = performance.now() + matchRemaining * 1000;
@@ -191,6 +215,8 @@
         updateClock();
         running = true;
         overlay.hidden = true;
+        toggleButton.hidden = true;
+        overlayChangeModeButton.hidden = true;
         showGameActions();
         matchDeadline = performance.now() + matchDuration * 1000;
         lastFrame = 0;
@@ -206,7 +232,9 @@
         hideGameActions();
         const result = scores.left === scores.right
             ? "It's a draw!"
-            : `${scores.left > scores.right ? "Left" : "Right"} player wins!`;
+            : playMode === "ai"
+                ? scores.left > scores.right ? "You win!" : "AI wins!"
+                : `${scores.left > scores.right ? "Left" : "Right"} player wins!`;
         playGameSound(scores.left === scores.right ? "pongDraw" : "pongVictory");
         setOverlay(
             result,
@@ -248,11 +276,43 @@
         return heldControls.has(control) || keys[control].some(key => keysDown.has(key));
     }
 
-    function movePaddles(delta) {
+    function updateAiPaddle(delta, now) {
+        if (difficulty === "beginner") {
+            if (ball.vx > 0) {
+                if (!aiWasIncoming) {
+                    // Hold one imperfect read for each rally instead of changing aim
+                    // repeatedly, which made the paddle appear to oscillate.
+                    aiMissOffset = (Math.random() - 0.5) * 300;
+                    aiWasIncoming = true;
+                }
+                aiTarget = ball.y + aiMissOffset;
+            } else {
+                aiWasIncoming = false;
+                aiTarget = height / 2;
+            }
+        } else if (ball.vx > 0) {
+            const travelTime = Math.max(0, (paddles.right.x - ball.x) / ball.vx);
+            const wallSpan = height - ballRadius * 2;
+            const projected = ball.y - ballRadius + ball.vy * travelTime;
+            const folded = ((projected % (wallSpan * 2)) + wallSpan * 2) % (wallSpan * 2);
+            aiTarget = ballRadius + (folded <= wallSpan ? folded : wallSpan * 2 - folded);
+        } else {
+            aiTarget = height / 2;
+        }
+
+        const difference = aiTarget - (paddles.right.y + paddleHeight / 2);
+        const aiSpeed = difficulty === "god" ? 900 : 200;
+        paddles.right.y += Math.sign(difference) * Math.min(Math.abs(difference), aiSpeed * delta);
+    }
+
+    function movePaddles(delta, now) {
         if (controlIsDown("left-up")) paddles.left.y -= speed.paddle * delta;
         if (controlIsDown("left-down")) paddles.left.y += speed.paddle * delta;
-        if (controlIsDown("right-up")) paddles.right.y -= speed.paddle * delta;
-        if (controlIsDown("right-down")) paddles.right.y += speed.paddle * delta;
+        if (playMode === "ai") updateAiPaddle(delta, now);
+        else {
+            if (controlIsDown("right-up")) paddles.right.y -= speed.paddle * delta;
+            if (controlIsDown("right-down")) paddles.right.y += speed.paddle * delta;
+        }
 
         paddles.left.y = Math.max(0, Math.min(height - paddleHeight, paddles.left.y));
         paddles.right.y = Math.max(0, Math.min(height - paddleHeight, paddles.right.y));
@@ -318,7 +378,7 @@
 
         const delta = lastFrame ? Math.min((now - lastFrame) / 1000, 0.03) : 0;
         lastFrame = now;
-        movePaddles(delta);
+        movePaddles(delta, now);
         updateBall(delta, now);
         drawCourt();
         animationFrame = requestAnimationFrame(tick);
@@ -371,6 +431,66 @@
     });
 
     toggleButton.addEventListener("click", startGame);
+    function launchMode(nextMode, nextDifficulty = "beginner") {
+        playMode = nextMode;
+        difficulty = nextDifficulty;
+        const againstAi = playMode === "ai";
+        gameElement.classList.toggle("is-ai", againstAi);
+        rightPlayerName.textContent = againstAi ? "AI" : "Right player";
+        rightPlayerControls.setAttribute("aria-label", againstAi ? "AI paddle" : "Right player controls");
+        modeLabel.textContent = againstAi
+            ? `AI · ${difficulty === "god" ? "God Mode" : "Beginner"}`
+            : "Human · Two players";
+        modePicker.hidden = true;
+        scores.left = 0;
+        scores.right = 0;
+        updateScores();
+        updateClock();
+        startGame();
+    }
+
+    modeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button.dataset.mode === "ai") {
+                modeOptions.hidden = true;
+                difficultyOptions.hidden = false;
+                modeTitle.textContent = "Choose difficulty";
+                modeDescription.textContent = "You control the left paddle. The AI plays right.";
+                difficultyButtons[0].focus({ preventScroll: true });
+                return;
+            }
+            launchMode("human");
+        });
+    });
+    difficultyButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            launchMode("ai", button.dataset.difficulty);
+        });
+    });
+    modeBackButton.addEventListener("click", () => {
+        difficultyOptions.hidden = true;
+        modeOptions.hidden = false;
+        modeTitle.textContent = "Choose a mode";
+        modeDescription.textContent = "Play against the AI or take turns with a friend.";
+        modeButtons[0].focus({ preventScroll: true });
+    });
+    function openModePicker() {
+        running = false;
+        started = false;
+        cancelAnimationFrame(animationFrame);
+        hideGameActions();
+        overlay.hidden = true;
+        toggleButton.hidden = true;
+        overlayChangeModeButton.hidden = true;
+        difficultyOptions.hidden = true;
+        modeOptions.hidden = false;
+        modeTitle.textContent = "Choose a mode";
+        modeDescription.textContent = "Play against the AI or take turns with a friend.";
+        modePicker.hidden = false;
+        drawCourt();
+    }
+    changeModeButton.addEventListener("click", openModePicker);
+    overlayChangeModeButton.addEventListener("click", openModePicker);
     pauseButton.addEventListener("click", pauseGame);
     restartButton.addEventListener("click", restartGame);
     endButton.addEventListener("click", endGame);

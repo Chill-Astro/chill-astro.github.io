@@ -1,6 +1,6 @@
 (() => {
     const WIN_LENGTH = 4;
-    const SEARCH_DEPTH = 4;
+    const SEARCH_DEPTH = 6;
     const modePicker = document.getElementById("mode-picker");
     const game = document.getElementById("ttt-game");
     const gameContent = document.getElementById("ttt-game-content");
@@ -110,6 +110,8 @@
         restartButton.disabled = !mode;
         changeModeButton.disabled = !mode;
         status.textContent = getStatusText();
+        status.classList.toggle("is-paused", paused);
+        game.classList.toggle("is-paused", paused);
         pausedOverlay.hidden = !paused;
     }
 
@@ -319,15 +321,18 @@
 
     function chooseBeginnerMove() {
         const moves = candidateMoves(marks);
-        const winningMove = moves.find(index => {
-            marks[index] = "O";
-            const wins = Boolean(getWinner(marks));
-            marks[index] = "";
-            return wins;
-        });
-        if (winningMove !== undefined) return winningMove;
-
+        // Beginner notices immediate tactics occasionally, but often overlooks them.
         if (Math.random() < 0.35) {
+            const winningMove = moves.find(index => {
+                marks[index] = "O";
+                const wins = Boolean(getWinner(marks));
+                marks[index] = "";
+                return wins;
+            });
+            if (winningMove !== undefined) return winningMove;
+        }
+
+        if (Math.random() < 0.2) {
             const blockingMove = moves.find(index => {
                 marks[index] = "X";
                 const blocks = Boolean(getWinner(marks));

@@ -42,7 +42,7 @@
     </script>
     <link rel="icon" type="image/png" href="../assets/images/tabicon.png">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/pong.css?v=10">
+    <link rel="stylesheet" href="../css/pong.css?v=13">
     <title>Pong Reimagined | Chill-Astro Software</title>
 </head>
 <body class="pong-page">
@@ -51,7 +51,7 @@
     <main class="pong-main">
         <section class="pong-intro" aria-labelledby="pong-title">            
             <h1 id="pong-title">Pong Reimagined</h1>
-            <p>Outscore your opponent before the 60-second clock runs out.</p>
+            <p>Choose a two-player match or take on the AI before the 60-second clock runs out.</p>
         </section>
 
         <section class="pong-game" aria-label="Pong Reimagined game">
@@ -76,6 +76,7 @@
             <div class="court-column">
                 <div class="court-toolbar">
                     <span class="match-clock" id="match-clock" aria-label="Time remaining">1:00</span>
+                    <span class="pong-mode-label" id="mode-label" aria-live="polite"></span>
                     <div class="scoreboard" aria-live="polite">
                         <span>LEFT <strong id="court-left-score">0</strong></span>
                         <span class="scoreboard-divider" aria-hidden="true">:</span>
@@ -83,26 +84,57 @@
                     </div>
                 </div>
                 <div class="court-frame">
-                    <canvas id="pong-court" width="960" height="540" role="img" aria-label="Pong Reimagined court. Left player uses W and S; right player uses the up and down arrow keys.">
+                    <canvas id="pong-court" width="960" height="540" role="img" aria-label="Pong Reimagined court. You control the left paddle with W and S; the AI controls the right paddle.">
                         Your browser does not support the canvas needed to play Pong Reimagined.
                     </canvas>
-                    <div class="court-overlay" id="court-overlay">
+                    <div class="court-overlay" id="court-overlay" hidden>
                         <p class="overlay-title" id="overlay-title">Ready?</p>
-                        <p class="overlay-message" id="overlay-message">Move your paddle and score more points than your opponent.</p>
-                        <button class="primary-btn game-toggle" id="game-toggle" type="button">Start game</button>
+                        <p class="overlay-message" id="overlay-message">Choose a difficulty to begin.</p>
+                        <div class="overlay-actions">
+                            <button class="primary-btn game-toggle" id="game-toggle" type="button" hidden>Start game</button>
+                            <button class="primary-btn game-toggle overlay-change-mode" id="overlay-change-mode" type="button" hidden>Change mode</button>
+                        </div>
+                    </div>
+                    <div class="pong-mode-overlay" id="mode-picker" aria-labelledby="mode-title">
+                        <div class="pong-mode-dialog">
+                            <h2 id="mode-title">Choose a mode</h2>
+                            <p id="mode-description">Play against the AI or take turns with a friend.</p>
+                            <div class="pong-mode-options" id="mode-options">
+                                <button class="primary-btn game-toggle pong-mode-button" type="button" data-mode="ai">
+                                    <span class="pong-mode-name">Vs. AI</span>
+                                    <span class="pong-mode-description">Choose a difficulty and play solo.</span>
+                                </button>
+                                <button class="primary-btn game-toggle pong-mode-button" type="button" data-mode="human">
+                                    <span class="pong-mode-name">Two players</span>
+                                    <span class="pong-mode-description">Take turns on the same device.</span>
+                                </button>
+                            </div>
+                            <div class="pong-mode-options pong-difficulty-options" id="difficulty-options" hidden>
+                                <button class="primary-btn game-toggle pong-mode-button" type="button" data-difficulty="beginner">
+                                    <span class="pong-mode-name">Beginner</span>
+                                    <span class="pong-mode-description">A relaxed opponent that leaves openings.</span>
+                                </button>
+                                <button class="primary-btn game-toggle pong-mode-button" type="button" data-difficulty="god">
+                                    <span class="pong-mode-name">God Mode</span>
+                                    <span class="pong-mode-description">A fast, precise opponent that reads the ball.</span>
+                                </button>
+                                <button class="pong-picker-back" id="mode-back" type="button">Back to modes</button>
+                            </div>
+                        </div>
                     </div>
                     <button class="fullscreen-game-button" id="fullscreen-game" type="button" aria-label="Enter fullscreen" aria-pressed="false"><span aria-hidden="true">⛶</span></button>
-                </div>
-                <div class="game-actions" id="game-actions">
+                    <div class="game-actions" id="game-actions">
                         <button class="game-action" id="pause-game" type="button" hidden>Pause</button>
                         <button class="game-action" id="restart-game" type="button" hidden>Restart</button>
+                        <button class="game-action" id="change-mode" type="button" hidden>Change mode</button>
                         <button class="game-action game-action-end" id="end-game" type="button" hidden>End</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="player-controls player-controls-right" aria-label="Right player controls">
+            <div class="player-controls player-controls-right" aria-label="AI paddle">
                 <div class="player-heading">
-                    <span class="player-name">Right player</span>
+                    <span class="player-name">AI</span>
                     <output class="player-score" id="right-score" aria-label="Right player score">0</output>
                 </div>
                 <p class="keyboard-hint"><kbd>↑</kbd> Move up <kbd>↓</kbd> Move down</p>

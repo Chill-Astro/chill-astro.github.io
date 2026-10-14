@@ -2709,6 +2709,83 @@ kbd {
     }
 }
 
+/* AI difficulty picker and in-court mode controls. */
+.pong-mode-overlay[hidden] { display: none !important; }
+.pong-mode-options[hidden] { display: none !important; }
+.pong-mode-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: clamp(.75rem, 4vw, 1.5rem);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+.pong-mode-dialog {
+    width: min(100%, 29rem);
+    padding: clamp(1rem, 4vw, 1.6rem);
+    text-align: center;
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+}
+.pong-mode-dialog h2 {
+    margin-bottom: .35rem;
+    font-size: clamp(1.25rem, 4vw, 1.7rem);
+}
+.pong-mode-dialog > p { font-size: clamp(.72rem, 2vw, .85rem); }
+.pong-mode-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .55rem;
+    margin-top: clamp(.65rem, 2vw, 1rem);
+}
+.pong-mode-button {
+    display: flex;
+    min-height: 5rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: .25rem;
+    text-align: center;
+    cursor: pointer;
+}
+.pong-mode-options .game-toggle { margin-top: 0; }
+.pong-mode-name { font-weight: 700; }
+.pong-mode-description { font-size: .7rem; line-height: 1.4; }
+.pong-mode-button .pong-mode-description { color: color-mix(in srgb, var(--button-text) 78%, transparent); }
+.pong-mode-button:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.pong-picker-back {
+    grid-column: 1 / -1;
+    justify-self: center;
+    padding: .35rem .6rem;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    font: 600 .72rem "Tomorrow", sans-serif;
+    cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+    .pong-mode-button { transition: transform .2s ease; }
+}
+.pong-game .game-actions { grid-template-columns: max-content max-content minmax(0, 1fr) max-content max-content; }
+.pong-game #change-mode { grid-column: 4; }
+.pong-game #end-game { grid-column: 5; }
+.pong-game.is-ai .player-controls-right .touch-controls,
+.pong-game.is-ai .player-controls-right .fullscreen-key-hints { visibility: hidden; pointer-events: none; }
+.pong-mode-label { font-size: .68rem; font-weight: 600; letter-spacing: .04em; }
+@media (max-width: 520px) {
+    .pong-mode-options { grid-template-columns: 1fr; gap: .4rem; }
+    .pong-mode-button { min-height: 3.9rem; padding: .5rem; }
+    .pong-mode-description { font-size: .66rem; }
+    .pong-mode-label { font-size: .6rem; }
+}
+@media (hover: none), (pointer: coarse) {
+    .pong-mode-overlay { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
 /* Fullscreen: edge-anchor the floating controls and maximize the court between them. */
 @media (orientation: landscape) {
     .pong-game:fullscreen {
@@ -2807,4 +2884,44 @@ kbd {
         padding: 0.4rem 0.6rem;
         font-size: 0.68rem;
     }
+}
+
+/* Keep the extra mode controls inside the court on every layout. */
+.pong-game:not(:fullscreen) .game-actions {
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content max-content;
+}
+.pong-game:not(:fullscreen) #change-mode { grid-column: 4; }
+.pong-game:not(:fullscreen) #end-game { grid-column: 5; }
+.pong-game:fullscreen .game-actions {
+    position: absolute;
+    top: .55rem;
+    right: .55rem;
+    left: .55rem;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: max-content max-content minmax(0, 1fr) max-content max-content;
+    min-height: 0;
+    margin: 0;
+    pointer-events: none;
+}
+.pong-game:fullscreen .game-actions > .game-action { pointer-events: auto; }
+.pong-game:fullscreen #change-mode { grid-column: 4; }
+.pong-game:fullscreen #end-game { grid-column: 5; }
+
+.pong-game .overlay-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    margin-top: .25rem;
+}
+.pong-game .overlay-change-mode[hidden] { display: none !important; }
+.pong-game .overlay-actions .game-toggle { margin-top: 0; padding: .6rem 1rem; white-space: nowrap; }
+.pong-game .overlay-actions .overlay-change-mode { white-space: nowrap; }
+
+/* Right-side movement controls are reserved for two-player matches. */
+.pong-game.is-ai .player-controls-right .touch-controls,
+.pong-game.is-ai .player-controls-right .fullscreen-key-hints {
+    display: none !important;
 }
