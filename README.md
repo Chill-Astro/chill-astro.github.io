@@ -39,14 +39,15 @@
 - Images are now converted to `.WEBP` from `.PNG`.
 - Scroll effects are now removed, and instead replaced by a Simpler Entrance Animation ( PC ONLY ).
 - Grid Hover effects and Blur under Cards is now removed ( PC ONLY ).
+- Implementing `Lazy Loading`. 
 - Animations, Blurs and Hover effects are removed from Mobile.
 
 ENJOY THE RESULTS! 🥰🥰🥰
 
 
-| PC ( 100/100 ) | Mobile (95/100) |
+| PC ( 100/100 ) | Mobile (99/100) |
 | :---: | :---: |
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fc7499d9-8c68-49d6-a2a8-76db79058566" /> | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5dfc473c-3586-493b-9a73-86c0f1364658" /> |
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/64b057cf-48f0-40c5-bebe-262f4f981edd" /> | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/451f6046-ed55-4af4-90ad-d43a2dcf4fda" /> |
 
 ---
 
