@@ -39,12 +39,12 @@
         const showControls = () => {
             player.classList.add("is-active");
             clearTimeout(hideTimer);
-            
+
             // Auto-hide controls when playing
             if (!media.paused) {
                 hideTimer = window.setTimeout(() => {
                     player.classList.remove("is-active");
-                }, 3000);
+                }, 4000);
             }
         };
 
@@ -306,7 +306,6 @@
         };
 
         player.addEventListener("pointerenter", showControls, { passive: true });
-        player.addEventListener("pointerdown", showControls, { passive: true });
         player.addEventListener("pointermove", event => {
             if (event.pointerType === "mouse") handleMouseMove(event);
         }, { passive: true });
