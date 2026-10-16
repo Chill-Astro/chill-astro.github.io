@@ -76,22 +76,27 @@
 
     .app-centre-page .app-centre-download {
         grid-column: 1 / -1;
-        grid-row: 4;
+        grid-row: 5;
     }
 
     .app-centre-page .app-centre-github {
         grid-column: 1 / -1;
-        grid-row: 5;
+        grid-row: 6;
     }
 
     .app-centre-page .game-centre-play {
         grid-column: 1 / -1;
-        grid-row: 3;
+        grid-row: 4;
         margin-top: 0;
     }
 
     .app-showcase .game-info { display: contents; }
     .app-showcase .game-logo-frame { grid-column: 1; grid-row: 2; }
     .app-showcase .game-preview { grid-column: 2; grid-row: 2; }
-    .app-showcase > .game-description { grid-row: 6; }
+    .app-showcase > .game-description {
+        grid-row: 3;
+        font-size: clamp(.9rem, 3.4vw, 1rem);
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
 }
