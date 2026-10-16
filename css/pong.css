@@ -7,6 +7,12 @@
 .pong-intro {
     text-align: center;
     margin: 0 auto 2rem;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
 }
 
 .pong-eyebrow {
@@ -34,6 +40,7 @@
 
 .pong-game button {
     min-height: 44px;
+    transform: none !important;
 }
 
 .pong-game button:not(.fullscreen-game-button) {
@@ -41,6 +48,7 @@
     border-radius: 0.8rem !important;
     font-family: "Tomorrow", sans-serif;
     font-weight: 600;
+    transform: none !important;
 }
 
 .player-controls {
@@ -51,8 +59,8 @@
     min-width: 0;
     padding: 1.25rem 0.75rem;
     text-align: center;
-    background: var(--surface);
-    border: 1px solid var(--card-border);
+    background: transparent;
+    border: none;
     border-radius: var(--radius);
 }
 
@@ -176,8 +184,8 @@ kbd {
 
     .touch-button:hover {
         color: var(--bg) !important;
-        transform: translateY(-3px);
-        box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+        transform: none;
+        box-shadow: none;
     }
 }
 
@@ -278,7 +286,7 @@ kbd {
 
 .fullscreen-game-button:hover {
     background: rgba(60, 60, 68, 0.72);
-    transform: scale(1.04);
+    transform: none;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 }
@@ -330,6 +338,7 @@ kbd {
 .game-toggle {
     margin-top: 0.25rem;
     cursor: pointer;
+    transform: none !important;
 }
 
 .game-actions {
@@ -359,6 +368,7 @@ kbd {
     border-radius: 999px;
     cursor: pointer;
     transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    transform: none !important;
 }
 
 .game-action-end {
@@ -371,8 +381,8 @@ kbd {
 .game-action:hover {
     color: var(--bg);
     background: var(--text);
-    transform: translateY(-3px);
-    box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+    transform: none;
+    box-shadow: none;
 }
 }@media (hover: hover) and (pointer: fine) {
 
@@ -531,8 +541,8 @@ kbd {
         color: var(--bg);
         background: var(--text);
         border-color: var(--text);
-        transform: translateY(-2px);
-        box-shadow: 0 0 0 1px var(--text), 0 9px 24px color-mix(in srgb, var(--text) 25%, transparent);
+        transform: none;
+        box-shadow: none;
     }
 }
 
@@ -573,6 +583,11 @@ kbd {
 
     .pong-intro {
         margin-bottom: 1rem;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
     }
 
     .pong-game {
@@ -1157,6 +1172,11 @@ kbd {
 
 .pong-intro {
     margin-bottom: clamp(1rem, 2.5vw, 2rem);
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
 }
 
 .pong-game:not(:fullscreen) {
@@ -1297,6 +1317,11 @@ kbd {
 
     .pong-intro {
         margin-bottom: 1rem;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
     }
 
     .pong-intro p {
@@ -2241,54 +2266,10 @@ kbd {
     }
 }
 
-/* Page-load entrance for the complete Pong Reimagined interface. */
-@keyframes pong-page-fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes pong-section-enter {
-    from {
-        opacity: 0;
-        transform: translateY(0.75rem);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.pong-page {
-    animation: pong-page-fade-in 500ms ease-out both;
-}
-
-/* Keep the animated header wrapper above the game so its navigation drawer covers it. */
+/* Keep the header wrapper above the game so its navigation drawer covers it. */
 .pong-page #header {
     position: relative;
     z-index: 10010;
-}
-
-.pong-page #header,
-.pong-page #footer {
-    animation: pong-page-fade-in 650ms ease-out both;
-}
-
-.pong-page .pong-intro {
-    animation: pong-section-enter 650ms cubic-bezier(0.2, 0.75, 0.25, 1) 80ms both;
-}
-
-.pong-page .pong-game {
-    animation: pong-section-enter 700ms cubic-bezier(0.2, 0.75, 0.25, 1) 160ms both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .pong-page,
-    .pong-page #header,
-    .pong-page #footer,
-    .pong-page .pong-intro,
-    .pong-page .pong-game {
-        animation: none !important;
-    }
 }
 
 /* Keep the match clock and number-only score centered at the top of every court. */
@@ -2751,6 +2732,7 @@ kbd {
     gap: .25rem;
     text-align: center;
     cursor: pointer;
+    transform: none !important;
 }
 .pong-mode-options .game-toggle { margin-top: 0; }
 .pong-mode-name { font-weight: 700; }
@@ -2768,7 +2750,7 @@ kbd {
     cursor: pointer;
 }
 @media (hover: hover) and (pointer: fine) {
-    .pong-mode-button { transition: transform .2s ease; }
+    .pong-mode-button { transition: transform .2s ease; transform: none !important; }
 }
 .pong-game .game-actions { grid-template-columns: max-content max-content minmax(0, 1fr) max-content max-content; }
 .pong-game #change-mode { grid-column: 4; }

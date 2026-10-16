@@ -48,12 +48,10 @@
         href="../assets/images/tabicon.webp"
     >
 
-    <link rel="stylesheet" href="../css/video-player.css">
-    <link rel="stylesheet" href="../css/easter-egg-guide.css">
-    <link rel="stylesheet" href="../css/style.css?interface=9">
+    <link rel="stylesheet" href="../css/video-player.css?player=8">
+    <link rel="stylesheet" href="../css/style.css?interface=23">
 
     <title>Easter Egg Guide | Chill-Astro Software</title>
-
 </head>
 
 <body>
@@ -130,7 +128,47 @@
 
         <article class="eeg-entry">
 
-            <h3>2. Code Easter Eggs</h3>
+            <h3>2. Advanced Calculator Messages</h3>
+
+            <div
+                class="eeg-difficulty"
+                data-difficulty="1"
+                aria-label="Difficulty: 1 star"
+            >
+                <span class="eeg-difficulty-label">Difficulty :</span>
+                <span class="eeg-stars"></span>
+            </div>
+
+            <div class="eeg-media">
+
+                <img
+                    src="../assets/images/lamina-advanced-calc-egg.webp"
+                    alt="Lamina Advanced Calculator Easter Egg"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <div class="eeg-steps">
+
+                <h4>Steps to Reproduce :</h4>
+
+                <ol>
+                    <li>Open Advanced Calculator.</li>
+                    <li>Divide any number by 0, 5 times.</li>
+                    <li>Each subsequent attempt gives the next message.</li>
+                </ol>
+
+            </div>
+
+        </article>
+
+
+        <!-- Easter Egg 3 -->
+
+        <article class="eeg-entry">
+
+            <h3>3. Code Easter Eggs</h3>
 
             <div class="eeg-media">
 
@@ -283,9 +321,7 @@
                 <span class="eeg-stars"></span>
             </div>
 
-            <div class="eeg-media">
-
-                <div class="eeg-media eeg-video-media">
+            <div class="eeg-media eeg-video-media">
                 
                 <div class="video-player">
                 <video class="video-player__media" muted playsinline preload="metadata">
@@ -306,7 +342,7 @@
                     </li>
 
                     <li>
-                        Click on Version Text 100 Times.
+                        Click on Version Number 150 Times.
                     </li>
                 </ol>
 
@@ -319,12 +355,7 @@
 
                 <ol>
                     <li>
-                        Well BE CAREFUL to NOT REACH 150 Taps, else you will get
-                        "Touch some Grass!" and the App will CRASH!
-                    </li>
-
-                    <li>
-                        The Dialogs Appear as Toast messages. So BE SLOW!
+                        The App Crashes Abruptly on 150th Tap!
                     </li>
                 </ol>
 
@@ -446,6 +477,55 @@
 
     </section>
 
+
+    <!-- ======================================
+         THIS WEBSITE ITSELF!
+    ======================================= -->
+
+    <section class="eeg-app">
+
+        <h2>THIS WEBSITE ITSELF!</h2>
+
+
+        <!-- Easter Egg 1 -->
+
+        <article class="eeg-entry">
+
+            <h3>1. Jai Hind Page</h3>
+
+            <div
+                class="eeg-difficulty"
+                data-difficulty="1"
+                aria-label="Difficulty: 1 star"
+            >
+                <span class="eeg-difficulty-label">Difficulty :</span>
+                <span class="eeg-stars"></span>
+            </div>
+
+            <div class="eeg-media">
+
+                <img
+                    src="../assets/images/jai-hind.webp"
+                    alt="Jai Hind Page"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <div class="eeg-steps">
+
+                <h4>Steps to Reproduce :</h4>
+
+                <ol>
+                    <li>Go to <a href="../jai-hind/">Easter Egg Page</a>.</li>
+                </ol>
+
+            </div>
+
+        </article>
+
+    </section>
+
 </main>
 
 
@@ -453,7 +533,7 @@
 
 
 <script src="../js/main.js?effects=5"></script>
-<script src="../js/video-player.js"></script>
+<script src="../js/video-player.js?player=8"></script>
 <script src="../js/easter-egg-guide.js"></script>
 
 </body>
