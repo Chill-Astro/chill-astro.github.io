@@ -265,8 +265,8 @@
 .video-player:fullscreen .video-player__media {
     width: 100%;
     height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: min(100vw, 177.78vh);
+    max-height: min(100vh, 56.25vw);
     object-fit: contain;
 }
 
@@ -332,8 +332,8 @@ body.video-fullscreen-open { overflow: hidden !important; }
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
+    max-width: min(100vw, 177.78vh) !important;
+    max-height: min(100vh, 56.25vw) !important;
     border: 0 !important;
     border-radius: 0 !important;
     outline: 0 !important;
@@ -341,13 +341,26 @@ body.video-fullscreen-open { overflow: hidden !important; }
     background: #000 !important;
 }
 
-/* Letterboxing for ultrawide and portrait screens in fullscreen */
-.video-player:fullscreen .video-player__media,
-.video-fullscreen-ui .video-player__media {
-    /* On ultrawide screens, limit height to prevent video from becoming too tall */
-    max-height: min(100vh, 56.25vw); /* 16:9 aspect ratio constraint */
-    /* On portrait screens, limit width to prevent video from becoming too wide */
-    max-width: min(100vw, 177.78vh); /* 16:9 aspect ratio constraint */
+/* Letterboxing for mobile landscape in fullscreen */
+@media (max-width: 768px) and (orientation: landscape) {
+    .video-player:fullscreen .video-player__media,
+    .video-fullscreen-ui .video-player__media {
+        /* On mobile landscape: max-height only (fill screen vertically) */
+        width: auto !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        max-width: none !important;
+    }
+}
+
+/* Letterboxing for mobile portrait in fullscreen */
+@media (max-width: 768px) and (orientation: portrait) {
+    .video-player:fullscreen .video-player__media,
+    .video-fullscreen-ui .video-player__media {
+        /* On mobile portrait: constrain width to maintain 16:9 */
+        max-width: 177.78vh !important; /* Constrain to 16:9 aspect ratio */
+        max-height: 100vh !important;
+    }
 }
 
 .video-fullscreen-ui .video-fullscreen-ui__controls {
