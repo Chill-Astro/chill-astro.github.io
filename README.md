@@ -34,6 +34,19 @@
 
 ---
 
+## PREMIUM DINO IS UNDER MAINTENANCE :
+
+- In the Recent Updates in my Website to Fix Performance Issues, the `Premium Dino` Game is Currently not working properly.
+- Will Come Back on Nov. 2026!
+
+| HOMEPAGE | GAME PAGE |
+| :---: | :---: |
+| <img width="1246" height="604" alt="Screenshot 2026-10-17 222832" src="https://github.com/user-attachments/assets/19c76eae-d09e-4634-b36a-e9f31b079a5b" /> | <img width="1319" height="578" alt="Screenshot 2026-10-17 223014" src="https://github.com/user-attachments/assets/a1c0924a-daad-4522-a898-f53db3a2e376" /> | 
+| MENU | GAME CENTRE |
+|<img width="437" height="319" alt="Screenshot 2026-10-17 222922" src="https://github.com/user-attachments/assets/70d6f6f7-22d2-4bb2-9823-c6e504a78977" /> |<img width="1232" height="613" alt="Screenshot 2026-10-17 222851" src="https://github.com/user-attachments/assets/563fcc52-0ffe-4321-97df-aebc6d221234" /> |
+
+---
+
 ## Recent Optimization :
 
 - Images are now converted to `.WEBP` from `.PNG`.
