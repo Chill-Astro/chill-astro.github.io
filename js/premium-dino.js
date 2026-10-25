@@ -34,7 +34,8 @@
     let duckPointerId = null;
 
     try {
-        best = Number(localStorage.getItem('premium-dino-best') || 0);
+        const saved = Number(localStorage.getItem('premium-dino-best') || 0);
+        best = Number.isFinite(saved) && saved > 0 ? saved : 0;
     } catch (error) {
         console.warn('Premium Dino best score is unavailable:', error);
     }
@@ -54,18 +55,18 @@
     }
 
     function begin() {
-        if (phase === 'running') {
+        if (!runner?.tRex || startButton.disabled || phase === 'running') {
             return;
         }
         if (phase === 'paused') {
             runner.play();
         } else if (phase === 'over') {
             runner.restart();
-            runner.start();
         } else {
             runner.start();
         }
         phase = 'running';
+        document.activeElement?.blur();
         overlay.hidden = true;
         showActiveControls();
     }
@@ -80,6 +81,7 @@
     }
 
     function endRun(finalScore) {
+        setDuck(false);
         phase = 'over';
         scoreOut.textContent = format(finalScore);
         if (finalScore > best) {
@@ -98,18 +100,18 @@
     }
 
     function restart() {
-        if (phase === 'running') {
-            runner.stop();
-        }
+        setDuck(false);
+        runner.stop();
         runner.restart();
         phase = 'running';
+        document.activeElement?.blur();
         overlay.hidden = true;
         scoreOut.textContent = format(0);
         showActiveControls();
     }
 
     function setDuck(isDucking) {
-        if (runner) {
+        if (runner?.tRex) {
             runner.setDucking(isDucking);
         }
         duckButton.classList.toggle('is-pressed', isDucking);
@@ -144,15 +146,17 @@
     }
 
     startButton.addEventListener('click', begin);
-    pauseButton.addEventListener('click', () => {
+    function pause() {
         if (phase !== 'running') {
             return;
         }
+        setDuck(false);
         runner.stop();
         phase = 'paused';
         pauseButton.hidden = true;
         showOverlay('Paused', 'Take a breather. Your run is waiting.', 'Resume');
-    });
+    }
+    pauseButton.addEventListener('click', pause);
     restartButton.addEventListener('click', restart);
     endButton.addEventListener('click', () => {
         if (phase === 'running' || phase === 'paused') {
@@ -184,12 +188,15 @@
         if (event.target.closest?.('input, textarea, select, [contenteditable="true"]')) {
             return;
         }
-        if (phase === 'running' && ['Space', 'ArrowUp', 'ArrowDown'].includes(event.code) && !event.repeat) {
+        if (event.target.closest?.('button, a')) {
+            return;
+        }
+        if (['Space', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
             event.preventDefault();
         }
-        if (phase === 'running' && (event.code === 'Space' || event.code === 'ArrowUp') && !event.repeat) {
+        if ((event.code === 'Space' || event.code === 'ArrowUp') && !event.repeat) {
             jump();
-        } else if (event.code === 'ArrowDown') {
+        } else if (phase === 'running' && event.code === 'ArrowDown') {
             setDuck(true);
         }
     });
@@ -198,7 +205,10 @@
             setDuck(false);
         }
     });
-    window.addEventListener('blur', () => setDuck(false));
+    window.addEventListener('blur', pause);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pause();
+    });
 
     fullscreenButton.addEventListener('click', async () => {
         try {

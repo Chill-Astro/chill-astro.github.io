@@ -144,3 +144,6 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 .dino-frame .runner-container{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden;touch-action:none}
 .dino-frame .runner-canvas{display:block;width:100%!important;height:100%!important;image-rendering:pixelated}
 .dino-attribution{position:static;margin:.5rem .75rem 0;text-align:right}
+
+/* Scope the original runner night effect to the game artwork. */
+.dino-frame.inverted .runner-canvas{filter:invert(1);background:#fff}

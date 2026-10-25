@@ -25,7 +25,7 @@
 
         this.config = Object.assign({}, Runner.config, opt_config || {});
 
-        this.dimensions = Runner.defaultDimensions;
+        this.dimensions = Object.assign({}, Runner.defaultDimensions);
 
         this.canvas = null;
         this.canvasCtx = null;
@@ -299,6 +299,11 @@
                 this.spriteDef = Runner.spriteDefinition.LDPI;
             }
 
+            if (!Runner.imageSprite) {
+                this.reportLoadError(new Error("T-Rex runner sprite element is missing."));
+                return;
+            }
+
             if (Runner.imageSprite.complete) {
                 if (Runner.imageSprite.naturalWidth) {
                     this.init();
@@ -488,7 +493,7 @@
                     this.containerEl.style.width = this.dimensions.WIDTH + 'px';
                     this.containerEl.style.height = this.dimensions.HEIGHT + 'px';
                     this.distanceMeter.update(0, Math.ceil(this.distanceRan));
-                    this.stop();
+                    // Resizing must preserve the controller's running/paused state.
                 } else {
                     this.tRex.draw(0, 0);
                 }
@@ -506,6 +511,13 @@
          * Canvas container width expands out to the full width.
          */
         playIntro: function () {
+            if (this.config.MANUAL_CONTROL) {
+                if (!this.activated) {
+                    this.activated = true;
+                    this.startGame();
+                }
+                return;
+            }
             if (!this.activated && !this.crashed) {
                 this.playingIntro = true;
                 this.tRex.playingIntro = true;
@@ -858,6 +870,7 @@
                 return;
             }
             if (!this.playing) {
+                this.time = getTimeStamp();
                 this.loadSounds();
                 this.playing = true;
                 this.update();
@@ -887,6 +900,7 @@
             this.paused = true;
             cancelAnimationFrame(this.raqId);
             this.raqId = 0;
+            this.updatePending = false;
         },
 
         play: function () {
@@ -904,6 +918,7 @@
                 this.playCount++;
                 this.runningTime = 0;
                 this.playing = true;
+                this.paused = false;
                 this.crashed = false;
                 this.distanceRan = 0;
                 this.setSpeed(this.config.SPEED);
@@ -965,11 +980,11 @@
          */
         invert: function (reset) {
             if (reset) {
-                document.body.classList.toggle(Runner.classes.INVERTED, false);
+                this.outerContainerEl.classList.toggle(Runner.classes.INVERTED, false);
                 this.invertTimer = 0;
                 this.inverted = false;
             } else {
-                this.inverted = document.body.classList.toggle(Runner.classes.INVERTED,
+                this.inverted = this.outerContainerEl.classList.toggle(Runner.classes.INVERTED,
                     this.invertTrigger);
             }
         }
@@ -1011,6 +1026,8 @@
             // Scale the context to counter the fact that we've manually scaled
             // our canvas element.
             context.scale(ratio, ratio);
+            // Preserve the hard edges of the pixel-art sprites, including duck frames.
+            context.imageSmoothingEnabled = false;
             return true;
         } else if (devicePixelRatio == 1) {
             // Reset the canvas width / height. Fixes scaling bug when the page is
@@ -1018,6 +1035,8 @@
             canvas.style.width = canvas.width + 'px';
             canvas.style.height = canvas.height + 'px';
         }
+        // Canvas resizing resets drawing settings, so apply this on every resize.
+        context.imageSmoothingEnabled = false;
         return false;
     };
 
@@ -1919,12 +1938,14 @@
          * @param {boolean} isDucking.
          */
         setDuck: function (isDucking) {
+            // Key repeat must keep ducking rather than toggle the animation.
+            // Set the geometry before update() draws the new animation frame.
             if (isDucking && this.status != Trex.status.DUCKING) {
-                this.update(0, Trex.status.DUCKING);
                 this.ducking = true;
-            } else if (this.status == Trex.status.DUCKING) {
-                this.update(0, Trex.status.RUNNING);
+                this.update(0, Trex.status.DUCKING);
+            } else if (!isDucking && this.status == Trex.status.DUCKING) {
                 this.ducking = false;
+                this.update(0, Trex.status.RUNNING);
             }
         },
 
