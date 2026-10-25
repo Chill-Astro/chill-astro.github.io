@@ -21,6 +21,9 @@
       "openapk": "https://www.openapk.net/root-checker/foss.chillastro.root.checker.offline/",      
       "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android",
       "appteka": "https://appteka.store/app/f16r322627"
+    },
+      "sha256": {
+      "apk_official": "b74909b5d745e29fce950583e85ebd9901cb3c48057609dfb597851232732741"
     }
   },
 
