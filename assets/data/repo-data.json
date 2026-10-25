@@ -6,6 +6,9 @@
       "msix_bundle": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.19.0/Lamina_11.28000.19.0_x64_arm64.msixbundle",
       "setup": "https://github.com/Chill-Astro/Lamina-Calculator/releases/download/v11.28000.19.0/Setup.exe",
       "uptodown": "https://lamina.en.uptodown.com/windows"
+    },
+      "sha256": {
+      "setup": "d44b4bf5d9eed17b8a56998c2d72580318958239600d08d147b8ea515727ed85"
     }
   },
 
