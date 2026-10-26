@@ -15,8 +15,8 @@
   "rootChecker": {
     "tag": "v37.24.4.0",
     "downloads": {
-      "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.2.0/app-official-release.apk",
-      "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.2.0/app-offline-release.apk",
+      "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.0/app-official-release.apk",
+      "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.0/app-offline-release.apk",
       "izzy": "https://apt.izzysoft.de/fdroid/index/apk/foss.chillastro.root.checker.offline",
       "openapk": "https://www.openapk.net/root-checker/foss.chillastro.root.checker.offline/",      
       "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android",
