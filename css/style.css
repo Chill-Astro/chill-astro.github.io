@@ -4025,6 +4025,23 @@ body{transition:background-color 420ms ease,color 280ms ease}
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 /* Frame banner media and product screenshots, while leaving brand marks and icons clear. */
+/* Let screenshots of any shape fit naturally without cropping or excessive height. */
+html body .hero-image,
+html body .lamina-media img,
+html body .root-checker-media img,
+html body .tmm-media img,
+html body .eeg-media img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    max-height: 80svh;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin-inline: auto;
+}
+
 :root{--banner-media-radius:12px}
 html body .hero-image,
 html body .lamina-media img,
