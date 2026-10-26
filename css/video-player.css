@@ -28,6 +28,20 @@
     transition: opacity .3s cubic-bezier(0.16, 1, 0.3, 1), transform .3s cubic-bezier(0.16, 1, 0.3, 1), visibility .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Keep portrait recordings within the viewport and preserve their native shape. */
+html body .video-player.is-portrait:not(:fullscreen):not(.is-fullscreen) {
+    max-width: min(100%, calc(80vh * var(--video-aspect-ratio)));
+    max-width: min(100%, calc(80svh * var(--video-aspect-ratio)));
+    height: auto;
+    margin-inline: auto;
+}
+
+html body .video-player.is-portrait:not(:fullscreen):not(.is-fullscreen) .video-player__media {
+    aspect-ratio: auto;
+    height: auto;
+    object-fit: contain;
+}
+
 /* Controls show when active */
 .video-player.is-active .video-player__controls {
     opacity: 1;
@@ -265,8 +279,8 @@
 .video-player:fullscreen .video-player__media {
     width: 100%;
     height: 100%;
-    max-width: min(100vw, 177.78vh);
-    max-height: min(100vh, 56.25vw);
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -321,46 +335,29 @@ body.video-fullscreen-open { overflow: hidden !important; }
 .video-fullscreen-ui__stage {
     position: absolute;
     inset: 0;
-    display: grid;
-    place-items: center;
+    overflow: hidden;
     min-width: 0;
     min-height: 0;
     background: #000;
 }
 
 .video-fullscreen-ui .video-player__media {
+    position: absolute !important;
+    inset: 0 !important;
     display: block !important;
-    width: 100% !important;
+    width: auto !important;
     height: 100% !important;
-    max-width: min(100vw, 177.78vh) !important;
-    max-height: min(100vh, 56.25vw) !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    margin: auto !important;
     border: 0 !important;
     border-radius: 0 !important;
     outline: 0 !important;
     object-fit: contain !important;
     background: #000 !important;
-}
-
-/* Letterboxing for mobile landscape in fullscreen */
-@media (max-width: 768px) and (orientation: landscape) {
-    .video-player:fullscreen .video-player__media,
-    .video-fullscreen-ui .video-player__media {
-        /* On mobile landscape: max-height only (fill screen vertically) */
-        width: auto !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-        max-width: none !important;
-    }
-}
-
-/* Letterboxing for mobile portrait in fullscreen */
-@media (max-width: 768px) and (orientation: portrait) {
-    .video-player:fullscreen .video-player__media,
-    .video-fullscreen-ui .video-player__media {
-        /* On mobile portrait: constrain width to maintain 16:9 */
-        max-width: 177.78vh !important; /* Constrain to 16:9 aspect ratio */
-        max-height: 100vh !important;
-    }
 }
 
 .video-fullscreen-ui .video-fullscreen-ui__controls {

@@ -27,6 +27,15 @@
         media.playsInline = true;
         media.preload = "metadata";
 
+        const updateVideoSize = () => {
+            if (!media.videoWidth || !media.videoHeight) return;
+            player.classList.toggle("is-portrait", media.videoHeight > media.videoWidth);
+            player.style.setProperty("--video-aspect-ratio", media.videoWidth / media.videoHeight);
+        };
+        media.addEventListener("loadedmetadata", updateVideoSize);
+        media.addEventListener("resize", updateVideoSize);
+        updateVideoSize();
+
         let hideTimer;
         let lastClientX = 0;
         let lastClientY = 0;
