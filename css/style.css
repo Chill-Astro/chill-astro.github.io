@@ -943,6 +943,58 @@
    VIDEOS & YOUTUBE
    ========================================================= */
 
+.root-checker-demos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+    margin-top: 28px;
+}
+
+.root-checker-demos figure {
+    min-width: 0;
+    margin: 0;
+}
+
+.root-checker-demos figcaption {
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
+html body .root-checker-demos .video-player {
+    margin: 0 auto;
+}
+
+html body .root-checker-demos .video-player__media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 720 / 1650;
+    object-fit: contain;
+}
+
+html body .root-checker-demos .video-player__center-controls {
+    gap: 12px !important;
+}
+
+html body .root-checker-demos .video-player__play {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 20px !important;
+}
+
+html body .root-checker-demos .video-player__skip {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 14px !important;
+}
+
+@media (max-width: 768px) {
+    .root-checker-demos {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 .root-checker-section .video-player {
     margin: 28px auto;
     width: min(1100px, 100%);
