@@ -4139,9 +4139,41 @@ body{transition:background-color 420ms ease,color 280ms ease}
 :where(img,video){transition:transform 420ms var(--motion-ease),filter 320ms ease}
 @media (hover:hover) and (prefers-reduced-motion:no-preference){
   :where(.project-card,.additional-card,.feature-card,.theme-showcase,.eeg-app):hover{transform:translateY(-4px)}
-  .project-card:hover .project-image img,.additional-card:hover .additional-image img{transform:scale(1.035)}
   .logo-circle:hover img{transform:scale(1.06)}
   :where(.touch-button,.game-action,.fullscreen-game-button):hover{transform:none}
+}
+
+/* Keep project artwork fixed and make stacked project actions uniform. */
+@media (hover: hover) and (pointer: fine) {
+    html body .project-card:hover .project-image img,
+    html body .additional-card:hover .additional-image img {
+        transform: none !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    html body .project-grid .project-card :is(.project-actions > .site-button, .github-btn),
+    html body .app-centre-page .app-showcase :is(.game-centre-play, .app-centre-download, .app-centre-github) {
+        box-sizing: border-box !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        padding: .7rem 1rem !important;
+        border: 2px solid var(--button-bg) !important;
+        border-radius: var(--site-button-radius, 8px) !important;
+        background: var(--button-bg) !important;
+        color: var(--button-text) !important;
+        box-shadow: 4px 4px 0 color-mix(in srgb, var(--text) 25%, transparent) !important;
+        font-family: "Tomorrow", sans-serif !important;
+        font-size: .72rem !important;
+        font-weight: 600 !important;
+        letter-spacing: .08em !important;
+        line-height: 1.25 !important;
+        text-align: center !important;
+        text-transform: uppercase !important;
+    }
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -5226,15 +5258,6 @@ html.os-effects body.jai-hind-page .error-shell {
     box-shadow: var(--shadow) !important;
 }
 
-/* Monochrome HUD details: visual only, with no added copy or status panels. */
-
-@media (hover: hover) and (pointer: fine) {
-    html body :is(.projects:not(.games) .project-card, .additional-card, .feature-card, .theme-showcase:not(.credits-section), .eeg-app):hover {
-        border-color: color-mix(in srgb, var(--text) 55%, var(--line)) !important;
-        box-shadow: 0 10px 26px color-mix(in srgb, var(--text) 16%, transparent) !important;
-    }
-}
-
 /* Keep the app shelf joined to its hero; use separators between later sections. */
 :is(.additional-stuff, .academic, .future, .rooting-content) {
     border-top: 1px solid var(--line);
@@ -5249,7 +5272,7 @@ html.os-effects body.jai-hind-page .error-shell {
 
 .games-centre-heading,
 .game-centre-page .game-centre-heading {
-    border-top: 1px solid var(--line);
+    border-top: 0;
     padding-top: clamp(1.5rem, 3vw, 2.25rem);
 }
 
