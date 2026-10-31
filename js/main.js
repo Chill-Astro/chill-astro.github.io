@@ -511,9 +511,43 @@ async function loadComponent(id, file) {
             initHeaderMenu();
             initScrollProgress();
         }
+        if (id === "footer") {
+            initBackToTop();
+        }
     } catch (error) {
         console.error(`Failed to load component '${file}':`, error);
     }
+}
+
+function initBackToTop() {
+    const button = document.querySelector(".back-to-top");
+    if (!button || button.dataset.ready === "true") return;
+
+    button.dataset.ready = "true";
+    const footer = document.querySelector(".site-footer");
+    const baseBottom = Number.parseFloat(getComputedStyle(button).bottom) || 32;
+    const updateVisibility = () => {
+        button.classList.toggle("is-visible", window.scrollY > 360);
+
+        if (!footer) return;
+        const footerBounds = footer.getBoundingClientRect();
+        const buttonHeight = button.offsetHeight;
+        const overlap = window.innerHeight - baseBottom - footerBounds.top + 16;
+        const footerLift = footerBounds.bottom > 0
+            ? Math.min(window.innerHeight - buttonHeight - 16, Math.max(0, overlap))
+            : 0;
+        button.style.setProperty("--footer-lift", `${Math.max(0, footerLift)}px`);
+    };
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("resize", updateVisibility);
+    updateVisibility();
+    button.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+        });
+    });
 }
 
 function initScrollProgress() {

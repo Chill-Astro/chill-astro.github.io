@@ -4048,6 +4048,76 @@ img:not(.logo-circle img),video{border:none!important;box-shadow:none!important}
 /* Scrollable code panels use the same rounded surface as the rest of the UI. */
 .lamina-content pre,.tmm-section pre,.rooting-content pre,.tmm-command{border-radius:var(--ui-radius-small)!important;overflow:auto!important}
 
+/* Keep the site background to a clear grid with no top spotlight overlay. */
+body {
+    background-image:
+        linear-gradient(color-mix(in srgb, var(--text) 3%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--text) 3%, transparent) 1px, transparent 1px) !important;
+    background-size: 40px 40px !important;
+}
+
+body::before {
+    content: none !important;
+    display: none !important;
+}
+
+.back-to-top {
+    position: fixed;
+    z-index: 20;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: calc(max(2rem, env(safe-area-inset-bottom) + 1rem) + var(--footer-lift, 0px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0;
+    border: 1px solid var(--button-bg);
+    border-radius: .8rem !important;
+    background: var(--button-bg);
+    color: var(--button-text);
+    box-shadow: 3px 3px 0 color-mix(in srgb, var(--text) 24%, transparent);
+    font: 700 1.1rem/1 "Tomorrow", sans-serif;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.back-to-top-label {
+    padding-top: .18rem;
+    border-top: 1px solid color-mix(in srgb, var(--button-text) 42%, transparent);
+    font: 700 .48rem/1 "Tomorrow", sans-serif;
+    letter-spacing: .12em;
+}
+
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+}
+
+.back-to-top.site-button {
+    position: fixed !important;
+    width: 3.25rem !important;
+    height: 3.25rem !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border-radius: .8rem !important;
+}
+
+.back-to-top.site-button--primary:hover .back-to-top-label {
+    border-color: color-mix(in srgb, var(--bg) 42%, transparent);
+}
+
 /* Shared action controls use one radius token; header and footer controls keep their own shapes. */
 :root{--ui-radius:10px;--ui-radius-small:8px}
 .primary-btn,.details-btn,.github-btn,.hero-badges span,.eeg-difficulty,.secondary-btn{border-radius:var(--ui-radius-small)!important}
@@ -5155,3 +5225,31 @@ html.os-effects body.jai-hind-page .error-shell {
     border: 0 !important;
     box-shadow: var(--shadow) !important;
 }
+
+/* Monochrome HUD details: visual only, with no added copy or status panels. */
+
+@media (hover: hover) and (pointer: fine) {
+    html body :is(.projects:not(.games) .project-card, .additional-card, .feature-card, .theme-showcase:not(.credits-section), .eeg-app):hover {
+        border-color: color-mix(in srgb, var(--text) 55%, var(--line)) !important;
+        box-shadow: 0 10px 26px color-mix(in srgb, var(--text) 16%, transparent) !important;
+    }
+}
+
+/* Keep the app shelf joined to its hero; use separators between later sections. */
+:is(.additional-stuff, .academic, .future, .rooting-content) {
+    border-top: 1px solid var(--line);
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.lamina-section,
+.root-checker-section,
+.tmm-section {
+    border-top-color: var(--line) !important;
+}
+
+.games-centre-heading,
+.game-centre-page .game-centre-heading {
+    border-top: 1px solid var(--line);
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
