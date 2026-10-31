@@ -5258,21 +5258,9 @@ html.os-effects body.jai-hind-page .error-shell {
     box-shadow: var(--shadow) !important;
 }
 
-/* Keep the app shelf joined to its hero; use separators between later sections. */
-:is(.additional-stuff, .academic, .future, .rooting-content) {
-    border-top: 1px solid var(--line);
-    padding-top: clamp(1.5rem, 3vw, 2.25rem);
-}
 
-.lamina-section,
-.root-checker-section,
-.tmm-section {
-    border-top-color: var(--line) !important;
-}
-
-.games-centre-heading,
-.game-centre-page .game-centre-heading {
-    border-top: 0;
-    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+/* Remove section separators throughout the shared site stylesheet. */
+.lamina-section, .root-checker-section, .tmm-section, .academic-item {
+    border-top: 0 !important;
 }
 
