@@ -453,14 +453,25 @@ function initUiSounds() {
         pointerY = event.clientY;
         if (hoverFrame) return;
 
-        hoverFrame = requestAnimationFrame(() => {
+        const updateHoverShadow = () => {
             hoverFrame = 0;
             if (!hoverTarget?.isConnected) return;
 
             const bounds = hoverTarget.getBoundingClientRect();
-            hoverTarget.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
-            hoverTarget.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);
-        });
+            const targetX = Math.max(-8, Math.min(8, pointerX - bounds.left - bounds.width / 2));
+            const targetY = Math.max(-8, Math.min(8, pointerY - bounds.top - bounds.height / 2));
+            const currentX = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-x")) || 0;
+            const currentY = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-y")) || 0;
+            const nextX = currentX + (targetX - currentX) * 0.18;
+            const nextY = currentY + (targetY - currentY) * 0.18;
+            hoverTarget.style.setProperty("--cursor-shadow-x", `${nextX}px`);
+            hoverTarget.style.setProperty("--cursor-shadow-y", `${nextY}px`);
+
+            if (Math.abs(targetX - nextX) > 0.2 || Math.abs(targetY - nextY) > 0.2) {
+                hoverFrame = requestAnimationFrame(updateHoverShadow);
+            }
+        };
+        hoverFrame = requestAnimationFrame(updateHoverShadow);
     }, { passive: true });
 }
 

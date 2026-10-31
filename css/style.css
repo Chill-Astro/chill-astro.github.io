@@ -4574,8 +4574,8 @@ body.error-404-page .error-shell.project-card {
         filter: drop-shadow(
             var(--cursor-shadow-x, 0px)
             var(--cursor-shadow-y, 0px)
-            7px
-            color-mix(in srgb, var(--text) 15%, transparent)
+            10px
+            color-mix(in srgb, var(--text) 8%, transparent)
         );
     }
 }
