@@ -23,11 +23,6 @@
 
 ---
 
-## UPCOMING :
-- Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
-
----
-
 ## SECRET PAGES :
 
 - Patriotic Easter Egg ([/jai-hind/](https://chill-astro.github.io/jai-hind/))
