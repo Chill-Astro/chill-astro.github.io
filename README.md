@@ -1,7 +1,14 @@
+© Chill-Astro Software | 2026
+
+--- 
+
 >[!CAUTION]
 > THIS REPOSITORY IS NOT FOR SITE DEPLOYMENT NOR STANDALONE CLONING OR LOCAL INSTALLATION
 
-© Chill-Astro Software | 2026
+> [!IMPORTANT]
+> Due to use of Blurs, Sticky hovers & Animations, Low-end Mobile Devices get Affected. 
+>
+> As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
 
 ---
 
@@ -29,17 +36,8 @@
 
 ---
 
-## NOTE :
-
-> [!WARNING]
-> Due to use of Blurs, Sticky hovers & Animations, Low-end Mobile Devices get Affected. 
->
-> As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
-
----
-
 ## Note from Developer :
 
-A Star ⭐ will be Appreciated to Support this Project! :)
+A Star ⭐ will be Appreciated to Support Me! :)
 
 ---
