@@ -29,23 +29,6 @@
 
 ---
 
-## Recent Optimization :
-
-- Images are now converted to `.WEBP` from `.PNG`.
-- Scroll effects are now removed, and instead replaced by a Simpler Entrance Animation ( PC ONLY ).
-- Grid Hover effects and Blur under Cards is now removed ( PC ONLY ).
-- Implementing `Lazy Loading`. 
-- Animations, Blurs and Hover effects are removed from Mobile.
-
-ENJOY THE RESULTS! 🥰🥰🥰
-
-
-| PC ( 100/100 ) | Mobile (99/100) |
-| :---: | :---: |
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/64b057cf-48f0-40c5-bebe-262f4f981edd" /> | <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/451f6046-ed55-4af4-90ad-d43a2dcf4fda" /> |
-
----
-
 ## NOTE :
 
 > [!WARNING]
@@ -53,37 +36,10 @@ ENJOY THE RESULTS! 🥰🥰🥰
 >
 > As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
 
-<details>
-<summary><b>View Ranting ( NO OFFENCE MEANT! 💀 ) </b></summary>
+---
 
-<br>
+## Note from Developer :
 
-> Why PC gets everything? Performance is surely a reason. AND Powerful Mobile Phones exist too ( for scrolling Reels at 165 Hz and taking Lunch Photos in 4K ).
-> 
-> SECOND REASON : My Website's Purpose Serves PCs best.
->
-> Rooting a Phone and Need a Guide? PC.
-> 
-> Most of my Software is for PC.
-> 
-> OH MY POSH! is mostly used on PC.
-> 
-> My Games are best Viewed on PC.
-> 
-> The content is easier to Read on PC.
->
-> The only Reason for a phone to come, is to download FOSS Root Checker! ( Thanks if you download! 💖 ) 
->
-> The website without optimization will lag on mobile.
->
-> And anyway you will fall asleep reading to watch more Reels ANYWAY! 💀💀💀
->
-> So ENJOY the RTX ON vs RTX OFF Ahh Difference on a Website. 🥰🥰🥰
+A Star ⭐ will be Appreciated to Support this Project! :)
 
-</details>
-
-Here's An Example :
-
-| PC | Mobile & Tablets |
-| :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/fc226d43-ec02-4e14-b3f6-2de4296fc7e0" width="100%" alt="PC View" /> | <img src="https://github.com/user-attachments/assets/ec6dfb13-318b-4436-af0c-ccfcddba6172" width="100%" alt="Mobile View" /> |
+---
