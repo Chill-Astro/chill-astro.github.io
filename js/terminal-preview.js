@@ -1,36 +1,12 @@
-function createTerminalPreview(containerId, variant) {
+function createTerminalPreview(containerId) {
     const container = document.getElementById(containerId);
 
     if (!container) {
         return;
     }
 
-    const previewMarkup = {
-        minima: `
+    const previewMarkup = `
             <div class="terminal-preview minima-preview">
-                <div class="terminal-titlebar">
-                    <div class="terminal-controls">
-                        <span class="control close"></span>
-                        <span class="control minimize"></span>
-                        <span class="control maximize"></span>
-                    </div>
-                </div>
-                <div class="terminal-body">
-                    <div class="terminal-line">
-                        <span class="user">minima</span>
-                        <span class="plain">@</span>
-                        <span class="host">simplicity</span>
-                        <span class="space"></span>
-                        <span class="path">~</span>
-                        <span class="space"></span>
-                        <span class="prompt">$</span>
-                        <span class="cursor"></span>
-                    </div>
-                </div>
-            </div>
-        `,
-        minimaPlus: `
-            <div class="terminal-preview minima-plus-preview">
                 <div class="terminal-titlebar">
                     <div class="terminal-controls">
                         <span class="control close"></span>
@@ -59,8 +35,7 @@ function createTerminalPreview(containerId, variant) {
                     </div>
                 </div>
             </div>
-        `
-    };
+        `;
 
-    container.innerHTML = previewMarkup[variant === "minimaPlus" ? "minimaPlus" : "minima"];
+    container.innerHTML = previewMarkup;
 }

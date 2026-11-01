@@ -1870,8 +1870,7 @@ html body .root-checker-demos .video-player__skip {
 
 }
 
-.theme-description #terminal-minima,
-.theme-description #terminal-minima-plus {
+.theme-description #terminal-minima {
 
     align-self:stretch;
     width:100%;
@@ -2005,23 +2004,20 @@ html body .root-checker-demos .video-player__skip {
 
     }
 
-    .theme-showcase .minima-preview .terminal-titlebar,
-    .theme-showcase .minima-plus-preview .terminal-titlebar{
+    .theme-showcase .minima-preview .terminal-titlebar{
 
         height:34px;
         padding:0 12px;
 
     }
 
-    .theme-showcase .minima-preview .terminal-body,
-    .theme-showcase .minima-plus-preview .terminal-body{
+    .theme-showcase .minima-preview .terminal-body{
 
         padding:16px 14px;
 
     }
 
-    .theme-showcase .minima-preview .terminal-line,
-    .theme-showcase .minima-plus-preview .terminal-line{
+    .theme-showcase .minima-preview .terminal-line{
 
         font-size:.82rem;
 
@@ -3959,7 +3955,6 @@ footer .socials a:hover{background:var(--text);color:var(--bg)}
 .omp-page .terminal-preview{border-radius:10px!important}
 .omp-page .terminal-titlebar{border-radius:10px 10px 0 0!important}
 .omp-page .minima-preview .terminal-titlebar{border-radius:10px 10px 0 0!important}
-.omp-page .minima-plus-preview .terminal-titlebar{border-radius:10px 10px 0 0!important}
 
 /* TMM and Root Checker intro section overrides */
 .tmm-intro,.root-checker-intro{background:none!important;border:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important;transform:none!important}@media (hover: hover) and (pointer: fine) {
@@ -4083,8 +4078,8 @@ body::before {
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity .2s ease, transform .2s ease, visibility .2s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+    transform: translateY(16px);
+    transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .4s, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
 .back-to-top-label {
@@ -4098,6 +4093,7 @@ body::before {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
 .back-to-top:focus-visible {

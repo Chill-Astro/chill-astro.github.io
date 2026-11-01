@@ -11,8 +11,7 @@ function loadTerminalPreviews() {
 
     if (typeof createTerminalPreview !== "function") return;
 
-    createTerminalPreview("terminal-minima", "minima");
-    createTerminalPreview("terminal-minima-plus", "minimaPlus");
+    createTerminalPreview("terminal-minima");
 
 }
 

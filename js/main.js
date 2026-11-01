@@ -96,10 +96,10 @@ const modalInfo = {
         title: "Minima",
 
         info:
-            "Paste Minima into an accessible folder and then open your Powershell / Bash Profile as : notepad $Profile for Powershell or nano ~/.bashrc on Linux. Once the following command is pasted, reload Powershell or run source ~/.bashrc.",
+            "Paste the Minima theme file into an accessible folder, then update your PowerShell or Bash profile with the command below. Reload PowerShell or run source ~/.bashrc to apply it.",
 
         command:
-            "oh-my-posh --init --shell pwsh --config <path> Minima.omp.json | Invoke-Expression # For Windows Powershell\n\neval \"$(oh-my-posh init bash --config <path>/Minima.omp.json)\" # For Bash",
+            "oh-my-posh --init --shell pwsh --config <path>/Minima.omp.json | Invoke-Expression # For Windows PowerShell\n\neval \"$(oh-my-posh init bash --config <path>/Minima.omp.json)\" # For Bash",
 
         names: {
 
@@ -108,25 +108,6 @@ const modalInfo = {
         }
 
     },
-
-    minimaPlus: {
-
-        title: "Minima PLUS!",
-
-        info:
-            "Paste Minima PLUS into an accessible folder and then open your Powershell / Bash Profile as : notepad $Profile for Powershell or nano ~/.bashrc on Linux. Once the following command is pasted, reload Powershell or run source ~/.bashrc.",
-
-        command:
-            "oh-my-posh --init --shell pwsh --config <path> Minima-PLUS.omp.json | Invoke-Expression # For Windows Powershell\n\neval \"$(oh-my-posh init bash --config <path>/Minima-PLUS.omp.json)\" # For Bash",
-
-        names: {
-
-            json: "Theme File (.omp.json)",
-
-        }
-
-    }
-
 };
 
 async function loadRepoData() {
@@ -537,8 +518,18 @@ function initBackToTop() {
     button.dataset.ready = "true";
     const footer = document.querySelector(".site-footer");
     const baseBottom = Number.parseFloat(getComputedStyle(button).bottom) || 32;
-    const updateVisibility = () => {
-        button.classList.toggle("is-visible", window.scrollY > 360);
+    let lastScrollY = window.scrollY;
+    const updateVisibility = (trackDirection = false) => {
+        const scrollY = window.scrollY;
+        if (scrollY <= 360) {
+            button.classList.remove("is-visible");
+            lastScrollY = scrollY;
+        } else if (!trackDirection) {
+            lastScrollY = scrollY;
+        } else if (Math.abs(scrollY - lastScrollY) > 2) {
+            button.classList.toggle("is-visible", scrollY > lastScrollY);
+            lastScrollY = scrollY;
+        }
 
         if (!footer) return;
         const footerBounds = footer.getBoundingClientRect();
@@ -550,7 +541,7 @@ function initBackToTop() {
         button.style.setProperty("--footer-lift", `${Math.max(0, footerLift)}px`);
     };
 
-    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("scroll", () => updateVisibility(true), { passive: true });
     window.addEventListener("resize", updateVisibility);
     updateVisibility();
     button.addEventListener("click", () => {
