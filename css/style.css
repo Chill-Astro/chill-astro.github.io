@@ -2064,6 +2064,7 @@ html body .root-checker-demos .video-player__skip {
 /* 404 Page - Chill-Astro Software */
 
 /* Tomorrow Font */
+@font-face{font-family:"FiraCodeNerdFont-Regular";src:url("../fonts/FiraCodeNerdFont-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.ttf") format("truetype");font-weight:400}
 @font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.ttf") format("truetype");font-weight:500}
 @font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.ttf") format("truetype");font-weight:600}
@@ -3953,6 +3954,7 @@ footer .socials a:hover{background:var(--text);color:var(--bg)}
 
 /* Oh My Posh terminal preview border-radius override */
 .omp-page .terminal-preview{border-radius:10px!important}
+.omp-page .terminal-preview{font-family:"FiraCodeNerdFont-Regular","Fira Code Nerd Font","Fira Code",monospace!important}
 .omp-page .terminal-titlebar{border-radius:10px 10px 0 0!important}
 .omp-page .minima-preview .terminal-titlebar{border-radius:10px 10px 0 0!important}
 
