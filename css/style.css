@@ -4656,16 +4656,9 @@ html body .video-player__fullscreen {
     transition: transform .28s ease;
 }
 
-.games-centre-link-open {
-    margin-left: .15rem;
-    font-size: 1.15em;
-    line-height: 1;
-}
-
 @media (hover: hover) and (pointer: fine) {
     .games-centre-title-link:hover > span:first-child::after,
     .games-centre-title-link:focus-visible > span:first-child::after { transform: scaleX(1); }
-    .games-centre-title-link:hover .games-centre-link-open { transform: translate(2px, -2px); }
 }
 
 .game-card {
@@ -5275,6 +5268,18 @@ html.os-effects body.jai-hind-page .error-shell {
     height: 1.15rem;
 }
 
+.site-header .header-actions > a.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+}
+
+.site-header .email-icon {
+    width: .95rem;
+    height: .95rem;
+    flex: 0 0 auto;
+}
+
 .site-header::after {
     right: 12rem;
 }
@@ -5359,5 +5364,138 @@ html body :is(.project-image, .additional-image) {
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+}
+
+/* Keep the download glyph inside its button, independent of the label. */
+html body :is(a.project-download, button.project-download)::after {
+    content: "";
+    display: inline-block;
+    flex: 0 0 auto;
+    order: -1;
+    width: 1em;
+    height: 1em;
+    margin-inline-end: .5em;
+    vertical-align: middle;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v12m0 0 5-5m-5 5-5-5M5 20h14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v12m0 0 5-5m-5 5-5-5M5 20h14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Desktop pointer hover: blur the clickable surface and reveal its destination cue. */
+@media (hover: hover) and (pointer: fine) {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a) {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a)::after {
+        content: "↗";
+        position: absolute;
+        z-index: 5;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        border-radius: inherit;
+        color: var(--button-text);
+        font-size: 1.55rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--button-bg) 72%, transparent);
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        opacity: 0;
+        transform: translateY(-100%);
+        pointer-events: none;
+        transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .18s ease;
+    }
+
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a):hover::after,
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a):focus-visible::after {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    html body .project-card a.github-btn,
+    html body .app-showcase a.app-centre-github {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+
+    html body .project-card a.github-btn::after,
+    html body .app-showcase a.app-centre-github::after {
+        content: "↗";
+        position: absolute;
+        z-index: 5;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        border-radius: inherit;
+        color: var(--button-text);
+        font-size: 1.55rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--button-bg) 72%, transparent);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        opacity: 0;
+        transform: translateY(-100%);
+        pointer-events: none;
+        transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .18s ease;
+    }
+
+    html body .project-card a.github-btn:hover::after,
+    html body .project-card a.github-btn:focus-visible::after,
+    html body .app-showcase a.app-centre-github:hover::after,
+    html body .app-showcase a.app-centre-github:focus-visible::after {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    html body .project-card a.github-btn.site-button.site-button--quiet::after {
+        color: var(--text) !important;
+        background: color-mix(in srgb, var(--surface) 72%, transparent) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+    }
+
+    html body .project-card a.github-btn > span {
+        transition: filter .18s ease;
+    }
+
+    html body .project-card a.github-btn:hover > span,
+    html body .project-card a.github-btn:focus-visible > span {
+        filter: blur(1.5px);
+    }
+
+    .additional-grid .additional-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+
+    .additional-grid .additional-card::after {
+        content: "↗";
+        position: absolute;
+        z-index: 5;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: var(--text);
+        font-size: 2rem;
+        font-weight: 700;
+        background: color-mix(in srgb, var(--surface) 48%, transparent);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        opacity: 0;
+        transform: translateY(-100%);
+        pointer-events: none;
+        transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .18s ease;
+    }
+
+    .additional-grid .additional-card:hover::after,
+    .additional-grid .additional-card:focus-visible::after {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
