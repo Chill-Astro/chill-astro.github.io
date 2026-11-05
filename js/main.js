@@ -342,6 +342,107 @@ function initHeaderMenu() {
     const backdrop = document.querySelector(".mobile-nav-backdrop");
     const closeButton = document.querySelector(".nav-close");
 
+    const desktopDropdowns = [...document.querySelectorAll(".desktop-menu-dropdown")];
+    const desktopPanelContainer = document.querySelector(".desktop-menu-panels");
+    const desktopPanels = new Map(desktopDropdowns.map((dropdown) => [
+        dropdown,
+        dropdown.querySelector(".desktop-menu-panel")
+    ]));
+    let pinnedDropdown = null;
+    let hoveredDropdown = null;
+    let hoverTimeout;
+    let suppressTriggerFocus = false;
+
+    const updateDesktopMenus = () => {
+        desktopDropdowns.forEach((dropdown) => {
+            const trigger = dropdown.querySelector(".desktop-menu-trigger");
+            const panel = desktopPanels.get(dropdown);
+            const isPinned = dropdown === pinnedDropdown;
+            const isHovered = dropdown === hoveredDropdown;
+
+            const isVisible = hoveredDropdown ? isHovered : isPinned;
+            trigger.setAttribute("aria-expanded", String(isVisible));
+            trigger.dataset.pinned = String(isPinned);
+            panel.classList.toggle("is-visible", isVisible);
+            panel.classList.toggle("is-pinned", isPinned);
+            panel.classList.toggle("is-hovered", isHovered);
+        });
+    };
+
+    const positionPanel = (dropdown) => {
+        const trigger = dropdown.querySelector(".desktop-menu-trigger");
+        const panel = desktopPanels.get(dropdown);
+        const header = document.querySelector(".site-header");
+        if (!trigger || !panel || !header) return;
+
+        const triggerBounds = trigger.getBoundingClientRect();
+        const headerBounds = header.getBoundingClientRect();
+        const left = Math.max(8, Math.min(triggerBounds.left, window.innerWidth - panel.offsetWidth - 8));
+        panel.style.left = `${left}px`;
+        panel.style.top = `${headerBounds.bottom + 8}px`;
+    };
+
+    const setHoveredDropdown = (dropdown) => {
+        window.clearTimeout(hoverTimeout);
+        hoveredDropdown = dropdown;
+        if (dropdown) positionPanel(dropdown);
+        updateDesktopMenus();
+    };
+
+    desktopDropdowns.forEach((dropdown) => {
+        const trigger = dropdown.querySelector(".desktop-menu-trigger");
+        const panel = dropdown.querySelector(".desktop-menu-panel");
+
+        desktopPanelContainer.append(panel);
+        trigger.addEventListener("pointerenter", () => setHoveredDropdown(dropdown));
+        trigger.addEventListener("pointerleave", () => {
+            hoverTimeout = window.setTimeout(() => setHoveredDropdown(null), 100);
+        });
+        trigger.addEventListener("focus", () => {
+            if (!suppressTriggerFocus) setHoveredDropdown(dropdown);
+        });
+        trigger.addEventListener("blur", (event) => {
+            if (!panel.contains(event.relatedTarget)) setHoveredDropdown(null);
+        });
+        trigger.addEventListener("click", () => {
+            pinnedDropdown = pinnedDropdown === dropdown ? null : dropdown;
+            updateDesktopMenus();
+        });
+        panel.addEventListener("pointerenter", () => setHoveredDropdown(dropdown));
+        panel.addEventListener("pointerleave", () => {
+            hoverTimeout = window.setTimeout(() => setHoveredDropdown(null), 100);
+        });
+        panel.addEventListener("focusout", (event) => {
+            if (!panel.contains(event.relatedTarget)) setHoveredDropdown(null);
+        });
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+        if (pinnedDropdown && !pinnedDropdown.contains(event.target) &&
+            !desktopPanels.get(pinnedDropdown).contains(event.target)) {
+            pinnedDropdown = null;
+            updateDesktopMenus();
+        }
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && (pinnedDropdown || hoveredDropdown)) {
+            const activeDropdown = pinnedDropdown || hoveredDropdown;
+            const trigger = activeDropdown.querySelector(".desktop-menu-trigger");
+            pinnedDropdown = null;
+            hoveredDropdown = null;
+            updateDesktopMenus();
+            suppressTriggerFocus = true;
+            trigger.focus();
+            suppressTriggerFocus = false;
+        }
+    });
+    window.addEventListener("resize", () => {
+        desktopDropdowns.forEach(positionPanel);
+    });
+    window.addEventListener("scroll", () => {
+        desktopDropdowns.forEach(positionPanel);
+    }, { passive: true });
+
     if (!toggle || !nav || !backdrop)
         return;
 
@@ -601,4 +702,3 @@ if (document.getElementById("footer")) {
     );
 
 }
-

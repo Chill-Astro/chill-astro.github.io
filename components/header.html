@@ -4,6 +4,25 @@
         <div class="header-left-group">
             <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
             <a href="/" class="site-title">Chill-Astro</a>
+            <nav class="desktop-menu" aria-label="Main navigation">
+            <div class="desktop-menu-dropdown">
+                <button class="desktop-menu-trigger" type="button" aria-expanded="false" aria-controls="projects-menu">Projects<svg class="dropdown-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg></button>
+                <div class="desktop-menu-panel" id="projects-menu" aria-label="Projects">
+                    <a href="/foss-projects/">FOSS Projects</a>
+                    <a href="/lamina-calculator/">Lamina ✦</a>
+                    <a href="/foss-root-checker/">FOSS Root Checker</a>
+                    <a href="/trust-my-msix/">Trust My Msix!</a>
+                </div>
+            </div>
+            <div class="desktop-menu-dropdown">
+                <button class="desktop-menu-trigger" type="button" aria-expanded="false" aria-controls="additional-menu">Additional Stuff<svg class="dropdown-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg></button>
+                <div class="desktop-menu-panel" id="additional-menu" aria-label="Additional Stuff">
+                    <a href="/android-rooting-guide/">Android Rooting Guide</a>
+                    <a href="/oh-my-posh-themes/">Oh My Posh! Themes</a>
+                    <a href="/mini-games/">Mini Games</a>
+                </div>
+            </div>
+            </nav>
         </div>
         <div class="header-actions">
             <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme: System" title="Theme: System">
@@ -16,6 +35,7 @@
         </div>
     </div>
 </header>
+<div class="desktop-menu-panels"></div>
 <div class="mobile-nav-backdrop" aria-hidden="true"></div>
 <nav class="header-nav" aria-label="Header navigation">
     <div class="header-nav-top"><span>Navigation</span><button class="nav-close" type="button" aria-label="Close navigation menu">✕</button></div>

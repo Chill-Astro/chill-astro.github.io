@@ -5284,6 +5284,133 @@ html.os-effects body.jai-hind-page .error-shell {
     right: 12rem;
 }
 
+/* Desktop menu bar; the drawer remains the navigation on touch and small screens. */
+@media (min-width: 901px) {
+    .site-header-inner { gap: 1.5rem; }
+    .header-left-group { gap: .6rem; }
+    .desktop-menu {
+        display: flex;
+        align-items: center;
+        gap: .35rem;
+        height: 28px;
+        margin-left: .65rem;
+        padding-left: .9rem;
+        border-left: 1px solid var(--line);
+    }
+    .desktop-menu-dropdown { position: static; }
+    .desktop-menu-trigger {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        list-style: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        min-height: 36px;
+        padding: 0 .65rem;
+        border-radius: var(--ui-radius-small);
+        color: var(--text);
+        font-size: .9rem;
+        font-weight: 600;
+        user-select: none;
+        transition: text-shadow .2s ease, color .2s ease, background-color .2s ease;
+    }
+    .dropdown-chevron { width: .9rem; height: .9rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform .22s cubic-bezier(.2,.8,.2,1); }
+    .desktop-menu-trigger[data-pinned="true"] .dropdown-chevron { transform: rotate(180deg); }
+    .desktop-menu-trigger:focus-visible { color: var(--text); text-shadow: 0 0 12px color-mix(in srgb,var(--text) 40%,transparent), 0 0 24px color-mix(in srgb,var(--text) 20%,transparent); outline: none; }
+    @media (hover: hover) and (pointer: fine) {
+        .desktop-menu-trigger:hover { color: var(--text); text-shadow: 0 0 12px color-mix(in srgb,var(--text) 40%,transparent), 0 0 24px color-mix(in srgb,var(--text) 20%,transparent); }
+    }
+    .desktop-menu-panel {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        min-width: 260px;
+        padding: .45rem .7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--ui-radius);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
+        z-index: 10001;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-12px);
+        transition: opacity .24s ease, transform .34s cubic-bezier(.2,.8,.2,1), visibility 0s linear .34s;
+    }
+    .desktop-menu-panel.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition-delay: 0s;
+    }
+    .desktop-menu-panel a {
+        position: relative;
+        display: block;
+        padding: .8rem .75rem .8rem 1.1rem;
+        border-top: 1px solid var(--line);
+        border-radius: 0;
+        background: transparent;
+        color: var(--text);
+        text-decoration: none;
+        white-space: nowrap;
+        font-family: "Tomorrow", sans-serif;
+        font-weight: 700;
+        font-size: .76rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        transition: color .2s ease, background-color .2s ease, letter-spacing .2s ease;
+    }
+    .desktop-menu-panel a:first-child { border-top: 0 !important; }
+    .desktop-menu-panel a::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 3px;
+        background: var(--text);
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform .18s ease;
+    }
+    .desktop-menu-panel a:focus-visible {
+        background: var(--surface-2);
+        color: var(--text);
+        letter-spacing: .1em;
+        outline-color: var(--text);
+    }
+    .desktop-menu-panel a:focus-visible::after { transform: scaleY(1); }
+    @media (hover: hover) and (pointer: fine) {
+        .desktop-menu-panel a:hover {
+            background: var(--surface-2);
+            color: var(--text);
+            letter-spacing: .1em;
+        }
+        .desktop-menu-panel a:hover::after { transform: scaleY(1); }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .desktop-menu-panel,
+    .desktop-menu-panel a,
+    .desktop-menu-trigger,
+    .dropdown-chevron {
+        transition: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .desktop-menu { display: none !important; }
+}
+
+.desktop-menu-panels { display: contents; }
+.desktop-menu-panels .desktop-menu-panel { display: none !important; }
+@media (min-width: 901px) {
+    .desktop-menu-panels .desktop-menu-panel { display: flex !important; }
+}
+
 :root[data-theme="light"] {
     color-scheme: light;
     --bg: #fafafa;
@@ -5499,3 +5626,18 @@ html body :is(a.project-download, button.project-download)::after {
     }
 }
 
+/* Match the desktop menu glass to the header's glass treatment. */
+html body .desktop-menu-panel {
+    background: color-mix(in srgb, var(--bg) 83%, transparent) !important;
+    border-color: var(--line) !important;
+    backdrop-filter: blur(18px) saturate(0) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(0) !important;
+}
+
+@media (min-width: 901px) {
+    html:not(.os-effects) body .desktop-menu-panel {
+        background: var(--bg) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
