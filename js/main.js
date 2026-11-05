@@ -324,6 +324,11 @@ function updateVersions() {
 
     });
 
+    document.querySelectorAll("[data-repo-version]").forEach((element) => {
+        const tag = repoData[element.dataset.repoVersion]?.tag;
+        element.textContent = tag || "Unavailable";
+    });
+
 }
 
 // ======================================
@@ -373,7 +378,7 @@ function initHeaderMenu() {
 document.addEventListener("DOMContentLoaded", () => {
     initUiSounds();
 
-    if (document.querySelector(".hero")) {
+    if (document.querySelector(".hero, [data-repo-version]")) {
         loadRepoData();
     }
 
