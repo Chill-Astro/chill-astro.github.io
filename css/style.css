@@ -4334,7 +4334,7 @@ html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-tog
 @media (hover: none), (pointer: coarse) {
     html:not(.os-effects) .mobile-nav-backdrop,
     html:not(.os-effects) .download-overlay {
-        background: rgba(0, 0, 0, .76) !important;
+        background: color-mix(in srgb, var(--bg) 76%, transparent) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
@@ -4353,24 +4353,15 @@ html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-tog
 
 /* Download glass: blur the page behind the overlay and the page seen through the dialog. */
 html.os-effects .download-overlay.show {
-    background: rgba(0, 0, 0, .38) !important;
+    background: color-mix(in srgb, var(--bg) 38%, transparent) !important;
     backdrop-filter: blur(24px) saturate(125%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
 }
 html.os-effects .download-overlay.show .download-dialog {
-    background: rgba(0, 0, 0, .5) !important;
+    background: color-mix(in srgb, var(--surface) 60%, transparent) !important;
     backdrop-filter: blur(24px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
 }
-@media (prefers-color-scheme: light) {
-    html.os-effects .download-overlay.show {
-        background: rgba(255, 255, 255, .3) !important;
-    }
-    html.os-effects .download-overlay.show .download-dialog {
-        background: rgba(255, 255, 255, .6) !important;
-    }
-}
-
 /* Stack project-card actions and let each control fill narrow cards. */
 @media (max-width: 1024px) {
     .project-grid .project-card .project-actions {
@@ -4403,50 +4394,24 @@ html.os-effects .download-overlay.show .download-dialog {
 /* Match card and media-frame glass to the download dialog, including on hover. */
 html.os-effects :is(
     [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-    .root-checker-intro, .tmm-intro, .doc-intro-card,
-    .project-image, .additional-image, .lamina-media, .root-checker-media,
-    .tmm-media, .eeg-media, .youtube-media, .video-player
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .video-player
 ):not(img):not(video):not(iframe):not(canvas) {
-    background: rgba(0, 0, 0, .1) !important;
+    background: color-mix(in srgb, var(--bg) 10%, transparent) !important;
     background-image: none !important;
-    border-color: rgba(255, 255, 255, .2) !important;
+    border-color: color-mix(in srgb, var(--text) 20%, transparent) !important;
     backdrop-filter: blur(1px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(1px) saturate(130%) !important;
 }
 @media (hover: hover) and (pointer: fine) {
     :is(
         [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-        .root-checker-intro, .tmm-intro, .doc-intro-card,
-        .project-image, .additional-image, .lamina-media, .root-checker-media,
-        .tmm-media, .eeg-media, .youtube-media, .video-player
+        .root-checker-intro, .tmm-intro, .doc-intro-card, .video-player
     ):hover:not(img):not(video):not(iframe):not(canvas) {
-        background: rgba(0, 0, 0, .1) !important;
+        background: color-mix(in srgb, var(--bg) 10%, transparent) !important;
         backdrop-filter: blur(1px) saturate(130%) !important;
         -webkit-backdrop-filter: blur(1px) saturate(130%) !important;
     }
 }
-@media (prefers-color-scheme: light) {
-    html.os-effects :is(
-        [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-        .root-checker-intro, .tmm-intro, .doc-intro-card,
-        .project-image, .additional-image, .lamina-media, .root-checker-media,
-        .tmm-media, .eeg-media, .youtube-media, .video-player
-    ):not(img):not(video):not(iframe):not(canvas) {
-        background: rgba(255, 255, 255, .1) !important;
-        border-color: rgba(0, 0, 0, .16) !important;
-    }
-    @media (hover: hover) and (pointer: fine) {
-        :is(
-            [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-            .root-checker-intro, .tmm-intro, .doc-intro-card,
-            .project-image, .additional-image, .lamina-media, .root-checker-media,
-            .tmm-media, .eeg-media, .youtube-media, .video-player
-        ):hover:not(img):not(video):not(iframe):not(canvas) {
-            background: rgba(255, 255, 255, .1) !important;
-        }
-    }
-}
-
 /* Make surfaces solid whenever their backdrop blur is disabled. */
 html:not(.os-effects) .site-header,
 html:not(.os-effects) .video-player__play,
@@ -4503,11 +4468,9 @@ html:not(.os-effects) .dino-fullscreen {
 @media (hover: hover) and (pointer: fine) {
   :is(
     [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-    .root-checker-intro, .tmm-intro, .doc-intro-card,
-    .project-image, .additional-image, .lamina-media, .root-checker-media,
-    .tmm-media, .eeg-media, .youtube-media, .video-player
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .video-player
   ):not(img):not(video):not(iframe):not(canvas) {
-    background: color-mix(in srgb, var(--bg) 72%, transparent) !important;
+    background: color-mix(in srgb, var(--surface) 72%, transparent) !important;
     background-image: none !important;
     backdrop-filter: blur(18px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
@@ -4557,9 +4520,7 @@ html.os-effects body :is(
 @media (hover: none), (pointer: coarse) {
   :is(
     [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
-    .root-checker-intro, .tmm-intro, .doc-intro-card,
-    .project-image, .additional-image, .lamina-media, .root-checker-media,
-    .tmm-media, .eeg-media, .youtube-media, .video-player
+    .root-checker-intro, .tmm-intro, .doc-intro-card, .video-player
   ):not(img):not(video):not(iframe):not(canvas) {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -5180,20 +5141,29 @@ html body .video-player:has(:-webkit-full-screen) {
 
 /* Match the hamburger navigation glass to the download dialog. */
 html body .header-nav {
-    background: rgba(8, 8, 8, .5) !important;
+    background: color-mix(in srgb, var(--surface) 60%, transparent) !important;
     backdrop-filter: blur(24px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
 }
 
+html body .download-overlay.show {
+    background: color-mix(in srgb, var(--bg) 38%, transparent) !important;
+}
+
+html body .download-overlay.show .download-dialog {
+    background: color-mix(in srgb, var(--surface) 60%, transparent) !important;
+}
+
 html body .mobile-nav-backdrop {
-    background: rgba(0, 0, 0, .38) !important;
+    background: color-mix(in srgb, var(--bg) 38%, transparent) !important;
     backdrop-filter: blur(24px) saturate(125%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
 }
 
-@media (prefers-color-scheme: light) {
-    html body .header-nav { background: rgba(255, 255, 255, .6) !important; }
-    html body .mobile-nav-backdrop { background: rgba(255, 255, 255, .3) !important; }
+html body :is(.video-player__play, .video-player__skip, .video-player__fullscreen, .video-player__progress) {
+    color: var(--text) !important;
+    background: color-mix(in srgb, var(--bg) 78%, transparent) !important;
+    border-color: color-mix(in srgb, var(--text) 38%, transparent) !important;
 }
 
 @media (hover: none), (pointer: coarse) {
@@ -5204,7 +5174,7 @@ html body .mobile-nav-backdrop {
     }
 
     html:not(.os-effects) body .mobile-nav-backdrop {
-        background: rgba(0, 0, 0, .76) !important;
+        background: color-mix(in srgb, var(--bg) 76%, transparent) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
@@ -5260,5 +5230,134 @@ html.os-effects body.jai-hind-page .error-shell {
 /* Remove section separators throughout the shared site stylesheet. */
 .lamina-section, .root-checker-section, .tmm-section, .academic-item {
     border-top: 0 !important;
+}
+
+/* Shared saved-theme control and explicit light/dark palettes. */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    flex-shrink: 0;
+}
+
+.site-header .theme-toggle {
+    display: inline-grid;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    padding: 0 8px !important;
+    color: var(--text);
+    border: none !important;
+    border-radius: var(--ui-radius-small);
+    background: transparent !important;
+    font-size: 1rem !important;
+    line-height: 1;
+    cursor: pointer;
+    transition: text-shadow .2s ease, background .2s ease, color .2s ease;
+    box-shadow: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .site-header .theme-toggle:hover {
+        color: var(--text) !important;
+        background: transparent !important;
+        text-shadow: 0 0 12px color-mix(in srgb, var(--text) 40%, transparent), 0 0 24px color-mix(in srgb, var(--text) 20%, transparent);
+        transform: none !important;
+        box-shadow: none !important;
+    }
+}
+
+.theme-toggle span,
+.theme-toggle svg {
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.site-header::after {
+    right: 12rem;
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #fafafa;
+    --surface: #fff;
+    --surface-2: #f1f1f1;
+    --text: #0a0a0a;
+    --muted: #515151;
+    --button-bg: #0a0a0a;
+    --button-text: #fff;
+    --card-border: #d8d8d8;
+    --line: #c9c9c9;
+    --card-surface: #fff;
+    --shadow: 0 22px 60px rgba(0, 0, 0, .08);
+    --glow-shadow: 0 0 0 1px var(--text), 0 18px 42px rgba(0, 0, 0, .12);
+    --rooting-code: #111;
+    --rooting-code-bg: rgba(0, 0, 0, .04);
+    --accent-border: rgba(0, 0, 0, .18);
+    --accent-bg: rgba(0, 0, 0, .04);
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #050505;
+    --surface: #0b0b0b;
+    --surface-2: #121212;
+    --text: #f5f5f5;
+    --muted: #b4b4b4;
+    --button-bg: #f5f5f5;
+    --button-text: #050505;
+    --card-border: #292929;
+    --line: #383838;
+    --card-surface: #000;
+    --shadow: 0 22px 60px rgba(0, 0, 0, .48);
+    --glow-shadow: 0 0 0 1px var(--text), 0 18px 48px rgba(255, 255, 255, .08);
+    --rooting-code: #fff;
+    --rooting-code-bg: rgba(255, 255, 255, .04);
+    --accent-border: rgba(255, 255, 255, .18);
+    --accent-bg: rgba(255, 255, 255, .04);
+}
+
+html[data-theme="light"] body.error-404-page,
+html[data-theme="light"] body.jai-hind-page {
+    color-scheme: light;
+    --bg: #fafafa;
+    --surface: #fff;
+    --surface-2: #f1f1f1;
+    --text: #0a0a0a;
+    --muted: #515151;
+    --button-bg: #0a0a0a;
+    --button-text: #fff;
+    --card-border: #d8d8d8;
+    --line: #c9c9c9;
+    --shadow: 0 22px 60px rgba(0, 0, 0, .08);
+    --glow-shadow: 0 0 0 1px var(--text), 0 18px 42px rgba(0, 0, 0, .12);
+}
+
+html[data-theme="dark"] body.error-404-page,
+html[data-theme="dark"] body.jai-hind-page {
+    color-scheme: dark;
+    --bg: #050505;
+    --surface: #0b0b0b;
+    --surface-2: #121212;
+    --text: #f5f5f5;
+    --muted: #b4b4b4;
+    --button-bg: #f5f5f5;
+    --button-text: #050505;
+    --card-border: #292929;
+    --line: #383838;
+    --shadow: 0 22px 60px rgba(0, 0, 0, .48);
+    --glow-shadow: 0 0 0 1px var(--text), 0 18px 48px rgba(255, 255, 255, .08);
+}
+
+html body :is(.project-image, .additional-image) {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
