@@ -2,6 +2,21 @@
    Minima Preview
 ====================================== */
 
+.minima-logo{
+
+    display:block;
+    width:min(100%, 380px);
+    height:auto;
+    margin:0 auto 1rem;
+
+}
+
+.minima-description{
+
+    text-align:center;
+
+}
+
 .minima-preview{
 
     display:block;

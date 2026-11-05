@@ -1905,7 +1905,7 @@ html body .root-checker-demos .video-player__skip {
 
     padding-left:1.25rem;
 
-    margin:0 0 2rem;
+    margin:0 0 .75rem;
 
 }
 
@@ -1927,7 +1927,7 @@ html body .root-checker-demos .video-player__skip {
     min-width:220px;
     max-width:100%;
 
-    margin-top:2rem;
+    margin-top:0;
     font-family:"Tomorrow", sans-serif;
 
 }
@@ -2032,13 +2032,13 @@ html body .root-checker-demos .video-player__skip {
 
     .theme-feature-list{
 
-        margin-bottom:1.5rem;
+        margin-bottom:.5rem;
 
     }
 
     .theme-description .primary-btn{
 
-        margin-top:1.25rem;
+        margin-top:0;
         padding:.85rem 1rem;
 
     }
