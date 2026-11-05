@@ -5392,6 +5392,78 @@ html.os-effects body.jai-hind-page .error-shell {
     }
 }
 
+/* Saturn simulation in the homepage hero. */
+body:has(.hero .saturn-frame) .saturn-frame {
+    position: relative;
+    width: clamp(390px, 44vw, 460px);
+    aspect-ratio: 1.7;
+    flex: 0 0 auto;
+    isolation: isolate;
+}
+
+body:has(.hero .saturn-frame) .saturn-canvas {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+body:has(.hero .saturn-frame) .saturn-canvas--back { z-index: 0; }
+body:has(.hero .saturn-frame) .saturn-canvas--front { z-index: 2; }
+
+body:has(.hero .saturn-frame) .saturn-frame .logo-circle {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: clamp(200px, 22vw, 220px);
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    background: transparent;
+    transform: translate(-50%, -50%);
+    border: 2px solid #e8e8e8 !important;
+    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+body:has(.hero .saturn-frame) .saturn-frame .logo-circle:hover {
+    transform: translate(-50%, -50%) !important;
+}
+
+body:has(.hero .saturn-frame) .saturn-frame .logo-circle:active {
+    transform: translate(-50%, -50%) !important;
+}
+
+body:has(.hero .saturn-frame) .saturn-frame .logo-circle:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    body:has(.hero .saturn-frame) .hero:hover {
+        transform: none !important;
+    }
+}
+
+@media (max-width: 700px) {
+    body:has(.hero .saturn-frame) .saturn-frame { width: min(86vw, 340px); }
+    body:has(.hero .saturn-frame) .saturn-frame .logo-circle { width: 170px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body:has(.hero .saturn-frame) .saturn-frame { animation: none; }
+}
+
+@media (max-width: 420px) {
+    body:has(.hero .saturn-frame) .saturn-frame .logo-circle { width: 116px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .desktop-menu-panel,
     .desktop-menu-panel a,

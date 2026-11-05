@@ -41,3 +41,12 @@
 A Star ⭐ will be Appreciated to Support Me! :)
 
 ---
+
+## Credits :
+
+- NASA/JPL Solar System Dynamics ( YES 💀 ) for Saturn's satellite orbital elements. The simulation includes the 292 Saturn moons with orbital data in the JPL dataset; NASA currently lists 293 confirmed moons.
+- The orbital visualization and simplified Keplerian calculations were created for Chill-Astro Software and are not a full ephemeris or N-body simulation.
+
+Data source: [JPL Solar System Dynamics - Planetary Satellite Mean Elements](https://ssd.jpl.nasa.gov/sats/elem/sep.html). Moon counts and discoveries may change over time.
+
+---

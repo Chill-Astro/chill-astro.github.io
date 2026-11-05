@@ -35,7 +35,7 @@
 </script>
 
     <script src="/js/theme.js?theme=5"></script>
-    <link rel="stylesheet" href="css/style.css?interface=47">
+    <link rel="stylesheet" href="css/style.css?interface=54">
 </head>
 <body>
 
@@ -45,8 +45,14 @@
 
         <div class="hero-left">
 
-            <div class="logo-circle">
-                <img src="assets/images/logo.webp" alt="Chill-Astro Logo" loading="lazy">
+            <div class="saturn-frame">
+                <canvas class="saturn-canvas saturn-canvas--back" aria-hidden="true">
+                    JPL orbital elements for Saturn's moons orbit the Chill-Astro profile image.
+                </canvas>
+                <button class="logo-circle" type="button" aria-label="Pause moon simulation" aria-pressed="true" title="Pause moon simulation">
+                    <img src="assets/images/logo.webp" alt="" loading="lazy">
+                </button>
+                <canvas class="saturn-canvas saturn-canvas--front" aria-hidden="true"></canvas>
             </div>
 
             <p class="username">@Chill-Astro</p>
@@ -261,6 +267,7 @@
    <div id="footer"></div>
 
     <script src="js/main.js?versions=5"></script>
+    <script src="js/saturn.js?simulation=6"></script>
 
 </body>
 </html>
