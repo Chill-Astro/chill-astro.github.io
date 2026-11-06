@@ -11,7 +11,7 @@
         return;
     }
 
-    const mobileQuery = window.matchMedia("(max-width: 700px)");
+    const staticDeviceQuery = window.matchMedia("(hover: none), (pointer: coarse)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const simulationCookieName = "saturn_simulation";
     const j2000Start = Date.UTC(2000, 0, 1, 12);
@@ -34,12 +34,19 @@
     let simulationStartTimestamp = 0;
     let simulationEnabled = readSimulationPreference();
 
-    function readSimulationPreference() {
+    function readSavedSimulationPreference() {
         const savedCookie = document.cookie
             .split(";")
             .map((cookie) => cookie.trim())
             .find((cookie) => cookie.startsWith(`${simulationCookieName}=`));
-        return savedCookie?.slice(simulationCookieName.length + 1) !== "off";
+        const savedValue = savedCookie?.slice(simulationCookieName.length + 1);
+        if (savedValue === "on") return true;
+        if (savedValue === "off") return false;
+        return null;
+    }
+
+    function readSimulationPreference() {
+        return readSavedSimulationPreference() ?? !staticDeviceQuery.matches;
     }
 
     function updateSimulationControl() {
@@ -252,7 +259,7 @@
     }
 
     function isStaticMode() {
-        return !simulationEnabled || mobileQuery.matches || reducedMotionQuery.matches;
+        return !simulationEnabled || reducedMotionQuery.matches;
     }
 
     function animate(timestamp) {
@@ -285,6 +292,15 @@
         }
     }
 
+    function updateDeviceDefault() {
+        const savedPreference = readSavedSimulationPreference();
+        if (savedPreference === null) {
+            simulationEnabled = !staticDeviceQuery.matches;
+            updateSimulationControl();
+        }
+        updateMotion();
+    }
+
     async function initialize() {
         updateSimulationControl();
         profileButton.addEventListener("click", toggleSimulation);
@@ -310,7 +326,7 @@
 
         window.addEventListener("resize", resizeCanvas);
         document.addEventListener("visibilitychange", updateMotion);
-        mobileQuery.addEventListener("change", updateMotion);
+        staticDeviceQuery.addEventListener("change", updateDeviceDefault);
         reducedMotionQuery.addEventListener("change", updateMotion);
         resizeCanvas();
         updateMotion();

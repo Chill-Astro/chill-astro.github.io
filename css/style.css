@@ -4642,6 +4642,12 @@ html body .video-player__fullscreen {
 
 .games-centre-title-link > span:first-child { position: relative; }
 
+.games-centre-title-link .redirect-arrow {
+    font-weight: 400;
+    transform: translateY(0);
+    transition: transform .18s ease, font-weight .18s ease;
+}
+
 .games-centre-title-link > span:first-child::after {
     position: absolute;
     right: 0;
@@ -4659,6 +4665,12 @@ html body .video-player__fullscreen {
 @media (hover: hover) and (pointer: fine) {
     .games-centre-title-link:hover > span:first-child::after,
     .games-centre-title-link:focus-visible > span:first-child::after { transform: scaleX(1); }
+
+    .games-centre-title-link:hover .redirect-arrow,
+    .games-centre-title-link:focus-visible .redirect-arrow {
+        font-weight: 700;
+        transform: translateY(-2px);
+    }
 }
 
 .game-card {
@@ -5291,10 +5303,10 @@ html.os-effects body.jai-hind-page .error-shell {
     .desktop-menu {
         display: flex;
         align-items: center;
-        gap: .35rem;
+        gap: .45rem;
         height: 28px;
-        margin-left: .65rem;
-        padding-left: .9rem;
+        margin-left: .8rem;
+        padding-left: 1rem;
         border-left: 1px solid var(--line);
     }
     .desktop-menu-dropdown { position: static; }
@@ -5308,7 +5320,7 @@ html.os-effects body.jai-hind-page .error-shell {
         align-items: center;
         gap: .35rem;
         min-height: 36px;
-        padding: 0 .65rem;
+        padding: 0 .85rem;
         border-radius: var(--ui-radius-small);
         color: var(--text);
         font-size: .9rem;
@@ -5729,5 +5741,38 @@ html body .desktop-menu-panel {
         background: var(--bg) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+    }
+}
+
+@media (max-width: 700px) {
+    html body .download-overlay.show,
+    html.os-effects body .download-overlay.show {
+        background: rgba(0, 0, 0, 0.72) !important;
+        background-image: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    html body .download-overlay.show .download-dialog,
+    html.os-effects body .download-overlay.show .download-dialog {
+        background: var(--surface) !important;
+        background-image: none !important;
+        opacity: 1 !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    html body .menu-toggle,
+    html body .project-download {
+        transition: transform .18s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+
+    html body .menu-toggle:hover,
+    html body .project-download:hover,
+    html body .hero-cta .project-download:hover,
+    html body .project-actions .project-download:hover {
+        transform: scale(1.04) !important;
     }
 }
