@@ -5379,6 +5379,9 @@ html.os-effects body.jai-hind-page .error-shell {
         align-items: center;
         gap: .75rem;
     }
+    .desktop-menu-panel a.external-menu-link span {
+        text-transform: none !important;
+    }
     .desktop-menu-panel .external-menu-link svg {
         width: 1.1rem;
         height: 1.1rem;
@@ -5765,12 +5768,14 @@ html body .desktop-menu-panel {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     html body .menu-toggle,
-    html body .project-download {
+    html body .project-download,
+    html body .dialog-links a {
         transition: transform .18s ease, box-shadow .2s ease, background-color .2s ease;
     }
 
     html body .menu-toggle:hover,
     html body .project-download:hover,
+    html body .dialog-links a:hover,
     html body .hero-cta .project-download:hover,
     html body .project-actions .project-download:hover {
         transform: scale(1.04) !important;
