@@ -3063,9 +3063,7 @@ body {
     box-shadow:var(--shadow);
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
-    /* allow internal scrolling when content exceeds available height */
-    overflow:auto;
-    -webkit-overflow-scrolling:touch;
+    overflow:hidden;
     transform:translateX(-110%);
     transition:transform .28s ease;
     z-index:1100;
@@ -3076,11 +3074,35 @@ body {
 }
 
 .header-nav-top {
+    position:relative;
     display:flex;
+    flex:0 0 auto;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:0.3rem;
+    margin:0 -1.25rem 0.3rem;
+    padding:0 1.25rem 0.8rem;
     font-weight:700;
+}
+
+.header-nav-top::after {
+    position:absolute;
+    right:0;
+    bottom:0;
+    left:0;
+    height:1px;
+    content:"";
+    background:linear-gradient(90deg, transparent, var(--line) 10%, var(--line) 90%, transparent);
+}
+
+.header-nav-scroll {
+    flex:1 1 auto;
+    min-height:0;
+    margin-right:-1.25rem;
+    padding-right:1.25rem;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-gutter:stable;
 }
 
 .header-nav-group {
