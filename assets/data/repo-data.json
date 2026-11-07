@@ -46,5 +46,12 @@
     "downloads": {
       "json": "https://github.com/Chill-Astro/Minima-OMP-Theme/releases/download/v1.1/Minima.omp.json"
     }    
+  },
+  "fossVolumeBooster": {
+    "tag": "v1.1",
+    "downloads": {
+      "firefox": "https://addons.mozilla.org/en-US/firefox/addon/foss-volume-booster/",
+      "edge" : "https://microsoftedge.microsoft.com/addons/detail/iodcgccnemcdibmfnmmhfljjohjldpjn"
+    }    
   }
 }

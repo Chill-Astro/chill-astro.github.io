@@ -108,6 +108,24 @@ const modalInfo = {
         }
 
     },
+
+    fossVolumeBooster: {
+
+        title: "Volume Booster",
+
+        info:
+            "Officially Available on Firefox Add-ons, and Microsoft Edge Add-ons. For Chromium Browsers, import the \"src/\" folder after enabling Developer Mode.",
+
+        command: "git clone https://github.com/Chill-Astro/FOSS-Volume-Booster.git",
+
+        names: {
+
+            firefox: "Firefox Add-ons ( MOBILE & DESKTOP )",
+            edge: "Microsoft Edge Add-ons ( DESKTOP )"
+
+        }
+
+    }
 };
 
 async function loadRepoData() {
@@ -191,6 +209,7 @@ function handleProjectDownloadClick(event) {
     const projects = {
         "lamina-download": "lamina",
         "root-download": "rootChecker",
+        "fvb-download": "fossVolumeBooster",
         "tmm-download": "trustMyMsix"
     };
 

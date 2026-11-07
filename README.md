@@ -19,6 +19,7 @@
 - FOSS Projects ([/foss-projects/](https://chill-astro.github.io/foss-projects/))
 - Lamina Calculator ([/lamina-calculator/](https://chill-astro.github.io/lamina-calculator/))
 - FOSS Root Checker ([/foss-root-checker/](https://chill-astro.github.io/foss-root-checker/))
+- FOSS Volume Booster ([/foss-volume-booster/](https://chill-astro.github.io/foss-volume-booster/))
 - Trust My MSIX ([/trust-my-msix/](https://chill-astro.github.io/trust-my-msix/))
 - Android Rooting Guide ([/android-rooting-guide/](https://chill-astro.github.io/android-rooting-guide/))
 - Easter Egg Guide ([/easter-egg-guide/](https://chill-astro.github.io/easter-egg-guide/))

@@ -3325,11 +3325,11 @@ body {
 
     box-shadow:var(--shadow);
 
-    transform:translateY(12px) scale(.97);
+    transform:translateY(-12px);
 
     opacity:0;
 
-    transition:.2s ease;
+    transition:opacity .24s ease, transform .34s cubic-bezier(.2,.8,.2,1);
 
 }
 
@@ -3929,7 +3929,7 @@ body {
 .primary-btn:hover{transform:translate(-2px,-2px)!important;box-shadow:6px 6px 0 var(--text)!important}
 }.details-btn{border:1px solid var(--line)!important;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem!important}@media (hover: hover) and (pointer: fine) {
 .details-btn:hover{background:var(--text)!important;color:var(--bg)!important}
-}pre,code,.terminal-preview,.tmm-command{font-family:Consolas,"Courier New",monospace!important}.lamina-content pre,.tmm-section pre,.rooting-content pre,.tmm-command{border-radius:0!important;border-color:var(--line)!important;background:var(--surface-2)!important}.lamina-media img,.lamina-media video,.root-checker-media,.root-checker-media img,.root-checker-media video,.tmm-media img,.tmm-media video,.eeg-media,.hero-image{border-radius:0!important;border:none!important;box-shadow:none!important}.lamina-page,.root-checker-page,.tmm-page,.rooting-page,.eeg-page,.omp-page,.about-page{padding-top:clamp(3rem,7vw,6rem)!important;padding-bottom:clamp(4rem,9vw,8rem)!important}.lamina-section,.root-checker-section,.tmm-section{position:relative;padding-top:1.25rem;border-top:1px solid var(--line)}.lamina-section h2::before,.root-checker-section h2::before,.tmm-section h2::before,.rooting-content h2::before{content:"// ";color:var(--muted);font-family:"Tomorrow",sans-serif;font-size:.65em}
+}pre,code,.terminal-preview,.tmm-command{font-family:Consolas,"Courier New",monospace!important}.lamina-content pre,.tmm-section pre,.rooting-content pre,.tmm-command,.fvb-clone-command{border-radius:0!important;border-color:var(--line)!important;background:var(--surface-2)!important}.lamina-media img,.lamina-media video,.root-checker-media,.root-checker-media img,.root-checker-media video,.tmm-media img,.tmm-media video,.eeg-media,.hero-image{border-radius:0!important;border:none!important;box-shadow:none!important}.lamina-page,.root-checker-page,.tmm-page,.rooting-page,.eeg-page,.omp-page,.about-page{padding-top:clamp(3rem,7vw,6rem)!important;padding-bottom:clamp(4rem,9vw,8rem)!important}.lamina-section,.root-checker-section,.tmm-section{position:relative;padding-top:1.25rem;border-top:1px solid var(--line)}.lamina-section h2::before,.root-checker-section h2::before,.tmm-section h2::before,.rooting-content h2::before{content:"// ";color:var(--muted);font-family:"Tomorrow",sans-serif;font-size:.65em}
 blockquote,.rooting-note,.doc-note,.eeg-caution{box-sizing:border-box;border-radius:0!important;border:1px solid var(--line)!important;border-left:4px solid var(--text)!important;background:var(--surface-2)!important;padding:1.25rem 1.4rem!important}blockquote>:first-child,.rooting-note>:first-child,.doc-note>:first-child,.eeg-caution>:first-child{margin-top:0!important}blockquote>:last-child,.rooting-note>:last-child,.doc-note>:last-child,.eeg-caution>:last-child{margin-bottom:0!important}
 
 /* Home */
@@ -4258,6 +4258,29 @@ body{
 }
 @media (min-width: 561px) and (max-width: 768px) {
     .projects:not(.games) .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Keep four cards on wide PCs, then switch to two columns and mobile stacking. */
+@media (min-width: 1560px) {
+    .projects:not(.games) {
+        width: min(1600px, 96%);
+    }
+
+    .projects:not(.games) .project-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 561px) and (max-width: 1559px) {
+    .projects:not(.games) .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .projects:not(.games) .project-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 html body .video-player:fullscreen { border: 0 !important; border-width: 0 !important; outline: 0 !important; }
@@ -5747,37 +5770,125 @@ html body .desktop-menu-panel {
     }
 }
 
-@media (max-width: 700px) {
-    html body .download-overlay.show,
-    html.os-effects body .download-overlay.show {
-        background: rgba(0, 0, 0, 0.72) !important;
-        background-image: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
+html:not(.os-effects) body .download-overlay.show .download-dialog {
+    background: var(--surface) !important;
+    background-color: var(--surface) !important;
+    background-image: none !important;
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Reuse the desktop dropdown trigger and menu-row hover treatments. */
+@media (hover: hover) and (pointer: fine) {
+    html body .site-header .menu-toggle:hover,
+    html body .site-header .menu-toggle:focus-visible {
+        transform: none !important;
+        text-shadow: 0 0 12px color-mix(in srgb, var(--text) 40%, transparent),
+                     0 0 24px color-mix(in srgb, var(--text) 20%, transparent) !important;
     }
 
-    html body .download-overlay.show .download-dialog,
-    html.os-effects body .download-overlay.show .download-dialog {
-        background: var(--surface) !important;
-        background-image: none !important;
-        opacity: 1 !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
+    html body .site-header .menu-toggle:hover span,
+    html body .site-header .menu-toggle:focus-visible span {
+        height: 2px !important;
+        box-shadow: 0 0 12px color-mix(in srgb, var(--text) 40%, transparent),
+                    0 0 24px color-mix(in srgb, var(--text) 20%, transparent) !important;
+    }
+
+    html body .header-nav a:hover,
+    html body .header-nav a:focus-visible,
+    html body .dialog-links a:hover,
+    html body .dialog-links a:focus-visible {
+        background: var(--surface-2) !important;
+        color: var(--text) !important;
+    }
+
+    html body .header-nav a:hover,
+    html body .header-nav a:focus-visible {
+        letter-spacing: .1em !important;
+    }
+
+    html body .dialog-links a:hover,
+    html body .dialog-links a:focus-visible {
+        letter-spacing: .08em !important;
+    }
+
+    html body .header-nav a:hover,
+    html body .header-nav a:focus-visible {
+        letter-spacing: .1em !important;
+        padding-left: 1.1rem !important;
+    }
+
+    html body .header-nav a:hover::before,
+    html body .header-nav a:focus-visible::before,
+    html body .dialog-links a:hover::before,
+    html body .dialog-links a:focus-visible::before {
+        content: none !important;
+        width: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    html body .header-nav a:hover::after,
+    html body .header-nav a:focus-visible::after,
+    html body .dialog-links a:hover::after,
+    html body .dialog-links a:focus-visible::after {
+        transform: scaleY(1) !important;
     }
 }
 
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    html body .menu-toggle,
-    html body .project-download,
-    html body .dialog-links a {
-        transition: transform .18s ease, box-shadow .2s ease, background-color .2s ease;
+html body .header-nav a {
+    transition: opacity .38s cubic-bezier(.22, 1, .36, 1),
+                transform .38s cubic-bezier(.22, 1, .36, 1),
+                color .2s ease, background-color .2s ease, letter-spacing .2s ease,
+                text-shadow .2s ease, padding .2s ease;
+}
+
+html body .dialog-links a {
+    letter-spacing: .08em;
+    transition: color .2s ease, background-color .2s ease, letter-spacing .2s ease;
+}
+
+html body .fvb-clone-command {
+    width: 100%;
+    margin: 20px 0;
+    padding: 18px 20px !important;
+    overflow-x: auto;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--ui-radius-small) !important;
+    background: var(--surface-2) !important;
+}
+
+html body .fvb-clone-command code {
+    display: block;
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--text) !important;
+    white-space: pre;
+}
+
+html body .site-header .menu-toggle {
+    transition: text-shadow .2s ease, color .2s ease, background-color .2s ease !important;
+}
+
+html body .site-header .menu-toggle span {
+    transition: box-shadow .2s ease, background-color .2s ease !important;
+}
+
+html body .project-download {
+    transition: box-shadow .2s ease, background-color .2s ease, color .2s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    html body .project-download:hover,
+    html body .project-download:focus-visible {
+        transform: none !important;
+        color: var(--button-text) !important;
+        box-shadow: 0 0 0 1px var(--text),
+                    0 6px 18px color-mix(in srgb, var(--text) 14%, transparent) !important;
     }
 
-    html body .menu-toggle:hover,
-    html body .project-download:hover,
-    html body .dialog-links a:hover,
-    html body .hero-cta .project-download:hover,
-    html body .project-actions .project-download:hover {
-        transform: scale(1.04) !important;
+    html body .project-download:hover::before,
+    html body .project-download:focus-visible::before {
+        transform: translateY(105%) !important;
     }
 }
