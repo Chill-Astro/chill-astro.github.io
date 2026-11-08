@@ -1,7 +1,7 @@
 .pong-main {
     width: min(1480px, 94%);
     margin: 0 auto;
-    padding: 2.5rem 0 1rem;
+    padding: 2.5rem 0 clamp(6rem, 16vh, 10rem);
 }
 
 .pong-intro {
@@ -1167,7 +1167,7 @@ kbd {
 /* Responsive Pong layout: maximize the court while keeping controls close. */
 .pong-main {
     width: min(1720px, calc(100% - 2rem));
-    padding: clamp(1.25rem, 3vw, 2.5rem) 0 1.5rem;
+    padding: clamp(1.25rem, 3vw, 2.5rem) 0 clamp(6rem, 16vh, 10rem);
 }
 
 .pong-intro {
@@ -1352,7 +1352,7 @@ kbd {
 @media (orientation: landscape) and (max-height: 600px) {
     .pong-main {
         width: calc(100% - 1.25rem);
-        padding: 0.5rem 0 0.75rem;
+        padding: 0.5rem 0 clamp(6rem, 16vh, 10rem);
     }
 
     .pong-intro { display: none; }
@@ -1686,6 +1686,7 @@ kbd {
 .pong-main {
     padding-right: 0;
     padding-left: 0;
+    padding-bottom: clamp(6rem, 16vh, 10rem);
 }
 
 .pong-game:not(:fullscreen) {
@@ -1736,7 +1737,7 @@ kbd {
     .pong-main {
         width: calc(100% - 1rem);
         padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-bottom: clamp(6rem, 16vh, 10rem);
     }
 
     .pong-game:not(:fullscreen) .player-controls {

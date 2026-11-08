@@ -27,7 +27,10 @@ body.dino-page {
     min-height: 100svh;
 }
 
-body.dino-page > .dino-main { flex: 1 0 auto; }
+body.dino-page > .dino-main {
+    flex: 1 0 auto;
+    padding-bottom: clamp(9rem, 22vh, 14rem);
+}
 body.dino-page > #footer { flex: 0 0 auto; }
 body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 

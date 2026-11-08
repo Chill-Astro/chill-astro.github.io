@@ -552,7 +552,7 @@ body.tic-tac-toe-page > #footer {
 .ttt-main {
     width: min(1000px, calc(100% - 1.25rem));
     flex: 1 0 auto;
-    padding: 1.35rem 0 1rem;
+    padding: 1.35rem 0 clamp(6rem, 16vh, 10rem);
 }
 
 .ttt-intro {
@@ -658,7 +658,7 @@ body.tic-tac-toe-page > #footer {
 }
 
 body.tic-tac-toe-page .site-footer {
-    margin-top: 0;
+    margin-top: 1rem;
     padding: 1rem 1.25rem;
 }
 
@@ -674,7 +674,7 @@ body.tic-tac-toe-page .site-footer {
     .ttt-main {
         width: calc(100% - 1rem);
         padding-top: 1rem;
-        padding-bottom: 0.6rem;
+        padding-bottom: clamp(6rem, 16vh, 10rem);
     }
 
     .ttt-game {

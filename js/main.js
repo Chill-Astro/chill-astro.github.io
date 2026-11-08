@@ -688,6 +688,11 @@ function initScrollProgress() {
     if (!header || !meter || !fill)
         return;
 
+    if (document.body.matches(".tic-tac-toe-page, .pong-page, .dino-page")) {
+        meter.hidden = true;
+        return;
+    }
+
     window.__scrollProgressInitialized = true;
 
     const updateProgress = () => {

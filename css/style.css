@@ -5914,3 +5914,288 @@ html body .project-download {
         transform: translateY(105%) !important;
     }
 }
+
+/* Full site directory shared by every page. */
+html body .site-footer {
+    display: block;
+    box-sizing: border-box;
+    margin: clamp(2.5rem, 7vw, 6rem) 0 0;
+    padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1rem, 5vw, 4.5rem) 1.5rem;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.footer-directory {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(1.25rem, 4vw, 4rem);
+    width: min(1440px, 100%);
+    margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.site-footer .footer-group {
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    align-self: start;
+}
+
+.site-footer .footer-group h2 {
+    margin: 0 0 .35rem;
+    color: var(--text);
+    font: 700 clamp(.82rem, 1.1vw, 1rem) "Tomorrow", sans-serif;
+    letter-spacing: .08em;
+    line-height: 1.4;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-group-note {
+    margin: 0 0 1.1rem;
+    color: var(--muted);
+    font: 500 .62rem "Tomorrow", sans-serif;
+    letter-spacing: .1em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-group ul {
+    display: grid;
+    gap: .7rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer .footer-group li {
+    position: relative;
+    min-width: 0;
+    padding-left: .95rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.site-footer .footer-group li::before {
+    position: absolute;
+    top: .65em;
+    left: 0;
+    width: .45rem;
+    height: 1px;
+    background: var(--muted);
+    content: "";
+}
+
+.site-footer .footer-group a {
+    display: inline-block;
+    color: var(--text);
+    font-size: .88rem;
+    letter-spacing: .01em;
+    line-height: inherit;
+    text-decoration: none;
+    text-transform: none;
+    overflow-wrap: anywhere;
+    transition: text-shadow .18s ease;
+}
+
+@media (min-width: 901px) {
+    .site-footer .footer-group ul {
+        justify-items: start;
+    }
+
+    .site-footer .footer-group li {
+        padding-left: .95rem;
+        text-align: left;
+    }
+
+    .site-footer .footer-group li::before {
+        position: absolute;
+        display: block;
+        margin-right: 0;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .site-footer .footer-group a:hover {
+        text-shadow: 0 0 9px color-mix(in srgb, var(--text) 45%, transparent);
+    }
+}
+
+.site-footer .footer-group a:focus-visible {
+    text-shadow: 0 0 9px color-mix(in srgb, var(--text) 45%, transparent);
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer .footer-group a {
+        transition: none;
+    }
+}
+
+.footer-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding-top: 1.25rem;
+}
+
+.site-footer .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: .7rem;
+    color: var(--text);
+    font: 600 .7rem "Tomorrow", sans-serif;
+    letter-spacing: .04em;
+    line-height: 1.4;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-brand img {
+    display: block;
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 2px solid var(--button-bg) !important;
+    border-radius: 50% !important;
+    background: var(--bg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .06) !important;
+    object-fit: contain;
+}
+
+.site-footer .footer-brand small {
+    display: block;
+    margin-top: .2rem;
+    color: var(--muted);
+    font-size: .72em;
+    letter-spacing: .08em;
+}
+
+.site-footer .socials {
+    justify-content: center;
+    gap: .55rem;
+}
+
+.site-footer .socials a {
+    display: inline-flex !important;
+    width: auto !important;
+    min-height: 40px;
+    height: auto !important;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: .5rem .8rem !important;
+    border: 2px solid var(--button-bg) !important;
+    border-radius: var(--ui-radius-small) !important;
+    background: transparent !important;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, background .2s ease, color .2s ease !important;
+}
+
+.site-footer .socials a svg {
+    flex: 0 0 auto;
+}
+
+.footer-copyright {
+    justify-self: end;
+    margin: 0;
+    color: var(--muted);
+    font: 500 .62rem "Tomorrow", sans-serif;
+    letter-spacing: .08em;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .footer-directory {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 2rem;
+    }
+}
+
+@media (max-width: 560px) {
+    html body .site-footer {
+        padding: 1.5rem 1rem 1.25rem;
+    }
+
+    .footer-directory {
+        column-gap: 1rem;
+        row-gap: 1.75rem;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .site-footer .footer-group a {
+        font-size: .82rem;
+    }
+
+    .footer-bottom {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: .9rem .5rem;
+    }
+
+    .site-footer .footer-brand {
+        grid-column: auto;
+        min-width: 0;
+    }
+
+    .site-footer .socials {
+        justify-content: start;
+        flex-wrap: wrap;
+        justify-self: end;
+        gap: .4rem;
+    }
+
+    .site-footer .socials a {
+        box-sizing: border-box;
+        width: 40px !important;
+        min-width: 40px;
+        min-height: 40px;
+        height: 40px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+    }
+
+    .site-footer .socials a span {
+        display: none;
+    }
+
+    .footer-copyright {
+        grid-column: 1 / -1;
+        justify-self: center;
+        font-size: .55rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .site-footer .footer-brand {
+        gap: .45rem;
+        font-size: .62rem;
+    }
+
+    .site-footer .footer-brand img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .site-footer .socials a {
+        width: 36px !important;
+        min-width: 36px;
+        min-height: 36px;
+        height: 36px !important;
+    }
+}
