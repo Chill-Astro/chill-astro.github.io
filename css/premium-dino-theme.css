@@ -55,8 +55,8 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 .dino-game .dino-touch-button {
     flex-direction: column;
     gap: 0.35rem;
-    width: clamp(3rem, 4vw, 4rem);
-    height: clamp(3rem, 4vw, 4rem);
+    width: 4.5rem;
+    height: 4.5rem;
     padding: 0.55rem 0.4rem !important;
     border-radius: 0.9rem !important;
 }
@@ -243,6 +243,18 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 .dino-attribution{position:static;margin:.5rem .75rem 0;text-align:right}
 
 .dino-game .dino-frame { border-radius: var(--site-button-radius, 8px) !important; }
+
+@media (max-width: 1100px) {
+    .dino-game:fullscreen .dino-touch-button {
+        width: 5.5rem !important;
+        height: 5.5rem !important;
+        min-width: 5.5rem !important;
+        min-height: 5.5rem !important;
+    }
+
+    .dino-game:fullscreen .dino-touch-button .touch-button-icon { font-size: 1.4rem; }
+    .dino-game:fullscreen .dino-touch-button .touch-button-label { font-size: 0.62rem; }
+}
 
 /* Scope the original runner night effect to the game artwork. */
 .dino-frame.inverted .runner-canvas{filter:invert(1);background:#fff}

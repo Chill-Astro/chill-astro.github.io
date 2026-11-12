@@ -10,7 +10,7 @@
 @font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800}
 
 /* CSS Variables - Blueprint styling */
-body.error-404-page{color-scheme:light dark;--bg:#fafafa;--surface:#fff;--surface-2:#f1f1f1;--text:#0a0a0a;--muted:#515151;--button-bg:#0a0a0a;--button-text:#fff;--card-border:#d8d8d8;--line:#c9c9c9;--shadow:0 22px 60px rgba(0,0,0,.08);--glow-shadow:0 0 0 1px var(--text),0 18px 42px rgba(0,0,0,.12);--ui-radius:24px;--ui-radius-small:16px}
+body.error-404-page{color-scheme:light dark;--bg:#fafafa;--surface:#fff;--surface-2:#f1f1f1;--text:#0a0a0a;--muted:#515151;--button-bg:#0a0a0a;--button-text:#fff;--card-border:#d8d8d8;--line:#c9c9c9;--shadow:0 22px 60px rgba(0,0,0,.08);--glow-shadow:0 0 0 1px var(--text),0 18px 42px rgba(0,0,0,.12);--ui-radius:8px;--ui-radius-small:8px}
 @media (prefers-color-scheme:dark){body.error-404-page{--bg:#050505;--surface:#000;--surface-2:#121212;--text:#f5f5f5;--muted:#b4b4b4;--button-bg:#f5f5f5;--button-text:#050505;--card-border:#292929;--line:#383838;--shadow:0 22px 60px rgba(0,0,0,.48);--glow-shadow:0 0 0 1px var(--text),0 18px 48px rgba(255,255,255,.08)}}
 
 body.error-404-page,body.error-404-page *{margin:0;padding:0;box-sizing:border-box}
