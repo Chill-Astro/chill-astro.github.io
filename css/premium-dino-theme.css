@@ -50,7 +50,6 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 
 .dino-game .dino-touch-controls { flex-direction: column; }
 .dino-game .dino-touch-button { flex: 0 1 auto; }
-.dino-game .dino-fullscreen { color: var(--button-text); background: var(--button-bg); border-color: var(--button-bg); backdrop-filter: none; }
 .dino-game .dino-frame { box-sizing: border-box; width: 960px; border: 2px solid var(--text); }
 .dino-game .dino-stats { border-radius: 1rem; }
 

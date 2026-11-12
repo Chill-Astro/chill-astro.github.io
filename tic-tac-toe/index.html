@@ -98,8 +98,8 @@
     </script>
     <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
     <script src="/js/theme.js?theme=5"></script>
-    <link rel="stylesheet" href="../css/style.css?interface=80">
-    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=12">
+    <link rel="stylesheet" href="../css/style.css?interface=94">
+    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=14">
     <title>Tic Tac Toe Online | Chill-Astro Software</title>
 </head>
 <body class="tic-tac-toe-page">
@@ -116,8 +116,8 @@
                 <p class="ttt-status" id="ttt-status" role="status" aria-live="polite">Choose a mode to begin.</p>
 
                 <div class="ttt-actions" aria-label="Game controls">
-                    <button class="ttt-action" id="pause-game" type="button" disabled>Pause</button>
-                    <button class="ttt-action" id="restart-game" type="button" disabled>Restart</button>
+                    <button class="ttt-action site-button site-button--primary" id="pause-game" type="button" disabled>Pause</button>
+                    <button class="ttt-action site-button site-button--primary" id="restart-game" type="button" disabled>Restart</button>
                 </div>
 
                 <div class="ttt-board" id="ttt-board" role="grid" aria-label="Five by five Tic-Tac-Toe board">
@@ -151,7 +151,7 @@
                 </div>
 
                 <div class="ttt-game-footer">
-                    <button class="ttt-text-button" id="change-mode" type="button" disabled>Change mode</button>
+                    <button class="ttt-text-button site-button site-button--primary" id="change-mode" type="button" disabled>Change mode</button>
                     <span class="ttt-mode-label" id="mode-label"></span>
                 </div>
             </div>
@@ -161,25 +161,25 @@
                     <h2 id="mode-title">Choose a mode</h2>
                     <p>Play against the AI or take turns with a friend.</p>
                     <div class="ttt-mode-options" id="mode-options">
-                        <button class="ttt-mode-button" type="button" data-mode="ai">
+                        <button class="ttt-mode-button site-button site-button--primary" type="button" data-mode="ai">
                             <span class="ttt-mode-name">Vs. AI</span>
                             <span class="ttt-mode-description">You play X. The AI plays O.</span>
                         </button>
-                        <button class="ttt-mode-button" type="button" data-mode="pvp">
+                        <button class="ttt-mode-button site-button site-button--primary" type="button" data-mode="pvp">
                             <span class="ttt-mode-name">Two players</span>
                             <span class="ttt-mode-description">Take turns on the same device.</span>
                         </button>
                     </div>
                     <div class="ttt-mode-options ttt-difficulty-options" id="difficulty-options" hidden>
-                        <button class="ttt-mode-button" type="button" data-difficulty="beginner">
+                        <button class="ttt-mode-button site-button site-button--primary" type="button" data-difficulty="beginner">
                             <span class="ttt-mode-name">Beginner</span>
                             <span class="ttt-mode-description">4×4 board. A relaxed opponent that leaves openings.</span>
                         </button>
-                        <button class="ttt-mode-button" type="button" data-difficulty="god">
+                        <button class="ttt-mode-button site-button site-button--primary" type="button" data-difficulty="god">
                             <span class="ttt-mode-name">God Mode</span>
                             <span class="ttt-mode-description">5×5 board. Plans ahead and punishes mistakes.</span>
                         </button>
-                        <button class="ttt-text-button ttt-picker-back" id="mode-back" type="button">Back to modes</button>
+                        <button class="ttt-text-button ttt-picker-back site-button site-button--primary" id="mode-back" type="button">Back to modes</button>
                     </div>
                 </div>
             </div>

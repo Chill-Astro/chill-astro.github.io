@@ -1,0 +1,196 @@
+/* ===== Trust My MSIX page styles ===== */
+/* =========================================================
+   TRUST MY MSIX!
+   Simple showcase/documentation layout
+   ========================================================= */
+
+.tmm-page {
+    width: min(1100px, calc(100% - 40px));
+    padding: 60px 0 100px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.tmm-hero {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.tmm-media {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 28px;
+    margin: 30px 0;
+}
+
+.tmm-media img,
+.tmm-media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: none !important;
+}
+
+/* =========================================================
+   INTRODUCTION
+   ========================================================= */
+
+.tmm-intro {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 80px;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+}@media (hover: hover) and (pointer: fine) {
+
+
+.tmm-intro:hover {
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+}
+
+.tmm-intro p {
+    margin: 0 0 18px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.tmm-section {
+    margin-bottom: 80px;
+}
+
+.tmm-section h2 {
+    margin-bottom: 25px;
+}
+
+.tmm-section p,
+.tmm-section li {
+    line-height: 1.8;
+}
+
+.tmm-section ul,
+.tmm-section ol {
+    padding-left: 25px;
+}
+
+.tmm-section li {
+    margin-bottom: 8px;
+}
+
+.tmm-command-section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.tmm-command {
+    width: 100%;
+}
+
+.tmm-command-title {
+    margin: 0 0 14px;
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.tmm-command pre {
+    margin: 0 0 24px;
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.tmm-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tmm-features li span {
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   VIDEOS
+   ========================================================= */
+
+.tmm-section .video-player {
+    margin: 30px 0 45px;
+}
+
+
+/* =========================================================
+   CODE
+   ========================================================= */
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.tmm-section a,
+.tmm-intro a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.tmm-actions a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .tmm-page {
+        width: min(100% - 28px, 1100px);
+        padding-top: 35px;
+    }
+
+    .tmm-hero {
+        margin-bottom: 50px;
+    }
+
+    .tmm-media {
+        border-radius: 20px;
+    }
+
+    .tmm-intro {
+        margin-bottom: 55px;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        transform: none !important;
+    }
+
+    .tmm-section {
+        margin-bottom: 55px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */

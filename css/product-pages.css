@@ -1,0 +1,134 @@
+/* Shared layout components for the software detail pages. */
+
+.lamina-page,
+.root-checker-page,
+.tmm-page {
+    margin: 0 auto;
+}
+
+:is(.lamina-media, .root-checker-media) img,
+:is(.lamina-media, .root-checker-media) video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border: none !important;
+    border-radius: 24px;
+    background: var(--surface);
+}
+
+.lamina-actions,
+.root-checker-actions,
+.tmm-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 600px;
+}
+
+.lamina-actions,
+.root-checker-actions {
+    gap: 12px;
+    margin: 28px auto 38px;
+}
+
+.tmm-actions {
+    gap: 14px;
+    margin: 25px auto 0;
+}
+
+.lamina-actions .site-button,
+.root-checker-actions .site-button,
+.tmm-actions .site-button {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.lamina-content pre,
+.tmm-section pre {
+    width: 100%;
+    margin: 20px 0;
+    padding: 18px 20px;
+    overflow-x: auto;
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    background: var(--surface);
+    text-align: left;
+}
+
+.lamina-content pre code,
+.tmm-section pre code {
+    padding: 0;
+    background: transparent;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: .92rem;
+    color: var(--text);
+}
+
+.lamina-content code,
+.tmm-section code {
+    padding: .15rem .4rem;
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: Consolas, "Courier New", monospace;
+}
+
+.lamina-content .youtube-media,
+.root-checker-page .youtube-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.lamina-content .youtube-media iframe,
+.root-checker-page .youtube-media iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 24px;
+}
+
+@media (max-width: 768px) {
+    .lamina-media img,
+    .lamina-media video,
+    .root-checker-media img,
+    .root-checker-media video,
+    .lamina-content .youtube-media iframe,
+    .root-checker-page .youtube-media iframe {
+        border-radius: 18px;
+    }
+
+    .lamina-actions,
+    .root-checker-actions,
+    .tmm-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .lamina-actions .site-button,
+    .root-checker-actions .site-button,
+    .tmm-actions .site-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .lamina-content pre,
+    .tmm-section pre {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .lamina-content pre code,
+    .tmm-section pre code {
+        font-size: .82rem;
+    }
+}

@@ -1,3 +1,4 @@
+/* Pong Reimagined page styles. */
 .pong-main {
     width: min(1480px, 94%);
     margin: 0 auto;
@@ -43,7 +44,7 @@
     transform: none !important;
 }
 
-.pong-game button:not(.fullscreen-game-button) {
+.pong-game button:not(.fullscreen-game-button):not(.site-button) {
     border-width: 1px !important;
     border-radius: 0.8rem !important;
     font-family: "Tomorrow", sans-serif;
@@ -136,10 +137,6 @@ kbd {
     width: 5rem;
     height: 5rem;
     padding: 0.55rem 0.4rem;
-    color: var(--button-text);
-    font-family: "Tomorrow", sans-serif;
-    background: var(--button-bg);
-    border: 1px solid var(--button-bg);
     border-radius: 0.8rem !important;
     cursor: pointer;
     touch-action: none;
@@ -158,35 +155,6 @@ kbd {
     font-weight: 700;
     letter-spacing: 0.08em;
     line-height: 1;
-}
-
-@media (hover: hover) {
-    .touch-button {
-        position: relative;
-        isolation: isolate;
-        overflow: hidden;
-        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
-    }
-
-    .touch-button::before {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background: var(--text);
-        content: "";
-        transform: translateY(105%);
-        transition: transform 0.23s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .touch-button:hover::before {
-        transform: translateY(0);
-    }
-
-    .touch-button:hover {
-        color: var(--bg) !important;
-        transform: none;
-        box-shadow: none;
-    }
 }
 
 .touch-button:active,
@@ -261,43 +229,12 @@ kbd {
     right: 1.5rem;
     bottom: 1.5rem;
     z-index: 6;
-    display: grid;
     width: 3rem;
     height: 3rem;
-    place-items: center;
-    padding: 0;
-    color: #fff;
-    font: inherit;
-    font-size: 1.35rem;
-    background: rgba(40, 40, 45, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    cursor: pointer;
-    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 .fullscreen-game-button span {
     pointer-events: none;
-}@media (hover: hover) and (pointer: fine) {
-
-
-.fullscreen-game-button:hover {
-    background: rgba(60, 60, 68, 0.72);
-    transform: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-}
-}
-
-.fullscreen-game-button:active {
-    transform: scale(.96);
-}
-
-.fullscreen-game-button:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
 }
 
 #pong-court {

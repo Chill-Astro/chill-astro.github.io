@@ -1,0 +1,23 @@
+/* FOSS Volume Booster page-specific command block. */
+.fvb-clone-command {
+    width: 100%;
+    margin: 20px 0;
+    padding: 18px 20px !important;
+    overflow-x: auto;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--ui-radius-small) !important;
+    background: var(--surface-2) !important;
+}
+
+.fvb-clone-command code {
+    display: block;
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--text) !important;
+    white-space: pre;
+}
+
+.fvb-clone-command,
+.fvb-clone-command code {
+    font-family: Consolas, "Courier New", monospace !important;
+}
