@@ -20,10 +20,9 @@
     const modeBackButton = document.getElementById("mode-back");
     const modeButtons = [...document.querySelectorAll(".pong-mode-button[data-mode]")];
     const difficultyButtons = [...document.querySelectorAll(".pong-mode-button[data-difficulty]")];
-    const rightPlayerName = document.querySelector(".player-controls-right .player-name");
     const rightPlayerControls = document.querySelector(".player-controls-right");
 
-    if (!canvas || !context || !toggleButton || !pauseButton || !restartButton || !endButton || !fullscreenButton || !matchClock || !gameElement || !modePicker || !changeModeButton || !modeLabel || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !modeBackButton || !rightPlayerName || !rightPlayerControls || !overlayChangeModeButton || modeButtons.length !== 2 || difficultyButtons.length !== 2) {
+    if (!canvas || !context || !toggleButton || !pauseButton || !restartButton || !endButton || !fullscreenButton || !matchClock || !gameElement || !modePicker || !changeModeButton || !modeLabel || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !modeBackButton || !rightPlayerControls || !overlayChangeModeButton || modeButtons.length !== 2 || difficultyButtons.length !== 2) {
         console.error("Pong Reimagined could not initialize because required game elements are missing.");
         return;
     }
@@ -453,7 +452,6 @@
         difficulty = nextDifficulty;
         const againstAi = playMode === "ai";
         gameElement.classList.toggle("is-ai", againstAi);
-        rightPlayerName.textContent = againstAi ? "AI" : "Right player";
         rightPlayerControls.setAttribute("aria-label", againstAi ? "AI paddle" : "Right player controls");
         modeLabel.textContent = againstAi
             ? `AI · ${difficulty === "god" ? "God Mode" : "Beginner"}`
