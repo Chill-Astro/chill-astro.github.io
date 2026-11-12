@@ -24,8 +24,8 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transform: scale(.98);
-    transition: opacity .3s cubic-bezier(0.16, 1, 0.3, 1), transform .3s cubic-bezier(0.16, 1, 0.3, 1), visibility .3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none;
+    transition: opacity .3s cubic-bezier(0.16, 1, 0.3, 1), visibility .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Keep portrait recordings within the viewport and preserve their native shape. */
@@ -46,7 +46,7 @@ html body .video-player.is-portrait:not(:fullscreen):not(.is-fullscreen) .video-
 .video-player.is-active .video-player__controls {
     opacity: 1;
     visibility: visible;
-    transform: scale(1);
+    transform: none;
 }
 
 .video-player__play,
@@ -299,6 +299,14 @@ html body .video-player.is-portrait:not(:fullscreen):not(.is-fullscreen) .video-
     .video-player__controls,
     .video-player__play,
     .video-player__fullscreen { transition: none; }
+    html body :is(.video-player, .video-fullscreen-ui) .video-player__progress {
+        transition: none !important;
+        translate: 0 0;
+    }
+    html body :is(.video-player, .video-fullscreen-ui) .video-player__fullscreen {
+        transition: none !important;
+        translate: 0 0;
+    }
 }
 
 body.video-fullscreen-open { overflow: hidden !important; }
@@ -368,7 +376,7 @@ body.video-fullscreen-open { overflow: hidden !important; }
     pointer-events: none !important;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .24s ease, visibility .24s ease;
+    transition: opacity .3s cubic-bezier(0.16, 1, 0.3, 1), visibility .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .video-fullscreen-ui.is-controls-visible .video-fullscreen-ui__controls {
@@ -380,7 +388,128 @@ body.video-fullscreen-open { overflow: hidden !important; }
 .video-fullscreen-ui .video-player__progress { z-index: 2; }
 .video-fullscreen-ui .video-player__fullscreen { z-index: 3; }
 
+/* Share the same bottom-up seek-bar motion in both player interfaces. */
+html body :is(.video-player, .video-fullscreen-ui) .video-player__progress {
+    translate: 0 14px;
+    transition: translate .28s cubic-bezier(.2, .75, .25, 1) !important;
+}
+
+html body :is(.video-player, .video-fullscreen-ui) .video-player__fullscreen {
+    translate: 0 14px;
+    transition: translate .28s cubic-bezier(.2, .75, .25, 1) !important;
+}
+
+html body .video-player.is-active .video-player__progress,
+html body .video-fullscreen-ui.is-controls-visible .video-player__progress,
+html body .video-player.is-active .video-player__fullscreen,
+html body .video-fullscreen-ui.is-controls-visible .video-player__fullscreen {
+    translate: 0 0;
+}
+
+/* Keep controls opaque and theme-aware; never blur the video beneath them. */
+html body .video-player,
+html body .video-fullscreen-ui {
+    --video-player-control-border: 1px solid color-mix(in srgb, var(--text) 38%, transparent);
+}
+
+html body .video-player :is(.video-player__play, .video-player__skip, .video-player__fullscreen),
+html body .video-fullscreen-ui :is(.video-player__play, .video-player__skip, .video-player__fullscreen) {
+    border: var(--video-player-control-border) !important;
+    background: var(--surface) !important;
+    color: var(--text) !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+html body .video-player :is(.video-player__play, .video-player__skip, .video-player__fullscreen):focus-visible,
+html body .video-fullscreen-ui :is(.video-player__play, .video-player__skip, .video-player__fullscreen):focus-visible {
+    border-color: color-mix(in srgb, var(--text) 38%, transparent) !important;
+    outline: 2px solid var(--text) !important;
+    outline-offset: 3px !important;
+}
+
+html body .video-player :is(.video-player__play, .video-player__skip, .video-player__fullscreen):active,
+html body .video-fullscreen-ui :is(.video-player__play, .video-player__skip, .video-player__fullscreen):active {
+    border-color: color-mix(in srgb, var(--text) 38%, transparent) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    html body .video-player :is(.video-player__play, .video-player__skip, .video-player__fullscreen):hover,
+    html body .video-fullscreen-ui :is(.video-player__play, .video-player__skip, .video-player__fullscreen):hover {
+        border-color: color-mix(in srgb, var(--text) 38%, transparent) !important;
+        background: var(--surface-2) !important;
+        color: var(--text) !important;
+        box-shadow: none !important;
+    }
+}
+
+html body .video-player .video-player__progress,
+html body .video-fullscreen-ui .video-player__progress {
+    border: 0 !important;
+    border-top: var(--video-player-control-border) !important;
+    background: var(--surface) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+html body .video-player .video-player__progress input,
+html body .video-fullscreen-ui .video-player__progress input {
+    height: 4px !important;
+    border-radius: 999px !important;
+    cursor: pointer !important;
+    background: linear-gradient(
+        to right,
+        var(--text) var(--progress, 0%),
+        color-mix(in srgb, var(--text) 48%, var(--surface)) var(--progress, 0%)
+    ) !important;
+}
+
+html body .video-player .video-player__progress input::-moz-range-track,
+html body .video-fullscreen-ui .video-player__progress input::-moz-range-track {
+    height: 4px !important;
+    border-radius: 999px !important;
+    background: color-mix(in srgb, var(--text) 48%, var(--surface)) !important;
+}
+
+html body .video-player .video-player__progress input::-webkit-slider-runnable-track,
+html body .video-fullscreen-ui .video-player__progress input::-webkit-slider-runnable-track {
+    height: 4px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(
+        to right,
+        var(--text) var(--progress, 0%),
+        color-mix(in srgb, var(--text) 48%, var(--surface)) var(--progress, 0%)
+    ) !important;
+}
+
+html body .video-player .video-player__progress input::-moz-range-progress,
+html body .video-fullscreen-ui .video-player__progress input::-moz-range-progress {
+    height: 4px !important;
+    border-radius: 999px !important;
+    background: var(--text) !important;
+}
+
+html body .video-player .video-player__progress input::-moz-range-thumb,
+html body .video-fullscreen-ui .video-player__progress input::-moz-range-thumb {
+    width: 10px !important;
+    height: 10px !important;
+    background: var(--text) !important;
+}
+
+html body .video-player .video-player__progress input::-webkit-slider-thumb,
+html body .video-fullscreen-ui .video-player__progress input::-webkit-slider-thumb {
+    width: 10px !important;
+    height: 10px !important;
+    margin-top: -3px !important;
+    background: var(--text) !important;
+}
+
 .video-fullscreen-ui__orientation { display: none; }
+.video-fullscreen-ui.is-portrait-video .video-fullscreen-ui__orientation { display: none !important; }
 
 @media (orientation: portrait) and (max-width: 767px) and (hover: none) and (pointer: coarse) {
     .video-fullscreen-ui__orientation {
@@ -468,6 +597,7 @@ body.video-fullscreen-open { overflow: hidden !important; }
 
 @media (prefers-reduced-motion: reduce) {
     .video-fullscreen-ui .video-player__controls,
+    .video-fullscreen-ui .video-player__progress,
     .video-fullscreen-ui .video-player__play,
     .video-fullscreen-ui .video-player__skip,
     .video-fullscreen-ui .video-player__fullscreen { transition: none !important; }

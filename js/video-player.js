@@ -156,6 +156,9 @@
                 </div>
             `;
             overlay.append(orientationPrompt);
+            if (media.videoHeight > media.videoWidth) {
+                overlay.classList.add("is-portrait-video");
+            }
             const clone = media.cloneNode(true);
             clone.removeAttribute("controls");
             clone.autoplay = false;
