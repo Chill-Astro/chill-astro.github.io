@@ -1,5 +1,5 @@
 .dino-game {
-    width: 1158px;
+    width: 1120px;
     max-width: none;
     margin-inline: auto;
     grid-template-columns: 170px 960px;
@@ -33,12 +33,14 @@ body.dino-page > .dino-main {
 }
 body.dino-page > #footer { flex: 0 0 auto; }
 body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
+.dino-main { width: min(1800px, 96%); }
 
 .dino-game .dino-controls {
     display: flex;
     grid-row: auto;
     grid-column: auto;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .dino-game .dino-court-column {
@@ -48,10 +50,96 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
     grid-column: auto;
 }
 
-.dino-game .dino-touch-controls { flex-direction: column; }
+.dino-game .dino-touch-controls { width: auto; flex-direction: column; align-items: center; gap: 0.35rem; }
 .dino-game .dino-touch-button { flex: 0 1 auto; }
+.dino-game .dino-touch-button {
+    flex-direction: column;
+    gap: 0.35rem;
+    width: clamp(3rem, 4vw, 4rem);
+    height: clamp(3rem, 4vw, 4rem);
+    padding: 0.55rem 0.4rem !important;
+    border-radius: 0.9rem !important;
+}
+.dino-game .dino-touch-button .touch-button-icon { font-size: 1.2rem; line-height: 1; }
+.dino-game .dino-touch-button .touch-button-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+}
+.dino-game .dino-control-pair {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+}
+.dino-game .dino-control-pair .fullscreen-key-hints {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    background: transparent;
+}
+.dino-game .dino-control-pair .fullscreen-key-hints > span {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+.dino-game .dino-control-pair .fullscreen-key-hints kbd {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+    padding: 0;
+    color: var(--text);
+    font: 600 0.8rem "Tomorrow", sans-serif;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 0.45rem;
+    box-shadow: 0 2px 0 var(--card-border);
+}
 .dino-game .dino-frame { box-sizing: border-box; width: 960px; border: 2px solid var(--text); }
 .dino-game .dino-stats { border-radius: 1rem; }
+.dino-game .dino-frame > .dino-stats {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.85rem;
+    z-index: 3;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.9rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+}
+.dino-game .dino-frame > .dino-stats .dino-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.4rem;
+    color: var(--text);
+    font: 700 0.8rem "Tomorrow", sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.25;
+}
+.dino-game .dino-frame > .dino-stats .dino-label,
+.dino-game .dino-frame > .dino-stats output {
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    opacity: 1;
+}
+.dino-game:not([data-phase="running"]):not([data-phase="paused"]) .dino-stats { display: none; }
 
 .dino-attribution {
     position: absolute;
@@ -74,9 +162,9 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
     position: absolute;
     inset: 0.75rem 0.85rem auto;
     z-index: 3;
-    display: grid;
-    grid-template-columns: max-content max-content minmax(0, 1fr) max-content;
-    align-items: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
     gap: 0.45rem;
     min-height: 0;
     margin: 0;
@@ -84,7 +172,18 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 }
 
 .dino-actions > .dino-action { pointer-events: auto; }
-.dino-actions #end-game { grid-column: 4; justify-self: end; }
+.dino-actions > .dino-action {
+    margin-top: 0 !important;
+    color: var(--button-text) !important;
+    background: var(--button-bg) !important;
+    border-color: var(--button-bg) !important;
+}
+
+/* Site-button display styles must not override the game's hidden state. */
+.dino-game .dino-actions[hidden],
+.dino-game .dino-actions > [hidden] {
+    display: none !important;
+}
 
 @media (min-width: 681px) {
     .dino-game:fullscreen {
@@ -104,8 +203,6 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 
     .dino-game:fullscreen .dino-court-column { width: 100%; align-self: center; }
     .dino-game:fullscreen .dino-controls { gap: clamp(0.4rem, 1.5dvh, 1rem); }
-    .dino-game:fullscreen .dino-stats { padding: clamp(0.4rem, 1.2dvh, 0.9rem); }
-    .dino-game:fullscreen .dino-stats output { font-size: clamp(0.8rem, 1.8dvh, 1.35rem); }
     .dino-game:fullscreen .dino-touch-button { min-height: clamp(2.25rem, 4.1dvh, 2.75rem); font-size: clamp(0.65rem, 1.1dvh, 0.75rem); }
     .dino-game:fullscreen .dino-frame {
         width: 960px;
@@ -122,16 +219,14 @@ body.dino-page > #footer > .site-footer { height: auto; min-height: 0; }
 
 /* Keep all Dino controls and the court inside one viewport-scaled stage. */
 .dino-game{display:flex!important;align-items:center;justify-content:center;width:100%!important;max-width:none!important;grid-template-columns:none!important;gap:0!important;overflow:visible}
-.dino-stage{display:grid;grid-template-columns:170px 960px;align-items:center;gap:28px;width:1158px;transform-origin:center center}
+.dino-stage{display:grid;grid-template-columns:max-content 960px;align-items:center;gap:10px;width:max-content;margin-inline:auto;transform-origin:center center}
 .dino-stage .dino-controls{grid-column:1;grid-row:1;display:flex!important;gap:1rem!important}
 .dino-stage .dino-court-column{grid-column:2;grid-row:1}
 .dino-game:fullscreen{display:grid!important;place-items:center;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;gap:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;margin:0!important;padding:0!important;overflow:hidden;background:var(--bg)}
-.dino-game:fullscreen .dino-stage{margin:0;gap:28px}
+.dino-game:fullscreen .dino-stage{margin-inline:auto;gap:10px}
 .dino-game:fullscreen .dino-court-column{width:960px!important}
 .dino-game:fullscreen .dino-frame{width:960px!important;max-height:none!important}
-.dino-game:fullscreen .dino-controls{display:flex!important;flex-direction:column!important;gap:1rem!important;width:170px!important;max-width:170px!important;grid-column:1!important;grid-row:1!important}
-.dino-game:fullscreen .dino-stats{padding:.9rem!important}
-.dino-game:fullscreen .dino-stats output{font-size:1.35rem!important}
+.dino-game:fullscreen .dino-controls{display:flex!important;flex-direction:column!important;gap:1rem!important;width:auto!important;max-width:none!important;grid-column:1!important;grid-row:1!important}
 .dino-game:fullscreen .dino-touch-controls{flex-direction:column!important}
 .dino-game:fullscreen .dino-touch-button{flex:0 1 auto!important;min-height:44px!important;font-size:.75rem!important}
 .dino-game:fullscreen .dino-overlay-title{font-size:2rem!important}

@@ -718,11 +718,6 @@ body.tic-tac-toe-page > #footer {
     opacity: 0.6;
 }
 
-body.tic-tac-toe-page .site-footer {
-    margin-top: 1rem;
-    padding: 1rem 1.25rem;
-}
-
 @media (hover: none), (pointer: coarse) {
     body.tic-tac-toe-page .ttt-paused-overlay {
         background: var(--ttt-game-bg);

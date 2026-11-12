@@ -26,10 +26,10 @@
         throw new Error('Premium Dino is missing required game UI elements.');
     }
 
-    const format = value => String(Math.floor(value)).padStart(5, '0');
-    const designWidth = 1158;
+    const format = value => String(Math.floor(value));
     const designHeight = 420;
     let phase = 'ready';
+    game.dataset.phase = phase;
     let best = 0;
     let runner;
     let duckPointerId = null;
@@ -79,6 +79,7 @@
             runner.start();
         }
         phase = 'running';
+        game.dataset.phase = phase;
         document.activeElement?.blur();
         overlay.hidden = true;
         showActiveControls();
@@ -96,6 +97,7 @@
     function endRun(finalScore) {
         setDuck(false);
         phase = 'over';
+        game.dataset.phase = phase;
         scoreOut.textContent = format(finalScore);
         if (finalScore > best) {
             best = finalScore;
@@ -117,6 +119,7 @@
         runner.stop();
         runner.restart();
         phase = 'running';
+        game.dataset.phase = phase;
         document.activeElement?.blur();
         overlay.hidden = true;
         scoreOut.textContent = format(0);
@@ -132,10 +135,13 @@
 
     function syncLayoutScale() {
         const fullscreen = document.fullscreenElement === game;
+        stage.style.zoom = '1';
+        const designWidth = stage.getBoundingClientRect().width;
         const scale = fullscreen
             ? Math.min((window.innerWidth - 24) / designWidth, (window.innerHeight - 24) / designHeight)
-            : Math.min(1.2, layoutRoot.clientWidth / designWidth);
-        stage.style.zoom = String(Math.max(0.1, scale));
+            : Math.min(1.66, layoutRoot.clientWidth / designWidth);
+        const safeScale = Math.max(0.1, scale);
+        stage.style.zoom = String(safeScale);
     }
 
     startButton.disabled = true;
@@ -166,6 +172,7 @@
         setDuck(false);
         runner.stop();
         phase = 'paused';
+        game.dataset.phase = phase;
         pauseButton.hidden = true;
         showOverlay('Paused', 'Take a breather. Your run is waiting.', 'Resume');
     }
@@ -204,17 +211,17 @@
         if (event.target.closest?.('button, a')) {
             return;
         }
-        if (['Space', 'ArrowUp', 'ArrowDown'].includes(event.code)) {
+        if (['Space', 'ArrowUp', 'ArrowDown', 'KeyW', 'KeyS'].includes(event.code)) {
             event.preventDefault();
         }
-        if ((event.code === 'Space' || event.code === 'ArrowUp') && !event.repeat) {
+        if ((event.code === 'Space' || event.code === 'ArrowUp' || event.code === 'KeyW') && !event.repeat) {
             jump();
-        } else if (phase === 'running' && event.code === 'ArrowDown') {
+        } else if (phase === 'running' && (event.code === 'ArrowDown' || event.code === 'KeyS')) {
             setDuck(true);
         }
     });
     document.addEventListener('keyup', event => {
-        if (event.code === 'ArrowDown') {
+        if (event.code === 'ArrowDown' || event.code === 'KeyS') {
             setDuck(false);
         }
     });
