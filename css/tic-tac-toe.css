@@ -945,3 +945,7 @@ html[data-theme="dark"] body.tic-tac-toe-page .ttt-mode-dialog {
 html[data-theme="dark"] body.tic-tac-toe-page .ttt-mode-dialog > p {
     color: #b4b4b4 !important;
 }
+
+body.tic-tac-toe-page .ttt-game {
+    border-radius: var(--site-button-radius, 8px) !important;
+}

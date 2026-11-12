@@ -2594,6 +2594,11 @@ kbd {
     pointer-events: auto;
 }
 
+.pong-game .game-actions[hidden],
+.pong-game .game-actions > [hidden] {
+    display: none !important;
+}
+
 .pong-game #pause-game { grid-column: 1; }
 .pong-game #restart-game { grid-column: 2; }
 .pong-game #end-game {
@@ -2811,6 +2816,8 @@ kbd {
 .pong-game:fullscreen .game-actions > .game-action { pointer-events: auto; }
 .pong-game:fullscreen #change-mode { grid-column: 4; }
 .pong-game:fullscreen #end-game { grid-column: 5; }
+
+.pong-game .court-frame { border-radius: var(--site-button-radius, 8px) !important; }
 
 .pong-game .overlay-actions {
     display: flex;
