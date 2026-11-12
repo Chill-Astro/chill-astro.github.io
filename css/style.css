@@ -3073,7 +3073,7 @@ html body .site-footer {
     text-decoration: none;
     text-transform: none;
     overflow-wrap: anywhere;
-    transition: text-shadow .18s ease;
+    transition: color .18s ease;
 }
 
 @media (min-width: 901px) {
@@ -3095,12 +3095,14 @@ html body .site-footer {
 
 @media (hover: hover) and (pointer: fine) {
     .site-footer .footer-group a:hover {
-        text-shadow: 0 0 9px color-mix(in srgb, var(--text) 45%, transparent);
+        color: var(--text) !important;
+        text-shadow: none;
     }
 }
 
 .site-footer .footer-group a:focus-visible {
-    text-shadow: 0 0 9px color-mix(in srgb, var(--text) 45%, transparent);
+    color: var(--text) !important;
+    text-shadow: none;
     outline: 2px solid currentColor;
     outline-offset: 3px;
 }
