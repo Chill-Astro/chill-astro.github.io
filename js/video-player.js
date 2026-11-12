@@ -136,6 +136,26 @@
             const stage = document.createElement("div");
             stage.className = "video-fullscreen-ui__stage";
             overlay.append(stage);
+            const orientationPrompt = document.createElement("div");
+            orientationPrompt.className = "video-fullscreen-ui__orientation";
+            orientationPrompt.setAttribute("role", "status");
+            orientationPrompt.setAttribute("aria-label", "Rotate your device to landscape");
+            orientationPrompt.innerHTML = `
+                <div class="video-fullscreen-ui__orientation-content">
+                    <div class="video-fullscreen-ui__orientation-visual" aria-hidden="true">
+                        <svg class="video-fullscreen-ui__orientation-arrows" viewBox="0 0 160 140">
+                            <path d="M47 95c-18-12-18-38 0-50m66 0c18 12 18 38 0 50"/>
+                            <path d="M37 43 47 45 45 55m70 30-2 10 10 2"/>
+                        </svg>
+                        <svg class="video-fullscreen-ui__orientation-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="1" width="14" height="22" rx="3"></rect>
+                            <path d="M10 19.5h4"></path>
+                        </svg>
+                    </div>
+                    <p>Rotate your device to landscape to watch.</p>
+                </div>
+            `;
+            overlay.append(orientationPrompt);
             const clone = media.cloneNode(true);
             clone.removeAttribute("controls");
             clone.autoplay = false;

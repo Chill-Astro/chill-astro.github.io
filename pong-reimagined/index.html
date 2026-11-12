@@ -42,11 +42,26 @@
     </script>
     <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
     <script src="/js/theme.js?theme=5"></script>
-    <link rel="stylesheet" href="../css/style.css?interface=98">
+    <link rel="stylesheet" href="../css/style.css?interface=104">
     <link rel="stylesheet" href="../css/pong-reimagined.css?v=2">
     <title>Pong Reimagined | Chill-Astro Software</title>
 </head>
 <body class="pong-page">
+    <div class="orientation-prompt" role="status" aria-live="polite" aria-label="Rotate your phone to landscape to play">
+        <div class="orientation-prompt-content">
+            <div class="orientation-visual" aria-hidden="true">
+                <svg class="orientation-arrows" viewBox="0 0 160 140">
+                    <path class="orientation-arrow" d="M47 95c-18-12-18-38 0-50m66 0c18 12 18 38 0 50"/>
+                    <path class="orientation-arrow-head" d="M37 43 47 45 45 55m70 30-2 10 10 2"/>
+                </svg>
+                <svg class="orientation-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="1" width="14" height="22" rx="3"></rect>
+                    <path d="M10 19.5h4"></path>
+                </svg>
+            </div>
+            <p>Rotate your phone to landscape to play.</p>
+        </div>
+    </div>
     <div id="header"></div>
 
     <main class="pong-main">
