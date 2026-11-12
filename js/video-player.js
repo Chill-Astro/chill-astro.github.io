@@ -156,7 +156,9 @@
                 </div>
             `;
             overlay.append(orientationPrompt);
-            if (media.videoHeight > media.videoWidth) {
+            const portraitVideo = media.videoHeight > media.videoWidth || player.classList.contains("is-portrait");
+            const landscapeVideo = !portraitVideo;
+            if (portraitVideo) {
                 overlay.classList.add("is-portrait-video");
             }
             const clone = media.cloneNode(true);
@@ -178,6 +180,11 @@
             overlayFullscreen.setAttribute("aria-pressed", "true");
             overlay.append(overlayControls);
             fullscreenOverlayAbort = new AbortController();
+            const portraitPhoneQuery = window.matchMedia("(orientation: portrait) and (max-width: 767px) and (hover: none) and (pointer: coarse)");
+            const pauseLandscapeVideoInPortrait = () => {
+                if (landscapeVideo && portraitPhoneQuery.matches && !clone.paused) clone.pause();
+            };
+            portraitPhoneQuery.addEventListener("change", pauseLandscapeVideoInPortrait, { signal: fullscreenOverlayAbort.signal });
             const syncOverlay = () => {
                 overlayPlayIcon.textContent = clone.paused ? "▶" : "❚❚";
                 overlayPlay.setAttribute("aria-label", clone.paused ? "Play video" : "Pause video");
@@ -249,7 +256,7 @@
             clone.addEventListener("loadedmetadata", () => {
                 if (Number.isFinite(startTime) && startTime > 0) clone.currentTime = startTime;
                 syncOverlay();
-                if (resumeOnOpen) clone.play().catch(() => {});
+                if (resumeOnOpen && !(landscapeVideo && portraitPhoneQuery.matches)) clone.play().catch(() => {});
             }, { once: true });
             clone.load();
 

@@ -8,6 +8,7 @@
     const fullscreenButton = document.getElementById("fullscreen-game");
     const matchClock = document.getElementById("match-clock");
     const gameElement = document.querySelector(".pong-game");
+    const orientationPrompt = document.querySelector(".orientation-prompt");
     const overlayChangeModeButton = document.getElementById("overlay-change-mode");
     const modePicker = document.getElementById("mode-picker");
     const changeModeButton = document.getElementById("change-mode");
@@ -70,6 +71,22 @@
     let aiTarget = height / 2;
     let aiMissOffset = 0;
     let aiWasIncoming = false;
+    const portraitPhoneQuery = window.matchMedia("(orientation: portrait) and (max-width: 767px) and (hover: none) and (pointer: coarse)");
+    const promptPlaceholder = document.createComment("orientation prompt position");
+    orientationPrompt?.before(promptPlaceholder);
+
+    function syncFullscreenPrompt() {
+        const isGameFullscreen = document.fullscreenElement === gameElement;
+        if (isGameFullscreen && orientationPrompt.parentElement !== gameElement) {
+            gameElement.prepend(orientationPrompt);
+        } else if (!isGameFullscreen && orientationPrompt.parentElement !== document.body) {
+            promptPlaceholder.before(orientationPrompt);
+        }
+    }
+
+    function handlePhoneOrientation() {
+        if (portraitPhoneQuery.matches) pauseGame();
+    }
 
     function gameColors() {
         const styles = getComputedStyle(document.documentElement);
@@ -507,9 +524,12 @@
     });
     document.addEventListener("fullscreenchange", () => {
         const isFullscreen = document.fullscreenElement === gameElement;
+        syncFullscreenPrompt();
         fullscreenButton.setAttribute("aria-label", isFullscreen ? "Exit fullscreen" : "Enter fullscreen");
         fullscreenButton.setAttribute("aria-pressed", String(isFullscreen));
     });
+    portraitPhoneQuery.addEventListener("change", handlePhoneOrientation);
+    handlePhoneOrientation();
     updateClock();
     drawCourt();
 })();

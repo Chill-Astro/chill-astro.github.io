@@ -2670,7 +2670,7 @@ kbd {
     gap: .25rem;
     text-align: center;
     cursor: pointer;
-    transform: none !important;
+    transition: transform .2s ease;
 }
 .pong-mode-options .game-toggle { margin-top: 0; }
 .pong-mode-name { font-weight: 700; }
@@ -2688,7 +2688,9 @@ kbd {
     cursor: pointer;
 }
 @media (hover: hover) and (pointer: fine) {
-    .pong-mode-button { transition: transform .2s ease; transform: none !important; }
+    .pong-mode-button:hover {
+        transform: translateY(-3px) !important;
+    }
 }
 .pong-game .game-actions { grid-template-columns: max-content max-content minmax(0, 1fr) max-content max-content; }
 .pong-game #change-mode { grid-column: 4; }
@@ -2839,6 +2841,12 @@ kbd {
 .pong-game .overlay-change-mode[hidden] { display: none !important; }
 .pong-game .overlay-actions .game-toggle { margin-top: 0; padding: .6rem 1rem; white-space: nowrap; }
 .pong-game .overlay-actions .overlay-change-mode { white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+    html body .pong-game button.pong-mode-button:hover {
+        transform: translateY(-3px) !important;
+    }
+}
 
 /* Right-side movement controls are reserved for two-player matches. */
 .pong-game.is-ai .player-controls-right .touch-controls,

@@ -15,6 +15,7 @@
     const jumpButton = document.getElementById('jump-button');
     const duckButton = document.getElementById('duck-button');
     const fullscreenButton = document.getElementById('fullscreen-game');
+    const orientationPrompt = document.querySelector('.orientation-prompt');
     const requiredElements = [
         game, stage, frame, layoutRoot, overlay, title, message, startButton,
         scoreOut, bestOut, pauseButton, restartButton, endButton, jumpButton,
@@ -32,6 +33,18 @@
     let best = 0;
     let runner;
     let duckPointerId = null;
+    const portraitPhoneQuery = window.matchMedia('(orientation: portrait) and (max-width: 767px) and (hover: none) and (pointer: coarse)');
+    const promptPlaceholder = document.createComment('orientation prompt position');
+    orientationPrompt?.before(promptPlaceholder);
+
+    function syncFullscreenPrompt() {
+        const fullscreen = document.fullscreenElement === game;
+        if (fullscreen && orientationPrompt.parentElement !== game) {
+            game.prepend(orientationPrompt);
+        } else if (!fullscreen && orientationPrompt.parentElement !== document.body) {
+            promptPlaceholder.before(orientationPrompt);
+        }
+    }
 
     try {
         const saved = Number(localStorage.getItem('premium-dino-best') || 0);
@@ -223,8 +236,13 @@
     });
     document.addEventListener('fullscreenchange', () => {
         const fullscreen = document.fullscreenElement === game;
+        syncFullscreenPrompt();
         syncLayoutScale();
         fullscreenButton.setAttribute('aria-label', fullscreen ? 'Exit fullscreen' : 'Enter fullscreen');
         fullscreenButton.setAttribute('aria-pressed', String(fullscreen));
     });
+    portraitPhoneQuery.addEventListener('change', () => {
+        if (portraitPhoneQuery.matches) pause();
+    });
+    if (portraitPhoneQuery.matches) pause();
 })();
