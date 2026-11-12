@@ -726,19 +726,15 @@ body.tic-tac-toe-page > #footer {
     }
 }
 
+/* Five by five board and a winning stroke that fits any four-cell run. */
 @media (max-width: 520px) {
     .ttt-main {
         width: calc(100% - 1rem);
         padding-top: 1rem;
         padding-bottom: clamp(6rem, 16vh, 10rem);
     }
-
-    .ttt-game {
-        width: min(100%, 72dvh, calc(100dvh - 15rem));
-    }
 }
 
-/* Five by five board and a winning stroke that fits any four-cell run. */
 .ttt-mode-options[hidden] {
     display: none !important;
 }
@@ -948,4 +944,109 @@ html[data-theme="dark"] body.tic-tac-toe-page .ttt-mode-dialog > p {
 
 body.tic-tac-toe-page .ttt-game {
     border-radius: var(--site-button-radius, 8px) !important;
+}
+
+body.tic-tac-toe-page .ttt-orientation-prompt {
+    display: none;
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (hover: none) and (pointer: coarse) {
+    body.tic-tac-toe-page {
+        overflow: hidden;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-prompt {
+        position: fixed;
+        z-index: 20000;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 2rem;
+        background: #fff;
+        color: #000;
+        text-align: center;
+        animation: ttt-orientation-enter .45s cubic-bezier(.2, .75, .25, 1) both;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-prompt-content {
+        display: grid;
+        justify-items: center;
+        gap: clamp(.75rem, 3vh, 1.5rem);
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-visual {
+        position: relative;
+        width: clamp(8rem, 42vw, 12rem);
+        aspect-ratio: 160 / 140;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-arrows,
+    body.tic-tac-toe-page .ttt-orientation-phone {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        transform-box: view-box;
+        transform-origin: 50% 50%;
+        animation: ttt-orientation-arrow-turn 2.4s ease-in-out .2s infinite alternate;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-arrows path {
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-phone {
+        inset: 50% auto auto 50%;
+        width: 5.25rem;
+        height: 5.25rem;
+        transform: translate(-50%, -50%) rotate(90deg);
+        animation-name: ttt-orientation-phone-turn;
+    }
+
+    body.tic-tac-toe-page .ttt-orientation-prompt p {
+        max-width: 20rem;
+        margin: 0;
+        color: inherit;
+        font: 700 clamp(1.25rem, 6vw, 2rem)/1.4 "Tomorrow", sans-serif;
+    }
+
+    html[data-theme="dark"] body.tic-tac-toe-page .ttt-orientation-prompt {
+        background: #000;
+        color: #fff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html[data-theme="system"] body.tic-tac-toe-page .ttt-orientation-prompt {
+            background: #000;
+            color: #fff;
+        }
+    }
+
+    @keyframes ttt-orientation-enter {
+        from { opacity: 0; transform: translateY(1rem) scale(.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes ttt-orientation-arrow-turn {
+        from { transform: rotate(90deg); }
+        to { transform: rotate(0deg); }
+    }
+
+    @keyframes ttt-orientation-phone-turn {
+        from { transform: translate(-50%, -50%) rotate(90deg); }
+        to { transform: translate(-50%, -50%) rotate(0deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        body.tic-tac-toe-page .ttt-orientation-prompt,
+        body.tic-tac-toe-page .ttt-orientation-arrows,
+        body.tic-tac-toe-page .ttt-orientation-phone {
+            animation: none;
+        }
+    }
 }
