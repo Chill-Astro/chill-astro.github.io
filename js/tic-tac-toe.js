@@ -10,7 +10,6 @@
     const pauseButton = document.getElementById("pause-game");
     const restartButton = document.getElementById("restart-game");
     const changeModeButton = document.getElementById("change-mode");
-    const scoreElement = document.getElementById("ttt-score");
     const modeLabel = document.getElementById("mode-label");
     const winLine = document.getElementById("ttt-win-line");
     const pausedOverlay = document.getElementById("paused-overlay");
@@ -25,7 +24,7 @@
     const difficultyButtons = [...document.querySelectorAll(".ttt-mode-button[data-difficulty]")];
     const boardSizeButtons = [...document.querySelectorAll(".ttt-mode-button[data-board-size]")];
 
-    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !scoreElement || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
+    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
         console.error("Tic Tac Toe Online could not initialize because required game elements are missing.");
         return;
     }
@@ -70,7 +69,6 @@
     let difficulty = null;
     let marks = Array(boardSize * boardSize).fill("");
     let currentPlayer = "X";
-    let scores = { X: 0, O: 0 };
     let paused = false;
     let gameOver = false;
     let aiTimeout = 0;
@@ -86,11 +84,8 @@
     }
 
     function getStatusText() {
-        if (!mode) return "Your turn (X)";
         if (paused) return "Game paused";
-        if (mode === "ai" && currentPlayer === "O" && !gameOver) return "AI is thinking…";
-        if (mode === "ai") return "Your turn (X)";
-        return `Player ${currentPlayer}'s turn`;
+        return currentPlayer;
     }
 
     function render() {
@@ -118,11 +113,6 @@
         status.classList.toggle("is-paused", paused);
         game.classList.toggle("is-paused", paused);
         pausedOverlay.hidden = !paused;
-    }
-
-    function renderScore() {
-        scoreElement.textContent = `${scores.X} - ${scores.O}`;
-        scoreElement.setAttribute("aria-label", `Score: X ${scores.X}, O ${scores.O}`);
     }
 
     function clearAiTurn() {
@@ -165,8 +155,6 @@
         paused = false;
         pauseButton.hidden = true;
         if (winner) {
-            scores[winner.player] += 1;
-            renderScore();
             showWinningStroke(winner);
             if (mode === "ai") status.textContent = winner.player === "X" ? "You win!" : "The AI wins.";
             else status.textContent = `Player ${winner.player} wins!`;
@@ -420,7 +408,6 @@
         modeLabel.textContent = mode === "ai"
             ? `AI · ${difficulty === "god" ? "God Mode · 5x5" : "Beginner · 4x4"}`
             : `Two-player · ${boardSize}x${boardSize}`;
-        renderScore();
         resetRound();
         const middle = Math.floor(boardSize / 2);
         cells[middle * boardSize + middle].focus({ preventScroll: true });
@@ -486,8 +473,6 @@
         boardElement.style.setProperty("--ttt-grid-size", boardSize);
         boardElement.setAttribute("aria-label", `${boardSize} by ${boardSize} Tic-Tac-Toe board`);
         modeLabel.textContent = "AI · Beginner · 4x4";
-        scores = { X: 0, O: 0 };
-        renderScore();
         game.classList.add("is-choosing");
         modePicker.hidden = false;
         gameContent.setAttribute("aria-hidden", "true");

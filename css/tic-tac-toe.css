@@ -456,7 +456,7 @@
     gap: clamp(0.25rem, 1vw, 0.55rem);
 }
 
-.ttt-game-header > :is(.ttt-status, .ttt-score, .ttt-mode-label) {
+.ttt-game-header > :is(.ttt-status, .ttt-mode-label) {
     color: var(--ttt-game-ink);
     font-size: clamp(0.72rem, 2.7vw, 0.95rem);
     font-weight: 600;
@@ -474,14 +474,12 @@
     white-space: nowrap;
 }
 
-.ttt-score,
 .ttt-game-header .ttt-mode-label {
     flex: 0 1 auto;
     min-width: 0;
     white-space: nowrap;
 }
 
-.ttt-score::before,
 .ttt-game-header .ttt-mode-label::before {
     display: inline-block;
     width: 0.28em;
