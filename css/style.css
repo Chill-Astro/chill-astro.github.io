@@ -1564,6 +1564,10 @@ body::before {
     transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .4s, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
+body:is(.tic-tac-toe-page, .pong-page, .dino-page) .back-to-top {
+    display: none !important;
+}
+
 .back-to-top-label,
 .touch-button-label {
     padding-top: .18rem;
@@ -2993,7 +2997,7 @@ html body .site-footer {
     display: block;
     box-sizing: border-box;
     margin: clamp(2.5rem, 7vw, 6rem) 0 0;
-    padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1rem, 5vw, 4.5rem) 1.5rem;
+    padding: clamp(2.25rem, 3.5vw, 3rem) clamp(1rem, 5vw, 4.5rem) 1.5rem;
     border-top: 1px solid var(--line);
     background: var(--surface);
     color: var(--text);
@@ -3046,21 +3050,9 @@ html body .site-footer {
 }
 
 .site-footer .footer-group li {
-    position: relative;
     min-width: 0;
-    padding-left: .95rem;
     color: var(--muted);
     line-height: 1.5;
-}
-
-.site-footer .footer-group li::before {
-    position: absolute;
-    top: .65em;
-    left: 0;
-    width: .45rem;
-    height: 1px;
-    background: var(--muted);
-    content: "";
 }
 
 .site-footer .footer-group a {
@@ -3082,14 +3074,7 @@ html body .site-footer {
     }
 
     .site-footer .footer-group li {
-        padding-left: .95rem;
         text-align: left;
-    }
-
-    .site-footer .footer-group li::before {
-        position: absolute;
-        display: block;
-        margin-right: 0;
     }
 }
 
@@ -3203,7 +3188,7 @@ html body .site-footer {
 
 @media (max-width: 560px) {
     html body .site-footer {
-        padding: 1.5rem 1rem 1.25rem;
+        padding: 1.75rem 1rem 1.25rem;
     }
 
     .footer-directory {
