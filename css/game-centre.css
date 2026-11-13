@@ -104,6 +104,10 @@
     font-size: .78em;
 }
 
+html body .game-centre-page a.game-centre-play::after {
+    content: "▶" !important;
+}
+
 .game-preview {
     box-sizing: border-box;
     grid-column: 2;
