@@ -2483,9 +2483,9 @@ html.os-effects body.jai-hind-page .error-shell {
 }
 
 
-/* Remove section separators throughout the shared site stylesheet. */
+/* Keep section dividers consistent across software and information pages. */
 .lamina-section, .root-checker-section, .tmm-section, .academic-item {
-    border-top: 0 !important;
+    border-top: 1px solid var(--line) !important;
 }
 
 /* Shared saved-theme control and explicit light/dark palettes. */
@@ -2654,7 +2654,7 @@ html.os-effects body.jai-hind-page .error-shell {
         bottom: 0;
         left: 0;
         width: 3px;
-        background: var(--muted);
+        background: var(--text);
         transform: scaleY(0);
         transform-origin: center;
         transition: transform .18s ease;

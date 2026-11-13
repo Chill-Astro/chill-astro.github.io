@@ -1,4 +1,10 @@
 /* FOSS Volume Booster page-specific command block. */
+.root-checker-page > .root-checker-intro,
+.root-checker-page > .root-checker-section {
+    border-top: 1px solid var(--line) !important;
+    padding-top: 1.25rem !important;
+}
+
 .fvb-clone-command {
     width: 100%;
     margin: 20px 0;
