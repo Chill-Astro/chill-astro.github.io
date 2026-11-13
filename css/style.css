@@ -2574,6 +2574,7 @@ html.os-effects body.jai-hind-page .error-shell {
         padding: 0 .85rem;
         border-radius: var(--ui-radius-small);
         color: var(--text);
+        font-family: "Tomorrow", sans-serif;
         font-size: .9rem;
         font-weight: 600;
         user-select: none;
