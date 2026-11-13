@@ -36,10 +36,11 @@ body.modern-snake-page .back-to-top {
 }
 
 .snake-play-layout {
+    --snake-game-max-width: min(640px, max(160px, calc(87.5svh - 100px)));
     display: grid;
     width: fit-content;
     max-width: 100%;
-    grid-template-columns: max-content minmax(0, min(56dvh, 640px));
+    grid-template-columns: max-content minmax(0, var(--snake-game-max-width));
     align-items: center;
     column-gap: clamp(1.25rem, 2vw, 1.75rem);
     row-gap: clamp(.75rem, 1.4vw, 1.1rem);
@@ -50,8 +51,10 @@ body.modern-snake-page .back-to-top {
     position: relative;
     display: grid;
     grid-column: 2;
-    grid-template-rows: 4.5rem auto;
-    width: min(100%, 56dvh, 640px);
+    grid-template-rows: 12.5% 87.5%;
+    width: min(100%, var(--snake-game-max-width));
+    aspect-ratio: 7 / 8;
+    height: auto;
     min-width: 0;
     gap: 0;
     justify-self: start;
@@ -312,7 +315,6 @@ body.modern-snake-page .back-to-top {
 
 @media (max-width: 380px) {
     .snake-game {
-        grid-template-rows: 6.5rem auto;
         justify-self: center;
     }
 
@@ -335,13 +337,9 @@ body.modern-snake-page .back-to-top {
 }
 
 @media (max-height: 680px) {
-    .snake-game {
-        grid-template-rows: 6.5rem auto;
-    }
-
     .snake-topbar {
-        align-items: flex-start;
-        flex-wrap: wrap;
+        align-items: center;
+        flex-wrap: nowrap;
     }
 }
 
