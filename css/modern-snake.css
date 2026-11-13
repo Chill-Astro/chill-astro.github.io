@@ -1,0 +1,455 @@
+body.modern-snake-page {
+    --snake-board: var(--bg);
+    --snake-body: var(--text);
+    --snake-eye: var(--bg);
+    --snake-grid-line: color-mix(in srgb, var(--text) 13%, transparent);
+    --snake-apple: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.modern-snake-page .back-to-top {
+    display: none !important;
+}
+
+.snake-main {
+    box-sizing: border-box;
+    width: min(1180px, calc(100% - 2rem));
+    flex: 1 0 auto;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(6rem, 12vh, 9rem);
+}
+
+.snake-intro {
+    margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+    text-align: center;
+}
+
+.snake-intro h1 {
+    margin-bottom: .45rem;
+    white-space: normal;
+}
+
+.snake-intro p {
+    margin: 0;
+}
+
+.snake-play-layout {
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    grid-template-columns: max-content minmax(0, min(56dvh, 640px));
+    align-items: center;
+    column-gap: clamp(1.25rem, 2vw, 1.75rem);
+    row-gap: clamp(.75rem, 1.4vw, 1.1rem);
+    margin: 0 auto;
+}
+
+.snake-game {
+    position: relative;
+    display: grid;
+    grid-column: 2;
+    grid-template-rows: 4.5rem auto;
+    width: min(100%, 56dvh, 640px);
+    min-width: 0;
+    gap: 0;
+    justify-self: start;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 3px solid var(--text);
+    border-radius: var(--site-button-radius, 8px);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    color: var(--text);
+}
+
+.snake-topbar {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: clamp(.65rem, 2vw, 1rem);
+    background: var(--surface);
+    pointer-events: none;
+}
+
+.snake-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .3rem;
+    padding: .25rem;
+    color: var(--text);
+    font: 700 .8rem/1.25 "Tomorrow", sans-serif;
+    letter-spacing: .05em;
+    pointer-events: none;
+}
+
+.snake-stat-row {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.snake-stats output {
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .05em;
+}
+
+.snake-board-shell {
+    position: relative;
+    justify-self: center;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 0;
+    background: var(--bg);
+    isolation: isolate;
+}
+
+#snake-board {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+.snake-state-overlay {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: clamp(.8rem, 4vw, 2rem);
+    background: color-mix(in srgb, var(--bg) 22%, transparent);
+    color: var(--text);
+    text-align: center;
+    backdrop-filter: blur(10px) saturate(110%);
+    -webkit-backdrop-filter: blur(10px) saturate(110%);
+}
+
+.snake-state-overlay[hidden] {
+    display: none !important;
+}
+
+.snake-state-dialog {
+    display: grid;
+    justify-items: center;
+    gap: clamp(.55rem, 2vw, .85rem);
+    width: min(100%, 30rem);
+    padding: clamp(1rem, 4vw, 1.8rem);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.snake-state-dialog h2 {
+    margin: 0;
+    font-size: clamp(1.25rem, 4.5vw, 2rem);
+}
+
+.snake-state-dialog p {
+    max-width: 26rem;
+    margin: 0;
+    font-size: clamp(.8rem, 2.3vw, .98rem);
+    line-height: 1.55;
+}
+
+.snake-overlay-action.site-button {
+    min-width: min(12rem, 100%);
+    margin-top: .25rem;
+}
+
+.snake-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .55rem;
+    align-self: flex-end;
+    margin-left: auto;
+    pointer-events: auto;
+}
+
+.snake-actions .site-button {
+    min-width: 6rem;
+}
+
+.snake-actions .site-button[hidden] {
+    display: none !important;
+}
+
+.snake-actions .site-button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+.snake-controls-panel {
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
+    justify-items: center;
+    gap: .7rem;
+    min-width: 0;
+}
+
+.snake-controls-grid {
+    display: grid;
+    grid-template: repeat(2, auto) / repeat(3, max-content);
+    align-items: center;
+    justify-items: center;
+    gap: .4rem;
+}
+
+.snake-touch-button.touch-button {
+    box-sizing: border-box;
+    width: 5rem;
+    height: 5rem;
+    min-height: 5rem;
+    flex: 0 0 5rem;
+    padding: .55rem .4rem !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .35rem;
+    border-radius: .8rem !important;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.snake-touch-button .touch-button-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.snake-touch-button .touch-button-label {
+    padding-top: .18rem;
+    border-top: 1px solid color-mix(in srgb, currentColor 42%, transparent);
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    line-height: 1;
+}
+
+.snake-touch-button:active {
+    transform: scale(.94);
+    opacity: .78;
+}
+
+.snake-control-up { grid-area: 1 / 2; }
+.snake-control-left { grid-area: 2 / 1; }
+.snake-control-down { grid-area: 2 / 2; }
+.snake-control-right { grid-area: 2 / 3; }
+
+.snake-orientation-prompt {
+    display: none;
+}
+
+@media (orientation: portrait) {
+    .snake-play-layout {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .snake-game {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+    }
+
+    .snake-controls-panel {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .snake-main {
+        width: calc(100% - 1rem);
+        padding-top: 1rem;
+    }
+
+    .snake-intro {
+        margin-bottom: 1rem;
+    }
+
+    .snake-topbar {
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .snake-actions {
+        flex-wrap: nowrap;
+        gap: .3rem;
+    }
+
+    .snake-actions .site-button {
+        min-width: 0;
+        padding-inline: .4rem !important;
+        font-size: .62rem !important;
+    }
+
+    .snake-touch-button.touch-button {
+        width: 4.2rem;
+        height: 4.2rem;
+        min-height: 4.2rem;
+        flex-basis: 4.2rem;
+    }
+
+}
+
+@media (max-width: 380px) {
+    .snake-game {
+        grid-template-rows: 6.5rem auto;
+        justify-self: center;
+    }
+
+    .snake-topbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .snake-touch-button.touch-button {
+        width: 3.7rem;
+        height: 3.7rem;
+        min-height: 3.7rem;
+        flex-basis: 3.7rem;
+    }
+
+    .snake-actions .site-button {
+        min-width: 0;
+        padding-inline: .6rem !important;
+    }
+}
+
+@media (max-height: 680px) {
+    .snake-game {
+        grid-template-rows: 6.5rem auto;
+    }
+
+    .snake-topbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .snake-state-overlay {
+        background: var(--bg);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) and (hover: none) and (pointer: coarse) {
+    body.modern-snake-page {
+        overflow: hidden;
+    }
+
+    body.modern-snake-page .snake-orientation-prompt {
+        position: fixed;
+        z-index: 20000;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 2rem;
+        background: #fff;
+        color: #000;
+        text-align: center;
+        animation: snake-orientation-enter .45s cubic-bezier(.2, .75, .25, 1) both;
+    }
+
+    .snake-orientation-prompt-content {
+        display: grid;
+        justify-items: center;
+        gap: clamp(.75rem, 3vh, 1.5rem);
+    }
+
+    .snake-orientation-visual {
+        position: relative;
+        width: clamp(8rem, 42vw, 12rem);
+        aspect-ratio: 160 / 140;
+    }
+
+    .snake-orientation-arrows,
+    .snake-orientation-phone {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        transform-box: view-box;
+        transform-origin: 50% 50%;
+        animation: snake-orientation-arrow-turn 2.4s ease-in-out .2s infinite alternate;
+    }
+
+    .snake-orientation-arrows path {
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3;
+    }
+
+    .snake-orientation-phone {
+        inset: 50% auto auto 50%;
+        width: 5.25rem;
+        height: 5.25rem;
+        transform: translate(-50%, -50%) rotate(90deg);
+        animation-name: snake-orientation-phone-turn;
+    }
+
+    .snake-orientation-prompt p {
+        max-width: 20rem;
+        margin: 0;
+        color: inherit;
+        font: 700 clamp(1.25rem, 6vw, 2rem)/1.4 "Tomorrow", sans-serif;
+    }
+
+    html[data-theme="dark"] body.modern-snake-page .snake-orientation-prompt {
+        background: #000;
+        color: #fff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html[data-theme="system"] body.modern-snake-page .snake-orientation-prompt {
+            background: #000;
+            color: #fff;
+        }
+    }
+
+    @keyframes snake-orientation-enter {
+        from { opacity: 0; transform: translateY(1rem) scale(.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes snake-orientation-arrow-turn {
+        from { transform: rotate(90deg); }
+        to { transform: rotate(0deg); }
+    }
+
+    @keyframes snake-orientation-phone-turn {
+        from { transform: translate(-50%, -50%) rotate(90deg); }
+        to { transform: translate(-50%, -50%) rotate(0deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        body.modern-snake-page .snake-orientation-prompt,
+        .snake-orientation-arrows,
+        .snake-orientation-phone {
+            animation: none;
+        }
+    }
+}

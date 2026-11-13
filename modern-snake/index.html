@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="Play Modern Snake free in your browser. Guide a monochrome snake across a clean grid, collect apples, and beat your best score with keyboard or touch controls.">
+    <meta name="keywords" content="Modern Snake, free snake game, online snake game, browser snake game, arcade game, keyboard snake game, mobile snake game, Chill-Astro">
+    <meta name="author" content="Chill-Astro Software">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://chill-astro.github.io/modern-snake/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Chill-Astro Software">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Modern Snake | Chill-Astro Software">
+    <meta property="og:description" content="Play Modern Snake free in your browser. Collect apples, avoid the edges, and beat your best score with keyboard or touch controls.">
+    <meta property="og:url" content="https://chill-astro.github.io/modern-snake/">
+    <meta property="og:image" content="https://chill-astro.github.io/assets/images/modern-snake-preview.svg?v=3">
+    <meta property="og:image:secure_url" content="https://chill-astro.github.io/assets/images/modern-snake-preview.svg?v=3">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="Modern Snake game with a monochrome snake on a square grid and a white apple.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Modern Snake | Chill-Astro Software">
+    <meta name="twitter:description" content="Play Modern Snake free in your browser. Collect apples, avoid the edges, and beat your best score with keyboard or touch controls.">
+    <meta name="twitter:image" content="https://chill-astro.github.io/assets/images/modern-snake-preview.svg?v=3">
+    <meta name="twitter:image:alt" content="Modern Snake game with a monochrome snake on a square grid and a white apple.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://chill-astro.github.io/#website",
+          "name": "Chill-Astro Software",
+          "url": "https://chill-astro.github.io/",
+          "inLanguage": "en"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://chill-astro.github.io/#organization",
+          "name": "Chill-Astro Software",
+          "url": "https://chill-astro.github.io/",
+          "logo": "https://chill-astro.github.io/assets/images/logo.webp",
+          "sameAs": [
+            "https://github.com/Chill-Astro",
+            "https://www.youtube.com/@delta-v-sfs"
+          ]
+        },
+        {
+          "@type": "VideoGame",
+          "@id": "https://chill-astro.github.io/modern-snake/#game",
+          "name": "Modern Snake",
+          "alternateName": "Snake Game",
+          "url": "https://chill-astro.github.io/modern-snake/",
+          "image": "https://chill-astro.github.io/assets/images/modern-snake-preview.svg?v=3",
+          "description": "A free, single-player browser snake game. Collect apples, avoid the edges, and beat your best score with keyboard or touch controls.",
+          "genre": "Arcade",
+          "gamePlatform": "Web browser",
+          "playMode": "SinglePlayer",
+          "isAccessibleForFree": true,
+          "inLanguage": "en",
+          "creator": { "@id": "https://chill-astro.github.io/#organization" }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://chill-astro.github.io/modern-snake/#webpage",
+          "url": "https://chill-astro.github.io/modern-snake/",
+          "name": "Modern Snake | Chill-Astro Software",
+          "description": "Play Modern Snake free in your browser. Collect apples, avoid the edges, and beat your best score.",
+          "isPartOf": { "@id": "https://chill-astro.github.io/#website" },
+          "mainEntity": { "@id": "https://chill-astro.github.io/modern-snake/#game" },
+          "breadcrumb": { "@id": "https://chill-astro.github.io/modern-snake/#breadcrumb" },
+          "primaryImageOfPage": "https://chill-astro.github.io/assets/images/modern-snake-preview.svg?v=3",
+          "inLanguage": "en"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://chill-astro.github.io/modern-snake/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://chill-astro.github.io/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Mini Games",
+              "item": "https://chill-astro.github.io/mini-games/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Modern Snake",
+              "item": "https://chill-astro.github.io/modern-snake/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
+    <script src="/js/theme.js?theme=5"></script>
+    <link rel="stylesheet" href="../css/style.css?interface=106">
+    <link rel="stylesheet" href="../css/modern-snake.css?v=18">
+    <title>Modern Snake | Chill-Astro Software</title>
+</head>
+<body class="modern-snake-page">
+    <div class="snake-orientation-prompt" role="status" aria-live="polite" aria-label="Rotate your phone to portrait to play">
+        <div class="snake-orientation-prompt-content">
+            <div class="snake-orientation-visual" aria-hidden="true">
+                <svg class="snake-orientation-arrows" viewBox="0 0 160 140">
+                    <g transform="translate(160 0) scale(-1 1)">
+                        <path d="M47 95c-18-12-18-38 0-50m66 0c18 12 18 38 0 50"/>
+                        <path d="M37 43 47 45 45 55m70 30-2 10 10 2"/>
+                    </g>
+                </svg>
+                <svg class="snake-orientation-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="1" width="14" height="22" rx="3"></rect>
+                    <path d="M10 19.5h4"></path>
+                </svg>
+            </div>
+            <p>Rotate your phone to portrait to play.</p>
+        </div>
+    </div>
+    <div id="header"></div>
+
+    <main class="snake-main">
+        <section class="snake-intro" aria-labelledby="snake-title">
+            <h1 id="snake-title">Modern Snake</h1>
+            <p>Guide the snake through the grid. Eat the apples and keep growing.</p>
+        </section>
+
+        <div class="snake-play-layout">
+        <section class="snake-game" id="snake-game" data-phase="ready" aria-label="Modern Snake game">
+            <div class="snake-topbar">
+                <div class="snake-stats" aria-label="Game score">
+                    <div class="snake-stat-row"><span>SCORE :</span><output id="snake-score">0</output></div>
+                    <div class="snake-stat-row"><span>BEST :</span><output id="snake-best">0</output></div>
+                </div>
+                <div class="snake-actions" aria-label="Game controls">
+                    <button class="site-button site-button--primary" id="snake-pause" type="button" disabled hidden>Pause</button>
+                    <button class="site-button site-button--primary" id="snake-restart" type="button" hidden>Restart</button>
+                    <button class="site-button site-button--primary" id="snake-end" type="button" disabled hidden>End</button>
+                </div>
+            </div>
+
+            <div class="snake-board-shell" id="snake-board-shell">
+                <canvas id="snake-board" width="600" height="600" role="img" aria-label="Snake game board. Use arrow keys or WASD to move, or swipe on the board."></canvas>
+                <div class="snake-state-overlay" id="snake-overlay" aria-labelledby="snake-overlay-title" aria-describedby="snake-overlay-description">
+                    <div class="snake-state-dialog">
+                        <h2 id="snake-overlay-title">Ready to play?</h2>
+                        <p id="snake-overlay-description">Eat the apples and avoid the edges. Use the direction buttons, arrow keys, or WASD.</p>
+                        <button class="site-button site-button--primary snake-overlay-action" id="snake-overlay-action" type="button">Start game</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="snake-controls-panel" aria-label="Snake movement controls">
+            <div class="snake-controls-grid">
+                <div class="snake-control-slot snake-control-up">
+                    <button class="touch-button site-button site-button--primary snake-touch-button" type="button" data-direction="up" aria-label="Move up"><span class="touch-button-icon" aria-hidden="true">▲</span><span class="touch-button-label" aria-hidden="true">UP</span></button>
+                </div>
+                <div class="snake-control-slot snake-control-left">
+                    <button class="touch-button site-button site-button--primary snake-touch-button" type="button" data-direction="left" aria-label="Move left"><span class="touch-button-icon" aria-hidden="true">◀</span><span class="touch-button-label" aria-hidden="true">LEFT</span></button>
+                </div>
+                <div class="snake-control-slot snake-control-down">
+                    <button class="touch-button site-button site-button--primary snake-touch-button" type="button" data-direction="down" aria-label="Move down"><span class="touch-button-icon" aria-hidden="true">▼</span><span class="touch-button-label" aria-hidden="true">DOWN</span></button>
+                </div>
+                <div class="snake-control-slot snake-control-right">
+                    <button class="touch-button site-button site-button--primary snake-touch-button" type="button" data-direction="right" aria-label="Move right"><span class="touch-button-icon" aria-hidden="true">▶</span><span class="touch-button-label" aria-hidden="true">RIGHT</span></button>
+                </div>
+            </div>
+        </aside>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+    <script src="../js/main.js?effects=8"></script>
+    <script src="../js/game-audio.js"></script>
+    <script src="../js/modern-snake.js?v=10"></script>
+</body>
+</html>

@@ -535,13 +535,13 @@ function initUiSounds() {
 
     document.addEventListener("pointerdown", event => {
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
-        if (!control || control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") || control.closest(".pong-game,.dino-game,.ttt-game")) return;
+        if (!control || control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") || control.closest(".pong-game,.dino-game,.ttt-game,.snake-game,.snake-controls-panel")) return;
         playUiSound("click");
     }, { capture: true });
     document.addEventListener("click", event => {
         if (event.detail !== 0) return; // pointer clicks were handled on pointerdown
         const control = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
-        if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") && !control.closest(".pong-game,.dino-game,.ttt-game")) playUiSound("click");
+        if (control && !control.matches(":disabled,[aria-disabled='true'],.menu-toggle,.game-centre-play") && !control.closest(".pong-game,.dino-game,.ttt-game,.snake-game,.snake-controls-panel")) playUiSound("click");
     }, { capture: true });
 
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
@@ -688,7 +688,7 @@ function initScrollProgress() {
     if (!header || !meter || !fill)
         return;
 
-    if (document.body.matches(".tic-tac-toe-page, .pong-page, .dino-page")) {
+    if (document.body.matches(".tic-tac-toe-page, .pong-page, .dino-page, .modern-snake-page")) {
         meter.hidden = true;
         return;
     }

@@ -1564,7 +1564,7 @@ body::before {
     transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .4s, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
-body:is(.tic-tac-toe-page, .pong-page, .dino-page) .back-to-top {
+body:is(.tic-tac-toe-page, .pong-page, .dino-page, .modern-snake-page) .back-to-top {
     display: none !important;
 }
 
