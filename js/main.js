@@ -286,8 +286,7 @@ async function openDownload(project) {
 
         const link = document.createElement("a");
 
-        const workerReady = DOWNLOAD_COUNTER_WORKER !== "https://download-counter.chill-astro.workers.dev";
-        const trackDownload = workerReady && new URL(url).hostname === "github.com";
+        const trackDownload = Boolean(DOWNLOAD_COUNTER_WORKER) && new URL(url).hostname === "github.com";
         const downloadId = `${project}/${key}`;
         link.href = trackDownload
             ? `${DOWNLOAD_COUNTER_WORKER}/download/${encodeURIComponent(project)}/${encodeURIComponent(key)}`
