@@ -27,6 +27,9 @@ enableDesktopEffectsOnSupportedOS();
 
 let repoData = {};
 
+// Set this to the deployed Worker URL to enable click tracking and count labels.
+const DOWNLOAD_COUNTER_WORKER = "https://download-counter.chill-astro.workers.dev";
+
 const modalInfo = {
 
     lamina: {
@@ -283,11 +286,35 @@ async function openDownload(project) {
 
         const link = document.createElement("a");
 
-        link.href = url;
+        const workerReady = DOWNLOAD_COUNTER_WORKER !== "https://YOUR-WORKER.workers.dev";
+        const trackDownload = workerReady && new URL(url).hostname === "github.com";
+        const downloadId = `${project}/${key}`;
+        link.href = trackDownload
+            ? `${DOWNLOAD_COUNTER_WORKER}/download/${encodeURIComponent(project)}/${encodeURIComponent(key)}`
+            : url;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
 
         link.textContent = ui.names[key] ?? key;
+
+        if (trackDownload) {
+            const countLabel = document.createElement("span");
+            countLabel.className = "download-click-count";
+            countLabel.hidden = true;
+            link.appendChild(countLabel);
+
+            fetch(`${DOWNLOAD_COUNTER_WORKER}/api/count?id=${encodeURIComponent(downloadId)}`)
+                .then(response => response.ok ? response.json() : Promise.reject())
+                .then(({ count }) => {
+                    if (!Number.isFinite(count)) throw new Error("Invalid click count");
+                    countLabel.textContent = `${count.toLocaleString()} ${count === 1 ? "click" : "clicks"}`;
+                    countLabel.hidden = false;
+                })
+                .catch(() => {
+                    countLabel.remove();
+                    link.href = url;
+                });
+        }
 
         container.appendChild(link);
 
