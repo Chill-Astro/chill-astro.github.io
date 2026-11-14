@@ -27,7 +27,6 @@
 - Mini Games ([/mini-games/](https://chill-astro.github.io/mini-games/))
 - Premium Dino ([/premium-dino/](https://chill-astro.github.io/premium-dino/))
 - Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
-- Pong Reimagined ([/pong-reimagined/](https://chill-astro.github.io/pong-reimagined/))
 - Tic-Tac-Toe ([/tic-tac-toe/](https://chill-astro.github.io/tic-tac-toe/))
 
 ---
