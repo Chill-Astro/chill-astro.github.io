@@ -703,7 +703,7 @@
                     if (data.status === "ended") {
                         clearInterval(pollInterval);
                         pollInterval = 0;
-                        showOnlineMatchEnded(data.reason === "disconnect" ? "Opponent disconnected. Match ended." : "The lobby was closed.");
+                        showOnlineMatchEnded(data.reason === "disconnect" ? "Opponent left." : "Match ended.");
                         return;
                     }
                     if (data.status === "playing" && onlineFeedback.textContent.includes("Waiting")) {
@@ -719,7 +719,7 @@
                 } else if (res.status === 404) {
                     clearInterval(pollInterval);
                     pollInterval = 0;
-                    showOnlineMatchEnded("The lobby expired or the opponent disconnected. Match ended.");
+                    showOnlineMatchEnded("Lobby expired.");
                 }
             } catch (e) {
                 console.error("Polling error", e);
@@ -794,7 +794,7 @@
                     const data = await res.json();
                     if (!res.ok) {
                         if (res.status === 404) {
-                            showOnlineMatchEnded("Opponent disconnected. Match ended.");
+                            showOnlineMatchEnded("Opponent left.");
                             return;
                         }
                         throw new Error(data.error);
