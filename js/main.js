@@ -291,7 +291,7 @@ async function openDownload(project) {
         link.href = trackDownload
             ? `${DOWNLOAD_COUNTER_WORKER}/download/${encodeURIComponent(project)}/${encodeURIComponent(key)}?target=${encodeURIComponent(url)}`
             : url;
-        link.target = "_blank";
+        link.target = trackDownload ? "_self" : "_blank";
         link.rel = trackDownload ? "noopener" : "noopener noreferrer";
 
         link.textContent = ui.names[key] ?? key;
