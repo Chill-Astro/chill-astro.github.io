@@ -150,8 +150,8 @@
         changeModeButton.disabled = !mode;
         restartButton.hidden = mode === "online";
         changeModeButton.hidden = mode === "online";
-        endOnlineMatchButton.hidden = mode !== "online" || gameOver;
-        document.querySelector(".ttt-actions")?.classList.toggle("online-active", mode === "online" && !gameOver);
+        endOnlineMatchButton.hidden = mode !== "online";
+        document.querySelector(".ttt-actions")?.classList.toggle("online-active", mode === "online");
         status.textContent = getStatusText();
         status.classList.toggle("is-paused", paused);
         game.classList.toggle("is-paused", paused);
@@ -197,8 +197,8 @@
         gameOver = true;
         paused = false;
         pauseButton.hidden = true;
-        endOnlineMatchButton.hidden = true;
-        document.querySelector(".ttt-actions")?.classList.remove("online-active");
+        endOnlineMatchButton.hidden = mode !== "online";
+        document.querySelector(".ttt-actions")?.classList.toggle("online-active", mode === "online");
         if (winner) {
             showWinningStroke(winner);
             if (mode === "ai") status.textContent = winner.player === "X" ? "You win!" : "The AI wins.";
