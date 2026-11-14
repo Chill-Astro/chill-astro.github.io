@@ -30,16 +30,19 @@
     const confirmCreateRoomButton = document.getElementById("confirm-create-room");
     const onlineFeedback = document.getElementById("online-feedback");
     const onlineSizeButtons = [...document.querySelectorAll("[data-online-board-size]")];
-    const onlineRoomPanel = document.getElementById("online-room-panel");
+    const lobbyWaitingPanel = document.getElementById("lobby-waiting-panel");
     const onlineRoomCode = document.getElementById("online-room-code");
     const copyRoomCodeButton = document.getElementById("copy-room-code");
+    const lobbyCountdown = document.getElementById("lobby-countdown");
+    const cancelLobbyButton = document.getElementById("cancel-lobby");
+    const endOnlineMatchButton = document.getElementById("end-online-match");
     const backButton = document.getElementById("mode-back");
     const boardSizeBackButton = document.getElementById("board-size-back");
     const modeButtons = [...document.querySelectorAll('.ttt-mode-button[data-mode="ai"], .ttt-mode-button[data-mode="pvp"]')];
     const difficultyButtons = [...document.querySelectorAll(".ttt-mode-button[data-difficulty]")];
     const boardSizeButtons = [...document.querySelectorAll(".ttt-mode-button[data-board-size]")];
 
-    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !onlineButton || !onlineOptions || !onlineCreateOptions || !onlineBackButton || !joinRoomForm || !roomCodeInput || !joinRoomButton || !createRoomButton || !confirmCreateRoomButton || !onlineFeedback || onlineSizeButtons.length !== 2 || !onlineRoomPanel || !onlineRoomCode || !copyRoomCodeButton || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
+    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !onlineButton || !onlineOptions || !onlineCreateOptions || !onlineBackButton || !joinRoomForm || !roomCodeInput || !joinRoomButton || !createRoomButton || !confirmCreateRoomButton || !onlineFeedback || onlineSizeButtons.length !== 2 || !lobbyWaitingPanel || !onlineRoomCode || !copyRoomCodeButton || !lobbyCountdown || !cancelLobbyButton || !endOnlineMatchButton || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
         console.error("Tic Tac Toe Online could not initialize because required game elements are missing.");
         return;
     }
@@ -73,6 +76,8 @@
     let onlineRole = null; // 'X' or 'O'
     let playerToken = null;
     let pollInterval = 0;
+    let lobbyTimerInterval = 0;
+    let lobbyExpiresAt = 0;
     let onlineReady = false;
     let selectedOnlineSize = 4;
 
@@ -145,6 +150,8 @@
         changeModeButton.disabled = !mode;
         restartButton.hidden = mode === "online";
         changeModeButton.hidden = mode === "online";
+        endOnlineMatchButton.hidden = mode !== "online" || gameOver;
+        document.querySelector(".ttt-actions")?.classList.toggle("online-active", mode === "online" && !gameOver);
         status.textContent = getStatusText();
         status.classList.toggle("is-paused", paused);
         game.classList.toggle("is-paused", paused);
@@ -190,6 +197,8 @@
         gameOver = true;
         paused = false;
         pauseButton.hidden = true;
+        endOnlineMatchButton.hidden = true;
+        document.querySelector(".ttt-actions")?.classList.remove("online-active");
         if (winner) {
             showWinningStroke(winner);
             if (mode === "ai") status.textContent = winner.player === "X" ? "You win!" : "The AI wins.";
