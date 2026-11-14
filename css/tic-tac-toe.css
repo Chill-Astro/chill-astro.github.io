@@ -1034,6 +1034,37 @@ html[data-theme="dark"] body.tic-tac-toe-page .ttt-mode-dialog > p {
     color: #b4b4b4 !important;
 }
 
+/* Match Modern Snake's viewport-based game sizing while reserving room for TTT controls. */
+body.tic-tac-toe-page .ttt-main {
+    box-sizing: border-box;
+    width: min(1180px, calc(100% - 2rem));
+    padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(6rem, 12vh, 9rem);
+}
+
+body.tic-tac-toe-page .ttt-intro {
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+body.tic-tac-toe-page .ttt-game {
+    --ttt-game-max-width: min(640px, max(160px, calc(87.5svh - 100px)));
+    width: min(100%, var(--ttt-game-max-width));
+    height: auto;
+    aspect-ratio: 1;
+}
+
+@media (max-width: 520px) {
+    body.tic-tac-toe-page .ttt-main {
+        width: calc(100% - 1rem);
+        padding-top: 1rem;
+    }
+
+    body.tic-tac-toe-page .ttt-game {
+        width: min(100%, var(--ttt-game-max-width));
+        height: min(78dvh, calc(100vw - 1rem + 9.5rem), calc(var(--ttt-game-max-width) + 9.5rem));
+        aspect-ratio: auto;
+    }
+}
+
 body.tic-tac-toe-page .ttt-game {
     border-radius: var(--site-button-radius, 8px) !important;
 }
