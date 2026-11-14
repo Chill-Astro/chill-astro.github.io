@@ -143,6 +143,8 @@
         pauseButton.disabled = !mode || gameOver || mode === "online";
         restartButton.disabled = !mode || mode === "online";
         changeModeButton.disabled = !mode;
+        restartButton.hidden = mode === "online";
+        changeModeButton.hidden = mode === "online";
         status.textContent = getStatusText();
         status.classList.toggle("is-paused", paused);
         game.classList.toggle("is-paused", paused);

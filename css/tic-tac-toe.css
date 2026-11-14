@@ -809,6 +809,10 @@ body.tic-tac-toe-page > #footer {
         padding-top: 1rem;
         padding-bottom: clamp(6rem, 16vh, 10rem);
     }
+
+    #online-mode-button {
+        width:100%;
+    }
 }
 
 .ttt-mode-options[hidden] {
