@@ -636,18 +636,24 @@
 
     cancelLobbyButton.addEventListener("click", async () => {
         if (pollInterval) clearInterval(pollInterval);
-        if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
         pollInterval = 0;
-        lobbyTimerInterval = 0;
         if (onlineRoomId && playerToken) {
             try {
-                await fetch(`${TTT_HELPER_API}/api/match/end`, {
+                const response = await fetch(`${TTT_HELPER_API}/api/match/end`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ room: onlineRoomId, token: playerToken })
                 });
-            } catch (_) {}
+                if (!response.ok && response.status !== 404) throw new Error("The lobby could not be closed. Please try again.");
+            } catch (error) {
+                onlineFeedback.textContent = error.message || "The lobby could not be reached. Please try again.";
+                pollForOpponent();
+                return;
+            }
         }
+        if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+        pollInterval = 0;
+        lobbyTimerInterval = 0;
         onlineRoomId = null;
         playerToken = null;
         onlineReady = false;
@@ -663,12 +669,18 @@
         if (pollInterval) clearInterval(pollInterval);
         if (onlineRoomId && playerToken) {
             try {
-                await fetch(`${TTT_HELPER_API}/api/match/end`, {
+                const response = await fetch(`${TTT_HELPER_API}/api/match/end`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ room: onlineRoomId, token: playerToken })
                 });
-            } catch (_) {}
+                if (!response.ok && response.status !== 404) throw new Error("The match could not be ended. Please try again.");
+            } catch (error) {
+                onlineFeedback.textContent = error.message || "The helper could not be reached. Please try again.";
+                endOnlineMatchButton.disabled = false;
+                if (!gameOver) startPollingState();
+                return;
+            }
         }
         onlineRoomId = null;
         playerToken = null;
@@ -682,12 +694,18 @@
         pollInterval = setInterval(async () => {
             if (!onlineRoomId) return;
             try {
-                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
+                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}&token=${encodeURIComponent(playerToken)}`);
                 const data = await res.json();
                 if (res.ok) {
                     onlineReady = true;
                     marks = data.board;
                     currentPlayer = data.turn;
+                    if (data.status === "ended") {
+                        clearInterval(pollInterval);
+                        pollInterval = 0;
+                        showOnlineMatchEnded(data.reason === "disconnect" ? "Opponent disconnected. Match ended." : "The lobby was closed.");
+                        return;
+                    }
                     if (data.status === "playing" && onlineFeedback.textContent.includes("Waiting")) {
                         onlineFeedback.textContent = "Opponent joined!";
                     }
@@ -698,6 +716,10 @@
                     } else {
                         render();
                     }
+                } else if (res.status === 404) {
+                    clearInterval(pollInterval);
+                    pollInterval = 0;
+                    showOnlineMatchEnded("The lobby expired or the opponent disconnected. Match ended.");
                 }
             } catch (e) {
                 console.error("Polling error", e);
@@ -710,7 +732,7 @@
         pollInterval = setInterval(async () => {
             if (!onlineRoomId) return;
             try {
-                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
+                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}&token=${encodeURIComponent(playerToken)}`);
                 const data = await res.json();
                 if (res.ok && data.status === "playing") {
                     onlineReady = true;
@@ -726,6 +748,22 @@
                 }
             } catch (e) {}
         }, 1200);
+    }
+
+    function showOnlineMatchEnded(message) {
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = 0;
+        if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+        lobbyTimerInterval = 0;
+        onlineReady = false;
+        gameOver = true;
+        paused = false;
+        pauseButton.hidden = true;
+        endOnlineMatchButton.hidden = false;
+        endOnlineMatchButton.disabled = false;
+        document.querySelector(".ttt-actions")?.classList.add("online-active");
+        status.textContent = message;
+        renderCellsOnly();
     }
 
     // Cell Clicks (Supports PvP, AI, and Online Move Submissions)
@@ -754,7 +792,13 @@
                         })
                     });
                     const data = await res.json();
-                    if (!res.ok) throw new Error(data.error);
+                    if (!res.ok) {
+                        if (res.status === 404) {
+                            showOnlineMatchEnded("Opponent disconnected. Match ended.");
+                            return;
+                        }
+                        throw new Error(data.error);
+                    }
 
                     onlineReady = true;
                     marks = data.board;
