@@ -289,7 +289,7 @@ async function openDownload(project) {
         const trackDownload = Boolean(DOWNLOAD_COUNTER_WORKER) && new URL(url).hostname === "github.com";
         const downloadId = `${project}/${key}`;
         link.href = trackDownload
-            ? `${DOWNLOAD_COUNTER_WORKER}/download/${encodeURIComponent(project)}/${encodeURIComponent(key)}`
+            ? `${DOWNLOAD_COUNTER_WORKER}/download/${encodeURIComponent(project)}/${encodeURIComponent(key)}?target=${encodeURIComponent(url)}`
             : url;
         link.target = "_blank";
         link.rel = trackDownload ? "noopener" : "noopener noreferrer";
