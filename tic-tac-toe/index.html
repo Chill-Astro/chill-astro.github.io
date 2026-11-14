@@ -135,6 +135,10 @@
                     <span class="ttt-mode-label" id="mode-label">AI · Beginner · 4x4</span>
                 </div>
 
+                <div class="ttt-online-room" id="online-room-panel" hidden>
+                    <span>Room code: <strong id="online-room-code"></strong></span>
+                    <button class="ttt-text-button site-button site-button--primary" id="copy-room-code" type="button">Copy code</button>
+                </div>
                 <div class="ttt-board" id="ttt-board" role="grid" aria-label="Four by four Tic-Tac-Toe board" style="--ttt-grid-size: 4">
                     <button class="ttt-cell" type="button" role="gridcell" data-cell="0" aria-label="Row 1, column 1, empty"></button>
                     <button class="ttt-cell" type="button" role="gridcell" data-cell="1" aria-label="Row 1, column 2, empty"></button>
@@ -187,6 +191,25 @@
                             <span class="ttt-mode-name">Two players</span>
                             <span class="ttt-mode-description">Take turns on the same device.</span>
                         </button>
+                        <button class="ttt-mode-button site-button site-button--primary" id="online-mode-button" type="button" data-mode="online" hidden>
+                            <span class="ttt-mode-name">Online</span>
+                            <span class="ttt-mode-description">Play with someone remotely.</span>
+                        </button>
+                    </div>
+                    <div class="ttt-online-options" id="online-options" hidden>
+                        <form class="ttt-online-join" id="join-room-form">
+                            <label class="visually-hidden" for="room-code-input">Lobby code</label>
+                            <input id="room-code-input" name="room-code" type="text" inputmode="text" autocomplete="off" maxlength="6" placeholder="ROOM CODE" aria-label="Lobby code">
+                            <button class="ttt-action site-button site-button--primary" type="submit" id="join-room-button">Join</button>
+                        </form>
+                        <p class="ttt-online-size-label">Board size for your lobby</p>
+                        <div class="ttt-online-size-options" role="group" aria-label="Lobby board size">
+                            <button class="ttt-action site-button site-button--primary is-active" type="button" data-online-board-size="4" aria-pressed="true">4x4</button>
+                            <button class="ttt-action site-button site-button--primary" type="button" data-online-board-size="5" aria-pressed="false">5x5</button>
+                        </div>
+                        <button class="ttt-action site-button site-button--primary ttt-create-room" id="create-room-button" type="button">Create a lobby</button>
+                        <p class="ttt-online-feedback" id="online-feedback" role="status" aria-live="polite"></p>
+                        <button class="ttt-text-button ttt-picker-back site-button site-button--primary" id="online-back-button" type="button">Back to modes</button>
                     </div>
                     <div class="ttt-mode-options ttt-difficulty-options" id="difficulty-options" hidden>
                         <button class="ttt-mode-button site-button site-button--primary" type="button" data-difficulty="beginner">

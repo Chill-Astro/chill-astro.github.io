@@ -41,6 +41,71 @@
     margin-top: 1.5rem;
 }
 
+.ttt-mode-options[hidden],
+.ttt-online-options[hidden],
+.ttt-online-room[hidden] {
+    display:none !important;
+}
+
+.ttt-online-options { margin-top:1.25rem; }
+
+.ttt-online-join {
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    gap:.6rem;
+}
+
+.ttt-online-join input {
+    min-width:0;
+    min-height:2.75rem;
+    padding:.65rem .85rem;
+    color:var(--text);
+    font:600 .9rem "Tomorrow", sans-serif;
+    letter-spacing:.12em;
+    text-align:center;
+    text-transform:uppercase;
+    background:var(--surface);
+    border:1px solid var(--card-border);
+    border-radius:.65rem;
+}
+
+.ttt-online-size-label {
+    margin:1.2rem 0 .55rem;
+    color:var(--muted);
+    font-size:.8rem;
+}
+
+.ttt-online-size-options {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:.6rem;
+}
+
+.ttt-online-size-options .ttt-action { min-height:2.5rem; }
+.ttt-create-room { width:100%; margin-top:.75rem; }
+
+.ttt-online-feedback {
+    min-height:1.4em;
+    margin:.75rem 0 0;
+    color:var(--muted);
+    font-size:.8rem;
+}
+
+.ttt-online-room {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.75rem;
+    margin:0 auto .85rem;
+    color:var(--ttt-game-muted);
+    font-size:.85rem;
+}
+
+.ttt-online-room strong {
+    color:var(--ttt-game-ink);
+    letter-spacing:.16em;
+}
+
 .ttt-mode-button.site-button {
     display: flex !important;
     min-height: clamp(4rem, 13cqh, 6rem) !important;

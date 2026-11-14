@@ -18,16 +18,31 @@
     const modeOptions = document.getElementById("mode-options");
     const difficultyOptions = document.getElementById("difficulty-options");
     const boardSizeOptions = document.getElementById("board-size-options");
+    const onlineButton = document.getElementById("online-mode-button");
+    const onlineOptions = document.getElementById("online-options");
+    const onlineBackButton = document.getElementById("online-back-button");
+    const joinRoomForm = document.getElementById("join-room-form");
+    const roomCodeInput = document.getElementById("room-code-input");
+    const joinRoomButton = document.getElementById("join-room-button");
+    const createRoomButton = document.getElementById("create-room-button");
+    const onlineFeedback = document.getElementById("online-feedback");
+    const onlineSizeButtons = [...document.querySelectorAll("[data-online-board-size]")];
+    const onlineRoomPanel = document.getElementById("online-room-panel");
+    const onlineRoomCode = document.getElementById("online-room-code");
+    const copyRoomCodeButton = document.getElementById("copy-room-code");
     const backButton = document.getElementById("mode-back");
     const boardSizeBackButton = document.getElementById("board-size-back");
-    const modeButtons = [...document.querySelectorAll(".ttt-mode-button[data-mode]")];
+    const modeButtons = [...document.querySelectorAll('.ttt-mode-button[data-mode="ai"], .ttt-mode-button[data-mode="pvp"]')];
     const difficultyButtons = [...document.querySelectorAll(".ttt-mode-button[data-difficulty]")];
     const boardSizeButtons = [...document.querySelectorAll(".ttt-mode-button[data-board-size]")];
 
-    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
+    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !onlineButton || !onlineOptions || !onlineBackButton || !joinRoomForm || !roomCodeInput || !joinRoomButton || !createRoomButton || !onlineFeedback || onlineSizeButtons.length !== 2 || !onlineRoomPanel || !onlineRoomCode || !copyRoomCodeButton || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
         console.error("Tic Tac Toe Online could not initialize because required game elements are missing.");
         return;
     }
+
+    // Unhide the online mode button since validation passed
+    onlineButton.hidden = false;
 
     const directions = [
         { row: 0, column: 1, name: "horizontal" },
@@ -37,6 +52,20 @@
     ];
 
     let boardSize = 4;
+    let winningCombinations = buildWinningCombinations(boardSize);
+    let mode = null;
+    let difficulty = null;
+    let marks = Array(boardSize * boardSize).fill("");
+    let currentPlayer = "X";
+    let paused = false;
+    let gameOver = false;
+    let aiTimeout = 0;
+
+    // Online specific state
+    let onlineRoomId = null;
+    let onlineRole = null; // 'X' or 'O'
+    let playerToken = null;
+    let pollInterval = 0;
 
     function buildWinningCombinations(size) {
         const combinations = [];
@@ -63,15 +92,6 @@
         }
         return combinations;
     }
-
-    let winningCombinations = buildWinningCombinations(boardSize);
-    let mode = null;
-    let difficulty = null;
-    let marks = Array(boardSize * boardSize).fill("");
-    let currentPlayer = "X";
-    let paused = false;
-    let gameOver = false;
-    let aiTimeout = 0;
 
     function getWinner(state) {
         for (const combination of winningCombinations) {
@@ -106,8 +126,8 @@
         });
 
         pauseButton.textContent = paused ? "Resume" : "Pause";
-        pauseButton.disabled = !mode || gameOver;
-        restartButton.disabled = !mode;
+        pauseButton.disabled = !mode || gameOver || mode === "online";
+        restartButton.disabled = !mode || mode === "online";
         changeModeButton.disabled = !mode;
         status.textContent = getStatusText();
         status.classList.toggle("is-paused", paused);
@@ -157,6 +177,7 @@
         if (winner) {
             showWinningStroke(winner);
             if (mode === "ai") status.textContent = winner.player === "X" ? "You win!" : "The AI wins.";
+            else if (mode === "online") status.textContent = winner.player === onlineRole ? "You win!" : "Opponent wins.";
             else status.textContent = `Player ${winner.player} wins!`;
         } else {
             status.textContent = "It's a draw.";
@@ -321,7 +342,6 @@
 
     function chooseBeginnerMove() {
         const moves = candidateMoves(marks);
-        // Beginner notices immediate tactics occasionally, but often overlooks them.
         if (Math.random() < 0.35) {
             const winningMove = moves.find(index => {
                 marks[index] = "O";
@@ -361,12 +381,15 @@
         currentPlayer = "X";
         paused = false;
         gameOver = false;
-        pauseButton.hidden = false;
+        pauseButton.hidden = mode === "online";
         clearWinDisplay();
         render();
     }
 
     function showModeScreen() {
+        if (pollInterval) clearInterval(pollInterval);
+        onlineRoomPanel.hidden = true;
+        onlineOptions.hidden = true;
         modeTitle.textContent = "Choose a mode";
         modeDescription.textContent = "Play against the AI or take turns with a friend.";
         modeOptions.hidden = false;
@@ -394,6 +417,16 @@
         boardSizeButtons[0].focus({ preventScroll: true });
     }
 
+    function showOnlineOptions() {
+        playGameSound("tttMenu");
+        modeTitle.textContent = "Online Matchmaking";
+        modeDescription.textContent = "Create a room code or join an existing lobby.";
+        modeOptions.hidden = true;
+        difficultyOptions.hidden = true;
+        boardSizeOptions.hidden = true;
+        onlineOptions.hidden = false;
+    }
+
     function selectMode(nextMode, nextDifficulty = null, nextBoardSize = null) {
         playGameSound("tttMenu");
         mode = nextMode;
@@ -413,6 +446,20 @@
         cells[middle * boardSize + middle].focus({ preventScroll: true });
     }
 
+    function startOnlineGame(size, role) {
+        mode = "online";
+        boardSize = size;
+        winningCombinations = buildWinningCombinations(boardSize);
+        boardElement.style.setProperty("--ttt-grid-size", boardSize);
+        boardElement.setAttribute("aria-label", `${boardSize} by ${boardSize} Tic-Tac-Toe board`);
+        game.classList.remove("is-choosing");
+        modePicker.hidden = true;
+        gameContent.setAttribute("aria-hidden", "false");
+        modeLabel.textContent = `Online · Lobby ${onlineRoomId} · Role ${role}`;
+        resetRound();
+    }
+
+    // Event Listeners for UI Navigation
     modeButtons.forEach(button => {
         button.addEventListener("click", () => {
             if (button.dataset.mode === "ai") showDifficultyScreen();
@@ -420,12 +467,19 @@
         });
     });
 
+    onlineButton.addEventListener("click", showOnlineOptions);
+
     difficultyButtons.forEach(button => {
         button.addEventListener("click", () => selectMode("ai", button.dataset.difficulty));
     });
 
     boardSizeButtons.forEach(button => {
         button.addEventListener("click", () => selectMode("pvp", null, Number(button.dataset.boardSize)));
+    });
+
+    onlineBackButton.addEventListener("click", () => {
+        showModeScreen();
+        onlineButton.focus({ preventScroll: true });
     });
 
     backButton.addEventListener("click", () => {
@@ -438,11 +492,156 @@
         modeButtons[1].focus({ preventScroll: true });
     });
 
+    let selectedOnlineSize = 4;
+    onlineSizeButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            onlineSizeButtons.forEach(btn => {
+                btn.classList.remove("is-active");
+                btn.setAttribute("aria-pressed", "false");
+            });
+            button.classList.add("is-active");
+            button.setAttribute("aria-pressed", "true");
+            selectedOnlineSize = Number(button.dataset.onlineBoardSize);
+        });
+    });
+
+    // Create Room
+    createRoomButton.addEventListener("click", async () => {
+        onlineFeedback.textContent = "Creating room...";
+        try {
+            const res = await fetch(`/api/match/create?size=${selectedOnlineSize}`, { method: "POST" });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to create room");
+
+            onlineRoomId = data.roomId;
+            onlineRole = data.role;
+            playerToken = data.token;
+
+            onlineRoomCode.textContent = onlineRoomId;
+            onlineRoomPanel.hidden = false;
+
+            startOnlineGame(selectedOnlineSize, onlineRole);
+            onlineFeedback.textContent = "Waiting for opponent to join...";
+            pollForOpponent();
+        } catch (err) {
+            onlineFeedback.textContent = err.message;
+        }
+    });
+
+    // Join Room
+    joinRoomForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const code = roomCodeInput.value.trim().toUpperCase();
+        if (!code) return;
+
+        onlineFeedback.textContent = "Joining room...";
+        try {
+            const res = await fetch(`/api/match/join?room=${code}`, { method: "POST" });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to join room");
+
+            onlineRoomId = data.roomId;
+            onlineRole = data.role;
+            playerToken = data.token;
+
+            startOnlineGame(data.size, onlineRole);
+            onlineFeedback.textContent = "Connected! Game starting...";
+            startPollingState();
+        } catch (err) {
+            onlineFeedback.textContent = err.message;
+        }
+    });
+
+    copyRoomCodeButton.addEventListener("click", () => {
+        navigator.clipboard.writeText(onlineRoomId);
+        copyRoomCodeButton.textContent = "Copied!";
+        setTimeout(() => copyRoomCodeButton.textContent = "Copy code", 2000);
+    });
+
+    function startPollingState() {
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(async () => {
+            if (!onlineRoomId || mode !== "online") return;
+            try {
+                const res = await fetch(`/api/match/state?room=${onlineRoomId}`);
+                const data = await res.json();
+                if (res.ok) {
+                    marks = data.board;
+                    currentPlayer = data.turn;
+                    if (data.status === "playing" && onlineFeedback.textContent.includes("Waiting")) {
+                        onlineFeedback.textContent = "Opponent joined!";
+                    }
+                    if (data.status === "finished") {
+                        const winner = getWinner(marks);
+                        finishRound(winner);
+                        clearInterval(pollInterval);
+                    } else {
+                        render();
+                    }
+                }
+            } catch (e) {
+                console.error("Polling error", e);
+            }
+        }, 1200);
+    }
+
+    function pollForOpponent() {
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(async () => {
+            if (!onlineRoomId || mode !== "online") return;
+            try {
+                const res = await fetch(`/api/match/state?room=${onlineRoomId}`);
+                const data = await res.json();
+                if (res.ok && data.status === "playing") {
+                    onlineFeedback.textContent = "Opponent joined! Your turn.";
+                    clearInterval(pollInterval);
+                    startPollingState();
+                }
+            } catch (e) {}
+        }, 1200);
+    }
+
+    // Cell Clicks (Supports PvP, AI, and Online Move Submissions)
     cells.forEach((cell, index) => {
-        cell.addEventListener("click", () => {
-            if (mode !== "pvp" && mode !== "ai") return;
-            if (mode === "ai" && currentPlayer !== "X") return;
-            placeMark(index, currentPlayer);
+        cell.addEventListener("click", async () => {
+            if (mode === "pvp") {
+                placeMark(index, currentPlayer);
+            } else if (mode === "ai" && currentPlayer === "X") {
+                placeMark(index, currentPlayer);
+            } else if (mode === "online" && currentPlayer === onlineRole && !marks[index] && !gameOver && !paused) {
+                // Optimistic local update
+                playGameSound(onlineRole === "X" ? "tttMoveX" : "tttMoveO");
+                marks[index] = onlineRole;
+                const nextTurn = onlineRole === "X" ? "O" : "X";
+                currentPlayer = nextTurn;
+                render();
+
+                try {
+                    const res = await fetch(`/api/match/move`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            room: onlineRoomId,
+                            token: playerToken,
+                            index: index
+                        })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error);
+
+                    marks = data.board;
+                    currentPlayer = data.turn;
+                    if (data.status === "finished") {
+                        const winner = getWinner(marks);
+                        finishRound(winner);
+                        if (pollInterval) clearInterval(pollInterval);
+                    } else {
+                        render();
+                    }
+                } catch (e) {
+                    console.error("Failed to sync move", e);
+                }
+            }
         });
     });
 
@@ -454,7 +653,7 @@
     }, { capture: true });
 
     pauseButton.addEventListener("click", () => {
-        if (gameOver) return;
+        if (gameOver || mode === "online") return;
         paused = !paused;
         playGameSound("tttPause");
         if (paused) clearAiTurn();
@@ -462,10 +661,13 @@
         if (!paused && mode === "ai" && currentPlayer === "O") scheduleAiMove();
     });
 
-    restartButton.addEventListener("click", resetRound);
+    restartButton.addEventListener("click", () => {
+        if (mode !== "online") resetRound();
+    });
 
     changeModeButton.addEventListener("click", () => {
         clearAiTurn();
+        if (pollInterval) clearInterval(pollInterval);
         mode = null;
         difficulty = null;
         boardSize = 4;
