@@ -99,7 +99,7 @@
     <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
     <script src="/js/theme.js?theme=5"></script>
     <link rel="stylesheet" href="../css/style.css?interface=105">
-    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=31">
+    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=32">
     <title>Tic Tac Toe Online | Chill-Astro Software</title>
 </head>
 <body class="tic-tac-toe-page">
@@ -135,10 +135,6 @@
                     <span class="ttt-mode-label" id="mode-label">AI · Beginner · 4x4</span>
                 </div>
 
-                <div class="ttt-online-room" id="online-room-panel" hidden>
-                    <span>Room code: <strong id="online-room-code"></strong></span>
-                    <button class="ttt-text-button site-button site-button--primary" id="copy-room-code" type="button">Copy code</button>
-                </div>
                 <div class="ttt-board" id="ttt-board" role="grid" aria-label="Four by four Tic-Tac-Toe board" style="--ttt-grid-size: 4">
                     <button class="ttt-cell" type="button" role="gridcell" data-cell="0" aria-label="Row 1, column 1, empty"></button>
                     <button class="ttt-cell" type="button" role="gridcell" data-cell="1" aria-label="Row 1, column 2, empty"></button>
@@ -174,6 +170,7 @@
                         <button class="ttt-action site-button site-button--primary" id="pause-game" type="button" disabled>Pause</button>
                         <button class="ttt-action site-button site-button--primary" id="restart-game" type="button" disabled>Restart</button>
                         <button class="ttt-text-button site-button site-button--primary" id="change-mode" type="button" disabled>Change mode</button>
+                        <button class="ttt-text-button site-button site-button--primary" id="end-online-match" type="button" hidden>End match</button>
                     </div>
                 </div>
             </div>
@@ -210,6 +207,15 @@
                             </div>
                             <button class="ttt-action site-button site-button--primary ttt-create-room-confirm" id="confirm-create-room" type="button">Create 4x4 lobby</button>
                         </div>
+                        <div class="ttt-lobby-waiting" id="lobby-waiting-panel" hidden>
+                            <p>Share this code with your opponent</p>
+                            <div class="ttt-lobby-code-row">
+                                <strong id="online-room-code"></strong>
+                                <button class="ttt-action site-button site-button--primary" id="copy-room-code" type="button">Copy code</button>
+                            </div>
+                            <p class="ttt-lobby-countdown">Lobby expires in <strong><span id="lobby-countdown">30</span>s</strong></p>
+                            <button class="ttt-text-button site-button site-button--primary ttt-cancel-lobby" id="cancel-lobby" type="button">Cancel lobby</button>
+                        </div>
                         <p class="ttt-online-feedback" id="online-feedback" role="status" aria-live="polite"></p>
                         <button class="ttt-text-button ttt-picker-back site-button site-button--primary" id="online-back-button" type="button">Back to modes</button>
                     </div>
@@ -243,6 +249,6 @@
     <div id="footer"></div>
     <script src="../js/main.js?effects=6"></script>
     <script src="../js/game-audio.js"></script>
-    <script src="../js/tic-tac-toe.js?v=8"></script>
+    <script src="../js/tic-tac-toe.js?v=9"></script>
 </body>
 </html>
