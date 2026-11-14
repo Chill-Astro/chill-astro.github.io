@@ -43,9 +43,21 @@
 
 .ttt-mode-options[hidden],
 .ttt-online-options[hidden],
-.ttt-online-room[hidden] {
+.ttt-online-create-options[hidden],
+.ttt-online-room[hidden],
+.ttt-game [hidden] {
     display:none !important;
 }
+
+#ttt-game .ttt-mode-button[hidden] { display:none !important; }
+
+#online-mode-button {
+    grid-column:1 / -1;
+    justify-self:center;
+    width:min(100%, calc(50% - .4rem));
+}
+
+.ttt-online-create-options { margin-top:.25rem; }
 
 .ttt-online-options { margin-top:1.25rem; }
 
@@ -83,6 +95,7 @@
 
 .ttt-online-size-options .ttt-action { min-height:2.5rem; }
 .ttt-create-room { width:100%; margin-top:.75rem; }
+.ttt-create-room-confirm { width:100%; margin-top:.7rem; }
 
 .ttt-online-feedback {
     min-height:1.4em;

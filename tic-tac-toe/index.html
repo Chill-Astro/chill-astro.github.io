@@ -99,7 +99,7 @@
     <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
     <script src="/js/theme.js?theme=5"></script>
     <link rel="stylesheet" href="../css/style.css?interface=105">
-    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=29">
+    <link rel="stylesheet" href="../css/tic-tac-toe.css?v=30">
     <title>Tic Tac Toe Online | Chill-Astro Software</title>
 </head>
 <body class="tic-tac-toe-page">
@@ -198,16 +198,18 @@
                     </div>
                     <div class="ttt-online-options" id="online-options" hidden>
                         <form class="ttt-online-join" id="join-room-form">
-                            <label class="visually-hidden" for="room-code-input">Lobby code</label>
-                            <input id="room-code-input" name="room-code" type="text" inputmode="text" autocomplete="off" maxlength="6" placeholder="ROOM CODE" aria-label="Lobby code">
+                            <input id="room-code-input" name="room-code" type="text" inputmode="text" autocomplete="off" maxlength="6" placeholder="Enter code" aria-label="Enter room code">
                             <button class="ttt-action site-button site-button--primary" type="submit" id="join-room-button">Join</button>
                         </form>
-                        <p class="ttt-online-size-label">Board size for your lobby</p>
-                        <div class="ttt-online-size-options" role="group" aria-label="Lobby board size">
-                            <button class="ttt-action site-button site-button--primary is-active" type="button" data-online-board-size="4" aria-pressed="true">4x4</button>
-                            <button class="ttt-action site-button site-button--primary" type="button" data-online-board-size="5" aria-pressed="false">5x5</button>
-                        </div>
                         <button class="ttt-action site-button site-button--primary ttt-create-room" id="create-room-button" type="button">Create a lobby</button>
+                        <div class="ttt-online-create-options" id="online-create-options" hidden>
+                            <p class="ttt-online-size-label">Choose board size</p>
+                            <div class="ttt-online-size-options" role="group" aria-label="Lobby board size">
+                                <button class="ttt-action site-button site-button--primary is-active" type="button" data-online-board-size="4" aria-pressed="true">4x4</button>
+                                <button class="ttt-action site-button site-button--primary" type="button" data-online-board-size="5" aria-pressed="false">5x5</button>
+                            </div>
+                            <button class="ttt-action site-button site-button--primary ttt-create-room-confirm" id="confirm-create-room" type="button">Create 4x4 lobby</button>
+                        </div>
                         <p class="ttt-online-feedback" id="online-feedback" role="status" aria-live="polite"></p>
                         <button class="ttt-text-button ttt-picker-back site-button site-button--primary" id="online-back-button" type="button">Back to modes</button>
                     </div>
@@ -241,6 +243,6 @@
     <div id="footer"></div>
     <script src="../js/main.js?effects=6"></script>
     <script src="../js/game-audio.js"></script>
-    <script src="../js/tic-tac-toe.js?v=6"></script>
+    <script src="../js/tic-tac-toe.js?v=7"></script>
 </body>
 </html>

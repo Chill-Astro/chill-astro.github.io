@@ -1,6 +1,7 @@
 (() => {
     const WIN_LENGTH = 4;
     const SEARCH_DEPTH = 6;
+    const TTT_HELPER_API = "https://ttt-helper.chill-astro.workers.dev";
     const modePicker = document.getElementById("mode-picker");
     const game = document.getElementById("ttt-game");
     const gameContent = document.getElementById("ttt-game-content");
@@ -20,11 +21,13 @@
     const boardSizeOptions = document.getElementById("board-size-options");
     const onlineButton = document.getElementById("online-mode-button");
     const onlineOptions = document.getElementById("online-options");
+    const onlineCreateOptions = document.getElementById("online-create-options");
     const onlineBackButton = document.getElementById("online-back-button");
     const joinRoomForm = document.getElementById("join-room-form");
     const roomCodeInput = document.getElementById("room-code-input");
     const joinRoomButton = document.getElementById("join-room-button");
     const createRoomButton = document.getElementById("create-room-button");
+    const confirmCreateRoomButton = document.getElementById("confirm-create-room");
     const onlineFeedback = document.getElementById("online-feedback");
     const onlineSizeButtons = [...document.querySelectorAll("[data-online-board-size]")];
     const onlineRoomPanel = document.getElementById("online-room-panel");
@@ -36,13 +39,17 @@
     const difficultyButtons = [...document.querySelectorAll(".ttt-mode-button[data-difficulty]")];
     const boardSizeButtons = [...document.querySelectorAll(".ttt-mode-button[data-board-size]")];
 
-    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !onlineButton || !onlineOptions || !onlineBackButton || !joinRoomForm || !roomCodeInput || !joinRoomButton || !createRoomButton || !onlineFeedback || onlineSizeButtons.length !== 2 || !onlineRoomPanel || !onlineRoomCode || !copyRoomCodeButton || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
+    if (!modePicker || !game || !gameContent || !status || !boardElement || cells.length !== 25 || !pauseButton || !restartButton || !changeModeButton || !modeLabel || !winLine || !pausedOverlay || modeButtons.length !== 2 || difficultyButtons.length !== 2 || boardSizeButtons.length !== 2 || !onlineButton || !onlineOptions || !onlineCreateOptions || !onlineBackButton || !joinRoomForm || !roomCodeInput || !joinRoomButton || !createRoomButton || !confirmCreateRoomButton || !onlineFeedback || onlineSizeButtons.length !== 2 || !onlineRoomPanel || !onlineRoomCode || !copyRoomCodeButton || !modeTitle || !modeDescription || !modeOptions || !difficultyOptions || !boardSizeOptions || !backButton || !boardSizeBackButton) {
         console.error("Tic Tac Toe Online could not initialize because required game elements are missing.");
         return;
     }
 
-    // Unhide the online mode button since validation passed
-    onlineButton.hidden = false;
+    // Show online mode only when the helper responds and is not rate-limited.
+    fetch(`${TTT_HELPER_API}/api/match/health`, { cache: "no-store" })
+        .then(response => {
+            if (response.ok) onlineButton.hidden = false;
+        })
+        .catch(() => { onlineButton.hidden = true; });
 
     const directions = [
         { row: 0, column: 1, name: "horizontal" },
@@ -66,6 +73,8 @@
     let onlineRole = null; // 'X' or 'O'
     let playerToken = null;
     let pollInterval = 0;
+    let onlineReady = false;
+    let selectedOnlineSize = 4;
 
     function buildWinningCombinations(size) {
         const combinations = [];
@@ -105,11 +114,16 @@
 
     function getStatusText() {
         if (paused) return "Game paused";
+        if (mode === "online") {
+            if (!onlineReady) return "Waiting for opponent";
+            return currentPlayer === onlineRole ? `Your turn (${onlineRole})` : "Opponent's turn";
+        }
         return currentPlayer;
     }
 
     function render() {
         const aiThinking = mode === "ai" && currentPlayer === "O" && !gameOver && !paused;
+        const onlineWaiting = mode === "online" && (!onlineReady || currentPlayer !== onlineRole);
 
         cells.forEach((cell, index) => {
             const mark = marks[index];
@@ -122,7 +136,7 @@
             cell.classList.toggle("mark-x", mark === "X");
             cell.classList.toggle("mark-o", mark === "O");
             cell.setAttribute("aria-label", `Row ${row}, column ${column}, ${mark || "empty"}`);
-            cell.disabled = !mode || paused || gameOver || aiThinking || Boolean(mark);
+            cell.disabled = !mode || paused || gameOver || aiThinking || onlineWaiting || Boolean(mark);
         });
 
         pauseButton.textContent = paused ? "Resume" : "Pause";
@@ -390,6 +404,11 @@
         if (pollInterval) clearInterval(pollInterval);
         onlineRoomPanel.hidden = true;
         onlineOptions.hidden = true;
+        onlineCreateOptions.hidden = true;
+        createRoomButton.hidden = false;
+        confirmCreateRoomButton.hidden = false;
+        joinRoomForm.hidden = false;
+        confirmCreateRoomButton.textContent = `Create ${selectedOnlineSize}x${selectedOnlineSize} lobby`;
         modeTitle.textContent = "Choose a mode";
         modeDescription.textContent = "Play against the AI or take turns with a friend.";
         modeOptions.hidden = false;
@@ -425,6 +444,10 @@
         difficultyOptions.hidden = true;
         boardSizeOptions.hidden = true;
         onlineOptions.hidden = false;
+        onlineCreateOptions.hidden = true;
+        joinRoomForm.hidden = false;
+        createRoomButton.hidden = false;
+        onlineFeedback.textContent = "";
     }
 
     function selectMode(nextMode, nextDifficulty = null, nextBoardSize = null) {
@@ -492,7 +515,6 @@
         modeButtons[1].focus({ preventScroll: true });
     });
 
-    let selectedOnlineSize = 4;
     onlineSizeButtons.forEach(button => {
         button.addEventListener("click", () => {
             onlineSizeButtons.forEach(btn => {
@@ -502,20 +524,31 @@
             button.classList.add("is-active");
             button.setAttribute("aria-pressed", "true");
             selectedOnlineSize = Number(button.dataset.onlineBoardSize);
+            confirmCreateRoomButton.textContent = `Create ${selectedOnlineSize}x${selectedOnlineSize} lobby`;
         });
     });
 
-    // Create Room
+    // Reveal board size choices only after the user chooses to create a lobby.
     createRoomButton.addEventListener("click", async () => {
+        joinRoomForm.hidden = true;
+        onlineCreateOptions.hidden = false;
+        createRoomButton.hidden = true;
+    });
+
+    // Create Room
+    confirmCreateRoomButton.addEventListener("click", async () => {
+        confirmCreateRoomButton.disabled = true;
         onlineFeedback.textContent = "Creating room...";
         try {
-            const res = await fetch(`/api/match/create?size=${selectedOnlineSize}`, { method: "POST" });
+            const res = await fetch(`${TTT_HELPER_API}/api/match/create?size=${selectedOnlineSize}`, { method: "POST" });
+            if (res.status === 429) onlineButton.hidden = true;
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed to create room");
 
             onlineRoomId = data.roomId;
             onlineRole = data.role;
             playerToken = data.token;
+            onlineReady = false;
 
             onlineRoomCode.textContent = onlineRoomId;
             onlineRoomPanel.hidden = false;
@@ -525,6 +558,8 @@
             pollForOpponent();
         } catch (err) {
             onlineFeedback.textContent = err.message;
+        } finally {
+            confirmCreateRoomButton.disabled = false;
         }
     });
 
@@ -536,13 +571,17 @@
 
         onlineFeedback.textContent = "Joining room...";
         try {
-            const res = await fetch(`/api/match/join?room=${code}`, { method: "POST" });
+            const res = await fetch(`${TTT_HELPER_API}/api/match/join?room=${encodeURIComponent(code)}`, { method: "POST" });
+            if (res.status === 429) onlineButton.hidden = true;
             const data = await res.json();
             if (!res.ok) throw new Error(data.error || "Failed to join room");
 
             onlineRoomId = data.roomId;
             onlineRole = data.role;
             playerToken = data.token;
+            onlineReady = true;
+            onlineRoomCode.textContent = onlineRoomId;
+            onlineRoomPanel.hidden = false;
 
             startOnlineGame(data.size, onlineRole);
             onlineFeedback.textContent = "Connected! Game starting...";
@@ -563,9 +602,10 @@
         pollInterval = setInterval(async () => {
             if (!onlineRoomId || mode !== "online") return;
             try {
-                const res = await fetch(`/api/match/state?room=${onlineRoomId}`);
+                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
                 const data = await res.json();
                 if (res.ok) {
+                    onlineReady = true;
                     marks = data.board;
                     currentPlayer = data.turn;
                     if (data.status === "playing" && onlineFeedback.textContent.includes("Waiting")) {
@@ -590,11 +630,15 @@
         pollInterval = setInterval(async () => {
             if (!onlineRoomId || mode !== "online") return;
             try {
-                const res = await fetch(`/api/match/state?room=${onlineRoomId}`);
+                const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
                 const data = await res.json();
                 if (res.ok && data.status === "playing") {
+                    onlineReady = true;
+                    marks = data.board;
+                    currentPlayer = data.turn;
                     onlineFeedback.textContent = "Opponent joined! Your turn.";
                     clearInterval(pollInterval);
+                    render();
                     startPollingState();
                 }
             } catch (e) {}
@@ -617,7 +661,7 @@
                 render();
 
                 try {
-                    const res = await fetch(`/api/match/move`, {
+                    const res = await fetch(`${TTT_HELPER_API}/api/match/move`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -629,6 +673,7 @@
                     const data = await res.json();
                     if (!res.ok) throw new Error(data.error);
 
+                    onlineReady = true;
                     marks = data.board;
                     currentPlayer = data.turn;
                     if (data.status === "finished") {
