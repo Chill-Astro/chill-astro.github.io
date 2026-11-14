@@ -933,15 +933,11 @@ body {
     align-items:center;
     margin-left:auto;
     gap:.35rem;
-    padding:.3rem .55rem;
     flex-shrink:0;
     text-align:right;
     white-space:nowrap;
     color:var(--text);
-    background:var(--surface-2);
-    border:1px solid var(--line);
-    border-radius:999px;
-    font-size:.72rem;
+    font-size:.8rem;
     font-weight:700;
     letter-spacing:normal;
     font-variant-numeric:tabular-nums;

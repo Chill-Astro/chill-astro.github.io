@@ -307,7 +307,8 @@ async function openDownload(project) {
                 .then(response => response.ok ? response.json() : Promise.reject())
                 .then(({ count }) => {
                     if (!Number.isFinite(count)) throw new Error("Invalid click count");
-                    countLabel.textContent = `${count.toLocaleString()} ${count === 1 ? "click" : "clicks"}`;
+                    countLabel.textContent = count.toLocaleString();
+                    countLabel.setAttribute("aria-label", `${count.toLocaleString()} clicks`);
                     countLabel.hidden = false;
                 })
                 .catch(() => {
