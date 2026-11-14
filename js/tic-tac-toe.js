@@ -413,11 +413,14 @@
 
     function showModeScreen() {
         if (pollInterval) clearInterval(pollInterval);
-        onlineRoomPanel.hidden = true;
+        if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+        lobbyTimerInterval = 0;
+        lobbyWaitingPanel.hidden = true;
         onlineOptions.hidden = true;
         onlineCreateOptions.hidden = true;
+        onlineFeedback.textContent = "";
         createRoomButton.hidden = false;
-        confirmCreateRoomButton.hidden = false;
+        confirmCreateRoomButton.disabled = false;
         joinRoomForm.hidden = false;
         confirmCreateRoomButton.textContent = `Create ${selectedOnlineSize}x${selectedOnlineSize} lobby`;
         modeTitle.textContent = "Choose a mode";
@@ -562,10 +565,28 @@
             onlineReady = false;
 
             onlineRoomCode.textContent = onlineRoomId;
-            onlineRoomPanel.hidden = false;
-
-            startOnlineGame(selectedOnlineSize, onlineRole);
+            lobbyWaitingPanel.hidden = false;
+            onlineCreateOptions.hidden = true;
+            onlineRoomCode.textContent = onlineRoomId;
+            lobbyExpiresAt = Date.now() + 30_000;
+            lobbyCountdown.textContent = "30";
             onlineFeedback.textContent = "Waiting for opponent to join...";
+            if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+            lobbyTimerInterval = window.setInterval(() => {
+                const secondsLeft = Math.max(0, Math.ceil((lobbyExpiresAt - Date.now()) / 1000));
+                lobbyCountdown.textContent = String(secondsLeft);
+                if (secondsLeft === 0) {
+                    clearInterval(lobbyTimerInterval);
+                    lobbyTimerInterval = 0;
+                    if (!onlineReady) {
+                        onlineFeedback.textContent = "This lobby expired. Create another one to play.";
+                        lobbyWaitingPanel.hidden = true;
+                        onlineRoomId = null;
+                        playerToken = null;
+                        if (pollInterval) clearInterval(pollInterval);
+                    }
+                }
+            }, 250);
             pollForOpponent();
         } catch (err) {
             onlineFeedback.textContent = err.message;
@@ -592,7 +613,9 @@
             playerToken = data.token;
             onlineReady = true;
             onlineRoomCode.textContent = onlineRoomId;
-            onlineRoomPanel.hidden = false;
+            lobbyWaitingPanel.hidden = true;
+            if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+            lobbyTimerInterval = 0;
 
             startOnlineGame(data.size, onlineRole);
             onlineFeedback.textContent = "Connected! Game starting...";
@@ -603,15 +626,61 @@
     });
 
     copyRoomCodeButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(onlineRoomId);
-        copyRoomCodeButton.textContent = "Copied!";
-        setTimeout(() => copyRoomCodeButton.textContent = "Copy code", 2000);
+        navigator.clipboard.writeText(onlineRoomId).then(() => {
+            copyRoomCodeButton.textContent = "Copied!";
+            setTimeout(() => copyRoomCodeButton.textContent = "Copy code", 2000);
+        }).catch(() => {
+            onlineFeedback.textContent = "Copy failed. Select and copy the code above.";
+        });
+    });
+
+    cancelLobbyButton.addEventListener("click", async () => {
+        if (pollInterval) clearInterval(pollInterval);
+        if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+        pollInterval = 0;
+        lobbyTimerInterval = 0;
+        if (onlineRoomId && playerToken) {
+            try {
+                await fetch(`${TTT_HELPER_API}/api/match/end`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ room: onlineRoomId, token: playerToken })
+                });
+            } catch (_) {}
+        }
+        onlineRoomId = null;
+        playerToken = null;
+        onlineReady = false;
+        lobbyWaitingPanel.hidden = true;
+        onlineCreateOptions.hidden = true;
+        joinRoomForm.hidden = false;
+        createRoomButton.hidden = false;
+        onlineFeedback.textContent = "Lobby cancelled.";
+    });
+
+    endOnlineMatchButton.addEventListener("click", async () => {
+        endOnlineMatchButton.disabled = true;
+        if (pollInterval) clearInterval(pollInterval);
+        if (onlineRoomId && playerToken) {
+            try {
+                await fetch(`${TTT_HELPER_API}/api/match/end`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ room: onlineRoomId, token: playerToken })
+                });
+            } catch (_) {}
+        }
+        onlineRoomId = null;
+        playerToken = null;
+        onlineReady = false;
+        endOnlineMatchButton.disabled = false;
+        changeModeButton.click();
     });
 
     function startPollingState() {
         if (pollInterval) clearInterval(pollInterval);
         pollInterval = setInterval(async () => {
-            if (!onlineRoomId || mode !== "online") return;
+            if (!onlineRoomId) return;
             try {
                 const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
                 const data = await res.json();
@@ -639,16 +708,19 @@
     function pollForOpponent() {
         if (pollInterval) clearInterval(pollInterval);
         pollInterval = setInterval(async () => {
-            if (!onlineRoomId || mode !== "online") return;
+            if (!onlineRoomId) return;
             try {
                 const res = await fetch(`${TTT_HELPER_API}/api/match/state?room=${encodeURIComponent(onlineRoomId)}`);
                 const data = await res.json();
                 if (res.ok && data.status === "playing") {
                     onlineReady = true;
+                    if (lobbyTimerInterval) clearInterval(lobbyTimerInterval);
+                    lobbyTimerInterval = 0;
                     marks = data.board;
                     currentPlayer = data.turn;
                     onlineFeedback.textContent = "Opponent joined! Your turn.";
                     clearInterval(pollInterval);
+                    startOnlineGame(data.size || selectedOnlineSize, onlineRole);
                     render();
                     startPollingState();
                 }

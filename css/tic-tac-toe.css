@@ -4,6 +4,73 @@
     padding: clamp(1.5rem, 4vw, 3rem) 0 2rem;
 }
 
+/* Keep the mode and lobby screens in normal page flow instead of compressing
+   their controls inside the square game board. */
+body.tic-tac-toe-page #ttt-game.is-choosing {
+    width: min(100%, 620px);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    container-type: normal;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-game-content {
+    display: none;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-mode-overlay {
+    position: relative;
+    inset: auto;
+    display: block;
+    padding: 0;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-mode-dialog {
+    width: 100%;
+    max-width: none;
+    padding: clamp(1.1rem, 4vw, 1.75rem);
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-mode-options {
+    gap: 0.75rem;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-mode-button {
+    min-height: 5rem;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-online-options,
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-online-create-options,
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-lobby-waiting {
+    width: 100%;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-lobby-waiting {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--ttt-game-border);
+    border-radius: 0.8rem;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-lobby-code-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+body.tic-tac-toe-page #ttt-game.is-choosing .ttt-lobby-code-row strong {
+    font-size: 1.5rem;
+    letter-spacing: 0.16em;
+}
+
 .ttt-intro {
     margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
     text-align: center;
