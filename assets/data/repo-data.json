@@ -13,17 +13,17 @@
   },
 
   "rootChecker": {
-    "tag": "v37.24.4.1",
+    "tag": "v37.24.4.2",
     "downloads": {
-      "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.1/app-official-release.apk",
-      "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.1/app-offline-release.apk",
+      "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.2/app-official-release.apk",
+      "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.2/app-offline-release.apk",
       "izzy": "https://apt.izzysoft.de/fdroid/index/apk/foss.chillastro.root.checker.offline",
       "openapk": "https://www.openapk.net/root-checker/foss.chillastro.root.checker.offline/",      
       "uptodown": "https://foss-chillastro-root-checker.en.uptodown.com/android",
       "appteka": "https://appteka.store/app/3c8r334644"
     },
       "sha256": {
-      "apk_official": "b85f861eeec3ba3bd75189b7f202c3a0e2b1cde1e789efec5a4b593423ff9b12"
+      "apk_official": "4f893a21ef06017e4cf3a93800cda4f6df9b6ccb91687bccd6cf8f02c6d6e743"
     }
   },
 

@@ -372,7 +372,8 @@ function updateVersions() {
 
     document.querySelectorAll("[data-repo-version]").forEach((element) => {
         const tag = repoData[element.dataset.repoVersion]?.tag;
-        element.textContent = tag || "Unavailable";
+        const version = tag && element.dataset.versionPair === "o" ? `${tag} & ${tag}o` : tag;
+        element.textContent = version || "Unavailable";
     });
 
 }
