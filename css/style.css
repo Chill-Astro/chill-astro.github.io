@@ -928,36 +928,6 @@ body {
     font-size:0.9rem;
 }
 
-.download-click-count{
-    display:inline-flex;
-    align-items:center;
-    margin-left:auto;
-    gap:.35rem;
-    flex-shrink:0;
-    text-align:right;
-    white-space:nowrap;
-    color:var(--text);
-    font-size:.8rem;
-    font-weight:700;
-    letter-spacing:normal;
-    font-variant-numeric:tabular-nums;
-}
-
-.download-click-count[hidden]{
-    display:none !important;
-}
-
-.download-click-count::before{
-    content:"";
-    display:inline-block;
-    width:1em;
-    height:1em;
-    flex:0 0 auto;
-    background-color:currentColor;
-    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v12m0 0 5-5m-5 5-5-5M5 20h14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3v12m0 0 5-5m-5 5-5-5M5 20h14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
 .dialog-links a::before{
     content:"";
     display:inline-block;
