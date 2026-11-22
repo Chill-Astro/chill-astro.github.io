@@ -25,7 +25,6 @@
     let closeTimer;
     let saturnScriptLoaded = false;
     const originalHoverRules = new Map();
-    let hoverRulesEnabled;
 
     function splitSelectors(selectorText) {
         const selectors = [];
@@ -59,19 +58,21 @@
     }
 
     function setLiteHoverRules(enabled) {
-        if (hoverRulesEnabled === enabled) return;
-        hoverRulesEnabled = enabled;
-
         function visitRules(rules) {
             for (const rule of rules) {
-                if (rule.type === CSSRule.STYLE_RULE && typeof rule.selectorText === "string" && rule.selectorText.includes(":hover")) {
-                    if (!originalHoverRules.has(rule)) originalHoverRules.set(rule, rule.selectorText);
-                    const original = originalHoverRules.get(rule);
-                    try {
-                        rule.selectorText = enabled
-                            ? original
-                            : splitSelectors(original).map(disableHoverSelector).join(", ");
-                    } catch (_) { /* Some browser-owned stylesheet rules are read-only. */ }
+                if (rule.type === CSSRule.STYLE_RULE && typeof rule.selectorText === "string") {
+                    let original = originalHoverRules.get(rule);
+                    if (!original && rule.selectorText.includes(":hover")) {
+                        original = rule.selectorText;
+                        originalHoverRules.set(rule, original);
+                    }
+                    if (original) {
+                        try {
+                            rule.selectorText = enabled
+                                ? original
+                                : splitSelectors(original).map(disableHoverSelector).join(", ");
+                        } catch (_) { /* Some browser-owned stylesheet rules are read-only. */ }
+                    }
                 } else if (rule.cssRules) {
                     try { visitRules(rule.cssRules); } catch (_) { /* Ignore inaccessible nested sheets. */ }
                 }
@@ -148,7 +149,7 @@
                     <br><br>Lite Mode disables ALL Visual Effects and "Chill-Astro-ness" for Maximum Performance even if it Looks Trash. </p>
                     <label class="site-setting-row"><span>Gaussian Blur</span><input type="checkbox" data-setting="blur"></label>
                     <label class="site-setting-row"><span>Homepage Saturn Animation</span><input type="checkbox" data-setting="saturn"></label>
-                    <label class="site-setting-row"><span>Lite Mode</span><input type="checkbox" data-setting="lite"></label>
+                    <label class="site-setting-row"><span class="site-setting-label">Lite Mode <small class="site-setting-warning">NOT RECOMMENDED</small></span><input type="checkbox" data-setting="lite"></label>
                 </div>
             </section>`;
         document.body.append(overlay);

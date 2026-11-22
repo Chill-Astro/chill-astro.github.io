@@ -2,13 +2,26 @@
 
 --- 
 
->[!CAUTION]
+> [!CAUTION]
 > THIS REPOSITORY IS NOT FOR SITE DEPLOYMENT NOR STANDALONE CLONING OR LOCAL INSTALLATION
 
 > [!IMPORTANT]
-> Due to use of Blurs, Sticky hovers & Animations, Low-end Mobile Devices get Affected. 
+> Due to use of Blurs, Hovers & Animations, Performance feels like Trash on Mobile / VM.
 >
-> As a result : Every Fancy Effect is now **PC EXCLUSIVE**. ( Yes, PC BIAS 💀 )
+> As a result, a Few Changes Have Been Made!
+> 
+> 1. Gaussian Blur & Homepage Saturn Animation is OFF by Default on Mobile Devices, but you can Turn on in Settings.
+>
+> 2. Turning OFF Hover Effects on Mobile.
+>    
+> 3. Inclusion of "LITE MODE" ( OFF BY DEFAULT ON ALL DEVICES ) : Basically remove every "Chill-Astro-ness" even if it Looks UGLY. Here's what's Disabled!
+>    - Website's Default Font
+>    - Hover Effect ( Even on PC )
+>    - Grid Background
+>    - The Saturn is Removed Entirely
+>    - Gaussian Blur
+>
+> HOPE THIS HELPS!
 
 ---
 

@@ -538,6 +538,7 @@ function initUiSounds() {
     let hoverTarget = null;
     let pointerX = 0;
     let pointerY = 0;
+    let hasPointerPosition = false;
     const clearHoverShadow = () => {
         if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
         hoverFrame = 0;
@@ -548,8 +549,41 @@ function initUiSounds() {
         });
     };
     document.addEventListener("site-settings-change", event => {
-        if (event.detail?.lite === true) clearHoverShadow();
+        if (event.detail?.lite === true) {
+            clearHoverShadow();
+            uiAudioContext?.suspend();
+        } else if (hasPointerPosition) {
+            const element = document.elementFromPoint(pointerX, pointerY);
+            hoverTarget = element?.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero,.game-showcase,.eeg-app,.future,.error-shell") || null;
+            if (hoverTarget) scheduleHoverShadow();
+        }
     });
+
+    const updateHoverShadow = () => {
+        hoverFrame = 0;
+        if (window.siteSettings?.lite === true) {
+            clearHoverShadow();
+            return;
+        }
+        if (!hoverTarget?.isConnected) return;
+
+        const bounds = hoverTarget.getBoundingClientRect();
+        const targetX = Math.max(-8, Math.min(8, pointerX - bounds.left - bounds.width / 2));
+        const targetY = Math.max(-8, Math.min(8, pointerY - bounds.top - bounds.height / 2));
+        const currentX = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-x")) || 0;
+        const currentY = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-y")) || 0;
+        const nextX = currentX + (targetX - currentX) * 0.18;
+        const nextY = currentY + (targetY - currentY) * 0.18;
+        hoverTarget.style.setProperty("--cursor-shadow-x", `${nextX}px`);
+        hoverTarget.style.setProperty("--cursor-shadow-y", `${nextY}px`);
+
+        if (Math.abs(targetX - nextX) > 0.2 || Math.abs(targetY - nextY) > 0.2) {
+            hoverFrame = requestAnimationFrame(updateHoverShadow);
+        }
+    };
+    function scheduleHoverShadow() {
+        if (!hoverFrame) hoverFrame = requestAnimationFrame(updateHoverShadow);
+    }
 
     document.addEventListener("pointermove", event => {
         if (window.siteSettings?.lite === true) return;
@@ -559,35 +593,13 @@ function initUiSounds() {
         hoverTarget = target;
         pointerX = event.clientX;
         pointerY = event.clientY;
-        if (hoverFrame) return;
-
-        const updateHoverShadow = () => {
-            hoverFrame = 0;
-            if (window.siteSettings?.lite === true) {
-                clearHoverShadow();
-                return;
-            }
-            if (!hoverTarget?.isConnected) return;
-
-            const bounds = hoverTarget.getBoundingClientRect();
-            const targetX = Math.max(-8, Math.min(8, pointerX - bounds.left - bounds.width / 2));
-            const targetY = Math.max(-8, Math.min(8, pointerY - bounds.top - bounds.height / 2));
-            const currentX = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-x")) || 0;
-            const currentY = Number.parseFloat(hoverTarget.style.getPropertyValue("--cursor-shadow-y")) || 0;
-            const nextX = currentX + (targetX - currentX) * 0.18;
-            const nextY = currentY + (targetY - currentY) * 0.18;
-            hoverTarget.style.setProperty("--cursor-shadow-x", `${nextX}px`);
-            hoverTarget.style.setProperty("--cursor-shadow-y", `${nextY}px`);
-
-            if (Math.abs(targetX - nextX) > 0.2 || Math.abs(targetY - nextY) > 0.2) {
-                hoverFrame = requestAnimationFrame(updateHoverShadow);
-            }
-        };
-        hoverFrame = requestAnimationFrame(updateHoverShadow);
+        hasPointerPosition = true;
+        scheduleHoverShadow();
     }, { passive: true });
 }
 
 function playUiSound(name) {
+    if (document.documentElement.classList.contains("lite-mode")) return;
     const sound = uiSoundProfile[name];
     if (!sound) return;
     try {

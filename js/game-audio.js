@@ -25,7 +25,12 @@
         .then(data => { if (data?.games) sounds = data.games; })
         .catch(() => {});
 
+    document.addEventListener("site-settings-change", event => {
+        if (event.detail?.lite) context?.suspend();
+    });
+
     window.playGameSound = name => {
+        if (document.documentElement.classList.contains("lite-mode")) return;
         const sound = sounds[name];
         if (!sound) return;
         try {

@@ -15,7 +15,12 @@
         .then(data => { if (data && typeof data === "object") profile = data; })
         .catch(() => {});
 
+    document.addEventListener("site-settings-change", event => {
+        if (event.detail?.lite) context?.suspend();
+    });
+
     function play(name) {
+        if (document.documentElement.classList.contains("lite-mode")) return;
         const sound = profile[name];
         if (!sound) return;
         try {
@@ -52,21 +57,43 @@
         let target = null;
         let pointerX = 0;
         let pointerY = 0;
+        let hasPointerPosition = false;
+        const clearShadow = () => {
+            if (frame) cancelAnimationFrame(frame);
+            frame = 0;
+            target = null;
+            document.querySelectorAll('[style*="--cursor-shadow-x"]').forEach(element => {
+                element.style.removeProperty("--cursor-shadow-x");
+                element.style.removeProperty("--cursor-shadow-y");
+            });
+        };
+        const updateShadow = () => {
+            frame = 0;
+            if (document.documentElement.classList.contains("lite-mode") || !target?.isConnected) return;
+            const bounds = target.getBoundingClientRect();
+            target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
+            target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);
+        };
+        const scheduleShadow = () => {
+            if (!frame) frame = requestAnimationFrame(updateShadow);
+        };
+        document.addEventListener("site-settings-change", event => {
+            if (event.detail?.lite) {
+                clearShadow();
+            } else if (hasPointerPosition) {
+                target = document.elementFromPoint(pointerX, pointerY)?.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']") || null;
+                if (target) scheduleShadow();
+            }
+        });
         document.addEventListener("pointermove", event => {
+            if (document.documentElement.classList.contains("lite-mode")) return;
             target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit']");
             if (!target) return;
 
             pointerX = event.clientX;
             pointerY = event.clientY;
-            if (frame) return;
-
-            frame = requestAnimationFrame(() => {
-                frame = 0;
-                if (!target?.isConnected) return;
-                const bounds = target.getBoundingClientRect();
-                target.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
-                target.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);
-            });
+            hasPointerPosition = true;
+            scheduleShadow();
         }, { passive: true });
     }
     document.addEventListener("click", event => {

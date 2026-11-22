@@ -3369,6 +3369,25 @@ html.lite-mode :fullscreen,
 html.lite-mode :-webkit-full-screen {
     background-image: none !important;
 }
+html.lite-mode,
+html.lite-mode body,
+html.lite-mode body *,
+html.lite-mode body *::before,
+html.lite-mode body *::after {
+    font-family: system-ui, sans-serif !important;
+}
+.site-setting-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+.site-setting-warning {
+    color: var(--muted);
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    white-space: nowrap;
+}
 
 /* The navigation glass has later component rules, so enforce the preference last. */
 html:not(.effects-blur) body :is(.site-header, .header-nav, .mobile-nav-backdrop, .desktop-menu-panel) {
