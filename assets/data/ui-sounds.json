@@ -45,12 +45,6 @@
     "overtoneGain": 0.2
   },
   "games": {
-    "dinoJump": { "frequency": 380, "endFrequency": 700, "duration": 0.11, "gain": 0.028, "wave": "triangle" },
-    "dinoHit": { "frequency": 280, "endFrequency": 100, "duration": 0.22, "gain": 0.04, "wave": "sawtooth", "overtone": 1.5, "overtoneGain": 0.16 },
-    "dinoOver": { "gain": 0.038, "wave": "triangle", "notes": [{ "frequency": 440, "duration": 0.12 }, { "frequency": 330, "duration": 0.15 }, { "frequency": 220, "duration": 0.22 }] },
-    "dinoMilestone": { "frequency": 780, "endFrequency": 980, "duration": 0.07, "gain": 0.024, "wave": "sine" },
-    "dinoStart": { "frequency": 300, "endFrequency": 520, "duration": 0.12, "gain": 0.03, "wave": "sine" },
-    "dinoPause": { "frequency": 520, "endFrequency": 330, "duration": 0.1, "gain": 0.024, "wave": "sine" },
     "snakeStart": { "frequency": 320, "endFrequency": 540, "duration": 0.11, "gain": 0.028, "wave": "sine" },
     "snakeEat": { "frequency": 620, "endFrequency": 920, "duration": 0.075, "gain": 0.032, "wave": "triangle" },
     "snakeCrash": { "frequency": 300, "endFrequency": 95, "duration": 0.2, "gain": 0.038, "wave": "sawtooth" },

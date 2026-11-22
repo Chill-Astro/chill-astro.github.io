@@ -144,7 +144,8 @@
                     <button class="dialog-close" type="button" aria-label="Close settings">✕</button>
                 </div>
                 <div class="dialog-body site-settings-body">
-                    <p class="site-settings-description">Lite Mode hides the Saturn animation and background grid, and temporarily disables blur and advanced hover effects.</p>
+                    <p class="site-settings-description">Toggle Heavy Visual Effects from here if Performance is Bad on VM / Mobile Device or you are Experiencing Lag.
+                    <br><br>Lite Mode disables ALL Visual Effects and "Chill-Astro-ness" for Maximum Performance even if it Looks Trash. </p>
                     <label class="site-setting-row"><span>Gaussian Blur</span><input type="checkbox" data-setting="blur"></label>
                     <label class="site-setting-row"><span>Homepage Saturn Animation</span><input type="checkbox" data-setting="saturn"></label>
                     <label class="site-setting-row"><span>Lite Mode</span><input type="checkbox" data-setting="lite"></label>

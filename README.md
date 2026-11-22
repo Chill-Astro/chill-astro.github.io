@@ -25,7 +25,6 @@
 - Easter Egg Guide ([/easter-egg-guide/](https://chill-astro.github.io/easter-egg-guide/))
 - Oh My Posh Themes ([/oh-my-posh-themes/](https://chill-astro.github.io/oh-my-posh-themes/))
 - Mini Games ([/mini-games/](https://chill-astro.github.io/mini-games/))
-- Premium Dino ([/premium-dino/](https://chill-astro.github.io/premium-dino/))
 - Modern Snake ([/modern-snake/](https://chill-astro.github.io/modern-snake/))
 - Tic-Tac-Toe ([/tic-tac-toe/](https://chill-astro.github.io/tic-tac-toe/))
 

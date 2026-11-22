@@ -1568,119 +1568,8 @@ body::before {
     transition: opacity .4s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .4s, background .18s ease, color .18s ease, box-shadow .18s ease;
 }
 
-body:is(.tic-tac-toe-page, .dino-page, .modern-snake-page) .back-to-top {
+body:is(.tic-tac-toe-page, .modern-snake-page) .back-to-top {
     display: none !important;
-}
-
-body:is(.dino-page) .orientation-prompt {
-    display: none;
-}
-
-@media (orientation: portrait) and (max-width: 767px) and (hover: none) and (pointer: coarse) {
-    body:is(.dino-page) {
-        overflow: hidden;
-    }
-
-    body:is(.dino-page) .orientation-prompt {
-        position: fixed;
-        z-index: 20000;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        padding: 2rem;
-        background: #fff;
-        color: #000;
-        text-align: center;
-        animation: orientation-prompt-enter .45s cubic-bezier(.2, .75, .25, 1) both;
-    }
-
-    body:is(.dino-page) .orientation-prompt-content {
-        display: grid;
-        justify-items: center;
-        gap: clamp(.75rem, 3vh, 1.5rem);
-    }
-
-    body:is(.dino-page) .orientation-visual {
-        position: relative;
-        width: clamp(8rem, 42vw, 12rem);
-        aspect-ratio: 160 / 140;
-    }
-
-    body:is(.dino-page) .orientation-arrows,
-    body:is(.dino-page) .orientation-phone {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-        transform-box: view-box;
-        transform-origin: 50% 50%;
-        animation: orientation-phone-turn 2.4s ease-in-out .2s infinite alternate;
-    }
-
-    body:is(.dino-page) .orientation-arrow,
-    body:is(.dino-page) .orientation-arrow-head {
-        fill: none;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 3;
-    }
-
-    body:is(.dino-page) .orientation-phone {
-        inset: 50% auto auto 50%;
-        width: 5.25rem;
-        height: 5.25rem;
-        transform: translate(-50%, -50%) rotate(0deg);
-        animation-name: orientation-phone-icon-turn;
-    }
-
-    body:is(.dino-page) .orientation-prompt p {
-        max-width: 20rem;
-        margin: 0;
-        color: inherit;
-        font: 700 clamp(1.25rem, 6vw, 2rem)/1.4 "Tomorrow", sans-serif;
-    }
-
-    html[data-theme="light"] body:is(.dino-page) .orientation-prompt {
-        background: #fff;
-        color: #000;
-    }
-
-    html[data-theme="dark"] body:is(.dino-page) .orientation-prompt {
-        background: #000;
-        color: #fff;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        html[data-theme="system"] body:is(.dino-page) .orientation-prompt {
-            background: #000;
-            color: #fff;
-        }
-    }
-
-    @keyframes orientation-prompt-enter {
-        from { opacity: 0; transform: translateY(1rem) scale(.97); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes orientation-phone-turn {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(90deg); }
-    }
-
-    @keyframes orientation-phone-icon-turn {
-        from { transform: translate(-50%, -50%) rotate(0deg); }
-        to { transform: translate(-50%, -50%) rotate(90deg); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        body:is(.dino-page) .orientation-prompt,
-        body:is(.dino-page) .orientation-arrows,
-        body:is(.dino-page) .orientation-phone {
-            animation: none;
-        }
-    }
 }
 
 .back-to-top-label,
@@ -2044,7 +1933,6 @@ html:not(.effects-blur) .video-player__play,
 html:not(.effects-blur) .video-player__skip,
 html:not(.effects-blur) .video-player__fullscreen,
 html:not(.effects-blur) .court-overlay,
-html:not(.effects-blur) .dino-overlay,
 html:not(.effects-blur) .ttt-paused-overlay {
     background: var(--bg) !important;
 }
@@ -2059,7 +1947,6 @@ html:not(.effects-blur) .video-player__fullscreen {
     html:not(.effects-blur) .video-player__skip,
     html:not(.effects-blur) .video-player__fullscreen,
     html:not(.effects-blur) .court-overlay,
-    html:not(.effects-blur) .dino-overlay,
     html:not(.effects-blur) .ttt-paused-overlay { background: var(--bg) !important; }
     html:not(.effects-blur) .video-player__play,
     html:not(.effects-blur) .video-player__skip,
