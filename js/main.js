@@ -538,7 +538,21 @@ function initUiSounds() {
     let hoverTarget = null;
     let pointerX = 0;
     let pointerY = 0;
+    const clearHoverShadow = () => {
+        if (hoverFrame) window.cancelAnimationFrame(hoverFrame);
+        hoverFrame = 0;
+        hoverTarget = null;
+        document.querySelectorAll('[style*="--cursor-shadow-x"]').forEach(element => {
+            element.style.removeProperty("--cursor-shadow-x");
+            element.style.removeProperty("--cursor-shadow-y");
+        });
+    };
+    document.addEventListener("site-settings-change", event => {
+        if (event.detail?.lite === true) clearHoverShadow();
+    });
+
     document.addEventListener("pointermove", event => {
+        if (window.siteSettings?.lite === true) return;
         const target = event.target.closest("button,a,[role='button'],summary,input[type='button'],input[type='submit'],.project-card,.additional-card,.feature-card,.theme-showcase,.hero,.game-showcase,.eeg-app,.future,.error-shell");
         if (!target) return;
 
@@ -549,6 +563,10 @@ function initUiSounds() {
 
         const updateHoverShadow = () => {
             hoverFrame = 0;
+            if (window.siteSettings?.lite === true) {
+                clearHoverShadow();
+                return;
+            }
             if (!hoverTarget?.isConnected) return;
 
             const bounds = hoverTarget.getBoundingClientRect();

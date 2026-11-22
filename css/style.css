@@ -2543,7 +2543,12 @@ html.effects-blur body.jai-hind-page .error-shell {
 .site-settings-description { margin: 0 0 .7rem; color: var(--muted); font-size: .82rem; line-height: 1.5; }
 .site-setting-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 54px; padding: .7rem 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); cursor: pointer; }
 .site-setting-row span { font-size: .92rem; font-weight: 600; }
-.site-setting-row input { width: 19px; height: 19px; margin: 0; accent-color: var(--text); cursor: pointer; }
+.site-setting-row input { width: 19px; height: 19px; margin: 0; accent-color: #000; cursor: pointer; }
+@media (prefers-color-scheme: dark) {
+    .site-setting-row input { accent-color: #fff; }
+}
+.site-setting-row.is-disabled { opacity: .4; cursor: not-allowed; }
+.site-setting-row.is-disabled input { cursor: not-allowed; }
 
 .site-header .header-actions > a.secondary-btn {
     display: inline-flex;
@@ -2698,6 +2703,7 @@ body:has(.hero .saturn-frame) .saturn-frame {
     aspect-ratio: 1.7;
     flex: 0 0 auto;
     isolation: isolate;
+    pointer-events: none;
 }
 
 body:has(.hero .saturn-frame) .saturn-canvas {
@@ -3043,7 +3049,20 @@ html:not(.effects-blur) body .download-overlay.show .download-dialog {
     }
 }
 
-html body .games-centre-title-link .redirect-arrow { display: none !important; }
+html body .games-centre-title-link .redirect-arrow { display: inline !important; }
+
+/* Never cover redirect buttons with the hover destination arrow. */
+@media (hover: hover) and (pointer: fine) {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a)::after,
+    html body .project-card a.github-btn::after,
+    html body .app-showcase a.app-centre-github::after {
+        content: none !important;
+        display: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    html body .project-card a.github-btn > span { filter: none !important; }
+}
 
 @media (hover: hover) and (pointer: fine) {
     html body .site-header .menu-toggle:hover,
@@ -3449,40 +3468,45 @@ html:not(.effects-blur) *::after {
     filter: none !important;
 }
 
+html.lite-mode body {
+    background-image: none !important;
+}
+html.lite-mode body::before {
+    content: none !important;
+    display: none !important;
+}
+html.lite-mode body .saturn-canvas {
+    display: none !important;
+}
+html.lite-mode :fullscreen,
+html.lite-mode :-webkit-full-screen {
+    background-image: none !important;
+}
+
+/* The navigation glass has later component rules, so enforce the preference last. */
+html:not(.effects-blur) body :is(.site-header, .header-nav, .mobile-nav-backdrop, .desktop-menu-panel) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
+html:not(.effects-blur) body .site-header {
+    background: var(--surface) !important;
+}
+html:not(.effects-blur) body :is(.header-nav, .desktop-menu-panel) {
+    background: var(--surface) !important;
+}
+html:not(.effects-blur) body .mobile-nav-backdrop {
+    background: color-mix(in srgb, var(--bg) 38%, transparent) !important;
+}
+
 @media (hover: hover) and (pointer: fine) {
-    html:not(.effects-hover) body *:hover {
-        transform: none !important;
-        transition: none !important;
-        filter: none !important;
-    }
-    html:not(.effects-hover) body *:hover::before,
-    html:not(.effects-hover) body *:hover::after {
-        transform: none !important;
-        transition: none !important;
-    }
-
-    html:not(.effects-hover) body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a)::after,
-    html:not(.effects-hover) body .project-card a.github-btn::after,
-    html:not(.effects-hover) body .app-showcase a.app-centre-github::after,
-    html:not(.effects-hover) body .additional-grid .additional-card::after {
-        content: none !important;
-        display: none !important;
-    }
-
-    html:not(.effects-hover) body .project-card:hover,
-    html:not(.effects-hover) body .additional-card:hover,
-    html:not(.effects-hover) body .feature-card:hover,
-    html:not(.effects-hover) body .theme-showcase:hover,
-    html:not(.effects-hover) body .eeg-app:hover,
-    html:not(.effects-hover) body .hero:hover {
-        transform: none !important;
-    }
-
     html body:has(.hero .saturn-frame) .hero:hover {
         transform: none !important;
         translate: none !important;
         scale: none !important;
         rotate: none !important;
+    }
+    html body:has(.hero .saturn-frame) .hero:hover {
         box-shadow: var(--glow-shadow) !important;
     }
     html body:has(.hero .saturn-frame) .saturn-frame:hover {

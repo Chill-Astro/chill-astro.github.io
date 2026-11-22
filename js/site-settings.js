@@ -4,27 +4,121 @@
     const isMobile = navigator.userAgentData?.mobile === true ||
         /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(platform) ||
         (/Macintosh|MacIntel/i.test(platform) && (navigator.maxTouchPoints || 0) > 1);
-    const defaults = { blur: !isMobile, hover: !isMobile, saturn: !isMobile };
+    const defaults = { blur: !isMobile, saturn: !isMobile, lite: false };
     const savedCookie = document.cookie.split(";").map(value => value.trim())
         .find(value => value.startsWith(`${cookieName}=`));
 
     function readSettings() {
         const bits = savedCookie ? decodeURIComponent(savedCookie.slice(cookieName.length + 1)) : "";
-        if (!/^[01]{3}$/.test(bits)) return { ...defaults };
-        return { blur: bits[0] === "1", hover: bits[1] === "1", saturn: bits[2] === "1" };
+        if (!/^[01]{3,4}$/.test(bits)) return { ...defaults };
+        return {
+            blur: bits[0] === "1",
+            saturn: bits[2] === "1",
+            lite: bits.length === 4 && bits[3] === "1"
+        };
     }
 
     let settings = readSettings();
     const root = document.documentElement;
+    let overlay;
+    let previousFocus;
+    let closeTimer;
+    let saturnScriptLoaded = false;
+    const originalHoverRules = new Map();
+    let hoverRulesEnabled;
+
+    function splitSelectors(selectorText) {
+        const selectors = [];
+        let start = 0;
+        let depth = 0;
+        let quote = "";
+        for (let index = 0; index < selectorText.length; index++) {
+            const character = selectorText[index];
+            if (quote) {
+                if (character === quote && selectorText[index - 1] !== "\\") quote = "";
+            } else if (character === "'" || character === '"') {
+                quote = character;
+            } else if (character === "(" || character === "[") {
+                depth++;
+            } else if (character === ")" || character === "]") {
+                depth--;
+            } else if (character === "," && depth === 0) {
+                selectors.push(selectorText.slice(start, index).trim());
+                start = index + 1;
+            }
+        }
+        selectors.push(selectorText.slice(start).trim());
+        return selectors;
+    }
+
+    function disableHoverSelector(selector) {
+        // Keep each rule syntactically intact, but make its hover selector
+        // impossible to match while Lite Mode is active. This also handles
+        // selectors nested in :is(), :where(), and pseudo-element rules.
+        return selector.replace(/:hover\b/g, ":not(*)");
+    }
+
+    function setLiteHoverRules(enabled) {
+        if (hoverRulesEnabled === enabled) return;
+        hoverRulesEnabled = enabled;
+
+        function visitRules(rules) {
+            for (const rule of rules) {
+                if (rule.type === CSSRule.STYLE_RULE && typeof rule.selectorText === "string" && rule.selectorText.includes(":hover")) {
+                    if (!originalHoverRules.has(rule)) originalHoverRules.set(rule, rule.selectorText);
+                    const original = originalHoverRules.get(rule);
+                    try {
+                        rule.selectorText = enabled
+                            ? original
+                            : splitSelectors(original).map(disableHoverSelector).join(", ");
+                    } catch (_) { /* Some browser-owned stylesheet rules are read-only. */ }
+                } else if (rule.cssRules) {
+                    try { visitRules(rule.cssRules); } catch (_) { /* Ignore inaccessible nested sheets. */ }
+                }
+            }
+        }
+
+        for (const sheet of document.styleSheets) {
+            try { visitRules(sheet.cssRules); } catch (_) { /* Ignore cross-origin stylesheets. */ }
+        }
+    }
+
+    function loadSaturnScript() {
+        if (saturnScriptLoaded || !document.querySelector(".saturn-frame")) return;
+        saturnScriptLoaded = true;
+        const script = document.createElement("script");
+        script.src = "/js/saturn.js?simulation=12";
+        document.body.append(script);
+    }
+
+    function syncModalControls() {
+        if (!overlay) return;
+        for (const input of overlay.querySelectorAll("input[data-setting]")) {
+            const setting = input.dataset.setting;
+            input.checked = Boolean(settings[setting]);
+            input.disabled = settings.lite && setting !== "lite";
+            input.closest(".site-setting-row")?.classList.toggle("is-disabled", input.disabled);
+            input.closest(".site-setting-row")?.setAttribute("aria-disabled", String(input.disabled));
+        }
+    }
+
     const applySettings = () => {
-        root.classList.toggle("effects-blur", settings.blur);
-        root.classList.toggle("effects-hover", settings.hover);
-        window.siteSettings = { ...settings };
-        document.dispatchEvent(new CustomEvent("site-settings-change", { detail: { ...settings } }));
+        root.classList.toggle("lite-mode", settings.lite);
+        setLiteHoverRules(!settings.lite);
+        root.classList.toggle("effects-blur", settings.blur && !settings.lite);
+        const effectiveSettings = {
+            ...settings,
+            blur: settings.blur && !settings.lite,
+            saturn: settings.saturn && !settings.lite
+        };
+        window.siteSettings = effectiveSettings;
+        document.dispatchEvent(new CustomEvent("site-settings-change", { detail: effectiveSettings }));
+        syncModalControls();
+        if (!settings.lite) loadSaturnScript();
     };
 
     function saveSettings() {
-        const bits = `${+settings.blur}${+settings.hover}${+settings.saturn}`;
+        const bits = `${+settings.blur}0${+settings.saturn}${+settings.lite}`;
         const secure = location.protocol === "https:" ? "; Secure" : "";
         document.cookie = `${cookieName}=${bits}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
         applySettings();
@@ -32,15 +126,12 @@
 
     applySettings();
     const savedBits = savedCookie ? decodeURIComponent(savedCookie.slice(cookieName.length + 1)) : "";
-    if (!/^[01]{3}$/.test(savedBits)) {
-        const initialBits = `${+settings.blur}${+settings.hover}${+settings.saturn}`;
+    if (!/^[01]{4}$/.test(savedBits)) {
+        const initialBits = `${+settings.blur}0${+settings.saturn}${+settings.lite}`;
         const secure = location.protocol === "https:" ? "; Secure" : "";
         document.cookie = `${cookieName}=${initialBits}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
     }
 
-    let overlay;
-    let previousFocus;
-    let closeTimer;
     function buildModal() {
         if (overlay) return overlay;
         overlay = document.createElement("div");
@@ -50,13 +141,13 @@
             <section class="download-dialog site-settings-dialog" role="dialog" aria-modal="true" aria-labelledby="site-settings-title">
                 <div class="dialog-header">
                     <h2 id="site-settings-title">Settings</h2>
-                    <button class="dialog-close" type="button" aria-label="Close settings">×</button>
+                    <button class="dialog-close" type="button" aria-label="Close settings">✕</button>
                 </div>
                 <div class="dialog-body site-settings-body">
-                    <p class="site-settings-description">Choose which Visual Effects this Device can use if you are facing Performance Issues on VM/Tablets.</p>
+                    <p class="site-settings-description">Lite Mode hides the Saturn animation and background grid, and temporarily disables blur and advanced hover effects.</p>
                     <label class="site-setting-row"><span>Gaussian Blur</span><input type="checkbox" data-setting="blur"></label>
-                    <label class="site-setting-row"><span>Advanced Hover Effects ( PC ONLY )</span><input type="checkbox" data-setting="hover"></label>
                     <label class="site-setting-row"><span>Homepage Saturn Animation</span><input type="checkbox" data-setting="saturn"></label>
+                    <label class="site-setting-row"><span>Lite Mode</span><input type="checkbox" data-setting="lite"></label>
                 </div>
             </section>`;
         document.body.append(overlay);
@@ -77,12 +168,10 @@
         window.clearTimeout(closeTimer);
         previousFocus = button;
         button.setAttribute("aria-expanded", "true");
-        for (const input of modal.querySelectorAll("input[data-setting]")) {
-            input.checked = Boolean(settings[input.dataset.setting]);
-        }
+        syncModalControls();
         modal.hidden = false;
         requestAnimationFrame(() => modal.classList.add("show"));
-        modal.querySelector("input[data-setting='blur']").focus();
+        modal.querySelector(`input[data-setting='${settings.lite ? "lite" : "blur"}']`).focus();
     }
 
     function closeModal() {
@@ -116,13 +205,13 @@
         }
     });
 
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    if (!document.getElementById("header") && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         let frame = 0;
         let hoveredCard = null;
         let pointerX = 0;
         let pointerY = 0;
         document.addEventListener("pointermove", event => {
-            if (!settings.hover) return;
+            if (settings.lite) return;
             const card = event.target.closest(".project-card");
             if (!card) return;
             hoveredCard = card;
@@ -131,7 +220,7 @@
             if (frame) return;
             frame = requestAnimationFrame(() => {
                 frame = 0;
-                if (!settings.hover || !hoveredCard?.isConnected) return;
+                if (settings.lite || !hoveredCard?.isConnected) return;
                 const bounds = hoveredCard.getBoundingClientRect();
                 hoveredCard.style.setProperty("--cursor-shadow-x", `${Math.max(-12, Math.min(12, pointerX - bounds.left - bounds.width / 2))}px`);
                 hoveredCard.style.setProperty("--cursor-shadow-y", `${Math.max(-12, Math.min(12, pointerY - bounds.top - bounds.height / 2))}px`);

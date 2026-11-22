@@ -256,6 +256,7 @@
             window.cancelAnimationFrame(animationFrame);
             animationFrame = 0;
         }
+        if (window.siteSettings?.lite) return;
         if (isStaticMode()) {
             const currentDay = getCurrentSimulationDay();
             drawFrame(currentDay);
@@ -268,7 +269,9 @@
     }
 
     function updateAllowedState(event) {
-        simulationAllowed = event.detail?.saturn === true;
+        const nextAllowed = event.detail?.saturn === true;
+        if (nextAllowed === simulationAllowed) return;
+        simulationAllowed = nextAllowed;
         updateMotion();
     }
 
