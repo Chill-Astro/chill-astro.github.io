@@ -369,10 +369,6 @@
         if (event.matches) pauseForOrientation();
     });
     window.addEventListener("resize", draw);
-    new MutationObserver(draw).observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"]
-    });
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
 
     best = readBest();

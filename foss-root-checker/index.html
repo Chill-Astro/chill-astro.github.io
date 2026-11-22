@@ -77,10 +77,9 @@
         rel="stylesheet"
         href="../css/video-player.css?player=22"
     >
-    <script src="/js/theme.js?theme=5"></script>
     <link rel="stylesheet" href="../css/product-pages.css?v=1">
     <link rel="stylesheet" href="../css/software-details.css?v=1">
-    <link rel="stylesheet" href="../css/style.css?interface=105">
+    <link rel="stylesheet" href="../css/style.css?interface=110">
 
     <title>FOSS Root Checker | Chill-Astro Software</title>
 </head>
@@ -103,7 +102,7 @@
                 <img
                     src="../assets/images/root-checker-hero.webp"
                     alt="FOSS Root Checker"
-                    loading="lazy"
+                    loading="eager" decoding="async" fetchpriority="high"
                 >
 
             </div>
@@ -360,13 +359,13 @@
                 <img
                     src="../assets/images/root-checker-preview.webp"
                     alt="FOSS Root Checker Preview"
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                 >
                 <p align="center"><b>Showcase of Mobile UI</b></p><br>
                 <img
                     src="../assets/images/info-menu.webp"
                     alt="FOSS Root Checker Info Menu"
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                 >
                 <p align="center"><b>Info Panel</b></p>
             </div>
@@ -397,7 +396,8 @@
     <div id="footer"></div>
 
 
-    <script src="../js/main.js?effects=7"></script>
+    <script src="../js/main.js?effects=10"></script>
+    <script src="../js/site-settings.js?settings=1"></script>
     <script src="../js/video-player.js?player=12"></script>
     <script src="../js/root-checker.js"></script>
 

@@ -61,10 +61,9 @@
         rel="stylesheet"
         href="../css/video-player.css?player=22"
     >
-    <script src="/js/theme.js?theme=5"></script>
     <link rel="stylesheet" href="../css/product-pages.css?v=1">
     <link rel="stylesheet" href="../css/trust-my-msix.css?v=1">
-    <link rel="stylesheet" href="../css/style.css?interface=105">
+    <link rel="stylesheet" href="../css/style.css?interface=110">
 
     <title>Trust My Msix! | Chill-Astro Software</title>
 </head>
@@ -87,7 +86,7 @@
                 <img
                     src="../assets/images/tmm-hero.webp"
                     alt="Trust My Msix!"
-                    loading="lazy"
+                    loading="eager" decoding="async" fetchpriority="high"
                 >
 
             </div>
@@ -295,7 +294,7 @@
             <img
                 src="../assets/images/tmm-help.webp"
                 alt="Trust My Msix Help command"
-                loading="lazy"
+                loading="lazy" decoding="async"
             >
 
         </div>
@@ -316,7 +315,7 @@
             <img
                 src="../assets/images/tmm-version.webp"
                 alt="Trust My Msix Version command"
-                loading="lazy"
+                loading="lazy" decoding="async"
             >
 
         </div>
@@ -337,7 +336,7 @@
             <img
                 src="../assets/images/tmm-uc.webp"
                 alt="Trust My Msix Update Check command"
-                loading="lazy"
+                loading="lazy" decoding="async"
             >
 
         </div>
@@ -431,7 +430,8 @@
     <div id="footer"></div>
 
 
-    <script src="../js/main.js?effects=6"></script>
+    <script src="../js/main.js?effects=10"></script>
+    <script src="../js/site-settings.js?settings=1"></script>
     <script src="../js/video-player.js?player=12"></script>
     <script src="../js/tmm.js"></script>
 

@@ -3,11 +3,11 @@
 /* ===== Universal shared site styles ===== */
 /* Shared foundation and components; page-only styling lives in page stylesheets. */
 /* Tomorrow Font */
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.ttf") format("truetype");font-weight:400}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.ttf") format("truetype");font-weight:500}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.ttf") format("truetype");font-weight:600}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Bold.ttf") format("truetype");font-weight:700}
-@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Medium.ttf") format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-SemiBold.ttf") format("truetype");font-weight:600;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Tomorrow";src:url("../fonts/Tomorrow-ExtraBold.ttf") format("truetype");font-weight:800;font-display:swap}
 
 :root{
 --bg:#fff;--surface:#f7f7f8;--text:#111;--muted:var(--text);
@@ -1953,24 +1953,24 @@ html body .video-player__fullscreen {
 }
 
 /* Blur is reserved for navigation and download menus outside supported desktop OSes. */
-html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-toggle):not(.download-overlay):not(.download-dialog):not(.game-fullscreen-button) {
+html:not(.effects-blur) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-toggle):not(.download-overlay):not(.download-dialog):not(.game-fullscreen-button) {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
 }
 @media (hover: none), (pointer: coarse) {
-    html:not(.os-effects) .mobile-nav-backdrop,
-    html:not(.os-effects) .download-overlay {
+    html:not(.effects-blur) .mobile-nav-backdrop,
+    html:not(.effects-blur) .download-overlay {
         background: color-mix(in srgb, var(--bg) 76%, transparent) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
-    html:not(.os-effects) .header-nav {
+    html:not(.effects-blur) .header-nav {
         background: var(--surface) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
 
-    html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-toggle):not(.download-overlay):not(.download-dialog):not(.game-fullscreen-button) {
+    html:not(.effects-blur) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-toggle):not(.download-overlay):not(.download-dialog):not(.game-fullscreen-button) {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
@@ -1978,12 +1978,12 @@ html:not(.os-effects) *:not(.header-nav):not(.mobile-nav-backdrop):not(.menu-tog
 }
 
 /* Download glass: blur the page behind the overlay and the page seen through the dialog. */
-html.os-effects .download-overlay.show {
+html.effects-blur .download-overlay.show {
     background: color-mix(in srgb, var(--bg) 38%, transparent) !important;
     backdrop-filter: blur(24px) saturate(125%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
 }
-html.os-effects .download-overlay.show .download-dialog {
+html.effects-blur .download-overlay.show .download-dialog {
     background: color-mix(in srgb, var(--surface) 60%, transparent) !important;
     backdrop-filter: blur(24px) saturate(130%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
@@ -2018,7 +2018,7 @@ html.os-effects .download-overlay.show .download-dialog {
 
 
 /* Match card and media-frame glass to the download dialog, including on hover. */
-html.os-effects :is(
+html.effects-blur :is(
     [class*="card"], .hero, .theme-showcase, .eeg-app, .future, .error-shell,
     .root-checker-intro, .tmm-intro, .doc-intro-card, .video-player
 ):not(img):not(video):not(iframe):not(canvas) {
@@ -2039,43 +2039,43 @@ html.os-effects :is(
     }
 }
 /* Make surfaces solid whenever their backdrop blur is disabled. */
-html:not(.os-effects) .site-header,
-html:not(.os-effects) .video-player__play,
-html:not(.os-effects) .video-player__skip,
-html:not(.os-effects) .video-player__fullscreen,
-html:not(.os-effects) .court-overlay,
-html:not(.os-effects) .dino-overlay,
-html:not(.os-effects) .ttt-paused-overlay {
+html:not(.effects-blur) .site-header,
+html:not(.effects-blur) .video-player__play,
+html:not(.effects-blur) .video-player__skip,
+html:not(.effects-blur) .video-player__fullscreen,
+html:not(.effects-blur) .court-overlay,
+html:not(.effects-blur) .dino-overlay,
+html:not(.effects-blur) .ttt-paused-overlay {
     background: var(--bg) !important;
 }
-html:not(.os-effects) .video-player__play,
-html:not(.os-effects) .video-player__skip,
-html:not(.os-effects) .video-player__fullscreen {
+html:not(.effects-blur) .video-player__play,
+html:not(.effects-blur) .video-player__skip,
+html:not(.effects-blur) .video-player__fullscreen {
     background: #080808 !important;
 }
 @media (hover: none), (pointer: coarse) {
-    html:not(.os-effects) .site-header,
-    html:not(.os-effects) .video-player__play,
-    html:not(.os-effects) .video-player__skip,
-    html:not(.os-effects) .video-player__fullscreen,
-    html:not(.os-effects) .court-overlay,
-    html:not(.os-effects) .dino-overlay,
-    html:not(.os-effects) .ttt-paused-overlay { background: var(--bg) !important; }
-    html:not(.os-effects) .video-player__play,
-    html:not(.os-effects) .video-player__skip,
-    html:not(.os-effects) .video-player__fullscreen { background: #080808 !important; }
+    html:not(.effects-blur) .site-header,
+    html:not(.effects-blur) .video-player__play,
+    html:not(.effects-blur) .video-player__skip,
+    html:not(.effects-blur) .video-player__fullscreen,
+    html:not(.effects-blur) .court-overlay,
+    html:not(.effects-blur) .dino-overlay,
+    html:not(.effects-blur) .ttt-paused-overlay { background: var(--bg) !important; }
+    html:not(.effects-blur) .video-player__play,
+    html:not(.effects-blur) .video-player__skip,
+    html:not(.effects-blur) .video-player__fullscreen { background: #080808 !important; }
 
-    html:not(.os-effects) .omp-page .terminal-preview .cursor {
+    html:not(.effects-blur) .omp-page .terminal-preview .cursor {
         animation: none !important;
         opacity: 1 !important;
     }
-    html:not(.os-effects) body .video-player__controls {
+    html:not(.effects-blur) body .video-player__controls {
         transition: none !important;
         transform: none !important;
     }
-    html:not(.os-effects) body .video-player__play,
-    html:not(.os-effects) body .video-player__skip,
-    html:not(.os-effects) body .video-player__fullscreen {
+    html:not(.effects-blur) body .video-player__play,
+    html:not(.effects-blur) body .video-player__skip,
+    html:not(.effects-blur) body .video-player__fullscreen {
         animation: none !important;
         transition: none !important;
         transform: none !important;
@@ -2118,12 +2118,12 @@ html body :is(
     -webkit-backdrop-filter: none !important;
 }
 
-html.os-effects body :is(
+html.effects-blur body :is(
     [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
     .eeg-app, .future, .doc-intro-card,
     .root-checker-intro, .tmm-intro, .error-shell
 ),
-html.os-effects body :is(
+html.effects-blur body :is(
     [class*="card"], .hero, .game-showcase, .theme-showcase:not(.credits-section),
     .eeg-app, .future, .doc-intro-card,
     .root-checker-intro, .tmm-intro, .error-shell
@@ -2191,7 +2191,7 @@ body.error-404-page .error-shell.project-card {
 
 /* Jai Hind keeps its original tricolour card and bright lyric panel. */
 body.jai-hind-page .error-shell,
-html.os-effects body.jai-hind-page .error-shell {
+html.effects-blur body.jai-hind-page .error-shell {
     background: linear-gradient(to bottom, #ff9933, #fff, #138808) !important;
     border: 0 !important;
     border-radius: var(--ui-radius) !important;
@@ -2210,7 +2210,7 @@ body.jai-hind-page .error-text p {
 }
 
 body.jai-hind-page .error-shell:hover,
-html.os-effects body.jai-hind-page .error-shell:hover {
+html.effects-blur body.jai-hind-page .error-shell:hover {
     background: linear-gradient(to bottom, #ff9933, #fff, #138808) !important;
     border: 0 !important;
     box-shadow: var(--shadow) !important;
@@ -2220,7 +2220,7 @@ html.os-effects body.jai-hind-page .error-shell:hover {
 
 /* Video controls stay solid and crisp on desktop as well as mobile. */
 html body .video-player,
-html.os-effects body .video-player {
+html.effects-blur body .video-player {
     background: #000 !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -2427,13 +2427,13 @@ html body :is(.video-player__play, .video-player__skip, .video-player__fullscree
 }
 
 @media (hover: none), (pointer: coarse) {
-    html:not(.os-effects) body .header-nav {
+    html:not(.effects-blur) body .header-nav {
         background: var(--surface) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
 
-    html:not(.os-effects) body .mobile-nav-backdrop {
+    html:not(.effects-blur) body .mobile-nav-backdrop {
         background: color-mix(in srgb, var(--bg) 76%, transparent) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
@@ -2480,7 +2480,7 @@ html body :is(
 
 /* Jai Hind is the explicitly requested colourful card exception. */
 body.jai-hind-page .error-shell,
-html.os-effects body.jai-hind-page .error-shell {
+html.effects-blur body.jai-hind-page .error-shell {
     background: linear-gradient(to bottom, #ff9933, #fff, #138808) !important;
     border: 0 !important;
     box-shadow: var(--shadow) !important;
@@ -2496,44 +2496,54 @@ html.os-effects body.jai-hind-page .error-shell {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: .25rem;
+    gap: .8rem;
     flex-shrink: 0;
 }
 
-.site-header .theme-toggle {
+.site-header .device-settings-button {
     display: inline-grid;
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 32px;
+    grid-template-columns: 17px 17px;
     place-items: center;
-    padding: 0 8px !important;
+    gap: 4px;
+    padding: 0 5px !important;
     color: var(--text);
-    border: none !important;
+    border: 1px solid color-mix(in srgb, var(--text) 12%, transparent) !important;
     border-radius: var(--ui-radius-small);
-    background: transparent !important;
-    font-size: 1rem !important;
-    line-height: 1;
+    background: color-mix(in srgb, #808080 10%, transparent) !important;
     cursor: pointer;
-    transition: text-shadow .2s ease, background .2s ease, color .2s ease;
+    transition: background .18s ease, border-color .18s ease;
     box-shadow: none !important;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .site-header .theme-toggle:hover {
-        color: var(--text) !important;
-        background: transparent !important;
-        text-shadow: 0 0 12px color-mix(in srgb, var(--text) 40%, transparent), 0 0 24px color-mix(in srgb, var(--text) 20%, transparent);
-        transform: none !important;
-        box-shadow: none !important;
-    }
+.site-header .device-settings-button:hover,
+.site-header .device-settings-button:focus-visible {
+    background: color-mix(in srgb, #808080 18%, transparent) !important;
+    border-color: color-mix(in srgb, var(--text) 24%, transparent) !important;
 }
 
-.theme-toggle span,
-.theme-toggle svg {
+.device-settings-button svg {
     display: block;
-    width: 1.15rem;
-    height: 1.15rem;
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
 }
+
+.device-settings-gear { width: 17px !important; height: 17px !important; }
+
+.device-indicator-phone { display: none !important; }
+@media (max-width: 700px), (hover: none), (pointer: coarse) {
+    .device-indicator-desktop { display: none !important; }
+    .device-indicator-phone { display: block !important; }
+}
+
+.site-settings-overlay[hidden] { display: none; }
+.site-settings-description { margin: 0 0 .7rem; color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.site-setting-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 54px; padding: .7rem 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent); cursor: pointer; }
+.site-setting-row span { font-size: .92rem; font-weight: 600; }
+.site-setting-row input { width: 19px; height: 19px; margin: 0; accent-color: var(--text); cursor: pointer; }
 
 .site-header .header-actions > a.secondary-btn {
     display: inline-flex;
@@ -2871,13 +2881,13 @@ html body :is(a.project-download, button.project-download)::after {
 
 /* Desktop pointer hover: blur the clickable surface and reveal its destination cue. */
 @media (hover: hover) and (pointer: fine) {
-    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a) {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a) {
         position: relative;
         isolation: isolate;
         overflow: hidden;
     }
 
-    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a)::after {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a)::after {
         content: "↗";
         position: absolute;
         z-index: 5;
@@ -2897,8 +2907,8 @@ html body :is(a.project-download, button.project-download)::after {
         transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .18s ease;
     }
 
-    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a):hover::after,
-    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.theme-toggle):not(.site-header a):not(.download-dialog a):focus-visible::after {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a):hover::after,
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a):focus-visible::after {
         opacity: 1;
         transform: translateY(0);
     }
@@ -2996,14 +3006,14 @@ html body .desktop-menu-panel {
 }
 
 @media (min-width: 901px) {
-    html:not(.os-effects) body .desktop-menu-panel {
+    html:not(.effects-blur) body .desktop-menu-panel {
         background: var(--bg) !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
 }
 
-html:not(.os-effects) body .download-overlay.show .download-dialog {
+html:not(.effects-blur) body .download-overlay.show .download-dialog {
     background: var(--surface) !important;
     background-color: var(--surface) !important;
     background-image: none !important;
@@ -3013,6 +3023,28 @@ html:not(.os-effects) body .download-overlay.show .download-dialog {
 }
 
 /* Reuse the desktop dropdown trigger and menu-row hover treatments. */
+
+/* Keep destination and play cues from covering links and cards on hover. */
+@media (hover: hover) and (pointer: fine) {
+    html body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a)::after,
+    html body .project-card a.github-btn::after,
+    html body .app-showcase a.app-centre-github::after,
+    html body .additional-grid .additional-card::after {
+        content: none !important;
+        display: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    html body .project-card a.github-btn > span,
+    html body .project-card a.github-btn:hover > span,
+    html body .project-card a.github-btn:focus-visible > span {
+        filter: none !important;
+    }
+}
+
+html body .games-centre-title-link .redirect-arrow { display: none !important; }
+
 @media (hover: hover) and (pointer: fine) {
     html body .site-header .menu-toggle:hover,
     html body .site-header .menu-toggle:focus-visible {
@@ -3405,5 +3437,71 @@ html body :is(.desktop-menu-panel a, .dialog-links a) {
     html body .dialog-links a:hover,
     html body .dialog-links a:focus-visible {
         letter-spacing: .1em !important;
+    }
+}
+
+/* Effect preferences are stored per device; Blur Off removes every CSS blur. */
+html:not(.effects-blur) *,
+html:not(.effects-blur) *::before,
+html:not(.effects-blur) *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    html:not(.effects-hover) body *:hover {
+        transform: none !important;
+        transition: none !important;
+        filter: none !important;
+    }
+    html:not(.effects-hover) body *:hover::before,
+    html:not(.effects-hover) body *:hover::after {
+        transform: none !important;
+        transition: none !important;
+    }
+
+    html:not(.effects-hover) body a:is(.site-button, .primary-btn, .details-btn, .github-btn, .module-link):not(.project-download):not(.site-header a):not(.download-dialog a)::after,
+    html:not(.effects-hover) body .project-card a.github-btn::after,
+    html:not(.effects-hover) body .app-showcase a.app-centre-github::after,
+    html:not(.effects-hover) body .additional-grid .additional-card::after {
+        content: none !important;
+        display: none !important;
+    }
+
+    html:not(.effects-hover) body .project-card:hover,
+    html:not(.effects-hover) body .additional-card:hover,
+    html:not(.effects-hover) body .feature-card:hover,
+    html:not(.effects-hover) body .theme-showcase:hover,
+    html:not(.effects-hover) body .eeg-app:hover,
+    html:not(.effects-hover) body .hero:hover {
+        transform: none !important;
+    }
+
+    html body:has(.hero .saturn-frame) .hero:hover {
+        transform: none !important;
+        translate: none !important;
+        scale: none !important;
+        rotate: none !important;
+        box-shadow: var(--glow-shadow) !important;
+    }
+    html body:has(.hero .saturn-frame) .saturn-frame:hover {
+        transform: none !important;
+        translate: none !important;
+        scale: none !important;
+        rotate: none !important;
+        box-shadow: none !important;
+    }
+    html body:has(.hero .saturn-frame) .saturn-frame .logo-circle:hover,
+    html body:has(.hero .saturn-frame) .saturn-frame .logo-circle:active,
+    html body:has(.hero .saturn-frame) .hero:hover .saturn-frame .logo-circle {
+        transform: translate(-50%, -50%) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .06) !important;
+    }
+    html body:has(.hero .saturn-frame) .saturn-frame .logo-circle:hover img {
+        transform: none !important;
+    }
+    html body:has(.hero .saturn-frame) .hero:hover .saturn-frame .logo-circle img {
+        transform: none !important;
     }
 }

@@ -32,9 +32,8 @@ content="Android Rooting Guide, Magisk, KernelSU, APatch, Bootloader Unlock, Roo
   ]
 }
 </script>
-    <script src="/js/theme.js?theme=5"></script>
     <link rel="stylesheet" href="../css/android-rooting-guide.css?v=1">
-    <link rel="stylesheet" href="../css/style.css?interface=105">
+    <link rel="stylesheet" href="../css/style.css?interface=110">
 </head>
 
 <body>
@@ -43,7 +42,7 @@ content="Android Rooting Guide, Magisk, KernelSU, APatch, Bootloader Unlock, Roo
     <main class="rooting-page">
         <section class="rooting-hero">
             
-            <img class="hero-image large-hero" src="../assets/images/root-hero.webp" alt="Android Rooting Guide" loading="lazy">
+            <img class="hero-image large-hero" src="../assets/images/root-hero.webp" alt="Android Rooting Guide" loading="eager" decoding="async" fetchpriority="high">
 
             <div class="hero-cta">
                 <button id="root-download" class="primary-btn project-download site-button site-button--primary">Download FOSS Root Checker</button>
@@ -234,7 +233,8 @@ fastboot flash init_boot_b patched.img</code></pre>
 
     <div id="footer"></div>
 
-    <script src="../js/main.js?effects=5"></script>
+    <script src="../js/main.js?effects=10"></script>
+    <script src="../js/site-settings.js?settings=1"></script>
 </body>
 
 </html>

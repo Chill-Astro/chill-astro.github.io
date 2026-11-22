@@ -23,12 +23,6 @@
 
 .games-centre-title-link > span:first-child { position: relative; }
 
-.games-centre-title-link .redirect-arrow {
-    font-weight: 400;
-    transform: translateY(0);
-    transition: transform .18s ease, font-weight .18s ease;
-}
-
 .games-centre-title-link > span:first-child::after {
     position: absolute;
     right: 0;
@@ -47,11 +41,6 @@
     .games-centre-title-link:hover > span:first-child::after,
     .games-centre-title-link:focus-visible > span:first-child::after { transform: scaleX(1); }
 
-    .games-centre-title-link:hover .redirect-arrow,
-    .games-centre-title-link:focus-visible .redirect-arrow {
-        font-weight: 700;
-        transform: translateY(-2px);
-    }
 }
 
 .game-card {

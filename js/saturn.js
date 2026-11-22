@@ -10,20 +10,25 @@
         console.error("Could not initialize the profile orbit canvas.");
         return;
     }
+    const backStaticCanvas = document.createElement("canvas");
+    const frontStaticCanvas = document.createElement("canvas");
+    const backStaticContext = backStaticCanvas.getContext("2d");
+    const frontStaticContext = frontStaticCanvas.getContext("2d");
+    if (!backStaticContext || !frontStaticContext) return;
 
-    const staticDeviceQuery = window.matchMedia("(hover: none), (pointer: coarse)");
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const simulationCookieName = "saturn_simulation";
     const j2000Start = Date.UTC(2000, 0, 1, 12);
     const millisecondsPerDay = 86400000;
     const viewInclination = Math.acos(0.36);
     const fastestDisplayOrbitSeconds = 6;
     const slowestDisplayOrbitSeconds = 60;
-    const profileButton = frame.querySelector(".logo-circle");
+    const minimumFrameInterval = 1000 / 30;
     let width = 0;
     let height = 0;
     let profileRadius = 0;
     let animationFrame = 0;
+    let lastDrawTimestamp = 0;
+    let frameInView = true;
     let moons = [];
     let saturnGm = 0;
     let minimumMoonDistance = 0;
@@ -32,44 +37,7 @@
     let maximumOrbitalPeriod = 0;
     let simulationStartDay = 0;
     let simulationStartTimestamp = 0;
-    let simulationEnabled = readSimulationPreference();
-
-    function readSavedSimulationPreference() {
-        const savedCookie = document.cookie
-            .split(";")
-            .map((cookie) => cookie.trim())
-            .find((cookie) => cookie.startsWith(`${simulationCookieName}=`));
-        const savedValue = savedCookie?.slice(simulationCookieName.length + 1);
-        if (savedValue === "on") return true;
-        if (savedValue === "off") return false;
-        return null;
-    }
-
-    function readSimulationPreference() {
-        return readSavedSimulationPreference() ?? !staticDeviceQuery.matches;
-    }
-
-    function updateSimulationControl() {
-        const label = `${simulationEnabled ? "Pause" : "Resume"} moon simulation`;
-        profileButton.setAttribute("aria-label", label);
-        profileButton.setAttribute("title", label);
-        profileButton.setAttribute("aria-pressed", String(simulationEnabled));
-    }
-
-    function toggleSimulation() {
-        simulationEnabled = !simulationEnabled;
-        const secure = location.protocol === "https:" ? "; Secure" : "";
-        document.cookie = `${simulationCookieName}=${simulationEnabled ? "on" : "off"}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
-        const savedPreference = document.cookie
-            .split(";")
-            .map((cookie) => cookie.trim())
-            .find((cookie) => cookie.startsWith(`${simulationCookieName}=`));
-        if (savedPreference?.slice(simulationCookieName.length + 1) !== (simulationEnabled ? "on" : "off")) {
-            console.error("Could not save the moon simulation preference in a cookie.");
-        }
-        updateSimulationControl();
-        updateMotion();
-    }
+    let simulationAllowed = window.siteSettings?.saturn === true;
 
     function createRandom(seed) {
         let value = seed;
@@ -128,29 +96,11 @@
     function drawMoon(context, x, y, moon) {
         const titan = moon.name === "Titan";
         const radius = titan ? 4.8 : 0.9 + Math.min(moon.e, 0.5) * 0.7;
-        const colors = titan
-            ? ["#ffe0a6", "#d88b43", "#56331d"]
-            : ["#fff", "#bfc3ca", "#51545a"];
 
         context.beginPath();
         context.arc(x, y, radius, 0, Math.PI * 2);
-        context.fillStyle = colors[1];
-        context.shadowColor = titan ? "rgba(244, 157, 73, 0.8)" : "rgba(235, 239, 246, 0.58)";
-        context.shadowBlur = titan ? radius * 1.9 : radius * 1.6;
+        context.fillStyle = titan ? "#d88b43" : "#bfc3ca";
         context.fill();
-        context.shadowBlur = 0;
-
-        context.beginPath();
-        context.arc(x - radius * 0.28, y - radius * 0.3, Math.max(radius * 0.2, 0.2), 0, Math.PI * 2);
-        context.fillStyle = colors[0];
-        context.fill();
-
-        context.beginPath();
-        context.arc(x + radius * 0.3, y + radius * 0.28, radius * 0.72, 0, Math.PI * 2);
-        context.fillStyle = colors[2];
-        context.globalAlpha = 0.42;
-        context.fill();
-        context.globalAlpha = 1;
     }
 
     function getOrbitRadius(distanceKm) {
@@ -199,7 +149,7 @@
         };
     }
 
-    function drawLayer(context, simulationDay, front, animationSeconds = 0) {
+    function drawStaticLayer(context, front) {
         context.clearRect(0, 0, width, height);
         if (!front) {
             for (const star of stars) {
@@ -212,11 +162,16 @@
 
         const centerX = width / 2;
         const centerY = height / 2;
+        drawRings(context, centerX, centerY, profileRadius, front);
+    }
 
-        if (!front) drawRings(context, centerX, centerY, profileRadius, false);
+    function drawLayer(context, staticCanvas, moonPositions, front) {
+        context.clearRect(0, 0, width, height);
+        context.drawImage(staticCanvas, 0, 0, width, height);
+        const centerX = width / 2;
+        const centerY = height / 2;
 
-        for (const moon of moons) {
-            const position = getMoonPosition(moon, simulationDay, animationSeconds);
+        for (const { moon, position } of moonPositions) {
             if ((position.depth >= 0) !== front) continue;
 
             drawMoon(
@@ -227,14 +182,22 @@
             );
         }
 
-        if (front) drawRings(context, centerX, centerY, profileRadius, true);
+    }
+
+    function drawFrame(simulationDay, animationSeconds = 0) {
+        const moonPositions = moons.map((moon) => ({
+            moon,
+            position: getMoonPosition(moon, simulationDay, animationSeconds)
+        }));
+        drawLayer(backContext, backStaticCanvas, moonPositions, false);
+        drawLayer(frontContext, frontStaticCanvas, moonPositions, true);
     }
 
     function resizeCanvas() {
         const bounds = frame.getBoundingClientRect();
         if (!bounds.width || !bounds.height) return;
 
-        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
         width = bounds.width;
         height = bounds.height;
         profileRadius = frame.querySelector(".logo-circle").getBoundingClientRect().width / 2;
@@ -242,15 +205,22 @@
             canvas.width = Math.round(width * pixelRatio);
             canvas.height = Math.round(height * pixelRatio);
         }
+        for (const canvas of [backStaticCanvas, frontStaticCanvas]) {
+            canvas.width = Math.round(width * pixelRatio);
+            canvas.height = Math.round(height * pixelRatio);
+        }
         backContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
         frontContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        backStaticContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        frontStaticContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        drawStaticLayer(backStaticContext, false);
+        drawStaticLayer(frontStaticContext, true);
         if (moons.length) {
             const simulationDay = animationFrame ? simulationStartDay : getCurrentSimulationDay();
             const animationSeconds = animationFrame
                 ? (window.performance.now() - simulationStartTimestamp) / 1000
                 : 0;
-            drawLayer(backContext, simulationDay, false, animationSeconds);
-            drawLayer(frontContext, simulationDay, true, animationSeconds);
+            drawFrame(simulationDay, animationSeconds);
         }
     }
 
@@ -259,20 +229,25 @@
     }
 
     function isStaticMode() {
-        return !simulationEnabled || reducedMotionQuery.matches;
+        return !simulationAllowed || reducedMotionQuery.matches;
     }
 
     function animate(timestamp) {
-        if (isStaticMode() || document.hidden) {
+        if (isStaticMode() || document.hidden || !frameInView) {
             animationFrame = 0;
-            const currentDay = getCurrentSimulationDay();
-            drawLayer(backContext, currentDay, false);
-            drawLayer(frontContext, currentDay, true);
+            if (isStaticMode()) {
+                const currentDay = getCurrentSimulationDay();
+                drawFrame(currentDay);
+            }
             return;
         }
+        if (timestamp - lastDrawTimestamp < minimumFrameInterval) {
+            animationFrame = window.requestAnimationFrame(animate);
+            return;
+        }
+        lastDrawTimestamp = timestamp;
         const animationSeconds = (timestamp - simulationStartTimestamp) / 1000;
-        drawLayer(backContext, simulationStartDay, false, animationSeconds);
-        drawLayer(frontContext, simulationStartDay, true, animationSeconds);
+        drawFrame(simulationStartDay, animationSeconds);
         animationFrame = window.requestAnimationFrame(animate);
     }
 
@@ -283,28 +258,21 @@
         }
         if (isStaticMode()) {
             const currentDay = getCurrentSimulationDay();
-            drawLayer(backContext, currentDay, false);
-            drawLayer(frontContext, currentDay, true);
-        } else if (!document.hidden) {
+            drawFrame(currentDay);
+        } else if (!document.hidden && frameInView) {
             simulationStartDay = getCurrentSimulationDay();
             simulationStartTimestamp = window.performance.now();
+            lastDrawTimestamp = 0;
             animationFrame = window.requestAnimationFrame(animate);
         }
     }
 
-    function updateDeviceDefault() {
-        const savedPreference = readSavedSimulationPreference();
-        if (savedPreference === null) {
-            simulationEnabled = !staticDeviceQuery.matches;
-            updateSimulationControl();
-        }
+    function updateAllowedState(event) {
+        simulationAllowed = event.detail?.saturn === true;
         updateMotion();
     }
 
     async function initialize() {
-        updateSimulationControl();
-        profileButton.addEventListener("click", toggleSimulation);
-
         const response = await fetch("/assets/data/saturn-moons.json");
         if (!response.ok) throw new Error(`JPL moon data request failed: ${response.status}`);
         const data = await response.json();
@@ -326,7 +294,14 @@
 
         window.addEventListener("resize", resizeCanvas);
         document.addEventListener("visibilitychange", updateMotion);
-        staticDeviceQuery.addEventListener("change", updateDeviceDefault);
+        document.addEventListener("site-settings-change", updateAllowedState);
+        if ("IntersectionObserver" in window) {
+            const visibilityObserver = new IntersectionObserver(([entry]) => {
+                frameInView = entry.isIntersecting;
+                updateMotion();
+            });
+            visibilityObserver.observe(frame);
+        }
         reducedMotionQuery.addEventListener("change", updateMotion);
         resizeCanvas();
         updateMotion();

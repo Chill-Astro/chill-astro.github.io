@@ -42,8 +42,7 @@
     }
     </script>
     <link rel="icon" type="image/webp" href="../assets/images/tabicon.webp">
-    <script src="/js/theme.js?theme=5"></script>
-    <link rel="stylesheet" href="../css/style.css?interface=105">
+    <link rel="stylesheet" href="../css/style.css?interface=110">
     <link rel="stylesheet" href="../css/game-centre.css?v=2">
     <title>Mini Games | Chill-Astro Software</title>
 </head>
@@ -58,35 +57,36 @@
             <section class="game-showcase game-showcase-card" aria-labelledby="dino-title">
             <h2 class="game-title" id="dino-title">Premium Dino</h2>
             <div class="game-info">
-                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/dino.webp" alt="Premium Dino logo" width="512" height="512" loading="lazy"></div>
+                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/dino.webp" alt="Premium Dino logo" width="512" height="512" loading="eager" decoding="async" fetchpriority="high"></div>
                 <a class="primary-btn game-centre-play site-button site-button--primary" href="/premium-dino/">Play <span aria-hidden="true">▶</span></a>
                 <p class="game-description">The Offline Dino Game from Google Chrome, the Exact Gameplay now on the Web!</p>
             </div>
-            <div class="game-preview"><img src="../assets/images/premium-dino-preview.webp" alt="Premium Dino gameplay preview" width="1920" height="1080" fetchpriority="high" loading="lazy"></div>
+            <div class="game-preview"><img src="../assets/images/premium-dino-preview.webp" alt="Premium Dino gameplay preview" width="1920" height="1080" fetchpriority="high" loading="lazy" decoding="async"></div>
         </section>
 
         <section class="game-showcase game-showcase-card" aria-labelledby="snake-title">
             <h2 class="game-title" id="snake-title">Modern Snake</h2>
             <div class="game-info">
-                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/modern-snake-icon.webp" alt="Modern Snake game icon" width="512" height="512" loading="lazy"></div>
+                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/modern-snake-icon.webp" alt="Modern Snake game icon" width="512" height="512" loading="lazy" decoding="async"></div>
                 <a class="primary-btn game-centre-play site-button site-button--primary" href="/modern-snake/">Play <span aria-hidden="true">▶</span></a>
                 <p class="game-description">A Recreation of the Classic Snake Game with a Modern Look!</p>
             </div>
-            <div class="game-preview"><img src="../assets/images/modern-snake-preview.webp" alt="Modern Snake gameplay preview" width="1600" height="900" loading="lazy"></div>
+            <div class="game-preview"><img src="../assets/images/modern-snake-preview.webp" alt="Modern Snake gameplay preview" width="1600" height="900" loading="lazy" decoding="async"></div>
         </section>
 
         <section class="game-showcase game-showcase-card" aria-labelledby="ttt-title">
             <h2 class="game-title" id="ttt-title">Tic Tac Toe Online</h2>
             <div class="game-info">
-                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/tic-tac-toe.webp" alt="Tic Tac Toe Online logo" width="512" height="512" loading="lazy"></div>
+                <div class="game-logo-frame"><img class="game-logo" src="../assets/images/tic-tac-toe.webp" alt="Tic Tac Toe Online logo" width="512" height="512" loading="lazy" decoding="async"></div>
                 <a class="primary-btn game-centre-play site-button site-button--primary" href="/tic-tac-toe/">Play <span aria-hidden="true">▶</span></a>
                 <p class="game-description">Play against your Friend on 4x4. Or Beat the AI if you can in GOD MODE 5x5 Grid!</p>
             </div>
-            <div class="game-preview"><img src="../assets/images/tic-tac-toe-preview.webp" alt="Tic Tac Toe Online gameplay preview" width="1920" height="1080" loading="lazy"></div>
+            <div class="game-preview"><img src="../assets/images/tic-tac-toe-preview.webp" alt="Tic Tac Toe Online gameplay preview" width="1920" height="1080" loading="lazy" decoding="async"></div>
         </section>
         </div>
     </main>
     <div id="footer"></div>
-    <script src="../js/main.js?effects=5"></script>
+    <script src="../js/main.js?effects=10"></script>
+    <script src="../js/site-settings.js?settings=1"></script>
 </body>
 </html>
