@@ -17,6 +17,7 @@
     "downloads": {
       "apk_official": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.2/app-official-release.apk",
       "apk_offline": "https://github.com/Chill-Astro/FOSS-Root-Checker/releases/download/v37.24.4.2/app-offline-release.apk",
+      "orion" : "https://rookieenough.github.io/Orion-Data/app/?id=root-checker",
       "appteka": "https://appteka.store/app/951r339865",
       "obtanium" : "https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22foss.chillastro.root.checker%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FChill-Astro%2FFOSS-Root-Checker%22%2C%22author%22%3A%22Chill-Astro%22%2C%22name%22%3A%22Root%20Checker%22%7D",
       "izzy": "https://apt.izzysoft.de/fdroid/index/apk/foss.chillastro.root.checker.offline",            
