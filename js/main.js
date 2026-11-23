@@ -47,6 +47,7 @@ const modalInfo = {
             apk_official: ".APK (Official)",
             apk_offline: ".APK (Offline)",
             appteka: "Download from Appteka (Official)",
+            obtanium: "Download from Obtanium (Both)",
             izzy: "Download from IzzyOnDroid (Offline)",                  
             uptodown: "Download from Uptodown (Official)"
 
